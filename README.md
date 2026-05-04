@@ -1,4 +1,4 @@
-## Hi there 👋
+## Em Construção.   Placares ao vivo em breve 👋
 
 <!--
 **placardofutebol/placardofutebol** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
