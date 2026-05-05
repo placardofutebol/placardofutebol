@@ -1,38 +1,82 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Placar do Futebol - Ao Vivo</title>
+<title>Placar do Futebol - Resultados ao vivo</title>
 
 <link rel="stylesheet" href="css/style.css">
+
 </head>
 
 <body>
 
 <header>
-<h1>⚽ Placar do Futebol</h1>
-<p>Placares ao vivo das principais ligas</p>
+
+<h1>PLACAR DO FUTEBOL</h1>
+
+<nav>
+
+<button>ONTEM</button>
+<button class="active">HOJE</button>
+<button>AMANHÃ</button>
+
+</nav>
+
 </header>
 
 <main>
 
-<div id="jogos">
+<section class="live-games">
 
-<p>Carregando jogos...</p>
+<h2>🔴 AO VIVO</h2>
+
+<div class="match live">
+
+<span class="live-dot"></span>
+
+Palmeiras 1 x 0 Flamengo
+
+<span class="minute">67'</span>
 
 </div>
 
+</section>
+
+<section class="league">
+
+<h2>🇧🇷 Brasileirão</h2>
+
+<div class="match">
+Flamengo 0 x 0 Palmeiras
+</div>
+
+<div class="match">
+Corinthians 0 x 0 São Paulo
+</div>
+
+</section>
+
+<section class="league">
+
+<h2>🏴 Premier League</h2>
+
+<div class="match">
+Liverpool 0 x 0 Chelsea
+</div>
+
+<div class="match">
+Arsenal 0 x 0 Manchester City
+</div>
+
+</section>
+
 </main>
-
-<footer>
-
-<p>© 2026 Placar do Futebol</p>
-
-</footer>
 
 <script src="js/app.js"></script>
 
 </body>
+
 </html>
