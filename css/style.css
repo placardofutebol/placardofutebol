@@ -139,18 +139,51 @@ font-weight:bold;
 }
 
 
+/* FOOTER */
+
 footer{
+
+background:#1f7a34;
+
+color:white;
 
 text-align:center;
 
-padding:20px;
+padding:25px;
 
-color:#666;
+margin-top:40px;
+
+}
+
+
+.footer-links{
+
+margin-top:10px;
+
+}
+
+
+.footer-links a{
+
+color:white;
+
+text-decoration:none;
+
+margin:0 10px;
 
 font-size:14px;
 
 }
 
+
+.footer-links a:hover{
+
+text-decoration:underline;
+
+}
+
+
+/* ANIMAÇÃO AO VIVO */
 
 @keyframes piscando{
 
