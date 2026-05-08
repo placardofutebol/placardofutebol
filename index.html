@@ -32,139 +32,12 @@
 <h2>🔥 Jogos de Hoje</h2>
 
 
-<!-- JOGO AO VIVO -->
 
-<div class="jogo-card">
+<div id="jogos-container"></div>
 
-<div class="liga">
 
-🇧🇷 Brasileirão
 
-</div>
 
-<div class="jogo-info">
-
-<div class="tempo ao-vivo">
-
-67'
-
-</div>
-
-<div class="times">
-
-<div class="time">
-
-Palmeiras
-
-</div>
-
-<div class="placar">
-
-1 x 0
-
-</div>
-
-<div class="time">
-
-Flamengo
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- JOGO NÃO INICIADO -->
-
-<div class="jogo-card">
-
-<div class="liga">
-
-🇧🇷 Brasileirão
-
-</div>
-
-<div class="jogo-info">
-
-<div class="tempo">
-
-21:30
-
-</div>
-
-<div class="times">
-
-<div class="time">
-
-Corinthians
-
-</div>
-
-<div class="placar">
-
-0 x 0
-
-</div>
-
-<div class="time">
-
-São Paulo
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- JOGO ENCERRADO -->
-
-<div class="jogo-card">
-
-<div class="liga">
-
-🏆 Libertadores
-
-</div>
-
-<div class="jogo-info">
-
-<div class="tempo encerrado">
-
-ENCERRADO
-
-</div>
-
-<div class="times">
-
-<div class="time">
-
-Sporting Cristal
-
-</div>
-
-<div class="placar">
-
-0 x 2
-
-</div>
-
-<div class="time">
-
-Palmeiras
-
-</div>
-
-</div>
-
-</div>
-
-</div>
 
 
 </main>
@@ -184,7 +57,69 @@ Palmeiras
 
 </footer>
 
+<script>
+async function carregarJogos() {
 
+  const hoje = new Date().toISOString().split("T")[0];
+
+  const resposta = await fetch(
+    `https://v3.football.api-sports.io/fixtures?date=${hoje}`,
+    {
+      method: "GET",
+      headers: {
+        "x-apisports-key": "5b6f884a4ce7c11a2c67cf54de3f4a73"
+      }
+    }
+  );
+
+  const dados = await resposta.json();
+
+  const container = document.getElementById("jogos-container");
+
+  container.innerHTML = "";
+
+  dados.response.forEach(jogo => {
+
+    container.innerHTML += `
+      <div class="jogo-card">
+
+        <div class="liga">
+          ${jogo.league.name}
+        </div>
+
+        <div class="jogo-info">
+
+          <div class="tempo">
+            ${jogo.fixture.status.short}
+          </div>
+
+          <div class="times">
+
+            <div class="time">
+              ${jogo.teams.home.name}
+            </div>
+
+            <div class="placar">
+              ${jogo.goals.home ?? 0} x ${jogo.goals.away ?? 0}
+            </div>
+
+            <div class="time">
+              ${jogo.teams.away.name}
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    `;
+
+  });
+
+}
+
+carregarJogos();
+</script>
 </body>
 
 </html>
