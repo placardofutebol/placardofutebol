@@ -1,532 +1,578 @@
-This file contains bidirectional or hidden Unicode text that may be interpreted or compiled differently than what appears below. To review, open the file in an editor that reveals hidden Unicode characters. Learn more about bidirectional Unicode characters
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <meta name="description" content="Placar do Futebol - Resultados ao vivo, placares e classificação das principais ligas do futebol mundial.">
-  <meta name="theme-color" content="#1a7a30">
-  <title>Placar do Futebol - Resultados ao Vivo</title>
-  <link rel="stylesheet" href="css/style.css">
-  <!-- PWA ready -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-</head>
-<body>
+/* ============================================
+   PLACAR DO FUTEBOL — style.css
+   Mobile-first | GE-inspired | Leve & Moderno
+   ============================================ */
 
-  <!-- ==================== HEADER ==================== -->
-  <header>
-    <div class="header-inner">
-      <a href="/" class="logo">
-        <span class="logo-principal">Placar <span>do Futebol</span></span>
-        <span class="logo-sub">Resultados ao vivo</span>
-      </a>
-      <div class="header-ao-vivo">
-        <span class="dot-vivo"></span>
-        AO VIVO
-      </div>
-    </div>
-  </header>
+/* --- FONTES --- */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap');
 
-  <!-- ==================== NAV LIGAS ==================== -->
-  <nav class="nav-ligas" role="navigation" aria-label="Ligas">
-    <div class="nav-ligas-inner">
-      <div class="liga-tab ativa" data-liga="todos" onclick="selecionarLiga(this, 'todos')">
-        🏆 Todos
-      </div>
-      <div class="liga-tab" data-liga="71" onclick="selecionarLiga(this, '71')">
-        🇧🇷 Brasileirão
-      </div>
-      <div class="liga-tab" data-liga="2" onclick="selecionarLiga(this, '2')">
-        ⭐ Champions
-      </div>
-      <div class="liga-tab" data-liga="13" onclick="selecionarLiga(this, '13')">
-        🇧🇷 Copa do Brasil
-      </div>
-      <div class="liga-tab" data-liga="11" onclick="selecionarLiga(this, '11')">
-        🌎 Libertadores
-      </div>
-      <div class="liga-tab" data-liga="12" onclick="selecionarLiga(this, '12')">
-        🌎 Sul-Americana
-      </div>
-      <div class="liga-tab" data-liga="140" onclick="selecionarLiga(this, '140')">
-        🇪🇸 La Liga
-      </div>
-      <div class="liga-tab" data-liga="39" onclick="selecionarLiga(this, '39')">
-        🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League
-      </div>
-      <div class="liga-tab" data-liga="1" onclick="selecionarLiga(this, '1')">
-        🌍 Copa do Mundo
-      </div>
-    </div>
-  </nav>
+/* --- VARIÁVEIS --- */
+:root {
+  --verde:        #1a7a30;
+  --verde-escuro: #145e25;
+  --verde-claro:  #e8f5ec;
+  --amarelo:      #f5c800;
+  --vermelho:     #d32f2f;
+  --cinza-bg:     #f2f4f3;
+  --cinza-card:   #ffffff;
+  --cinza-borda:  #e4e8e6;
+  --cinza-texto:  #5a6672;
+  --preto:        #111314;
+  --dark-pef:     #12151e;
 
-  <!-- ==================== MAIN ==================== -->
-  <main class="container" role="main">
+  --radius-card:  12px;
+  --radius-sm:    8px;
+  --sombra:       0 2px 8px rgba(0,0,0,0.07);
+  --sombra-hover: 0 4px 16px rgba(0,0,0,0.12);
 
-    <div class="secao-header">
-      <h1 class="secao-titulo">🔥 Jogos de <span>Hoje</span></h1>
-      <span class="secao-data" id="data-hoje"></span>
-    </div>
+  --font-titulo:  'Barlow Condensed', sans-serif;
+  --font-corpo:   'Barlow', sans-serif;
+}
 
-    <!-- Filtros rápidos -->
-    <div class="filtro-status">
-      <button class="filtro-btn ativo" onclick="filtrarStatus(this, 'todos')">Todos</button>
-      <button class="filtro-btn" onclick="filtrarStatus(this, 'ao-vivo')">● Ao Vivo</button>
-      <button class="filtro-btn" onclick="filtrarStatus(this, 'agendado')">Agendados</button>
-      <button class="filtro-btn" onclick="filtrarStatus(this, 'encerrado')">Encerrados</button>
-    </div>
+/* --- RESET --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-corpo);
+  background: var(--cinza-bg);
+  color: var(--preto);
+  min-height: 100vh;
+  padding-bottom: 70px; /* espaço nav bottom */
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
 
-    <!-- Container jogos -->
-    <div id="jogos-container">
-      <div class="estado-loading">
-        <div class="spinner"></div>
-        <p>Carregando jogos...</p>
-      </div>
-    </div>
+/* ============================================
+   HEADER
+   ============================================ */
+header {
+  background: var(--verde);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+.logo-principal {
+  font-family: var(--font-titulo);
+  font-size: 22px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.logo-principal span {
+  color: var(--amarelo);
+}
+.logo-sub {
+  font-family: var(--font-corpo);
+  font-size: 10px;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+.header-ao-vivo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-corpo);
+  font-size: 11px;
+  font-weight: 600;
+  color: #7fff00;
+  letter-spacing: 0.5px;
+}
+.dot-vivo {
+  width: 7px; height: 7px;
+  background: #7fff00;
+  border-radius: 50%;
+  animation: piscando 1.2s ease infinite;
+}
 
-  </main>
+/* ============================================
+   NAV LIGAS (abas horizontais)
+   ============================================ */
+.nav-ligas {
+  background: var(--verde-escuro);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  position: sticky;
+  top: 52px;
+  z-index: 90;
+}
+.nav-ligas::-webkit-scrollbar { display: none; }
+.nav-ligas-inner {
+  display: flex;
+  padding: 0 12px;
+  min-width: max-content;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.liga-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  font-family: var(--font-corpo);
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s;
+  user-select: none;
+}
+.liga-tab:hover { color: rgba(255,255,255,0.9); }
+.liga-tab.ativa {
+  color: white;
+  border-bottom-color: var(--amarelo);
+}
+.liga-tab img {
+  width: 16px; height: 16px;
+  object-fit: contain;
+  border-radius: 2px;
+}
 
-  <!-- ==================== PEFINHO MINI ==================== -->
-  <div id="pef-mini" class="pulsando" title="Pefinho monitorando" onclick="fecharPefinho()">
-    <svg width="28" height="38" viewBox="0 0 90 130" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <line x1="45" y1="6" x2="45" y2="16" stroke="#888" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="45" cy="5" r="5" fill="#7fff00"/>
-      <rect x="18" y="14" width="54" height="46" rx="14" fill="white"/>
-      <rect x="23" y="19" width="44" height="36" rx="8" fill="#0a0a0a"/>
-      <path d="M31 33 Q35 28 39 33" stroke="#39ff14" stroke-width="3" stroke-linecap="round" fill="none"/>
-      <path d="M51 33 Q55 28 59 33" stroke="#39ff14" stroke-width="3" stroke-linecap="round" fill="none"/>
-      <path d="M35 41 Q45 47 55 41" stroke="#39ff14" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-      <rect x="10" y="24" width="8" height="14" rx="4" fill="#e2e8f0"/>
-      <rect x="72" y="24" width="8" height="14" rx="4" fill="#e2e8f0"/>
-      <rect x="38" y="60" width="14" height="7" rx="3" fill="#cbd5e1"/>
-      <rect x="20" y="67" width="50" height="30" rx="12" fill="white"/>
-      <rect x="8" y="69" width="12" height="22" rx="6" fill="white"/>
-      <rect x="70" y="69" width="12" height="22" rx="6" fill="white"/>
-      <rect x="27" y="96" width="13" height="16" rx="6" fill="white"/>
-      <rect x="50" y="96" width="13" height="16" rx="6" fill="white"/>
-    </svg>
-  </div>
+/* ============================================
+   MAIN CONTAINER
+   ============================================ */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px 12px;
+}
 
-  <!-- ==================== PEFINHO GRANDE (alerta gol) ==================== -->
-  <div id="pef-grande" role="alert" aria-live="polite">
-    <div id="pef-anim" class="anim-pular">
-      <svg width="52" height="70" viewBox="0 0 90 130" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <line x1="45" y1="6" x2="45" y2="16" stroke="#888" stroke-width="2.5" stroke-linecap="round"/>
-        <circle cx="45" cy="5" r="4" fill="#7fff00"/>
-        <path d="M52 10 Q57 7 54 4" stroke="#7fff00" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-        <path d="M56 11 Q63 6 59 2" stroke="#7fff00" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.6"/>
-        <rect x="18" y="14" width="54" height="46" rx="14" fill="white"/>
-        <rect x="23" y="19" width="44" height="36" rx="8" fill="#0a0a0a"/>
-        <path d="M37 30 L31 35 L37 40" stroke="#39ff14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        <path d="M53 30 L59 35 L53 40" stroke="#39ff14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        <path d="M35 44 Q45 50 55 44" stroke="#39ff14" stroke-width="2" stroke-linecap="round" fill="none"/>
-        <rect x="10" y="24" width="8" height="14" rx="4" fill="#e2e8f0"/>
-        <rect x="72" y="24" width="8" height="14" rx="4" fill="#e2e8f0"/>
-        <line x1="68" y1="22" x2="75" y2="15" stroke="#39ff14" stroke-width="2" stroke-linecap="round"/>
-        <line x1="73" y1="29" x2="81" y2="27" stroke="#39ff14" stroke-width="2" stroke-linecap="round"/>
-        <rect x="38" y="60" width="14" height="7" rx="3" fill="#cbd5e1"/>
-        <rect x="20" y="67" width="50" height="38" rx="12" fill="white"/>
-        <rect x="24" y="73" width="32" height="18" rx="4" fill="#0a0a0a"/>
-        <text x="40" y="86" text-anchor="middle" fill="#39ff14" font-family="monospace" font-size="8" font-weight="bold">GOOOL!</text>
-        <rect x="56" y="70" width="13" height="13" rx="3" fill="#1a1a1a"/>
-        <text x="62.5" y="80" text-anchor="middle" fill="#39ff14" font-family="monospace" font-size="7" font-weight="bold">PF</text>
-        <rect x="5" y="52" width="12" height="28" rx="6" fill="white" transform="rotate(-45 11 66)"/>
-        <rect x="70" y="69" width="12" height="28" rx="6" fill="white"/>
-        <rect x="27" y="104" width="13" height="20" rx="6" fill="white"/>
-        <rect x="50" y="104" width="13" height="20" rx="6" fill="white"/>
-        <ellipse cx="33" cy="124" rx="9" ry="5" fill="#cbd5e1"/>
-        <ellipse cx="56" cy="124" rx="9" ry="5" fill="#cbd5e1"/>
-      </svg>
-    </div>
-    <div class="pef-notif-info">
-      <span class="pef-badge">⚽ GOL!</span>
-      <p class="pef-times" id="pef-times">—</p>
-      <p class="pef-detalhe" id="pef-detalhe">—</p>
-      <div class="pef-barra" id="pef-barra"></div>
-    </div>
-  </div>
+/* ============================================
+   SEÇÃO TÍTULO
+   ============================================ */
+.secao-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.secao-titulo {
+  font-family: var(--font-titulo);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--preto);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+.secao-titulo span {
+  color: var(--verde);
+}
+.secao-data {
+  font-family: var(--font-corpo);
+  font-size: 12px;
+  color: var(--cinza-texto);
+}
 
-  <!-- ==================== NAV BOTTOM ==================== -->
-  <nav class="nav-bottom" role="navigation" aria-label="Navegação principal">
-    <a href="/" class="nav-item ativo">
-      <span class="nav-icon">⚽</span>
-      <span class="nav-label">Jogos</span>
-    </a>
-    <a href="tabela/" class="nav-item">
-      <span class="nav-icon">📊</span>
-      <span class="nav-label">Tabela</span>
-    </a>
-    <a href="noticias/" class="nav-item">
-      <span class="nav-icon">📰</span>
-      <span class="nav-label">Notícias</span>
-    </a>
-    <a href="videos/" class="nav-item">
-      <span class="nav-icon">▶️</span>
-      <span class="nav-label">Vídeos</span>
-    </a>
-    <a href="artilharia/" class="nav-item">
-      <span class="nav-icon">👟</span>
-      <span class="nav-label">Artilharia</span>
-    </a>
-  </nav>
+/* ============================================
+   FILTRO STATUS
+   ============================================ */
+.filtro-status {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+.filtro-status::-webkit-scrollbar { display: none; }
+.filtro-btn {
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-family: var(--font-corpo);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1.5px solid var(--cinza-borda);
+  background: white;
+  color: var(--cinza-texto);
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.filtro-btn.ativo {
+  background: var(--verde);
+  color: white;
+  border-color: var(--verde);
+}
+.filtro-btn:hover:not(.ativo) {
+  border-color: var(--verde);
+  color: var(--verde);
+}
 
-  <!-- ==================== FOOTER ==================== -->
-  <footer>
-    <div class="footer-logo">Placar <span>do Futebol</span></div>
-    <div class="footer-links">
-      <a href="sobre/">Sobre</a>
-      <a href="privacidade/">Privacidade</a>
-      <a href="contato/">Contato</a>
-    </div>
-    <p class="footer-copy">© 2026 placardofutebol.com — Resultados ao vivo</p>
-  </footer>
+/* ============================================
+   GRUPO LIGA (dentro dos cards)
+   ============================================ */
+.grupo-liga {
+  margin-bottom: 20px;
+}
+.grupo-liga-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--verde-claro);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  border-left: 3px solid var(--verde);
+}
+.grupo-liga-header img {
+  width: 18px; height: 18px;
+  object-fit: contain;
+}
+.grupo-liga-nome {
+  font-family: var(--font-titulo);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--verde-escuro);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex: 1;
+}
+.grupo-liga-pais {
+  font-family: var(--font-corpo);
+  font-size: 11px;
+  color: var(--cinza-texto);
+}
 
-  <!-- ==================== JAVASCRIPT ==================== -->
-  <script>
-  // ============================================
-  // CONFIGURAÇÃO
-  // ============================================
-  const API_KEY  = '5b6f884a4ce7c11a2c67cf54de3f4a73';
-  const API_URL  = 'https://v3.football.api-sports.io';
-  const CACHE_TTL_VIVO    = 30 * 1000;        // 30s quando há jogos ao vivo
-  const CACHE_TTL_NORMAL  = 60 * 60 * 1000;   // 1h sem jogos ao vivo
-  const CACHE_TTL_MADRUGADA = 3 * 60 * 60 * 1000; // 3h madrugada (1h-7h)
+/* ============================================
+   JOGO CARD
+   ============================================ */
+.jogo-card {
+  background: var(--cinza-card);
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--cinza-borda);
+  cursor: pointer;
+  transition: background 0.15s;
+  position: relative;
+}
+.jogo-card:last-child {
+  border-bottom: none;
+  border-radius: 0 0 var(--radius-card) var(--radius-card);
+}
+.jogo-card:hover { background: #f8faf9; }
 
-  // IDs das ligas filtradas
-  const LIGAS_PERMITIDAS = {
-    '71':  { nome: 'Brasileirão Série A', pais: 'Brasil',   emoji: '🇧🇷' },
-    '2':   { nome: 'Champions League',    pais: 'Europa',   emoji: '⭐' },
-    '13':  { nome: 'Copa do Brasil',      pais: 'Brasil',   emoji: '🇧🇷' },
-    '11':  { nome: 'Libertadores',        pais: 'América',  emoji: '🌎' },
-    '12':  { nome: 'Sul-Americana',       pais: 'América',  emoji: '🌎' },
-    '140': { nome: 'La Liga',             pais: 'Espanha',  emoji: '🇪🇸' },
-    '39':  { nome: 'Premier League',      pais: 'Inglaterra', emoji: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
-    '1':   { nome: 'Copa do Mundo',       pais: 'Mundial',  emoji: '🌍' },
-  };
+.jogo-linha {
+  display: grid;
+  grid-template-columns: 52px 1fr auto 1fr 52px;
+  align-items: center;
+  gap: 8px;
+}
 
-  // ============================================
-  // ESTADO
-  // ============================================
-  let todosJogos      = [];
-  let ligaAtiva       = 'todos';
-  let statusAtivo     = 'todos';
-  let placaresPrev    = {};
-  let timerAtualizacao = null;
-  let timerPefinho    = null;
+/* escudo */
+.escudo {
+  width: 28px; height: 28px;
+  object-fit: contain;
+  display: block;
+}
+.escudo-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.escudo-wrap.direita { align-items: flex-end; }
 
-  // ============================================
-  // DATA
-  // ============================================
-  function exibirData() {
-    const agora = new Date();
-    const opts = { weekday: 'long', day: 'numeric', month: 'long' };
-    document.getElementById('data-hoje').textContent =
-      agora.toLocaleDateString('pt-BR', opts);
-  }
+/* nome do time */
+.time-nome {
+  font-family: var(--font-corpo);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--preto);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.time-nome.direita { text-align: right; }
 
-  // ============================================
-  // CACHE
-  // ============================================
-  function salvarCache(dados) {
-    try {
-      localStorage.setItem('pf_jogos', JSON.stringify({
-        ts: Date.now(),
-        dados
-      }));
-    } catch(e) {}
-  }
+/* placar central */
+.placar-centro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 70px;
+}
+.placar-numeros {
+  font-family: var(--font-titulo);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--preto);
+  letter-spacing: 2px;
+  line-height: 1;
+}
+.placar-status {
+  font-family: var(--font-corpo);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--cinza-texto);
+  letter-spacing: 0.5px;
+}
+.placar-status.ao-vivo {
+  color: var(--vermelho);
+  animation: piscando 1.2s ease infinite;
+}
+.placar-status.encerrado { color: #999; }
+.placar-status.agendado { color: var(--verde); }
 
-  function lerCache() {
-    try {
-      const raw = localStorage.getItem('pf_jogos');
-      if (!raw) return null;
-      return JSON.parse(raw);
-    } catch(e) { return null; }
-  }
+/* coluna time esquerda */
+.time-esquerda {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+}
+.time-direita {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-end;
+  overflow: hidden;
+}
 
-  function cacheTTL() {
-    const hora = new Date().getHours();
-    if (hora >= 1 && hora < 7) return CACHE_TTL_MADRUGADA;
-    const temVivo = todosJogos.some(j =>
-      ['1H','2H','HT','ET','P'].includes(j.fixture.status.short)
-    );
-    return temVivo ? CACHE_TTL_VIVO : CACHE_TTL_NORMAL;
-  }
+/* ============================================
+   LOADING / ERRO / VAZIO
+   ============================================ */
+.estado-loading,
+.estado-erro,
+.estado-vazio {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--cinza-texto);
+  font-family: var(--font-corpo);
+}
+.estado-loading .spinner {
+  width: 32px; height: 32px;
+  border: 3px solid var(--cinza-borda);
+  border-top-color: var(--verde);
+  border-radius: 50%;
+  animation: girar 0.8s linear infinite;
+  margin: 0 auto 12px;
+}
+.estado-loading p, .estado-vazio p {
+  font-size: 14px;
+}
+.estado-erro p {
+  font-size: 14px;
+  color: var(--vermelho);
+}
 
-  // ============================================
-  // FETCH JOGOS
-  // ============================================
-  async function carregarJogos(forcar = false) {
-    const cache = lerCache();
-    const agora = Date.now();
+/* ============================================
+   NAV BOTTOM MOBILE
+   ============================================ */
+.nav-bottom {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: white;
+  border-top: 1px solid var(--cinza-borda);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 6px 0 8px;
+  z-index: 200;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.06);
+}
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 10px;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--cinza-texto);
+  transition: color 0.2s;
+}
+.nav-item.ativo { color: var(--verde); }
+.nav-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+.nav-label {
+  font-family: var(--font-corpo);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
 
-    if (!forcar && cache && (agora - cache.ts) < cacheTTL()) {
-      todosJogos = cache.dados;
-      renderizar();
-      agendarProxima();
-      return;
-    }
+/* ============================================
+   PEFINHO
+   ============================================ */
+#pef-mini {
+  position: fixed;
+  bottom: 74px;
+  right: 16px;
+  width: 46px; height: 46px;
+  background: var(--dark-pef);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 150;
+  transition: opacity 0.3s, transform 0.3s;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+}
+#pef-mini.oculto {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.8);
+}
+#pef-grande {
+  position: fixed;
+  bottom: 74px;
+  right: 12px;
+  left: 12px;
+  max-width: 360px;
+  margin-left: auto;
+  background: var(--dark-pef);
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 150;
+  opacity: 0;
+  transform: translateY(16px) scale(0.92);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+}
+#pef-grande.visivel {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+}
+.pef-notif-info { flex: 1; min-width: 0; }
+.pef-badge {
+  display: inline-block;
+  background: #16a34a;
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 99px;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+.pef-times {
+  font-family: var(--font-titulo);
+  font-size: 15px;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin: 0 0 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pef-detalhe {
+  font-family: var(--font-corpo);
+  font-size: 11px;
+  color: #64748b;
+  margin: 0;
+}
+.pef-barra {
+  height: 2px;
+  background: #39ff14;
+  border-radius: 2px;
+  width: 100%;
+  margin-top: 6px;
+}
 
-    const hoje = new Date().toISOString().split('T')[0];
-    mostrarLoading();
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  background: var(--verde-escuro);
+  color: white;
+  text-align: center;
+  padding: 28px 20px;
+  margin-top: 20px;
+}
+.footer-logo {
+  font-family: var(--font-titulo);
+  font-size: 18px;
+  font-weight: 800;
+  color: white;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.footer-logo span { color: var(--amarelo); }
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin-bottom: 14px;
+}
+.footer-links a {
+  color: rgba(255,255,255,0.7);
+  font-size: 13px;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: white; }
+.footer-copy {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+}
 
-    try {
-      const res = await fetch(`${API_URL}/fixtures?date=${hoje}`, {
-        headers: { 'x-apisports-key': API_KEY }
-      });
-      const json = await res.json();
+/* ============================================
+   ANIMAÇÕES
+   ============================================ */
+@keyframes piscando {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+@keyframes girar {
+  to { transform: rotate(360deg); }
+}
+@keyframes pular {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-8px); }
+  70% { transform: translateY(-4px); }
+}
+@keyframes pulseRing {
+  0% { box-shadow: 0 0 0 0 rgba(57,255,20,0.45); }
+  70% { box-shadow: 0 0 0 10px rgba(57,255,20,0); }
+  100% { box-shadow: 0 0 0 0 rgba(57,255,20,0); }
+}
+@keyframes entrar {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
-      if (!json.response) throw new Error('Sem resposta da API');
+.pulsando { animation: pulseRing 1.8s ease infinite; }
+.anim-pular { animation: pular 0.65s ease infinite; }
+.anim-entrar { animation: entrar 0.3s ease forwards; }
 
-      // filtra só as ligas permitidas
-      todosJogos = json.response.filter(j =>
-        LIGAS_PERMITIDAS[String(j.league.id)]
-      );
-
-      salvarCache(todosJogos);
-      detectarGols(json.response);
-      renderizar();
-      agendarProxima();
-
-    } catch(err) {
-      mostrarErro();
-      console.error('Erro ao carregar jogos:', err);
-    }
-  }
-
-  // ============================================
-  // AGENDAR PRÓXIMA ATUALIZAÇÃO
-  // ============================================
-  function agendarProxima() {
-    clearTimeout(timerAtualizacao);
-    const ttl = cacheTTL();
-    timerAtualizacao = setTimeout(() => carregarJogos(true), ttl);
-  }
-
-  // ============================================
-  // DETECÇÃO DE GOLS (Pefinho)
-  // ============================================
-  function detectarGols(jogos) {
-    jogos.forEach(j => {
-      const id = j.fixture.id;
-      const placarAtual = `${j.goals.home}-${j.goals.away}`;
-      const prev = placaresPrev[id];
-
-      if (prev && prev !== placarAtual &&
-          j.goals.home !== null && j.goals.away !== null) {
-        const timeGol = j.goals.home > parseInt(prev.split('-')[0])
-          ? j.teams.home.name
-          : j.teams.away.name;
-        alertarGol(
-          `${j.teams.home.name} ${j.goals.home} × ${j.goals.away} ${j.teams.away.name}`,
-          `⚽ Gol de ${timeGol}!`
-        );
-      }
-      placaresPrev[id] = placarAtual;
-    });
-  }
-
-  // ============================================
-  // PEFINHO — ALERTA GOL
-  // ============================================
-  function alertarGol(times, detalhe) {
-    clearTimeout(timerPefinho);
-
-    document.getElementById('pef-times').textContent   = times;
-    document.getElementById('pef-detalhe').textContent = detalhe;
-
-    const mini   = document.getElementById('pef-mini');
-    const grande = document.getElementById('pef-grande');
-    const barra  = document.getElementById('pef-barra');
-
-    mini.classList.add('oculto');
-    grande.classList.add('visivel');
-
-    barra.style.transition = 'none';
-    barra.style.width = '100%';
-    requestAnimationFrame(() => {
-      barra.style.transition = 'width 5s linear';
-      barra.style.width = '0%';
-    });
-
-    timerPefinho = setTimeout(fecharPefinho, 5200);
-  }
-
-  function fecharPefinho() {
-    const mini   = document.getElementById('pef-mini');
-    const grande = document.getElementById('pef-grande');
-    grande.classList.remove('visivel');
-    setTimeout(() => mini.classList.remove('oculto'), 300);
-  }
-
-  // ============================================
-  // FILTROS
-  // ============================================
-  function selecionarLiga(el, liga) {
-    document.querySelectorAll('.liga-tab').forEach(t => t.classList.remove('ativa'));
-    el.classList.add('ativa');
-    ligaAtiva = liga;
-    renderizar();
-  }
-
-  function filtrarStatus(el, status) {
-    document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('ativo'));
-    el.classList.add('ativo');
-    statusAtivo = status;
-    renderizar();
-  }
-
-  // ============================================
-  // RENDERIZAR
-  // ============================================
-  function renderizar() {
-    const container = document.getElementById('jogos-container');
-
-    let jogos = [...todosJogos];
-
-    // filtro liga
-    if (ligaAtiva !== 'todos') {
-      jogos = jogos.filter(j => String(j.league.id) === ligaAtiva);
-    }
-
-    // filtro status
-    if (statusAtivo === 'ao-vivo') {
-      jogos = jogos.filter(j =>
-        ['1H','2H','HT','ET','P'].includes(j.fixture.status.short)
-      );
-    } else if (statusAtivo === 'agendado') {
-      jogos = jogos.filter(j =>
-        ['NS','TBD'].includes(j.fixture.status.short)
-      );
-    } else if (statusAtivo === 'encerrado') {
-      jogos = jogos.filter(j =>
-        ['FT','AET','PEN'].includes(j.fixture.status.short)
-      );
-    }
-
-    if (jogos.length === 0) {
-      container.innerHTML = `
-        <div class="estado-vazio">
-          <p>Nenhum jogo encontrado para este filtro.</p>
-        </div>`;
-      return;
-    }
-
-    // agrupa por liga
-    const grupos = {};
-    jogos.forEach(j => {
-      const lid = String(j.league.id);
-      if (!grupos[lid]) grupos[lid] = [];
-      grupos[lid].push(j);
-    });
-
-    let html = '';
-    Object.entries(grupos).forEach(([lid, lista]) => {
-      const liga = LIGAS_PERMITIDAS[lid] || { nome: lista[0].league.name, emoji: '🏆', pais: '' };
-      html += `
-        <div class="grupo-liga anim-entrar">
-          <div class="grupo-liga-header">
-            <img src="${lista[0].league.logo}" alt="${liga.nome}"
-                 onerror="this.style.display='none'">
-            <span class="grupo-liga-nome">${liga.emoji} ${liga.nome}</span>
-            <span class="grupo-liga-pais">${liga.pais}</span>
-          </div>
-          ${lista.map(j => cardJogo(j)).join('')}
-        </div>`;
-    });
-
-    container.innerHTML = html;
-  }
-
-  // ============================================
-  // CARD DE JOGO
-  // ============================================
-  function cardJogo(j) {
-    const status = j.fixture.status.short;
-    const golHome = j.goals.home ?? '—';
-    const golAway = j.goals.away ?? '—';
-
-    let statusClass = '';
-    let statusTexto = '';
-
-    if (['1H','2H','HT','ET','P'].includes(status)) {
-      statusClass = 'ao-vivo';
-      statusTexto = status === 'HT' ? 'Intervalo' : `${j.fixture.status.elapsed}'`;
-    } else if (['FT','AET','PEN'].includes(status)) {
-      statusClass = 'encerrado';
-      statusTexto = 'Encerrado';
-    } else {
-      statusClass = 'agendado';
-      const hora = new Date(j.fixture.date).toLocaleTimeString('pt-BR', {
-        hour: '2-digit', minute: '2-digit'
-      });
-      statusTexto = hora;
-    }
-
-    const placar = statusClass === 'agendado'
-      ? `<span class="placar-numeros">×</span>`
-      : `<span class="placar-numeros">${golHome} × ${golAway}</span>`;
-
-    return `
-      <div class="jogo-card" onclick="abrirJogo(${j.fixture.id})">
-        <div class="jogo-linha">
-          <div class="time-esquerda">
-            <img class="escudo"
-                 src="${j.teams.home.logo}"
-                 alt="${j.teams.home.name}"
-                 onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><text y=\'18\' font-size=\'18\'>⚽</text></svg>'">
-            <span class="time-nome">${j.teams.home.name}</span>
-          </div>
-
-          <div class="placar-centro">
-            ${placar}
-            <span class="placar-status ${statusClass}">${statusTexto}</span>
-          </div>
-
-          <div class="time-direita">
-            <span class="time-nome direita">${j.teams.away.name}</span>
-            <img class="escudo"
-                 src="${j.teams.away.logo}"
-                 alt="${j.teams.away.name}"
-                 onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><text y=\'18\' font-size=\'18\'>⚽</text></svg>'">
-          </div>
-        </div>
-      </div>`;
-  }
-
-  // ============================================
-  // ESTADOS UI
-  // ============================================
-  function mostrarLoading() {
-    document.getElementById('jogos-container').innerHTML = `
-      <div class="estado-loading">
-        <div class="spinner"></div>
-        <p>Carregando jogos...</p>
-      </div>`;
-  }
-
-  function mostrarErro() {
-    document.getElementById('jogos-container').innerHTML = `
-      <div class="estado-erro">
-        <p>⚠️ Erro ao carregar os jogos. Tente novamente em instantes.</p>
-      </div>`;
-  }
-
-  // ============================================
-  // ABRIR JOGO (futuro)
-  // ============================================
-  function abrirJogo(id) {
-    // futuramente: window.location.href = `jogos/${id}/`;
-    console.log('Jogo:', id);
-  }
-
-  // ============================================
-  // INIT
-  // ============================================
-  exibirData();
-  carregarJogos();
-  </script>
-
-</body>
-</html>
+/* ============================================
+   RESPONSIVO DESKTOP
+   ============================================ */
+@media (min-width: 640px) {
+  .header-inner { padding: 14px 24px; }
+  .logo-principal { font-size: 26px; }
+  .container { padding: 20px 24px; }
+  .jogo-linha { grid-template-columns: 60px 1fr auto 1fr 60px; }
+  .time-nome { font-size: 14px; }
+  .placar-numeros { font-size: 26px; }
+  body { padding-bottom: 0; }
+  .nav-bottom { display: none; }
+  #pef-mini { bottom: 24px; right: 24px; }
+  #pef-grande { bottom: 24px; right: 24px; left: auto; width: 320px; }
+}
