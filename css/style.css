@@ -292,12 +292,13 @@ header {
 /* nome do time */
 .time-nome {
   font-family: var(--font-corpo);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--preto);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 110px;
 }
 .time-nome.direita { text-align: right; }
 
