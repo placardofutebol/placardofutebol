@@ -270,9 +270,9 @@ header {
 
 .jogo-linha {
   display: grid;
-  grid-template-columns: 36px 1fr auto 1fr 36px;
+  grid-template-columns: 52px 1fr auto 1fr 52px;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 /* escudo */
@@ -292,12 +292,14 @@ header {
 /* nome do time */
 .time-nome {
   font-family: var(--font-corpo);
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 600;
   color: var(--preto);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: center;
+  width: 100%;
 }
 .time-nome.direita { text-align: right; }
 
@@ -334,15 +336,17 @@ header {
 /* coluna time esquerda */
 .time-esquerda {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   overflow: hidden;
 }
 .time-direita {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  justify-content: flex-end;
+  gap: 4px;
+  justify-content: center;
   overflow: hidden;
 }
 
