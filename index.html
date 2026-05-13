@@ -248,53 +248,80 @@ const CACHE_TTL_MADRUGADA = 3 * 60 * 60 * 1000;
     } catch(e) { return null; }
   }
 
+  // ============================================
+  // CACHE TTL INTELIGENTE
+  // ============================================
   function cacheTTL() {
     const hora = new Date().getHours();
     if (hora >= 1 && hora < 7) return CACHE_TTL_MADRUGADA;
     const temVivo = todosJogos.some(j =>
       ['1H','2H','HT','ET','P'].includes(j.fixture.status.short)
     );
-    return temVivo ? CACHE_TTL_VIVO : CACHE_TTL_NORMAL;
+    if (temVivo) return CACHE_TTL_VIVO;
+    const temAgendadoHoje = todosJogos.some(j =>
+      ['NS','TBD'].includes(j.fixture.status.short)
+    );
+    if (temAgendadoHoje) return 5 * 60 * 1000; // 5 min
+    return CACHE_TTL_NORMAL; // 1h
   }
 
   // ============================================
-  // FETCH JOGOS
+  // LIGAS COM JOGO AO VIVO
   // ============================================
-  async function carregarJogos(forcar = false) {
-    const cache = lerCache();
-    const agora = Date.now();
+  function ligasAoVivo() {
+    const ao_vivo = new Set();
+    todosJogos.forEach(j => {
+      if (['1H','2H','HT','ET','P'].includes(j.fixture.status.short)) {
+        ao_vivo.add(String(j.league.id));
+      }
+    });
+    return [...ao_vivo];
+  }
 
-    if (!forcar && cache && (agora - cache.ts) < cacheTTL()) {
-      todosJogos = cache.dados;
-      renderizar();
-      agendarProxima();
-      return;
-    }
-const hoje = new Date().toLocaleDateString('pt-BR').split('/').reverse().join('-');
-const amanha = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+  // ============================================
+  // ATUALIZAÇÃO INTELIGENTE
+  // ============================================
+  async function atualizarAoVivo() {
+    const ligas = ligasAoVivo();
+    if (ligas.length === 0) return;
+
+    const hoje = new Date().toLocaleDateString('pt-BR').split('/').reverse().join('-');
+
     try {
-      const [res1, res2] = await Promise.all([
-  fetch(`${API_URL}/fixtures?date=${hoje}`, { headers: { 'x-apisports-key': API_KEY }}),
-  fetch(`${API_URL}/fixtures?date=${amanha}`, { headers: { 'x-apisports-key': API_KEY }})
-]);
-const [json1, json2] = await Promise.all([res1.json(), res2.json()]);
-const json = { response: [...(json1.response || []), ...(json2.response || [])] };
-
-      if (!json.response) throw new Error('Sem resposta da API');
-
-      // filtra só as ligas permitidas
-      todosJogos = json.response.filter(j =>
-        LIGAS_PERMITIDAS[String(j.league.id)]
+      const requisicoes = ligas.map(liga =>
+        fetch(`${API_URL}/fixtures?date=${hoje}&league=${liga}&season=2026`, {
+          headers: { 'x-apisports-key': API_KEY }
+        }).then(r => r.json()).catch(() => ({ response: [] }))
       );
 
+      const resultados = await Promise.all(requisicoes);
+
+      // atualiza só os jogos das ligas ao vivo
+      const jogosAtualizados = {};
+      resultados.forEach(json => {
+        (json.response || []).forEach(j => {
+          jogosAtualizados[j.fixture.id] = j;
+        });
+      });
+
+      // mescla com os jogos existentes
+      todosJogos = todosJogos.map(j =>
+        jogosAtualizados[j.fixture.id] || j
+      );
+
+      // adiciona novos jogos se houver
+      Object.values(jogosAtualizados).forEach(j => {
+        if (!todosJogos.find(t => t.fixture.id === j.fixture.id)) {
+          todosJogos.push(j);
+        }
+      });
+
       salvarCache(todosJogos);
-      detectarGols(json.response);
+      detectarGols(Object.values(jogosAtualizados));
       renderizar();
-      agendarProxima();
 
     } catch(err) {
-      mostrarErro();
-      console.error('Erro ao carregar jogos:', err);
+      console.error('Erro ao atualizar ao vivo:', err);
     }
   }
 
@@ -302,13 +329,37 @@ const json = { response: [...(json1.response || []), ...(json2.response || [])] 
   // AGENDAR PRÓXIMA ATUALIZAÇÃO
   // ============================================
   function agendarProxima() {
-  clearTimeout(timerAtualizacao);
-  const ttl = cacheTTL();
-  const intervalo = todosJogos.some(j =>
-    ['1H','2H','HT','ET','P','FT','AET','PEN'].includes(j.fixture.status.short)
-  ) ? 30000 : ttl;
-  timerAtualizacao = setTimeout(() => carregarJogos(true), intervalo);
-}
+    clearTimeout(timerAtualizacao);
+
+    const hora = new Date().getHours();
+    const temVivo = ligasAoVivo().length > 0;
+
+    if (temVivo) {
+      // atualiza só as ligas ao vivo a cada 30s
+      timerAtualizacao = setTimeout(async () => {
+        await atualizarAoVivo();
+        agendarProxima();
+      }, CACHE_TTL_VIVO);
+
+    } else if (hora >= 1 && hora < 7) {
+      // madrugada — atualiza tudo a cada 3h
+      timerAtualizacao = setTimeout(() => {
+        carregarJogos(true);
+      }, CACHE_TTL_MADRUGADA);
+
+    } else if (todosJogos.some(j => ['NS','TBD'].includes(j.fixture.status.short))) {
+      // tem jogo agendado — atualiza tudo a cada 5min
+      timerAtualizacao = setTimeout(() => {
+        carregarJogos(true);
+      }, 5 * 60 * 1000);
+
+    } else {
+      // só encerrados — atualiza a cada 1h
+      timerAtualizacao = setTimeout(() => {
+        carregarJogos(true);
+      }, CACHE_TTL_NORMAL);
+    }
+  }
 
   // ============================================
   // DETECÇÃO DE GOLS (Pefinho)
