@@ -247,6 +247,60 @@ const CACHE_TTL_MADRUGADA = 3 * 60 * 60 * 1000;
       return JSON.parse(raw);
     } catch(e) { return null; }
   }
+    async function carregarJogos(forcar = false) {
+    const cache = lerCache();
+    const agora = Date.now();
+
+    if (!forcar && cache && (agora - cache.ts) < cacheTTL()) {
+      todosJogos = cache.dados;
+      renderizar();
+      agendarProxima();
+      return;
+    }
+
+    const hoje = new Date().toLocaleDateString('pt-BR').split('/').reverse().join('-');
+    const amanha = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+    const ontem = new Date(Date.now() - 86400000).toLocaleDateString('pt-BR').split('/').reverse().join('-');
+
+    mostrarLoading();
+
+    try {
+      const ligas = Object.keys(LIGAS_PERMITIDAS);
+      const datas = [ontem, hoje, amanha];
+
+      const requisicoes = [];
+      ligas.forEach(liga => {
+        datas.forEach(data => {
+          requisicoes.push(
+            fetch(`${API_URL}/fixtures?date=${data}&league=${liga}&season=2026`, {
+              headers: { 'x-apisports-key': API_KEY }
+            }).then(r => r.json()).catch(() => ({ response: [] }))
+          );
+        });
+      });
+
+      const resultados = await Promise.all(requisicoes);
+
+      const jogosMap = {};
+      resultados.forEach(json => {
+        (json.response || []).forEach(j => {
+          jogosMap[j.fixture.id] = j;
+        });
+      });
+
+      todosJogos = Object.values(jogosMap);
+
+      salvarCache(todosJogos);
+      detectarGols(todosJogos);
+      renderizar();
+      agendarProxima();
+
+    } catch(err) {
+      mostrarErro();
+      console.error('Erro ao carregar jogos:', err);
+    }
+  }
+    
 
   // ============================================
   // CACHE TTL INTELIGENTE
