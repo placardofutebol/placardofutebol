@@ -574,8 +574,8 @@ footer {
   .container { padding: 20px 24px; }
   .jogo-linha { grid-template-columns: 60px 1fr auto 1fr 60px; }
   .time-nome { 
-    font-size: 14px;
-    max-width: 280px;
+    font-size: 13px;
+    max-width: 100%;
   }
   .placar-numeros { font-size: 26px; }
   body { padding-bottom: 0; }
