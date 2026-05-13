@@ -445,7 +445,26 @@
   // ============================================
   // CARD DE JOGO
   // ============================================
-  function cardJogo(j) {
+  function abreviarTime(nome) {
+  const abreviacoes = {
+    'Manchester City': 'Man. City',
+    'Manchester United': 'Man. United',
+    'Atletico Madrid': 'Atlético',
+    'Borussia Dortmund': 'Dortmund',
+    'Bayer Leverkusen': 'Leverkusen',
+    'Sporting CP': 'Sporting',
+    'Newcastle United': 'Newcastle',
+    'Nottingham Forest': 'Nottingham',
+    'West Ham United': 'West Ham',
+    'Tottenham Hotspur': 'Tottenham',
+    'Athletic Club': 'Athletic',
+    'Atletico Mineiro': 'Atlético-MG',
+    'Fluminense': 'Fluminense',
+  };
+  return abreviacoes[nome] || nome;
+}
+    
+    function cardJogo(j) {
     const status = j.fixture.status.short;
     const golHome = j.goals.home ?? '—';
     const golAway = j.goals.away ?? '—';
@@ -479,7 +498,7 @@
                  src="${j.teams.home.logo}"
                  alt="${j.teams.home.name}"
                  onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><text y=\'18\' font-size=\'18\'>⚽</text></svg>'">
-            <span class="time-nome">${j.teams.home.name}</span>
+            <span class="time-nome">${abreviarTime(j.teams.home.name)}</span>
           </div>
 
           <div class="placar-centro">
@@ -488,7 +507,7 @@
           </div>
 
           <div class="time-direita">
-            <span class="time-nome direita">${j.teams.away.name}</span>
+            <span class="time-nome direita">${abreviarTime(j.teams.away.name)}</span>
             <img class="escudo"
                  src="${j.teams.away.logo}"
                  alt="${j.teams.away.name}"
