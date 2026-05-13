@@ -302,10 +302,13 @@
   // AGENDAR PRÓXIMA ATUALIZAÇÃO
   // ============================================
   function agendarProxima() {
-    clearTimeout(timerAtualizacao);
-    const ttl = cacheTTL();
-    timerAtualizacao = setTimeout(() => carregarJogos(true), ttl);
-  }
+  clearTimeout(timerAtualizacao);
+  const ttl = cacheTTL();
+  const intervalo = todosJogos.some(j =>
+    ['1H','2H','HT','ET','P','FT','AET','PEN'].includes(j.fixture.status.short)
+  ) ? 30000 : ttl;
+  timerAtualizacao = setTimeout(() => carregarJogos(true), intervalo);
+}
 
   // ============================================
   // DETECÇÃO DE GOLS (Pefinho)
@@ -403,10 +406,10 @@
         ['NS','TBD'].includes(j.fixture.status.short)
       );
     } else if (statusAtivo === 'encerrado') {
-      jogos = jogos.filter(j =>
-        ['FT','AET','PEN'].includes(j.fixture.status.short)
-      );
-    }
+  jogos = jogos.filter(j =>
+    ['FT','AET','PEN','AWD','WO'].includes(j.fixture.status.short)
+  );
+}
 
     if (jogos.length === 0) {
       container.innerHTML = `
