@@ -272,7 +272,7 @@ header {
   display: grid;
   grid-template-columns: 36px 1fr auto 1fr 36px;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 /* escudo */
