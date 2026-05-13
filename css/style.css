@@ -270,7 +270,7 @@ header {
 
 .jogo-linha {
   display: grid;
-  grid-template-columns: 52px 1fr auto 1fr 52px;
+  grid-template-columns: 36px 1fr auto 1fr 36px;
   align-items: center;
   gap: 8px;
 }
@@ -298,7 +298,6 @@ header {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 120px;
 }
 .time-nome.direita { text-align: right; }
 
