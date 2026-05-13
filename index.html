@@ -265,31 +265,21 @@ const CACHE_TTL_MADRUGADA = 3 * 60 * 60 * 1000;
     mostrarLoading();
 
     try {
-      const ligas = Object.keys(LIGAS_PERMITIDAS);
-      const datas = [ontem, hoje, amanha];
-
-      const requisicoes = [];
-      ligas.forEach(liga => {
-        datas.forEach(data => {
-          requisicoes.push(
-            fetch(`${API_URL}/fixtures?date=${data}&league=${liga}&season=2026`, {
-              headers: { 'x-apisports-key': API_KEY }
-            }).then(r => r.json()).catch(() => ({ response: [] }))
-          );
-        });
-      });
-
-      const resultados = await Promise.all(requisicoes);
+      const [r1, r2, r3] = await Promise.all([
+        fetch(`${API_URL}/fixtures?date=${ontem}`, { headers: { 'x-apisports-key': API_KEY }}),
+        fetch(`${API_URL}/fixtures?date=${hoje}`, { headers: { 'x-apisports-key': API_KEY }}),
+        fetch(`${API_URL}/fixtures?date=${amanha}`, { headers: { 'x-apisports-key': API_KEY }})
+      ]);
+      const [j1, j2, j3] = await Promise.all([r1.json(), r2.json(), r3.json()]);
 
       const jogosMap = {};
-      resultados.forEach(json => {
-        (json.response || []).forEach(j => {
+      [...(j1.response||[]), ...(j2.response||[]), ...(j3.response||[])].forEach(j => {
+        if (LIGAS_PERMITIDAS[String(j.league.id)]) {
           jogosMap[j.fixture.id] = j;
-        });
+        }
       });
 
       todosJogos = Object.values(jogosMap);
-
       salvarCache(todosJogos);
       detectarGols(todosJogos);
       renderizar();
@@ -297,9 +287,8 @@ const CACHE_TTL_MADRUGADA = 3 * 60 * 60 * 1000;
 
     } catch(err) {
       mostrarErro();
-      console.error('Erro ao carregar jogos:', err);
+      console.error('Erro:', err);
     }
-  }
     
 
   // ============================================
