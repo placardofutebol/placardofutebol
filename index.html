@@ -198,11 +198,11 @@
 
     mostrarLoading();
 
-    try {
+   try {
       const [r1, r2, r3] = await Promise.all([
-        fetch(`${API_URL}/fixtures?date=${ontem}`,  { headers: { 'x-apisports-key': API_KEY } }),
-        fetch(`${API_URL}/fixtures?date=${hoje}`,   { headers: { 'x-apisports-key': API_KEY } }),
-        fetch(`${API_URL}/fixtures?date=${amanha}`, { headers: { 'x-apisports-key': API_KEY } })
+        fetch(`${API_URL}/fixtures?date=${ontem}`),
+        fetch(`${API_URL}/fixtures?date=${hoje}`),
+        fetch(`${API_URL}/fixtures?date=${amanha}`)
       ]);
       const [j1, j2, j3] = await Promise.all([r1.json(), r2.json(), r3.json()]);
 
