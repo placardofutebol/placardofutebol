@@ -7,13 +7,11 @@
   <meta name="theme-color" content="#1a7a30">
   <title>Placar do Futebol - Resultados ao Vivo</title>
   <link rel="stylesheet" href="css/style.css">
-  <!-- PWA ready -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
 
-  <!-- ==================== HEADER ==================== -->
   <header>
     <div class="header-inner">
       <a href="/" class="logo">
@@ -27,69 +25,40 @@
     </div>
   </header>
 
-  <!-- ==================== NAV LIGAS ==================== -->
   <nav class="nav-ligas" role="navigation" aria-label="Ligas">
     <div class="nav-ligas-inner">
-      <div class="liga-tab ativa" data-liga="todos" onclick="selecionarLiga(this, 'todos')">
-        🏆 Todos
-      </div>
-      <div class="liga-tab" data-liga="71" onclick="selecionarLiga(this, '71')">
-        🇧🇷 Brasileirão
-      </div>
-      <div class="liga-tab" data-liga="72" onclick="selecionarLiga(this, '72')">
-        🇧🇷 Série B
-      </div>
-      <div class="liga-tab" data-liga="2" onclick="selecionarLiga(this, '2')">
-        ⭐ Champions
-      </div>
-      <div class="liga-tab" data-liga="13" onclick="selecionarLiga(this, '13')">
-        🇧🇷 Copa do Brasil
-      </div>
-      <div class="liga-tab" data-liga="11" onclick="selecionarLiga(this, '11')">
-        🌎 Libertadores
-      </div>
-      <div class="liga-tab" data-liga="12" onclick="selecionarLiga(this, '12')">
-        🌎 Sul-Americana
-      </div>
-      <div class="liga-tab" data-liga="140" onclick="selecionarLiga(this, '140')">
-        🇪🇸 La Liga
-      </div>
-      <div class="liga-tab" data-liga="39" onclick="selecionarLiga(this, '39')">
-        🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League
-      </div>
-      <div class="liga-tab" data-liga="1" onclick="selecionarLiga(this, '1')">
-        🌍 Copa do Mundo
-      </div>
+      <div class="liga-tab ativa" data-liga="todos" onclick="selecionarLiga(this, 'todos')">🏆 Todos</div>
+      <div class="liga-tab" data-liga="71" onclick="selecionarLiga(this, '71')">🇧🇷 Brasileirão</div>
+      <div class="liga-tab" data-liga="72" onclick="selecionarLiga(this, '72')">🇧🇷 Série B</div>
+      <div class="liga-tab" data-liga="2" onclick="selecionarLiga(this, '2')">⭐ Champions</div>
+      <div class="liga-tab" data-liga="73" onclick="selecionarLiga(this, '73')">🇧🇷 Copa do Brasil</div>
+      <div class="liga-tab" data-liga="13" onclick="selecionarLiga(this, '13')">🌎 Libertadores</div>
+      <div class="liga-tab" data-liga="11" onclick="selecionarLiga(this, '11')">🌎 Sul-Americana</div>
+      <div class="liga-tab" data-liga="140" onclick="selecionarLiga(this, '140')">🇪🇸 La Liga</div>
+      <div class="liga-tab" data-liga="39" onclick="selecionarLiga(this, '39')">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League</div>
+      <div class="liga-tab" data-liga="1" onclick="selecionarLiga(this, '1')">🌍 Copa do Mundo</div>
     </div>
   </nav>
 
-  <!-- ==================== MAIN ==================== -->
   <main class="container" role="main">
-
     <div class="secao-header">
       <h1 class="secao-titulo">🔥 Jogos de <span>Hoje</span></h1>
       <span class="secao-data" id="data-hoje"></span>
     </div>
-
-    <!-- Filtros rápidos -->
     <div class="filtro-status">
       <button class="filtro-btn ativo" onclick="filtrarStatus(this, 'todos')">Todos</button>
       <button class="filtro-btn" onclick="filtrarStatus(this, 'ao-vivo')">● Ao Vivo</button>
       <button class="filtro-btn" onclick="filtrarStatus(this, 'agendado')">Agendados</button>
       <button class="filtro-btn" onclick="filtrarStatus(this, 'encerrado')">Encerrados</button>
     </div>
-
-    <!-- Container jogos -->
     <div id="jogos-container">
       <div class="estado-loading">
         <div class="spinner"></div>
         <p>Carregando jogos...</p>
       </div>
     </div>
-
   </main>
 
-  <!-- ==================== PEFINHO MINI ==================== -->
   <div id="pef-mini" class="pulsando" title="Pefinho monitorando" onclick="fecharPefinho()">
     <svg width="28" height="38" viewBox="0 0 90 130" fill="none" xmlns="http://www.w3.org/2000/svg">
       <line x1="45" y1="6" x2="45" y2="16" stroke="#888" stroke-width="3" stroke-linecap="round"/>
@@ -110,7 +79,6 @@
     </svg>
   </div>
 
-  <!-- ==================== PEFINHO GRANDE (alerta gol) ==================== -->
   <div id="pef-grande" role="alert" aria-live="polite">
     <div id="pef-anim" class="anim-pular">
       <svg width="52" height="70" viewBox="0 0 90 130" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -149,31 +117,14 @@
     </div>
   </div>
 
-  <!-- ==================== NAV BOTTOM ==================== -->
   <nav class="nav-bottom" role="navigation" aria-label="Navegação principal">
-    <a href="/" class="nav-item ativo">
-      <span class="nav-icon">⚽</span>
-      <span class="nav-label">Jogos</span>
-    </a>
-    <a href="tabela/" class="nav-item">
-      <span class="nav-icon">📊</span>
-      <span class="nav-label">Tabela</span>
-    </a>
-    <a href="noticias/" class="nav-item">
-      <span class="nav-icon">📰</span>
-      <span class="nav-label">Notícias</span>
-    </a>
-    <a href="videos/" class="nav-item">
-      <span class="nav-icon">▶️</span>
-      <span class="nav-label">Vídeos</span>
-    </a>
-    <a href="artilharia/" class="nav-item">
-      <span class="nav-icon">👟</span>
-      <span class="nav-label">Artilharia</span>
-    </a>
+    <a href="/" class="nav-item ativo"><span class="nav-icon">⚽</span><span class="nav-label">Jogos</span></a>
+    <a href="tabela/" class="nav-item"><span class="nav-icon">📊</span><span class="nav-label">Tabela</span></a>
+    <a href="noticias/" class="nav-item"><span class="nav-icon">📰</span><span class="nav-label">Notícias</span></a>
+    <a href="videos/" class="nav-item"><span class="nav-icon">▶️</span><span class="nav-label">Vídeos</span></a>
+    <a href="artilharia/" class="nav-item"><span class="nav-icon">👟</span><span class="nav-label">Artilharia</span></a>
   </nav>
 
-  <!-- ==================== FOOTER ==================== -->
   <footer>
     <div class="footer-logo">Placar <span>do Futebol</span></div>
     <div class="footer-links">
@@ -184,60 +135,41 @@
     <p class="footer-copy">© 2026 placardofutebol.com — Resultados ao vivo</p>
   </footer>
 
-  <!-- ==================== JAVASCRIPT ==================== -->
   <script>
-  // ============================================
-  // CONFIGURAÇÃO
-  // ============================================
   const API_KEY  = '5b6f884a4ce7c11a2c67cf54de3f4a73';
   const API_URL  = 'https://v3.football.api-sports.io';
-  const CACHE_TTL_VIVO    = 30 * 1000;
-const CACHE_TTL_NORMAL  = 10 * 60 * 1000;
-const CACHE_TTL_MADRUGADA = 3 * 60 * 60 * 1000;
+  const CACHE_TTL_VIVO      = 30 * 1000;
+  const CACHE_TTL_NORMAL    = 10 * 60 * 1000;
+  const CACHE_TTL_MADRUGADA = 3 * 60 * 60 * 1000;
 
-  // IDs das ligas filtradas
+  // CORRIGIDO: Copa do Brasil = 73, Libertadores = 13, Sul-Americana = 11
   const LIGAS_PERMITIDAS = {
-    '71':  { nome: 'Brasileirão Série A', pais: 'Brasil',   emoji: '🇧🇷' },
-    '72':  { nome: 'Brasileirão Série B', pais: 'Brasil',   emoji: '🇧🇷' },
-    '2':   { nome: 'Champions League',    pais: 'Europa',   emoji: '⭐' },
-    '13':  { nome: 'Copa do Brasil',      pais: 'Brasil',   emoji: '🇧🇷' },
-    '11':  { nome: 'Libertadores',        pais: 'América',  emoji: '🌎' },
-    '12':  { nome: 'Sul-Americana',       pais: 'América',  emoji: '🌎' },
-    '140': { nome: 'La Liga',             pais: 'Espanha',  emoji: '🇪🇸' },
+    '71':  { nome: 'Brasileirão Série A', pais: 'Brasil',     emoji: '🇧🇷' },
+    '72':  { nome: 'Brasileirão Série B', pais: 'Brasil',     emoji: '🇧🇷' },
+    '2':   { nome: 'Champions League',    pais: 'Europa',     emoji: '⭐' },
+    '73':  { nome: 'Copa do Brasil',      pais: 'Brasil',     emoji: '🇧🇷' },
+    '13':  { nome: 'Libertadores',        pais: 'América',    emoji: '🌎' },
+    '11':  { nome: 'Sul-Americana',       pais: 'América',    emoji: '🌎' },
+    '140': { nome: 'La Liga',             pais: 'Espanha',    emoji: '🇪🇸' },
     '39':  { nome: 'Premier League',      pais: 'Inglaterra', emoji: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
-    '1':   { nome: 'Copa do Mundo',       pais: 'Mundial',  emoji: '🌍' },
+    '1':   { nome: 'Copa do Mundo',       pais: 'Mundial',    emoji: '🌍' },
   };
 
-  // ============================================
-  // ESTADO
-  // ============================================
-  let todosJogos      = [];
-  let ligaAtiva       = 'todos';
-  let statusAtivo     = 'todos';
-  let placaresPrev    = {};
+  let todosJogos       = [];
+  let ligaAtiva        = 'todos';
+  let statusAtivo      = 'todos';
+  let placaresPrev     = {};
   let timerAtualizacao = null;
-  let timerPefinho    = null;
+  let timerPefinho     = null;
 
-  // ============================================
-  // DATA
-  // ============================================
   function exibirData() {
     const agora = new Date();
     const opts = { weekday: 'long', day: 'numeric', month: 'long' };
-    document.getElementById('data-hoje').textContent =
-      agora.toLocaleDateString('pt-BR', opts);
+    document.getElementById('data-hoje').textContent = agora.toLocaleDateString('pt-BR', opts);
   }
 
-  // ============================================
-  // CACHE
-  // ============================================
   function salvarCache(dados) {
-    try {
-      localStorage.setItem('pf_jogos', JSON.stringify({
-        ts: Date.now(),
-        dados
-      }));
-    } catch(e) {}
+    try { localStorage.setItem('pf_jogos', JSON.stringify({ ts: Date.now(), dados })); } catch(e) {}
   }
 
   function lerCache() {
@@ -247,7 +179,8 @@ const CACHE_TTL_MADRUGADA = 3 * 60 * 60 * 1000;
       return JSON.parse(raw);
     } catch(e) { return null; }
   }
-    async function carregarJogos(forcar = false) {
+
+  async function carregarJogos(forcar = false) {
     const cache = lerCache();
     const agora = Date.now();
 
@@ -258,25 +191,24 @@ const CACHE_TTL_MADRUGADA = 3 * 60 * 60 * 1000;
       return;
     }
 
-    const hoje = new Date().toLocaleDateString('pt-BR').split('/').reverse().join('-');
+    // CORRIGIDO: toISOString() evita problema de fuso horário
+    const hoje  = new Date().toISOString().split('T')[0];
     const amanha = new Date(Date.now() + 86400000).toISOString().split('T')[0];
-    const ontem = new Date(Date.now() - 86400000).toLocaleDateString('pt-BR').split('/').reverse().join('-');
+    const ontem  = new Date(Date.now() - 86400000).toISOString().split('T')[0];
 
     mostrarLoading();
 
     try {
       const [r1, r2, r3] = await Promise.all([
-        fetch(`${API_URL}/fixtures?date=${ontem}`, { headers: { 'x-apisports-key': API_KEY }}),
-        fetch(`${API_URL}/fixtures?date=${hoje}`, { headers: { 'x-apisports-key': API_KEY }}),
-        fetch(`${API_URL}/fixtures?date=${amanha}`, { headers: { 'x-apisports-key': API_KEY }})
+        fetch(`${API_URL}/fixtures?date=${ontem}`,  { headers: { 'x-apisports-key': API_KEY } }),
+        fetch(`${API_URL}/fixtures?date=${hoje}`,   { headers: { 'x-apisports-key': API_KEY } }),
+        fetch(`${API_URL}/fixtures?date=${amanha}`, { headers: { 'x-apisports-key': API_KEY } })
       ]);
       const [j1, j2, j3] = await Promise.all([r1.json(), r2.json(), r3.json()]);
 
       const jogosMap = {};
       [...(j1.response||[]), ...(j2.response||[]), ...(j3.response||[])].forEach(j => {
-        if (LIGAS_PERMITIDAS[String(j.league.id)]) {
-          jogosMap[j.fixture.id] = j;
-        }
+        if (LIGAS_PERMITIDAS[String(j.league.id)]) jogosMap[j.fixture.id] = j;
       });
 
       todosJogos = Object.values(jogosMap);
@@ -289,135 +221,74 @@ const CACHE_TTL_MADRUGADA = 3 * 60 * 60 * 1000;
       mostrarErro();
       console.error('Erro:', err);
     }
-    }
+  }
 
-  // ============================================
-  // CACHE TTL INTELIGENTE
-  // ============================================
   function cacheTTL() {
     const hora = new Date().getHours();
     if (hora >= 1 && hora < 7) return CACHE_TTL_MADRUGADA;
-    const temVivo = todosJogos.some(j =>
-      ['1H','2H','HT','ET','P'].includes(j.fixture.status.short)
-    );
+    const temVivo = todosJogos.some(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
     if (temVivo) return CACHE_TTL_VIVO;
-    const temAgendadoHoje = todosJogos.some(j =>
-      ['NS','TBD'].includes(j.fixture.status.short)
-    );
-    if (temAgendadoHoje) return 5 * 60 * 1000; // 5 min
-    return CACHE_TTL_NORMAL; // 1h
+    const temAgendado = todosJogos.some(j => ['NS','TBD'].includes(j.fixture.status.short));
+    if (temAgendado) return 5 * 60 * 1000;
+    return CACHE_TTL_NORMAL;
   }
 
-  // ============================================
-  // LIGAS COM JOGO AO VIVO
-  // ============================================
   function ligasAoVivo() {
     const ao_vivo = new Set();
     todosJogos.forEach(j => {
-      if (['1H','2H','HT','ET','P'].includes(j.fixture.status.short)) {
-        ao_vivo.add(String(j.league.id));
-      }
+      if (['1H','2H','HT','ET','P'].includes(j.fixture.status.short)) ao_vivo.add(String(j.league.id));
     });
     return [...ao_vivo];
   }
 
-  // ============================================
-  // ATUALIZAÇÃO INTELIGENTE
-  // ============================================
   async function atualizarAoVivo() {
     const ligas = ligasAoVivo();
     if (ligas.length === 0) return;
-
-    const hoje = new Date().toLocaleDateString('pt-BR').split('/').reverse().join('-');
-
+    const hoje = new Date().toISOString().split('T')[0];
     try {
-      const requisicoes = ligas.map(liga =>
-        fetch(`${API_URL}/fixtures?date=${hoje}&league=${liga}&season=2026`, {
-          headers: { 'x-apisports-key': API_KEY }
-        }).then(r => r.json()).catch(() => ({ response: [] }))
+      const resultados = await Promise.all(
+        ligas.map(liga =>
+          fetch(`${API_URL}/fixtures?date=${hoje}&league=${liga}&season=2026`, {
+            headers: { 'x-apisports-key': API_KEY }
+          }).then(r => r.json()).catch(() => ({ response: [] }))
+        )
       );
-
-      const resultados = await Promise.all(requisicoes);
-
-      // atualiza só os jogos das ligas ao vivo
       const jogosAtualizados = {};
       resultados.forEach(json => {
-        (json.response || []).forEach(j => {
-          jogosAtualizados[j.fixture.id] = j;
-        });
+        (json.response || []).forEach(j => { jogosAtualizados[j.fixture.id] = j; });
       });
-
-      // mescla com os jogos existentes
-      todosJogos = todosJogos.map(j =>
-        jogosAtualizados[j.fixture.id] || j
-      );
-
-      // adiciona novos jogos se houver
+      todosJogos = todosJogos.map(j => jogosAtualizados[j.fixture.id] || j);
       Object.values(jogosAtualizados).forEach(j => {
-        if (!todosJogos.find(t => t.fixture.id === j.fixture.id)) {
-          todosJogos.push(j);
-        }
+        if (!todosJogos.find(t => t.fixture.id === j.fixture.id)) todosJogos.push(j);
       });
-
       salvarCache(todosJogos);
       detectarGols(Object.values(jogosAtualizados));
       renderizar();
-
-    } catch(err) {
-      console.error('Erro ao atualizar ao vivo:', err);
-    }
+    } catch(err) { console.error('Erro ao atualizar ao vivo:', err); }
   }
 
-  // ============================================
-  // AGENDAR PRÓXIMA ATUALIZAÇÃO
-  // ============================================
   function agendarProxima() {
     clearTimeout(timerAtualizacao);
-
     const hora = new Date().getHours();
     const temVivo = ligasAoVivo().length > 0;
-
     if (temVivo) {
-      // atualiza só as ligas ao vivo a cada 30s
-      timerAtualizacao = setTimeout(async () => {
-        await atualizarAoVivo();
-        agendarProxima();
-      }, CACHE_TTL_VIVO);
-
+      timerAtualizacao = setTimeout(async () => { await atualizarAoVivo(); agendarProxima(); }, CACHE_TTL_VIVO);
     } else if (hora >= 1 && hora < 7) {
-      // madrugada — atualiza tudo a cada 3h
-      timerAtualizacao = setTimeout(() => {
-        carregarJogos(true);
-      }, CACHE_TTL_MADRUGADA);
-
+      timerAtualizacao = setTimeout(() => carregarJogos(true), CACHE_TTL_MADRUGADA);
     } else if (todosJogos.some(j => ['NS','TBD'].includes(j.fixture.status.short))) {
-      // tem jogo agendado — atualiza tudo a cada 5min
-      timerAtualizacao = setTimeout(() => {
-        carregarJogos(true);
-      }, 5 * 60 * 1000);
-
+      timerAtualizacao = setTimeout(() => carregarJogos(true), 5 * 60 * 1000);
     } else {
-      // só encerrados — atualiza a cada 1h
-      timerAtualizacao = setTimeout(() => {
-        carregarJogos(true);
-      }, CACHE_TTL_NORMAL);
+      timerAtualizacao = setTimeout(() => carregarJogos(true), CACHE_TTL_NORMAL);
     }
   }
 
-  // ============================================
-  // DETECÇÃO DE GOLS (Pefinho)
-  // ============================================
   function detectarGols(jogos) {
     jogos.forEach(j => {
       const id = j.fixture.id;
       const placarAtual = `${j.goals.home}-${j.goals.away}`;
       const prev = placaresPrev[id];
-
-      if (prev && prev !== placarAtual &&
-          j.goals.home !== null && j.goals.away !== null) {
-        const timeGol = j.goals.home > parseInt(prev.split('-')[0])
-          ? j.teams.home.name
-          : j.teams.away.name;
+      if (prev && prev !== placarAtual && j.goals.home !== null && j.goals.away !== null) {
+        const timeGol = j.goals.home > parseInt(prev.split('-')[0]) ? j.teams.home.name : j.teams.away.name;
         alertarGol(
           `${j.teams.home.name} ${j.goals.home} × ${j.goals.away} ${j.teams.away.name}`,
           `⚽ Gol de ${timeGol}!`
@@ -427,29 +298,21 @@ const CACHE_TTL_MADRUGADA = 3 * 60 * 60 * 1000;
     });
   }
 
-  // ============================================
-  // PEFINHO — ALERTA GOL
-  // ============================================
   function alertarGol(times, detalhe) {
     clearTimeout(timerPefinho);
-
     document.getElementById('pef-times').textContent   = times;
     document.getElementById('pef-detalhe').textContent = detalhe;
-
     const mini   = document.getElementById('pef-mini');
     const grande = document.getElementById('pef-grande');
     const barra  = document.getElementById('pef-barra');
-
     mini.classList.add('oculto');
     grande.classList.add('visivel');
-
     barra.style.transition = 'none';
     barra.style.width = '100%';
     requestAnimationFrame(() => {
       barra.style.transition = 'width 5s linear';
       barra.style.width = '0%';
     });
-
     timerPefinho = setTimeout(fecharPefinho, 5200);
   }
 
@@ -460,9 +323,6 @@ const CACHE_TTL_MADRUGADA = 3 * 60 * 60 * 1000;
     setTimeout(() => mini.classList.remove('oculto'), 300);
   }
 
-  // ============================================
-  // FILTROS
-  // ============================================
   function selecionarLiga(el, liga) {
     document.querySelectorAll('.liga-tab').forEach(t => t.classList.remove('ativa'));
     el.classList.add('ativa');
@@ -477,98 +337,66 @@ const CACHE_TTL_MADRUGADA = 3 * 60 * 60 * 1000;
     renderizar();
   }
 
-  // ============================================
-  // RENDERIZAR
-  // ============================================
   function renderizar() {
     const container = document.getElementById('jogos-container');
-
     let jogos = [...todosJogos];
-
-    // filtro liga
-    if (ligaAtiva !== 'todos') {
-      jogos = jogos.filter(j => String(j.league.id) === ligaAtiva);
-    }
-
-    // filtro status
+    if (ligaAtiva !== 'todos') jogos = jogos.filter(j => String(j.league.id) === ligaAtiva);
     if (statusAtivo === 'ao-vivo') {
-      jogos = jogos.filter(j =>
-        ['1H','2H','HT','ET','P'].includes(j.fixture.status.short)
-      );
+      jogos = jogos.filter(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
     } else if (statusAtivo === 'agendado') {
-      jogos = jogos.filter(j =>
-        ['NS','TBD'].includes(j.fixture.status.short)
-      );
+      jogos = jogos.filter(j => ['NS','TBD'].includes(j.fixture.status.short));
     } else if (statusAtivo === 'encerrado') {
-  jogos = jogos.filter(j =>
-    ['FT','AET','PEN','AWD','WO'].includes(j.fixture.status.short)
-  );
-}
-
+      jogos = jogos.filter(j => ['FT','AET','PEN','AWD','WO'].includes(j.fixture.status.short));
+    }
     if (jogos.length === 0) {
-      container.innerHTML = `
-        <div class="estado-vazio">
-          <p>Nenhum jogo encontrado para este filtro.</p>
-        </div>`;
+      container.innerHTML = `<div class="estado-vazio"><p>Nenhum jogo encontrado para este filtro.</p></div>`;
       return;
     }
-
-    // agrupa por liga
     const grupos = {};
     jogos.forEach(j => {
       const lid = String(j.league.id);
       if (!grupos[lid]) grupos[lid] = [];
       grupos[lid].push(j);
     });
-
     let html = '';
     Object.entries(grupos).forEach(([lid, lista]) => {
       const liga = LIGAS_PERMITIDAS[lid] || { nome: lista[0].league.name, emoji: '🏆', pais: '' };
       html += `
         <div class="grupo-liga anim-entrar">
           <div class="grupo-liga-header">
-            <img src="${lista[0].league.logo}" alt="${liga.nome}"
-                 onerror="this.style.display='none'">
+            <img src="${lista[0].league.logo}" alt="${liga.nome}" onerror="this.style.display='none'">
             <span class="grupo-liga-nome">${liga.emoji} ${liga.nome}</span>
             <span class="grupo-liga-pais">${liga.pais}</span>
           </div>
           ${lista.map(j => cardJogo(j)).join('')}
         </div>`;
     });
-
     container.innerHTML = html;
   }
 
-  // ============================================
-  // CARD DE JOGO
-  // ============================================
   function abreviarTime(nome) {
-  const abreviacoes = {
-    'Manchester City': 'Man. City',
-    'Manchester United': 'Man. United',
-    'Atletico Madrid': 'Atlético',
-    'Borussia Dortmund': 'Dortmund',
-    'Bayer Leverkusen': 'Leverkusen',
-    'Sporting CP': 'Sporting',
-    'Newcastle United': 'Newcastle',
-    'Nottingham Forest': 'Nottingham',
-    'West Ham United': 'West Ham',
-    'Tottenham Hotspur': 'Tottenham',
-    'Athletic Club': 'Athletic',
-    'Atletico Mineiro': 'Atlético-MG',
-    'Fluminense': 'Fluminense',
-  };
-  return abreviacoes[nome] || nome;
-}
-    
-    function cardJogo(j) {
-    const status = j.fixture.status.short;
+    const abreviacoes = {
+      'Manchester City':   'Man. City',
+      'Manchester United': 'Man. United',
+      'Atletico Madrid':   'Atlético',
+      'Borussia Dortmund': 'Dortmund',
+      'Bayer Leverkusen':  'Leverkusen',
+      'Sporting CP':       'Sporting',
+      'Newcastle United':  'Newcastle',
+      'Nottingham Forest': 'Nottingham',
+      'West Ham United':   'West Ham',
+      'Tottenham Hotspur': 'Tottenham',
+      'Athletic Club':     'Athletic',
+      'Atletico Mineiro':  'Atlético-MG',
+    };
+    return abreviacoes[nome] || nome;
+  }
+
+  function cardJogo(j) {
+    const status  = j.fixture.status.short;
     const golHome = j.goals.home ?? '—';
     const golAway = j.goals.away ?? '—';
-
-    let statusClass = '';
-    let statusTexto = '';
-
+    let statusClass = '', statusTexto = '';
     if (['1H','2H','HT','ET','P'].includes(status)) {
       statusClass = 'ao-vivo';
       statusTexto = status === 'HT' ? 'Intervalo' : `${j.fixture.status.elapsed}'`;
@@ -577,72 +405,46 @@ const CACHE_TTL_MADRUGADA = 3 * 60 * 60 * 1000;
       statusTexto = 'Encerrado';
     } else {
       statusClass = 'agendado';
-      const hora = new Date(j.fixture.date).toLocaleTimeString('pt-BR', {
-        hour: '2-digit', minute: '2-digit'
-      });
-      statusTexto = hora;
+      statusTexto = new Date(j.fixture.date).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
     }
-
     const placar = statusClass === 'agendado'
       ? `<span class="placar-numeros">×</span>`
       : `<span class="placar-numeros">${golHome} × ${golAway}</span>`;
-
     return `
       <div class="jogo-card" onclick="abrirJogo(${j.fixture.id})">
         <div class="jogo-linha">
           <div class="time-esquerda">
-            <img class="escudo"
-                 src="${j.teams.home.logo}"
-                 alt="${j.teams.home.name}"
+            <img class="escudo" src="${j.teams.home.logo}" alt="${j.teams.home.name}"
                  onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><text y=\'18\' font-size=\'18\'>⚽</text></svg>'">
             <span class="time-nome">${abreviarTime(j.teams.home.name)}</span>
           </div>
-
           <div class="placar-centro">
             ${placar}
             <span class="placar-status ${statusClass}">${statusTexto}</span>
           </div>
-
           <div class="time-direita">
             <span class="time-nome direita">${abreviarTime(j.teams.away.name)}</span>
-            <img class="escudo"
-                 src="${j.teams.away.logo}"
-                 alt="${j.teams.away.name}"
+            <img class="escudo" src="${j.teams.away.logo}" alt="${j.teams.away.name}"
                  onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><text y=\'18\' font-size=\'18\'>⚽</text></svg>'">
           </div>
         </div>
       </div>`;
   }
-    
-  // ============================================
-  // ESTADOS UI
-  // ============================================
+
   function mostrarLoading() {
     document.getElementById('jogos-container').innerHTML = `
-      <div class="estado-loading">
-        <div class="spinner"></div>
-        <p>Carregando jogos...</p>
-      </div>`;
+      <div class="estado-loading"><div class="spinner"></div><p>Carregando jogos...</p></div>`;
   }
 
   function mostrarErro() {
     document.getElementById('jogos-container').innerHTML = `
-      <div class="estado-erro">
-        <p>⚠️ Erro ao carregar os jogos. Tente novamente em instantes.</p>
-      </div>`;
+      <div class="estado-erro"><p>⚠️ Erro ao carregar os jogos. Tente novamente em instantes.</p></div>`;
   }
 
-  // ============================================
-  // ABRIR JOGO (futuro)
-  // ============================================
   function abrirJogo(id) {
-    // futuramente: window.location.href = `jogos/${id}/`;
     console.log('Jogo:', id);
   }
 
-  // ============================================
-  // INIT
-  // ============================================
   exibirData();
   carregarJogos();
   </script>
