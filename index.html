@@ -351,11 +351,21 @@
       container.innerHTML = `<div class="estado-vazio"><p>Nenhum jogo encontrado para este filtro.</p></div>`;
       return;
     }
-    const grupos = {};
+   const grupos = {};
     jogos.forEach(j => {
       const lid = String(j.league.id);
       if (!grupos[lid]) grupos[lid] = [];
       grupos[lid].push(j);
+    });
+
+    // Ordena dentro de cada grupo: ao vivo > agendado > encerrado
+    const ordem = s => {
+      if (['1H','2H','HT','ET','P'].includes(s)) return 0;
+      if (['NS','TBD'].includes(s)) return 1;
+      return 2;
+    };
+    Object.values(grupos).forEach(lista => {
+      lista.sort((a, b) => ordem(a.fixture.status.short) - ordem(b.fixture.status.short));
     });
     let html = '';
     Object.entries(grupos).forEach(([lid, lista]) => {
