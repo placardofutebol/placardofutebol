@@ -136,8 +136,8 @@
   </footer>
 
   <script>
-  const API_KEY  = '5b6f884a4ce7c11a2c67cf54de3f4a73';
-  const API_URL  = 'https://v3.football.api-sports.io';
+  
+  const API_URL  = 'https://futebol-proxy.placardofutebol-com.workers.dev';
   const CACHE_TTL_VIVO      = 30 * 1000;
   const CACHE_TTL_NORMAL    = 10 * 60 * 1000;
   const CACHE_TTL_MADRUGADA = 3 * 60 * 60 * 1000;
@@ -246,11 +246,10 @@
     if (ligas.length === 0) return;
     const hoje = new Date().toISOString().split('T')[0];
     try {
-      const resultados = await Promise.all(
+    const resultados = await Promise.all(
         ligas.map(liga =>
-          fetch(`${API_URL}/fixtures?date=${hoje}&league=${liga}`, {
-            headers: { 'x-apisports-key': API_KEY }
-          }).then(r => r.json()).catch(() => ({ response: [] }))
+          fetch(`${API_URL}/fixtures?date=${hoje}&league=${liga}`
+          ).then(r => r.json()).catch(() => ({ response: [] }))
         )
       );
       const jogosAtualizados = {};
