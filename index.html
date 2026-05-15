@@ -199,15 +199,14 @@
     mostrarLoading();
 
    try {
-      const [r1, r2, r3] = await Promise.all([
-       fetch(`${API_URL}/fixtures?date=${ontem}&season=2026`),
-fetch(`${API_URL}/fixtures?date=${hoje}&season=2026`),
-fetch(`${API_URL}/fixtures?date=${amanha}&season=2026`)
-      ]);
-      const [j1, j2, j3] = await Promise.all([r1.json(), r2.json(), r3.json()]);
+      const [r1, r2] = await Promise.all([
+  fetch(`${API_URL}/fixtures?date=${ontem}&season=2026`),
+  fetch(`${API_URL}/fixtures?date=${hoje}&season=2026`)
+]);
+const [j1, j2] = await Promise.all([r1.json(), r2.json()]);
 
-      const jogosMap = {};
-      [...(j1.response||[]), ...(j2.response||[]), ...(j3.response||[])].forEach(j => {
+const jogosMap = {};
+[...(j1.response||[]), ...(j2.response||[])].forEach(j => {
         if (LIGAS_PERMITIDAS[String(j.league.id)]) jogosMap[j.fixture.id] = j;
       });
 
