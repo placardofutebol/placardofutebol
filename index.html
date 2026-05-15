@@ -344,8 +344,10 @@ const jogosMap = {};
     } else if (statusAtivo === 'agendado') {
       jogos = jogos.filter(j => ['NS','TBD'].includes(j.fixture.status.short));
     } else if (statusAtivo === 'encerrado') {
-      jogos = jogos.filter(j => ['FT','AET','PEN','AWD','WO'].includes(j.fixture.status.short));
-    }
+  jogos = jogos.filter(j =>
+    ['FT','AET','PEN','AWD','WO','BT'].includes(j.fixture.status.short)
+  );
+}
     if (jogos.length === 0) {
       container.innerHTML = `<div class="estado-vazio"><p>Nenhum jogo encontrado para este filtro.</p></div>`;
       return;
@@ -408,7 +410,7 @@ const jogosMap = {};
     if (['1H','2H','HT','ET','P'].includes(status)) {
       statusClass = 'ao-vivo';
       statusTexto = status === 'HT' ? 'Intervalo' : `${j.fixture.status.elapsed}'`;
-    } else if (['FT','AET','PEN'].includes(status)) {
+   } else if (['FT','AET','PEN','BT'].includes(status)) {
       statusClass = 'encerrado';
       statusTexto = 'Encerrado';
     } else {
