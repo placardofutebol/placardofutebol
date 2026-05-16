@@ -180,9 +180,12 @@
     } catch(e) { return null; }
   }
 
-  async function carregarJogos(forcar = false) {
+ async function carregarJogos(forcar = false) {
     const cache = lerCache();
     const agora = Date.now();
+    const hoje = new Date().toISOString().split('T')[0];
+    const cacheTemHoje = cache?.dados?.some(j => j.fixture.date.startsWith(hoje));
+    if (cache && !cacheTemHoje) forcar = true;
     const cacheValido = cache && (agora - cache.ts) < cacheTTL();
 
     // STALE WHILE REVALIDATE
