@@ -588,7 +588,7 @@ footer {
   .header-inner { padding: 14px 24px; }
   .logo-principal { font-size: 26px; }
   .container { padding: 20px 24px; }
- .jogo-linha { grid-template-columns: 32px minmax(0, 1fr) 85px minmax(0, 1fr) 32px; }
+ .jogo-linha { grid-template-columns: 60px 1fr 120px 1fr 60px; }
   .time-nome { 
     font-size: 13px;
     max-width: 100%;
