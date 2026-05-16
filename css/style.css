@@ -277,7 +277,7 @@ header {
 
 /* escudo */
 .escudo {
-  width: 28px; height: 28px;
+  width: 22px; height: 22px;
   object-fit: contain;
   display: block;
 }
@@ -583,6 +583,18 @@ footer {
   .time-nome { 
     font-size: 13px;
     max-width: 100%;
+      } 
+ @media (min-width: 640px) {
+  .header-inner { padding: 14px 24px; }
+  .logo-principal { font-size: 26px; }
+  .container { padding: 20px 24px; }
+  .jogo-linha { grid-template-columns: 36px 1fr 90px 1fr 36px; }
+  .time-nome { 
+    font-size: 13px;
+    max-width: 100%;
+  }
+  .escudo {
+    width: 28px; height: 28px;
   }
   .placar-numeros { font-size: 26px; }
   .placar-centro {
