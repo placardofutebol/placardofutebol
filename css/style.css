@@ -350,7 +350,7 @@ header {
 }
 .time-direita {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: center;
   gap: 4px;
   overflow: hidden;
