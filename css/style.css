@@ -590,9 +590,12 @@ footer {
   .container { padding: 20px 24px; }
  .jogo-linha { grid-template-columns: 60px 1fr 120px 1fr 60px; }
   .time-nome { 
-    font-size: 13px;
-    max-width: 100%;
-  }
+  font-size: 13px;
+  max-width: none;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+}
   .escudo {
     width: 28px; height: 28px;
   }
