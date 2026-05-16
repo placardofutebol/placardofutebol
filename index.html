@@ -213,7 +213,9 @@
       });
 
       todosJogos = Object.values(jogosMap);
-      salvarCache(todosJogos);
+if (todosJogos.length > 0) {
+  salvarCache(todosJogos);
+}
       detectarGols(todosJogos);
       renderizar();
       agendarProxima();
