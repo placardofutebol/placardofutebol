@@ -261,9 +261,11 @@
       Object.values(jogosAtualizados).forEach(j => {
         if (!todosJogos.find(t => t.fixture.id === j.fixture.id)) todosJogos.push(j);
       });
-      salvarCache(todosJogos);
-      detectarGols(Object.values(jogosAtualizados));
-      renderizar();
+     if (todosJogos.length > 0) {
+  salvarCache(todosJogos);
+}
+detectarGols(Object.values(jogosAtualizados));
+renderizar();
     } catch(err) { console.error('Erro ao atualizar ao vivo:', err); }
   }
 
