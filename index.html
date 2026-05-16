@@ -287,20 +287,26 @@ renderizar();
   }
 
   function detectarGols(jogos) {
-    jogos.forEach(j => {
-      const id = j.fixture.id;
-      const placarAtual = `${j.goals.home}-${j.goals.away}`;
-      const prev = placaresPrev[id];
-      if (prev && prev !== placarAtual && j.goals.home !== null && j.goals.away !== null) {
-        const timeGol = j.goals.home > parseInt(prev.split('-')[0]) ? j.teams.home.name : j.teams.away.name;
-        alertarGol(
-          `${j.teams.home.name} ${j.goals.home} × ${j.goals.away} ${j.teams.away.name}`,
-          `⚽ Gol de ${timeGol}!`
-        );
-      }
-      placaresPrev[id] = placarAtual;
-    });
-  }
+  jogos.forEach(j => {
+    const id = j.fixture.id;
+    if (j.goals.home === null || j.goals.away === null) {
+      placaresPrev[id] = placaresPrev[id] || 'pendente';
+      return;
+    }
+    const placarAtual = `${j.goals.home}-${j.goals.away}`;
+    const prev = placaresPrev[id];
+    if (prev && prev !== 'pendente' && prev !== placarAtual) {
+      const timeGol = j.goals.home > parseInt(prev.split('-')[0])
+        ? j.teams.home.name
+        : j.teams.away.name;
+      alertarGol(
+        `${j.teams.home.name} ${j.goals.home} × ${j.goals.away} ${j.teams.away.name}`,
+        `⚽ Gol de ${timeGol}!`
+      );
+    }
+    placaresPrev[id] = placarAtual;
+  });
+}
 
   function alertarGol(times, detalhe) {
     clearTimeout(timerPefinho);
