@@ -579,7 +579,7 @@ footer {
   .header-inner { padding: 14px 24px; }
   .logo-principal { font-size: 26px; }
   .container { padding: 20px 24px; }
-  .jogo-linha { grid-template-columns: 60px 1fr 120px 1fr 60px; }
+  .jogo-linha { grid-template-columns: 48px 1fr 100px 1fr 48px; }
   .time-nome { 
     font-size: 13px;
     max-width: 100%;
