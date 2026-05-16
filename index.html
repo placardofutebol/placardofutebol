@@ -387,30 +387,54 @@
   }
 
 function abreviarTime(nome) {
-  // abreviações manuais para os mais conhecidos
-  const abreviacoes = {
-    'Manchester City':     'Man. City',
-    'Manchester United':   'Man. United',
-    'Atletico Paranaense': 'Athletico-PR',
-    'Atletico Goianiense': 'Atlético-GO',
-    'Atletico Mineiro':    'Atlético-MG',
-    'Vasco da Gama':       'Vasco',
-    'Sao Bernardo':        'S. Bernardo',
-    'Esporte Clube Bahia': 'Bahia',
-    'Tottenham Hotspur':   'Tottenham',
-    'Nottingham Forest':   'Nottingham',
-    'Borussia Dortmund':   'Dortmund',
-    'West Ham United':     'West Ham',
-    'Newcastle United':    'Newcastle',
-    'Bayer Leverkusen':    'Leverkusen',
+  const siglas = {
+    'Atletico Mineiro':    'CAM',
+    'Atletico Paranaense': 'CAP',
+    'Atletico Goianiense': 'ACG',
+    'Vasco da Gama':       'VAS',
+    'Sao Paulo':           'SAO',
+    'Fluminense':          'FLU',
+    'Flamengo':            'FLA',
+    'Palmeiras':           'PAL',
+    'Cruzeiro':            'CRU',
+    'Internacional':       'INT',
+    'Corinthians':         'COR',
+    'Botafogo':            'BOT',
+    'Santos':              'SAN',
+    'Gremio':              'GRE',
+    'Bahia':               'BAH',
+    'Fortaleza':           'FOR',
+    'Ceara':               'CEA',
+    'Coritiba':            'COR',
+    'Goias':               'GOI',
+    'Cuiaba':              'CUI',
+    'Mirassol':            'MIR',
+    'Novorizontino':       'NOV',
+    'Operario PR':         'OPE',
+    'Sao Bernardo':        'SBF',
+    'America Mineiro':     'AME',
+    'Nautico':             'NAU',
+    'Botafogo SP':         'BOT',
+    'Manchester City':     'MCI',
+    'Manchester United':   'MUN',
+    'Tottenham Hotspur':   'TOT',
+    'Nottingham Forest':   'NFO',
+    'Newcastle United':    'NEW',
+    'West Ham United':     'WHU',
+    'Bayer Leverkusen':    'LEV',
+    'Borussia Dortmund':   'DOR',
+    'Atletico Madrid':     'ATM',
+    'Athletic Club':       'ATH',
+    'Real Madrid':         'RMA',
+    'Barcelona':           'BAR',
+    'Sporting CP':         'SPO',
   };
 
-  if (abreviacoes[nome]) return abreviacoes[nome];
+  // se tem sigla manual usa ela
+  if (siglas[nome]) return siglas[nome];
   
-  // corta automaticamente nomes maiores que 11 caracteres
-  if (nome.length > 11) return nome.substring(0, 10) + '.';
-  
-  return nome;
+  // senão pega as 3 primeiras letras em maiúsculo
+  return nome.substring(0, 3).toUpperCase();
 }
 
   function cardJogo(j) {
