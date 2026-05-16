@@ -386,23 +386,32 @@
     container.innerHTML = html;
   }
 
-  function abreviarTime(nome) {
-    const abreviacoes = {
-      'Manchester City':   'Man. City',
-      'Manchester United': 'Man. United',
-      'Atletico Madrid':   'Atlético',
-      'Borussia Dortmund': 'Dortmund',
-      'Bayer Leverkusen':  'Leverkusen',
-      'Sporting CP':       'Sporting',
-      'Newcastle United':  'Newcastle',
-      'Nottingham Forest': 'Nottingham',
-      'West Ham United':   'West Ham',
-      'Tottenham Hotspur': 'Tottenham',
-      'Athletic Club':     'Athletic',
-      'Atletico Mineiro':  'Atlético-MG',
-    };
-    return abreviacoes[nome] || nome;
-  }
+function abreviarTime(nome) {
+  // abreviações manuais para os mais conhecidos
+  const abreviacoes = {
+    'Manchester City':     'Man. City',
+    'Manchester United':   'Man. United',
+    'Atletico Paranaense': 'Athletico-PR',
+    'Atletico Goianiense': 'Atlético-GO',
+    'Atletico Mineiro':    'Atlético-MG',
+    'Vasco da Gama':       'Vasco',
+    'Sao Bernardo':        'S. Bernardo',
+    'Esporte Clube Bahia': 'Bahia',
+    'Tottenham Hotspur':   'Tottenham',
+    'Nottingham Forest':   'Nottingham',
+    'Borussia Dortmund':   'Dortmund',
+    'West Ham United':     'West Ham',
+    'Newcastle United':    'Newcastle',
+    'Bayer Leverkusen':    'Leverkusen',
+  };
+
+  if (abreviacoes[nome]) return abreviacoes[nome];
+  
+  // corta automaticamente nomes maiores que 11 caracteres
+  if (nome.length > 11) return nome.substring(0, 10) + '.';
+  
+  return nome;
+}
 
   function cardJogo(j) {
     const status  = j.fixture.status.short;
