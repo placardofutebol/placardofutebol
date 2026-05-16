@@ -212,9 +212,13 @@
         if (LIGAS_PERMITIDAS[String(j.league.id)]) jogosMap[j.fixture.id] = j;
       });
 
-      todosJogos = Object.values(jogosMap);
-if (todosJogos.length > 0) {
+      const novosJogos = Object.values(jogosMap);
+const cacheAtual = lerCache();
+if (novosJogos.length >= (cacheAtual?.dados?.length || 0) || !cacheAtual) {
+  todosJogos = novosJogos;
   salvarCache(todosJogos);
+} else {
+  todosJogos = cacheAtual.dados;
 }
       detectarGols(todosJogos);
       renderizar();
