@@ -477,8 +477,9 @@ function abreviarTime(nome) {
     } else {
       statusClass = 'agendado';
       const dataJogo = new Date(j.fixture.date);
-      statusTexto = dataJogo.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' }) + ' ' + dataJogo.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-    }
+      const dataStr = dataJogo.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+const horaStr = dataJogo.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+statusTexto = `${dataStr}<br>${horaStr}`;
     const placar = statusClass === 'agendado'
       ? `<span class="placar-numeros">×</span>`
       : `<span class="placar-numeros">${golHome} × ${golAway}</span>`;
