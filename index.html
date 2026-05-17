@@ -406,59 +406,55 @@ renderizar();
     return new Date(a.fixture.date) - new Date(b.fixture.date);
   });
 });
-   const hoje = new Date().toISOString().split('T')[0];
-const amanha = new Date(Date.now() + 86400000).toISOString().split('T')[0];
-const ontem = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+  const hoje = new Date().toISOString().split('T')[0];
+    const amanha = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+    const ontem = new Date(Date.now() - 86400000).toISOString().split('T')[0];
 
-// separa jogos por data
-const gruposHoje = {};
-const gruposAmanha = {};
-const gruposOntem = {};
+    const gruposHoje = {};
+    const gruposAmanha = {};
+    const gruposOntem = {};
 
-Object.entries(grupos).forEach(([lid, lista]) => {
-  const deHoje = lista.filter(j => j.fixture.date.startsWith(hoje));
-  const deAmanha = lista.filter(j => j.fixture.date.startsWith(amanha));
-  const deOntem = lista.filter(j => j.fixture.date.startsWith(ontem));
-  if (deHoje.length) gruposHoje[lid] = deHoje;
-  if (deAmanha.length) gruposAmanha[lid] = deAmanha;
-  if (deOntem.length) gruposOntem[lid] = deOntem;
-});
+    Object.entries(grupos).forEach(([lid, lista]) => {
+      const deHoje = lista.filter(j => j.fixture.date.startsWith(hoje));
+      const deAmanha = lista.filter(j => j.fixture.date.startsWith(amanha));
+      const deOntem = lista.filter(j => j.fixture.date.startsWith(ontem));
+      if (deHoje.length) gruposHoje[lid] = deHoje;
+      if (deAmanha.length) gruposAmanha[lid] = deAmanha;
+      if (deOntem.length) gruposOntem[lid] = deOntem;
+    });
 
-function renderGrupos(grupos) {
-  let html = '';
-  Object.entries(grupos).forEach(([lid, lista]) => {
-    const liga = LIGAS_PERMITIDAS[lid] || { nome: lista[0].league.name, emoji: '🏆', pais: '' };
-    html += `
-      <div class="grupo-liga anim-entrar">
-        <div class="grupo-liga-header">
-          <img src="${lista[0].league.logo}" alt="${liga.nome}" onerror="this.style.display='none'">
-          <span class="grupo-liga-nome">${liga.emoji} ${liga.nome}</span>
-          <span class="grupo-liga-pais">${liga.pais}</span>
-        </div>
-        ${lista.map(j => cardJogo(j)).join('')}
-      </div>`;
-  });
-  return html;
-}
+    let html = '';
+    if (Object.keys(gruposHoje).length) {
+      html += `<div class="data-header">📅 Hoje</div>`;
+      html += renderGrupos(gruposHoje);
+    }
+    if (Object.keys(gruposAmanha).length) {
+      html += `<div class="data-header">📅 Amanhã</div>`;
+      html += renderGrupos(gruposAmanha);
+    }
+    if (Object.keys(gruposOntem).length) {
+      html += `<div class="data-header">📅 Ontem</div>`;
+      html += renderGrupos(gruposOntem);
+    }
+    container.innerHTML = html;
+  }
 
-let html = '';
-
-if (Object.keys(gruposHoje).length) {
-  html += `<div class="data-header">📅 Hoje</div>`;
-  html += renderGrupos(gruposHoje);
-}
-
-if (Object.keys(gruposAmanha).length) {
-  html += `<div class="data-header">📅 Amanhã</div>`;
-  html += renderGrupos(gruposAmanha);
-}
-
-if (Object.keys(gruposOntem).length) {
-  html += `<div class="data-header">📅 Ontem</div>`;
-  html += renderGrupos(gruposOntem);
-}
-
-container.innerHTML = html;
+  function renderGrupos(grupos) {
+    let html = '';
+    Object.entries(grupos).forEach(([lid, lista]) => {
+      const liga = LIGAS_PERMITIDAS[lid] || { nome: lista[0].league.name, emoji: '🏆', pais: '' };
+      html += `
+        <div class="grupo-liga anim-entrar">
+          <div class="grupo-liga-header">
+            <img src="${lista[0].league.logo}" alt="${liga.nome}" onerror="this.style.display='none'">
+            <span class="grupo-liga-nome">${liga.emoji} ${liga.nome}</span>
+            <span class="grupo-liga-pais">${liga.pais}</span>
+          </div>
+          ${lista.map(j => cardJogo(j)).join('')}
+        </div>`;
+    });
+    return html;
+  }
 
 function abreviarTime(nome) {
   const siglas = {
