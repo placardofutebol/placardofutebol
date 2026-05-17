@@ -559,34 +559,7 @@ function abreviarTime(nome) {
       }
     }
 
-if (status === 'HT') {
-  statusTexto = 'Intervalo';
-} else if (tempoReal >= 90 && status === '2H') {
-  statusTexto = `90+${tempoReal - 90}'`;
-} else if (tempoReal >= 45 && status === '1H') {
-  statusTexto = `45+${tempoReal - 45}'`;
-} else {
-  statusTexto = `${tempoReal}'`;
-}
-    
-    else if (['FT','AET','PEN','BT'].includes(status)) {
-      statusClass = 'encerrado';
-      statusTexto = 'Encerrado';
-  } else {
-      statusClass = 'agendado';
-      const dataJogo = new Date(j.fixture.date);
-      const agora = new Date();
-      const diffMs = dataJogo - agora;
-      const diffMin = Math.floor(diffMs / 60000);
-      if (diffMin <= 30 && diffMin > 0) {
-        statusClass = 'em-breve';
-        statusTexto = `⏱️ ${diffMin} min`;
-      } else {
-        const dataStr = dataJogo.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
-        const horaStr = dataJogo.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-        statusTexto = `${dataStr}<br>${horaStr}`;
-      }
-    }
+
     const placar = statusClass === 'agendado'
       ? `<span class="placar-numeros">×</span>`
       : `<span class="placar-numeros">${golHome} × ${golAway}</span>`;
