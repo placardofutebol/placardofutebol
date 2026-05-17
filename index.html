@@ -512,10 +512,64 @@ function abreviarTime(nome) {
     const golHome = j.goals.home ?? '—';
     const golAway = j.goals.away ?? '—';
     let statusClass = '', statusTexto = '';
+
     if (['1H','2H','HT','ET','P'].includes(status)) {
       statusClass = 'ao-vivo';
-      statusTexto = status === 'HT' ? 'Intervalo' : status === '2H' && j.fixture.status.elapsed >= 90 ? `90+${j.fixture.status.elapsed - 90}'` : `${j.fixture.status.elapsed}'`;
-   } else if (['FT','AET','PEN','BT'].includes(status)) {
+      const elapsed = j.fixture.status.elapsed || 0;
+      const fixtureId = j.fixture.id;
+      const agora = Date.now();
+
+      if (!window._timers) window._timers = {};
+      if (!window._timers[fixtureId]) {
+        window._timers[fixtureId] = { base: elapsed, inicio: agora };
+      } else if (elapsed > window._timers[fixtureId].base) {
+        window._timers[fixtureId] = { base: elapsed, inicio: agora };
+      }
+
+      const timer = window._timers[fixtureId];
+      const minutos = Math.floor((agora - timer.inicio) / 60000);
+      const tempoReal = Math.max(elapsed, timer.base + minutos);
+
+      if (status === 'HT') {
+        statusTexto = 'Intervalo';
+      } else if (tempoReal >= 90 && status === '2H') {
+        statusTexto = `90+${tempoReal - 90}'`;
+      } else if (tempoReal >= 45 && status === '1H') {
+        statusTexto = `45+${tempoReal - 45}'`;
+      } else {
+        statusTexto = `${tempoReal}'`;
+      }
+
+    } else if (['FT','AET','PEN','BT'].includes(status)) {
+      statusClass = 'encerrado';
+      statusTexto = 'Encerrado';
+    } else {
+      statusClass = 'agendado';
+      const dataJogo = new Date(j.fixture.date);
+      const agora = new Date();
+      const diffMs = dataJogo - agora;
+      const diffMin = Math.floor(diffMs / 60000);
+      if (diffMin <= 30 && diffMin > 0) {
+        statusClass = 'em-breve';
+        statusTexto = `⏱️ ${diffMin} min`;
+      } else {
+        const dataStr = dataJogo.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        const horaStr = dataJogo.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        statusTexto = `${dataStr}<br>${horaStr}`;
+      }
+    }
+
+if (status === 'HT') {
+  statusTexto = 'Intervalo';
+} else if (tempoReal >= 90 && status === '2H') {
+  statusTexto = `90+${tempoReal - 90}'`;
+} else if (tempoReal >= 45 && status === '1H') {
+  statusTexto = `45+${tempoReal - 45}'`;
+} else {
+  statusTexto = `${tempoReal}'`;
+}
+    
+    else if (['FT','AET','PEN','BT'].includes(status)) {
       statusClass = 'encerrado';
       statusTexto = 'Encerrado';
   } else {
