@@ -284,11 +284,19 @@ renderizar();
     const hora = new Date().getHours();
     const temVivo = ligasAoVivo().length > 0;
     if (temVivo) {
-      timerAtualizacao = setTimeout(async () => { await atualizarAoVivo(); agendarProxima(); }, CACHE_TTL_VIVO);
+      timerAtualizacao = setTimeout(async () => {
+        await atualizarAoVivo();
+        if (ligasAoVivo().length === 0) {
+          setTimeout(async () => {
+            await carregarJogos(true);
+          }, 10 * 60 * 1000);
+        }
+        agendarProxima();
+      }, CACHE_TTL_VIVO);
     } else if (hora >= 1 && hora < 7) {
       timerAtualizacao = setTimeout(() => carregarJogos(true), CACHE_TTL_MADRUGADA);
-   } else if (todosJogos.some(j => ['NS','TBD'].includes(j.fixture.status.short))) {
-  timerAtualizacao = setTimeout(() => carregarJogos(true), 60 * 1000);
+    } else if (todosJogos.some(j => ['NS','TBD'].includes(j.fixture.status.short))) {
+      timerAtualizacao = setTimeout(() => carregarJogos(true), 60 * 1000);
     } else {
       timerAtualizacao = setTimeout(() => carregarJogos(true), CACHE_TTL_NORMAL);
     }
