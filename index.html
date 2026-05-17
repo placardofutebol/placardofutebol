@@ -393,9 +393,15 @@ renderizar();
       if (['NS','TBD'].includes(s)) return 1;
       return 2;
     };
-    Object.values(grupos).forEach(lista => {
-      lista.sort((a, b) => ordem(a.fixture.status.short) - ordem(b.fixture.status.short));
-    });
+   Object.values(grupos).forEach(lista => {
+  lista.sort((a, b) => {
+    const ordemA = ordem(a.fixture.status.short);
+    const ordemB = ordem(b.fixture.status.short);
+    if (ordemA !== ordemB) return ordemA - ordemB;
+    // mesmo status: ordena por horário
+    return new Date(a.fixture.date) - new Date(b.fixture.date);
+  });
+});
     let html = '';
     Object.entries(grupos).forEach(([lid, lista]) => {
       const liga = LIGAS_PERMITIDAS[lid] || { nome: lista[0].league.name, emoji: '🏆', pais: '' };
