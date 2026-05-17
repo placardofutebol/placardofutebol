@@ -337,7 +337,11 @@ header {
   animation: piscando 1.2s ease infinite;
 }
 .placar-status.encerrado { color: #999; }
-.placar-status.agendado { color: var(--verde); }
+.placar-status.em-breve {
+  color: #e67e00;
+  font-weight: 700;
+  animation: piscando 1.2s ease infinite;
+}
 
 /* coluna time esquerda */
 .time-esquerda {
