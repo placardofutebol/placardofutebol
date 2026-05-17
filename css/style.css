@@ -588,6 +588,18 @@ footer {
     font-size: 13px;
     max-width: 100%;
       } 
+   .data-header {
+  font-family: var(--font-titulo);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--preto);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 12px 4px 8px;
+  border-bottom: 2px solid var(--verde);
+  margin-bottom: 12px;
+  margin-top: 8px;
+}
  @media (min-width: 640px) {
   .header-inner { padding: 14px 24px; }
   .logo-principal { font-size: 26px; }
