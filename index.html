@@ -613,7 +613,17 @@ carregarJogos();
 
 // Atualiza cronômetro dos jogos ao vivo a cada 30 segundos
 setInterval(() => {
-  if (todosJogos.some(j => ['1H','2H','ET'].includes(j.fixture.status.short))) {
+ // Força reload se tem jogo que acabou de iniciar (menos de 3 minutos)
+const temJogoNovo = todosJogos.some(j => {
+  if (j.fixture.status.short !== '1H') return false;
+  const timer = window._timers?.[j.fixture.id];
+  if (!timer) return true; // sem timer = jogo novo
+  return timer.base <= 5;
+});
+if (temJogoNovo) {
+  carregarJogos(true);
+  return;
+} if (todosJogos.some(j => ['1H','2H','ET'].includes(j.fixture.status.short))) {
     const temJogoMuitoLongo = todosJogos.some(j => {
       if (!['2H'].includes(j.fixture.status.short)) return false;
       const timer = window._timers?.[j.fixture.id];
