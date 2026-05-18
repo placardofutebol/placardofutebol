@@ -632,8 +632,12 @@ if (temJogoNovo) {
       return (timer.base + minutos) > 95;
     });
     if (temJogoMuitoLongo) {
-      carregarJogos(true);
-    } else {
+  if (!window._reloadTentativas) window._reloadTentativas = 0;
+  window._reloadTentativas++;
+  if (window._reloadTentativas <= 10) {
+    carregarJogos(true);
+  }
+} else {
       renderizar();
     }
   }
