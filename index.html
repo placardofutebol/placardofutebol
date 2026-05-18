@@ -619,7 +619,7 @@ setInterval(() => {
       const timer = window._timers?.[j.fixture.id];
       if (!timer) return false;
       const minutos = Math.floor((Date.now() - timer.inicio) / 60000);
-      return (timer.base + minutos) > 100;
+      return (timer.base + minutos) > 95;
     });
     if (temJogoMuitoLongo) {
       carregarJogos(true);
