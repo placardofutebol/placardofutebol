@@ -606,7 +606,18 @@ carregarJogos();
 // Atualiza cronômetro dos jogos ao vivo a cada 30 segundos
 setInterval(() => {
   if (todosJogos.some(j => ['1H','2H','ET'].includes(j.fixture.status.short))) {
-    renderizar();
+    const temJogoMuitoLongo = todosJogos.some(j => {
+      if (!['2H'].includes(j.fixture.status.short)) return false;
+      const timer = window._timers?.[j.fixture.id];
+      if (!timer) return false;
+      const minutos = Math.floor((Date.now() - timer.inicio) / 60000);
+      return (timer.base + minutos) > 100;
+    });
+    if (temJogoMuitoLongo) {
+      carregarJogos(true);
+    } else {
+      renderizar();
+    }
   }
 }, 30 * 1000);
   </script>
