@@ -525,6 +525,7 @@ function abreviarTime(nome) {
 }
       if (!window._timers[fixtureId]) {
         window._timers[fixtureId] = { base: elapsed, inicio: agora };
+        localStorage.setItem('pf_timers', JSON.stringify(window._timers));
       } else if (elapsed > window._timers[fixtureId].base) {
         window._timers[fixtureId] = { base: elapsed, inicio: agora };
       }
