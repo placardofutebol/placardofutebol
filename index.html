@@ -425,17 +425,14 @@ renderizar();
 
     let html = '';
     if (Object.keys(gruposHoje).length) {
-      html += `<div class="data-header">📅 Hoje</div>`;
-      html += renderGrupos(gruposHoje);
-    }
-    if (Object.keys(gruposAmanha).length) {
-      html += `<div class="data-header">📅 Amanhã</div>`;
-      html += renderGrupos(gruposAmanha);
-    }
-    if (Object.keys(gruposOntem).length) {
-      html += `<div class="data-header">📅 Ontem</div>`;
-      html += renderGrupos(gruposOntem);
-    }
+  html += renderGrupos(gruposHoje);
+}
+if (Object.keys(gruposAmanha).length) {
+  html += renderGrupos(gruposAmanha);
+}
+if (Object.keys(gruposOntem).length) {
+  html += renderGrupos(gruposOntem);
+}
     container.innerHTML = html;
   }
 
