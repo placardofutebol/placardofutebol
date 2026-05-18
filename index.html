@@ -529,8 +529,9 @@ function abreviarTime(nome) {
 
       if (status === 'HT') {
         statusTexto = 'Intervalo';
-      } else if (tempoReal >= 90 && status === '2H') {
-        statusTexto = `90+${tempoReal - 90}'`;
+      } else if (tempoReal > 90 && status === '2H') {
+  const acrescimo = Math.min(tempoReal - 90, 5);
+  statusTexto = acrescimo >= 5 ? `90+5' ⏳` : `90+${acrescimo}'`;
       } else if (tempoReal >= 45 && status === '1H') {
         statusTexto = `45+${tempoReal - 45}'`;
       } else {
