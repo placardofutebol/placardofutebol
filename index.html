@@ -516,7 +516,13 @@ function abreviarTime(nome) {
       const fixtureId = j.fixture.id;
       const agora = Date.now();
 
-      if (!window._timers) window._timers = {};
+      if (!window._timers) {
+  try {
+    window._timers = JSON.parse(localStorage.getItem('pf_timers') || '{}');
+  } catch(e) {
+    window._timers = {};
+  }
+}
       if (!window._timers[fixtureId]) {
         window._timers[fixtureId] = { base: elapsed, inicio: agora };
       } else if (elapsed > window._timers[fixtureId].base) {
