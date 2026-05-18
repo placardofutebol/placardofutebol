@@ -599,7 +599,14 @@ function abreviarTime(nome) {
   }
 
   exibirData();
-  carregarJogos();
+carregarJogos();
+
+// Atualiza cronômetro dos jogos ao vivo a cada 30 segundos
+setInterval(() => {
+  if (todosJogos.some(j => ['1H','2H','ET'].includes(j.fixture.status.short))) {
+    renderizar();
+  }
+}, 30 * 1000);
   </script>
 
 </body>
