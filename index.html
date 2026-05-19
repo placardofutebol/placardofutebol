@@ -625,7 +625,13 @@ if (temJogoNovo) {
   return;
 } if (todosJogos.some(j => ['1H','2H','ET'].includes(j.fixture.status.short))) {
     const temJogoMuitoLongo = todosJogos.some(j => {
-      if (!['2H'].includes(j.fixture.status.short)) return false;
+      if (j.fixture.status.short === '2H') {
+  return (timer.base + minutos) > 95;
+}
+if (j.fixture.status.short === 'ET') {
+  return (timer.base + minutos) > 125;
+}
+return false;
       const timer = window._timers?.[j.fixture.id];
       if (!timer) return false;
       const minutos = Math.floor((Date.now() - timer.inicio) / 60000);
