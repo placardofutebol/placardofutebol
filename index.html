@@ -301,9 +301,9 @@ renderizar();
       timerAtualizacao = setTimeout(() => carregarJogos(true), CACHE_TTL_MADRUGADA);
     } else if (todosJogos.some(j => ['NS','TBD'].includes(j.fixture.status.short))) {
       timerAtualizacao = setTimeout(() => carregarJogos(true), 60 * 1000);
-    } else {
-      timerAtualizacao = setTimeout(() => carregarJogos(true), CACHE_TTL_NORMAL);
-    }
+   } else {
+  timerAtualizacao = setTimeout(() => carregarJogos(true), 60 * 1000);
+}
   }
 
   function detectarGols(jogos) {
