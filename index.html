@@ -283,8 +283,9 @@ renderizar();
     } catch(err) { console.error('Erro ao atualizar ao vivo:', err); }
   }
 
-  function agendarProxima() {
+ function agendarProxima() {
     clearTimeout(timerAtualizacao);
+    verificarJogosAtrasados(); // ← adiciona essa linha
     const hora = new Date().getHours();
     const temVivo = ligasAoVivo().length > 0;
     if (temVivo) {
