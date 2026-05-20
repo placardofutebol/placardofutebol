@@ -287,7 +287,7 @@ function verificarJogosAtrasados() {
   const temJogoAtrasado = todosJogos.some(j => {
     if (!['NS','TBD'].includes(j.fixture.status.short)) return false;
     const inicio = new Date(j.fixture.date).getTime();
-    return agora > inicio + (5 * 60 * 1000); // 5 min após horário previsto
+    return agora > inicio + (1 * 60 * 1000); // 1 min após horário previsto
   });
 
   if (temJogoAtrasado) {
