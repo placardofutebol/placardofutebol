@@ -647,7 +647,9 @@ function instalarApp() {
 window.addEventListener('appinstalled', () => {
   document.getElementById('banner-instalar').style.display = 'none';
 });
-
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js');
+}
   exibirData();
 carregarJogos();
 
