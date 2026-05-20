@@ -282,6 +282,19 @@ detectarGols(Object.values(jogosAtualizados));
 renderizar();
     } catch(err) { console.error('Erro ao atualizar ao vivo:', err); }
   }
+function verificarJogosAtrasados() {
+  const agora = Date.now();
+  const temJogoAtrasado = todosJogos.some(j => {
+    if (!['NS','TBD'].includes(j.fixture.status.short)) return false;
+    const inicio = new Date(j.fixture.date).getTime();
+    return agora > inicio + (5 * 60 * 1000); // 5 min após horário previsto
+  });
+
+  if (temJogoAtrasado) {
+    localStorage.removeItem('pf_jogos');
+    carregarJogos(true);
+  }
+}
 
  function agendarProxima() {
     clearTimeout(timerAtualizacao);
