@@ -625,6 +625,28 @@ function abreviarTime(nome) {
   function abrirJogo(id) {
     console.log('Jogo:', id);
   }
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('banner-instalar').style.display = 'block';
+});
+
+function instalarApp() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(result => {
+      if (result.outcome === 'accepted') {
+        document.getElementById('banner-instalar').style.display = 'none';
+      }
+      deferredPrompt = null;
+    });
+  }
+}
+
+window.addEventListener('appinstalled', () => {
+  document.getElementById('banner-instalar').style.display = 'none';
+});
 
   exibirData();
 carregarJogos();
