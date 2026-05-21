@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.placardofutebol.twa",
+    "sha256_cert_fingerprints": [
+      "85:63:0E:83:04:12:F2:89:87:DE:11:AE:CD:D1:89:55:B1:47:19:DC:CC:94:D2:D3:4D:BA:E4:8A:0B:8A:1E:27"
+    ]
+  }
+}]
