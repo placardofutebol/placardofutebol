@@ -622,11 +622,13 @@
     }
 
     // ── Atualizar página ──
-    function atualizarPagina() {
+   function atualizarPagina() {
       jogosPorRodada = {};
+      delete document.getElementById('tabela-body').dataset.loaded;
+      delete document.getElementById('artilharia-container').dataset.loaded;
+      mudarAba(document.querySelector('.bra-tab'), 'jogos');
       carregarRodada(rodadaVendo);
     }
-
     // ── Determinar rodada atual ──
     async function determinarRodadaAtual() {
       try {
