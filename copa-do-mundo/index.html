@@ -3,17 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <meta name="description" content="Copa do Mundo 2026 - Grupos, Jogos, Classificação e Artilharia">
+  <meta name="description" content="Copa do Mundo 2026 - Grupos, Jogos, Classificação e Artilharia. EUA, Canadá e México.">
   <meta name="theme-color" content="#1a7a30">
-  <title>Copa do Mundo 2026 - Placar do Futebol</title>
+  <title>Copa do Mundo 2026 - Grupos, Jogos e Classificação | Placar do Futebol</title>
   <link rel="stylesheet" href="../css/style.css">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <style>
-    /* ============================================
-       COPA DO MUNDO — estilos específicos
-       ============================================ */
-
     .copa-hero {
       background: linear-gradient(135deg, var(--verde-escuro) 0%, var(--verde) 60%, #2d9e4e 100%);
       padding: 24px 16px 20px;
@@ -28,438 +24,99 @@
       background: radial-gradient(ellipse at 70% 50%, rgba(245,200,0,0.15) 0%, transparent 70%);
       pointer-events: none;
     }
-    .copa-hero-titulo {
-      font-family: var(--font-titulo);
-      font-size: 28px;
-      font-weight: 800;
-      color: white;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      line-height: 1;
-    }
-    .copa-hero-titulo span {
-      color: var(--amarelo);
-    }
-    .copa-hero-sub {
-      font-family: var(--font-corpo);
-      font-size: 12px;
-      color: rgba(255,255,255,0.75);
-      margin-top: 4px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-    .copa-hero-info {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 14px;
-      flex-wrap: wrap;
-    }
-    .copa-hero-badge {
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 20px;
-      padding: 5px 14px;
-      font-family: var(--font-corpo);
-      font-size: 11px;
-      color: white;
-      font-weight: 600;
-    }
-
-    /* Abas internas */
-    .copa-nav {
-      background: white;
-      border-bottom: 2px solid var(--cinza-borda);
-      position: sticky;
-      top: 52px;
-      z-index: 85;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
+    .copa-hero-titulo { font-family: var(--font-titulo); font-size: 28px; font-weight: 800; color: white; text-transform: uppercase; letter-spacing: 1px; line-height: 1; }
+    .copa-hero-titulo span { color: var(--amarelo); }
+    .copa-hero-sub { font-family: var(--font-corpo); font-size: 12px; color: rgba(255,255,255,0.75); margin-top: 4px; letter-spacing: 2px; text-transform: uppercase; }
+    .copa-hero-info { display: flex; justify-content: center; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+    .copa-hero-badge { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 20px; padding: 5px 12px; font-family: var(--font-corpo); font-size: 11px; color: white; font-weight: 600; }
+    .copa-nav { background: white; border-bottom: 2px solid var(--cinza-borda); position: sticky; top: 52px; z-index: 85; overflow-x: auto; scrollbar-width: none; }
     .copa-nav::-webkit-scrollbar { display: none; }
-    .copa-nav-inner {
-      display: flex;
-      max-width: 900px;
-      margin: 0 auto;
-      min-width: max-content;
-    }
-    .copa-tab {
-      padding: 12px 20px;
-      font-family: var(--font-corpo);
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--cinza-texto);
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-      white-space: nowrap;
-      transition: all 0.2s;
-      user-select: none;
-    }
+    .copa-nav-inner { display: flex; max-width: 900px; margin: 0 auto; min-width: max-content; }
+    .copa-tab { padding: 12px 20px; font-family: var(--font-corpo); font-size: 13px; font-weight: 600; color: var(--cinza-texto); cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; user-select: none; }
     .copa-tab:hover { color: var(--verde); }
-    .copa-tab.ativa {
-      color: var(--verde);
-      border-bottom-color: var(--verde);
-    }
-
-    /* Seções */
+    .copa-tab.ativa { color: var(--verde); border-bottom-color: var(--verde); }
     .copa-secao { display: none; }
     .copa-secao.ativa { display: block; }
 
-    /* ============================================
-       GRUPOS
-       ============================================ */
-    .grupos-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      padding: 16px 12px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    @media (max-width: 480px) {
-      .grupos-grid { grid-template-columns: 1fr; }
-    }
-    @media (min-width: 640px) {
-      .grupos-grid {
-        grid-template-columns: 1fr 1fr;
-        padding: 20px 24px;
-        gap: 16px;
-      }
-    }
-    .grupo-card {
-      background: white;
-      border-radius: var(--radius-card);
-      box-shadow: var(--sombra);
-      overflow: hidden;
-    }
-    .grupo-card-header {
-      background: var(--verde);
-      padding: 8px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .grupo-card-titulo {
-      font-family: var(--font-titulo);
-      font-size: 15px;
-      font-weight: 800;
-      color: white;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .grupo-card-paises {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .grupo-pais {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 9px 14px;
-      border-bottom: 1px solid var(--cinza-borda);
-      font-family: var(--font-corpo);
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--preto);
-    }
+    /* GRUPOS */
+    .grupos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 16px 12px; max-width: 900px; margin: 0 auto; }
+    @media (max-width: 480px) { .grupos-grid { grid-template-columns: 1fr; } }
+    @media (min-width: 640px) { .grupos-grid { padding: 20px 24px; gap: 16px; } }
+    .grupo-card { background: white; border-radius: var(--radius-card); box-shadow: var(--sombra); overflow: hidden; }
+    .grupo-card-header { background: var(--verde); padding: 8px 14px; }
+    .grupo-card-titulo { font-family: var(--font-titulo); font-size: 15px; font-weight: 800; color: white; text-transform: uppercase; letter-spacing: 1px; }
+    .grupo-card-paises { list-style: none; padding: 0; margin: 0; }
+    .grupo-pais { display: flex; align-items: center; gap: 10px; padding: 9px 14px; border-bottom: 1px solid var(--cinza-borda); font-family: var(--font-corpo); font-size: 13px; font-weight: 500; color: var(--preto); }
     .grupo-pais:last-child { border-bottom: none; }
-    .grupo-pais-flag {
-      font-size: 18px;
-      line-height: 1;
-      width: 24px;
-      text-align: center;
-    }
+    .grupo-pais-flag { font-size: 18px; width: 24px; text-align: center; }
+    .grupo-pais.brasil { background: #f0faf3; font-weight: 700; }
 
-    /* ============================================
-       JOGOS
-       ============================================ */
-    .jogos-filtro {
-      display: flex;
-      gap: 8px;
-      padding: 14px 12px 0;
-      overflow-x: auto;
-      scrollbar-width: none;
-      max-width: 900px;
-      margin: 0 auto;
-    }
+    /* JOGOS */
+    .jogos-filtro { display: flex; gap: 8px; padding: 14px 12px 0; overflow-x: auto; scrollbar-width: none; max-width: 900px; margin: 0 auto; }
     .jogos-filtro::-webkit-scrollbar { display: none; }
-    .fase-btn {
-      padding: 5px 14px;
-      border-radius: 20px;
-      font-family: var(--font-corpo);
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      border: 1.5px solid var(--cinza-borda);
-      background: white;
-      color: var(--cinza-texto);
-      white-space: nowrap;
-      transition: all 0.2s;
-    }
-    .fase-btn.ativo {
-      background: var(--verde);
-      color: white;
-      border-color: var(--verde);
-    }
+    .fase-btn { padding: 5px 14px; border-radius: 20px; font-family: var(--font-corpo); font-size: 12px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--cinza-borda); background: white; color: var(--cinza-texto); white-space: nowrap; transition: all 0.2s; }
+    .fase-btn.ativo { background: var(--verde); color: white; border-color: var(--verde); }
+    .jogos-lista { max-width: 900px; margin: 0 auto; padding: 14px 12px; }
+    @media (min-width: 640px) { .jogos-lista { padding: 16px 24px; } .jogos-filtro { padding: 16px 24px 0; } }
+    .jogo-copa { background: white; border-radius: var(--radius-card); margin-bottom: 10px; box-shadow: var(--sombra); overflow: hidden; }
+    .jogo-copa.destaque { border: 2px solid var(--verde); }
+    .jogo-copa-fase { background: var(--verde-claro); border-left: 3px solid var(--verde); padding: 5px 12px; font-family: var(--font-titulo); font-size: 11px; font-weight: 700; color: var(--verde-escuro); text-transform: uppercase; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center; }
+    .jogo-copa-body { padding: 12px 14px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; }
+    .jogo-copa-time { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; }
+    .jogo-copa-flag { font-size: 28px; line-height: 1; }
+    .jogo-copa-nome { font-family: var(--font-corpo); font-size: 12px; font-weight: 600; color: var(--preto); }
+    .jogo-copa-centro { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 70px; text-align: center; }
+    .jogo-copa-placar { font-family: var(--font-titulo); font-size: 22px; font-weight: 800; color: var(--preto); letter-spacing: 2px; }
+    .jogo-copa-horario { font-family: var(--font-corpo); font-size: 11px; font-weight: 600; color: var(--verde); }
+    .jogo-copa-estadio { font-family: var(--font-corpo); font-size: 10px; color: var(--cinza-texto); margin-top: 2px; }
 
-    .jogos-lista {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 14px 12px;
-    }
-    @media (min-width: 640px) {
-      .jogos-lista { padding: 16px 24px; }
-      .jogos-filtro { padding: 16px 24px 0; }
-    }
-
-    .jogo-copa {
-      background: white;
-      border-radius: var(--radius-card);
-      margin-bottom: 10px;
-      box-shadow: var(--sombra);
-      overflow: hidden;
-    }
-    .jogo-copa-fase {
-      background: var(--verde-claro);
-      border-left: 3px solid var(--verde);
-      padding: 5px 12px;
-      font-family: var(--font-titulo);
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--verde-escuro);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .jogo-copa-body {
-      padding: 12px 14px;
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      gap: 8px;
-    }
-    .jogo-copa-time {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      text-align: center;
-    }
-    .jogo-copa-time.direita { align-items: center; }
-    .jogo-copa-flag {
-      font-size: 28px;
-      line-height: 1;
-    }
-    .jogo-copa-nome {
-      font-family: var(--font-corpo);
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--preto);
-    }
-    .jogo-copa-centro {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-      min-width: 70px;
-      text-align: center;
-    }
-    .jogo-copa-placar {
-      font-family: var(--font-titulo);
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--preto);
-      letter-spacing: 2px;
-    }
-    .jogo-copa-horario {
-      font-family: var(--font-corpo);
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--verde);
-    }
-    .jogo-copa-estadio {
-      font-family: var(--font-corpo);
-      font-size: 10px;
-      color: var(--cinza-texto);
-      margin-top: 2px;
-    }
-
-    /* ============================================
-       CLASSIFICAÇÃO
-       ============================================ */
-    .classificacao-wrap {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 16px 12px;
-    }
-    @media (min-width: 640px) {
-      .classificacao-wrap { padding: 20px 24px; }
-    }
-    .classificacao-grupo {
-      background: white;
-      border-radius: var(--radius-card);
-      box-shadow: var(--sombra);
-      margin-bottom: 16px;
-      overflow: hidden;
-    }
-    .classificacao-grupo-header {
-      background: var(--verde);
-      padding: 8px 14px;
-      font-family: var(--font-titulo);
-      font-size: 14px;
-      font-weight: 800;
-      color: white;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .classificacao-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-family: var(--font-corpo);
-      font-size: 12px;
-    }
-    .classificacao-table thead tr {
-      background: var(--cinza-bg);
-    }
-    .classificacao-table th {
-      padding: 7px 10px;
-      text-align: center;
-      font-weight: 700;
-      color: var(--cinza-texto);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .classificacao-table th:first-child { text-align: left; padding-left: 14px; }
-    .classificacao-table td {
-      padding: 9px 10px;
-      text-align: center;
-      border-bottom: 1px solid var(--cinza-borda);
-      color: var(--preto);
-    }
-    .classificacao-table td:first-child { text-align: left; padding-left: 14px; }
+    /* CLASSIFICAÇÃO */
+    .classificacao-wrap { max-width: 900px; margin: 0 auto; padding: 16px 12px; }
+    @media (min-width: 640px) { .classificacao-wrap { padding: 20px 24px; } }
+    .classificacao-grupo { background: white; border-radius: var(--radius-card); box-shadow: var(--sombra); margin-bottom: 16px; overflow: hidden; }
+    .classificacao-grupo-header { background: var(--verde); padding: 8px 14px; font-family: var(--font-titulo); font-size: 14px; font-weight: 800; color: white; text-transform: uppercase; letter-spacing: 1px; }
+    .classificacao-table { width: 100%; border-collapse: collapse; font-family: var(--font-corpo); font-size: 12px; }
+    .classificacao-table thead tr { background: var(--cinza-bg); }
+    .classificacao-table th { padding: 7px 8px; text-align: center; font-weight: 700; color: var(--cinza-texto); font-size: 10px; text-transform: uppercase; }
+    .classificacao-table th:nth-child(2) { text-align: left; padding-left: 14px; }
+    .classificacao-table td { padding: 9px 8px; text-align: center; border-bottom: 1px solid var(--cinza-borda); color: var(--preto); }
+    .classificacao-table td:nth-child(2) { text-align: left; padding-left: 14px; }
     .classificacao-table tr:last-child td { border-bottom: none; }
     .classificacao-table tbody tr:hover { background: #f8faf9; }
-    .cl-pos {
-      font-weight: 700;
-      color: var(--cinza-texto);
-      font-size: 11px;
-      width: 20px;
-    }
+    .cl-pos { font-weight: 700; color: var(--cinza-texto); font-size: 11px; }
     .cl-pos.classificado { color: var(--verde); }
-    .cl-time {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 600;
-    }
+    .cl-time { display: flex; align-items: center; gap: 8px; font-weight: 600; }
     .cl-flag { font-size: 16px; }
-    .cl-pts {
-      font-weight: 800;
-      color: var(--preto);
-      font-size: 13px;
-    }
+    .cl-pts { font-weight: 800; color: var(--preto); font-size: 13px; }
 
-    /* ============================================
-       ARTILHARIA
-       ============================================ */
-    .artilharia-wrap {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 16px 12px;
-    }
-    @media (min-width: 640px) {
-      .artilharia-wrap { padding: 20px 24px; }
-    }
-    .artilheiro-card {
-      background: white;
-      border-radius: var(--radius-card);
-      box-shadow: var(--sombra);
-      margin-bottom: 8px;
-      padding: 12px 14px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .artilheiro-pos {
-      font-family: var(--font-titulo);
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--cinza-borda);
-      width: 28px;
-      text-align: center;
-      flex-shrink: 0;
-    }
+    /* ARTILHARIA */
+    .artilharia-wrap { max-width: 900px; margin: 0 auto; padding: 16px 12px; }
+    @media (min-width: 640px) { .artilharia-wrap { padding: 20px 24px; } }
+    .artilheiro-card { background: white; border-radius: var(--radius-card); box-shadow: var(--sombra); margin-bottom: 8px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; }
+    .artilheiro-pos { font-family: var(--font-titulo); font-size: 18px; font-weight: 800; color: var(--cinza-borda); width: 28px; text-align: center; flex-shrink: 0; }
     .artilheiro-pos.top1 { color: #f5c800; }
     .artilheiro-pos.top2 { color: #adb5bd; }
     .artilheiro-pos.top3 { color: #cd7f32; }
     .artilheiro-info { flex: 1; }
-    .artilheiro-nome {
-      font-family: var(--font-corpo);
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--preto);
-    }
-    .artilheiro-pais {
-      font-family: var(--font-corpo);
-      font-size: 11px;
-      color: var(--cinza-texto);
-      margin-top: 2px;
-    }
-    .artilheiro-gols {
-      font-family: var(--font-titulo);
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--verde);
-    }
-    .artilheiro-gols span {
-      font-family: var(--font-corpo);
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--cinza-texto);
-      display: block;
-      text-align: center;
-    }
-
-    .aviso-dados {
-      background: #fff8e1;
-      border: 1px solid #f5c800;
-      border-radius: var(--radius-sm);
-      padding: 12px 16px;
-      margin: 16px 12px 0;
-      font-family: var(--font-corpo);
-      font-size: 12px;
-      color: #7a6000;
-      text-align: center;
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    @media (min-width: 640px) {
-      .aviso-dados { margin: 16px 24px 0; }
-    }
+    .artilheiro-nome { font-family: var(--font-corpo); font-size: 14px; font-weight: 700; color: var(--preto); }
+    .artilheiro-pais { font-family: var(--font-corpo); font-size: 11px; color: var(--cinza-texto); margin-top: 2px; }
+    .artilheiro-gols { font-family: var(--font-titulo); font-size: 22px; font-weight: 800; color: var(--verde); }
+    .artilheiro-gols span { font-family: var(--font-corpo); font-size: 10px; font-weight: 600; color: var(--cinza-texto); display: block; text-align: center; }
+    .aviso-dados { background: #fff8e1; border: 1px solid #f5c800; border-radius: var(--radius-sm); padding: 12px 16px; margin: 16px auto 0; font-family: var(--font-corpo); font-size: 12px; color: #7a6000; text-align: center; max-width: 860px; }
   </style>
 </head>
 <body>
 
-  <!-- ==================== HEADER ==================== -->
   <header>
     <div class="header-inner">
       <a href="/" class="logo">
         <span class="logo-principal">Placar <span>do Futebol</span></span>
         <span class="logo-sub">Resultados ao vivo</span>
       </a>
-      <div class="header-ao-vivo">
-        <span class="dot-vivo"></span>
-        AO VIVO
-      </div>
+      <div class="header-ao-vivo"><span class="dot-vivo"></span>AO VIVO</div>
     </div>
   </header>
 
-  <!-- ==================== HERO COPA ==================== -->
   <div class="copa-hero">
     <div class="copa-hero-titulo">🌍 Copa do <span>Mundo</span> 2026</div>
     <div class="copa-hero-sub">EUA · Canadá · México</div>
@@ -467,11 +124,10 @@
       <span class="copa-hero-badge">📅 11 Jun – 19 Jul 2026</span>
       <span class="copa-hero-badge">🏟️ 16 Estádios</span>
       <span class="copa-hero-badge">🌍 48 Seleções</span>
-      <span class="copa-hero-badge">🏆 104 Jogos</span>
+      <span class="copa-hero-badge">⚽ 104 Jogos</span>
     </div>
   </div>
 
-  <!-- ==================== ABAS COPA ==================== -->
   <nav class="copa-nav">
     <div class="copa-nav-inner">
       <div class="copa-tab ativa" onclick="mudarAba(this, 'grupos')">🗂️ Grupos</div>
@@ -481,49 +137,49 @@
     </div>
   </nav>
 
-  <main class="container" style="padding-top: 0; max-width: 100%; padding-left: 0; padding-right: 0;">
+  <main style="padding-bottom: 20px;">
 
-    <!-- ==================== GRUPOS ==================== -->
+    <!-- ===== GRUPOS ===== -->
     <div id="secao-grupos" class="copa-secao ativa">
       <div class="grupos-grid">
 
         <div class="grupo-card">
           <div class="grupo-card-header"><span class="grupo-card-titulo">Grupo A</span></div>
           <ul class="grupo-card-paises">
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇺🇸</span> Estados Unidos</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇷🇸</span> Sérvia</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇵🇦</span> Panamá</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇧🇫</span> Burkina Faso</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇲🇽</span> México</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇿🇦</span> África do Sul</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇰🇷</span> Coreia do Sul</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇨🇿</span> República Tcheca</li>
           </ul>
         </div>
 
         <div class="grupo-card">
           <div class="grupo-card-header"><span class="grupo-card-titulo">Grupo B</span></div>
           <ul class="grupo-card-paises">
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇦🇷</span> Argentina</li>
             <li class="grupo-pais"><span class="grupo-pais-flag">🇨🇦</span> Canadá</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇨🇱</span> Chile</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇦🇱</span> Albânia</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇧🇦</span> Bósnia</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇶🇦</span> Qatar</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇨🇭</span> Suíça</li>
           </ul>
         </div>
 
         <div class="grupo-card">
           <div class="grupo-card-header"><span class="grupo-card-titulo">Grupo C</span></div>
           <ul class="grupo-card-paises">
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇲🇽</span> México</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇧🇪</span> Bélgica</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇶🇦</span> Qatar</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇳🇿</span> Nova Zelândia</li>
+            <li class="grupo-pais brasil"><span class="grupo-pais-flag">🇧🇷</span> Brasil 🌟</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇲🇦</span> Marrocos</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span> Escócia</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇭🇹</span> Haiti</li>
           </ul>
         </div>
 
         <div class="grupo-card">
           <div class="grupo-card-header"><span class="grupo-card-titulo">Grupo D</span></div>
           <ul class="grupo-card-paises">
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇫🇷</span> França</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇲🇦</span> Marrocos</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇨🇷</span> Costa Rica</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇯🇵</span> Japão</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇺🇸</span> Estados Unidos</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇵🇾</span> Paraguai</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇦🇺</span> Austrália</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇹🇷</span> Turquia</li>
           </ul>
         </div>
 
@@ -531,268 +187,187 @@
           <div class="grupo-card-header"><span class="grupo-card-titulo">Grupo E</span></div>
           <ul class="grupo-card-paises">
             <li class="grupo-pais"><span class="grupo-pais-flag">🇩🇪</span> Alemanha</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇵🇹</span> Portugal</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇸🇨</span> Ilhas Seychelles</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇹🇿</span> Tanzânia</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇨🇮</span> Costa do Marfim</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇪🇨</span> Equador</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇨🇼</span> Curaçao</li>
           </ul>
         </div>
 
         <div class="grupo-card">
           <div class="grupo-card-header"><span class="grupo-card-titulo">Grupo F</span></div>
           <ul class="grupo-card-paises">
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇧🇷</span> Brasil</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇲🇽</span> México</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇩🇰</span> Dinamarca</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇨🇲</span> Camarões</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇳🇱</span> Holanda</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇯🇵</span> Japão</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇸🇪</span> Suécia</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇹🇳</span> Tunísia</li>
           </ul>
         </div>
 
         <div class="grupo-card">
           <div class="grupo-card-header"><span class="grupo-card-titulo">Grupo G</span></div>
           <ul class="grupo-card-paises">
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇪🇸</span> Espanha</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇺🇾</span> Uruguai</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇸🇰</span> Eslováquia</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇹🇩</span> Chade</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇧🇪</span> Bélgica</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇪🇬</span> Egito</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇮🇷</span> Irã</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇳🇿</span> Nova Zelândia</li>
           </ul>
         </div>
 
         <div class="grupo-card">
           <div class="grupo-card-header"><span class="grupo-card-titulo">Grupo H</span></div>
           <ul class="grupo-card-paises">
-            <li class="grupo-pais"><span class="grupo-pais-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span> Inglaterra</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇳🇱</span> Holanda</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇸🇳</span> Senegal</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇦🇫</span> Afeganistão</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇪🇸</span> Espanha</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇺🇾</span> Uruguai</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇸🇦</span> Arábia Saudita</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇨🇻</span> Cabo Verde</li>
           </ul>
         </div>
 
         <div class="grupo-card">
           <div class="grupo-card-header"><span class="grupo-card-titulo">Grupo I</span></div>
           <ul class="grupo-card-paises">
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇭🇷</span> Croácia</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇰🇷</span> Coreia do Sul</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇫🇷</span> França</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇸🇳</span> Senegal</li>
             <li class="grupo-pais"><span class="grupo-pais-flag">🇮🇶</span> Iraque</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇨🇩</span> Congo</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇳🇴</span> Noruega</li>
           </ul>
         </div>
 
         <div class="grupo-card">
           <div class="grupo-card-header"><span class="grupo-card-titulo">Grupo J</span></div>
           <ul class="grupo-card-paises">
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇳🇬</span> Nigéria</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇦🇺</span> Austrália</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇦🇷</span> Argentina</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇩🇿</span> Argélia</li>
             <li class="grupo-pais"><span class="grupo-pais-flag">🇦🇹</span> Áustria</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇺🇿</span> Uzbequistão</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇯🇴</span> Jordânia</li>
           </ul>
         </div>
 
         <div class="grupo-card">
           <div class="grupo-card-header"><span class="grupo-card-titulo">Grupo K</span></div>
           <ul class="grupo-card-paises">
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇵🇹</span> Portugal</li>
             <li class="grupo-pais"><span class="grupo-pais-flag">🇨🇴</span> Colômbia</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇨🇮</span> Costa do Marfim</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇬🇷</span> Grécia</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇰🇬</span> Quirguistão</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇨🇩</span> RD Congo</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇺🇿</span> Uzbequistão</li>
           </ul>
         </div>
 
         <div class="grupo-card">
           <div class="grupo-card-header"><span class="grupo-card-titulo">Grupo L</span></div>
           <ul class="grupo-card-paises">
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇵🇹</span> Portugal</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇹🇷</span> Turquia</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇨🇿</span> República Tcheca</li>
-            <li class="grupo-pais"><span class="grupo-pais-flag">🇹🇭</span> Tailândia</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span> Inglaterra</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇭🇷</span> Croácia</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇬🇭</span> Gana</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇵🇦</span> Panamá</li>
           </ul>
         </div>
 
       </div>
     </div>
 
-    <!-- ==================== JOGOS ==================== -->
+    <!-- ===== JOGOS ===== -->
     <div id="secao-jogos" class="copa-secao">
-      
+      <div class="aviso-dados">⏳ Os placares serão atualizados automaticamente quando a Copa começar em 11 de junho de 2026.</div>
       <div class="jogos-filtro">
         <button class="fase-btn ativo" onclick="filtrarFase(this, 'todos')">Todos</button>
-        <button class="fase-btn" onclick="filtrarFase(this, 'grupo')">Fase de Grupos</button>
-        <button class="fase-btn" onclick="filtrarFase(this, 'oitavas')">Oitavas</button>
-        <button class="fase-btn" onclick="filtrarFase(this, 'quartas')">Quartas</button>
-        <button class="fase-btn" onclick="filtrarFase(this, 'semi')">Semifinais</button>
-        <button class="fase-btn" onclick="filtrarFase(this, 'final')">Final</button>
+        <button class="fase-btn" onclick="filtrarFase(this, 'brasil')">🇧🇷 Brasil</button>
+        <button class="fase-btn" onclick="filtrarFase(this, 'r1')">1ª Rodada</button>
+        <button class="fase-btn" onclick="filtrarFase(this, 'r2')">2ª Rodada</button>
+        <button class="fase-btn" onclick="filtrarFase(this, 'r3')">3ª Rodada</button>
       </div>
       <div class="jogos-lista" id="jogos-copa">
 
-        <div class="jogo-copa" data-fase="grupo">
-          <div class="jogo-copa-fase">
-            <span>Grupo A — Rodada 1</span>
-            <span>11 Jun 2026</span>
-          </div>
-          <div class="jogo-copa-body">
-            <div class="jogo-copa-time">
-              <span class="jogo-copa-flag">🇺🇸</span>
-              <span class="jogo-copa-nome">Estados Unidos</span>
-            </div>
-            <div class="jogo-copa-centro">
-              <span class="jogo-copa-placar">×</span>
-              <span class="jogo-copa-horario">21:00</span>
-              <span class="jogo-copa-estadio">SoFi Stadium</span>
-            </div>
-            <div class="jogo-copa-time">
-              <span class="jogo-copa-flag">🇷🇸</span>
-              <span class="jogo-copa-nome">Sérvia</span>
-            </div>
-          </div>
-        </div>
+        <div class="jogo-copa" data-fase="r1"><div class="jogo-copa-fase"><span>Grupo A — Rodada 1</span><span>11 Jun • 16h</span></div><div class="jogo-copa-body"><div class="jogo-copa-time"><span class="jogo-copa-flag">🇲🇽</span><span class="jogo-copa-nome">México</span></div><div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">16:00</span><span class="jogo-copa-estadio">Estádio Azteca</span></div><div class="jogo-copa-time"><span class="jogo-copa-flag">🇿🇦</span><span class="jogo-copa-nome">África do Sul</span></div></div></div>
 
-        <div class="jogo-copa" data-fase="grupo">
-          <div class="jogo-copa-fase">
-            <span>Grupo B — Rodada 1</span>
-            <span>12 Jun 2026</span>
-          </div>
-          <div class="jogo-copa-body">
-            <div class="jogo-copa-time">
-              <span class="jogo-copa-flag">🇦🇷</span>
-              <span class="jogo-copa-nome">Argentina</span>
-            </div>
-            <div class="jogo-copa-centro">
-              <span class="jogo-copa-placar">×</span>
-              <span class="jogo-copa-horario">21:00</span>
-              <span class="jogo-copa-estadio">MetLife Stadium</span>
-            </div>
-            <div class="jogo-copa-time">
-              <span class="jogo-copa-flag">🇨🇦</span>
-              <span class="jogo-copa-nome">Canadá</span>
-            </div>
-          </div>
-        </div>
+        <div class="jogo-copa" data-fase="r1"><div class="jogo-copa-fase"><span>Grupo A — Rodada 1</span><span>11 Jun • 22h</span></div><div class="jogo-copa-body"><div class="jogo-copa-time"><span class="jogo-copa-flag">🇰🇷</span><span class="jogo-copa-nome">Coreia do Sul</span></div><div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">22:00</span><span class="jogo-copa-estadio">Guadalajara</span></div><div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇿</span><span class="jogo-copa-nome">Rep. Tcheca</span></div></div></div>
 
-        <div class="jogo-copa" data-fase="grupo">
-          <div class="jogo-copa-fase">
-            <span>Grupo C — Rodada 1</span>
-            <span>13 Jun 2026</span>
-          </div>
-          <div class="jogo-copa-body">
-            <div class="jogo-copa-time">
-              <span class="jogo-copa-flag">🇲🇽</span>
-              <span class="jogo-copa-nome">México</span>
-            </div>
-            <div class="jogo-copa-centro">
-              <span class="jogo-copa-placar">×</span>
-              <span class="jogo-copa-horario">22:00</span>
-              <span class="jogo-copa-estadio">Estadio Azteca</span>
-            </div>
-            <div class="jogo-copa-time">
-              <span class="jogo-copa-flag">🇧🇪</span>
-              <span class="jogo-copa-nome">Bélgica</span>
-            </div>
-          </div>
-        </div>
+        <div class="jogo-copa" data-fase="r1"><div class="jogo-copa-fase"><span>Grupo B — Rodada 1</span><span>12 Jun • 16h</span></div><div class="jogo-copa-body"><div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇭</span><span class="jogo-copa-nome">Suíça</span></div><div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">16:00</span><span class="jogo-copa-estadio">Los Angeles</span></div><div class="jogo-copa-time"><span class="jogo-copa-flag">🇧🇦</span><span class="jogo-copa-nome">Bósnia</span></div></div></div>
 
-        <div class="jogo-copa" data-fase="grupo">
-          <div class="jogo-copa-fase">
-            <span>Grupo F — Rodada 1</span>
-            <span>14 Jun 2026</span>
-          </div>
-          <div class="jogo-copa-body">
-            <div class="jogo-copa-time">
-              <span class="jogo-copa-flag">🇧🇷</span>
-              <span class="jogo-copa-nome">Brasil</span>
-            </div>
-            <div class="jogo-copa-centro">
-              <span class="jogo-copa-placar">×</span>
-              <span class="jogo-copa-horario">21:00</span>
-              <span class="jogo-copa-estadio">AT&T Stadium</span>
-            </div>
-            <div class="jogo-copa-time">
-              <span class="jogo-copa-flag">🇩🇰</span>
-              <span class="jogo-copa-nome">Dinamarca</span>
-            </div>
-          </div>
-        </div>
+        <div class="jogo-copa" data-fase="r1"><div class="jogo-copa-fase"><span>Grupo B — Rodada 1</span><span>12 Jun • 19h</span></div><div class="jogo-copa-body"><div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇦</span><span class="jogo-copa-nome">Canadá</span></div><div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">19:00</span><span class="jogo-copa-estadio">Vancouver</span></div><div class="jogo-copa-time"><span class="jogo-copa-flag">🇶🇦</span><span class="jogo-copa-nome">Qatar</span></div></div></div>
 
-        <div class="jogo-copa" data-fase="final">
-          <div class="jogo-copa-fase">
-            <span>🏆 Final</span>
-            <span>19 Jul 2026</span>
-          </div>
-          <div class="jogo-copa-body">
-            <div class="jogo-copa-time">
-              <span class="jogo-copa-flag">🏆</span>
-              <span class="jogo-copa-nome">A definir</span>
-            </div>
-            <div class="jogo-copa-centro">
-              <span class="jogo-copa-placar">×</span>
-              <span class="jogo-copa-horario">18:00</span>
-              <span class="jogo-copa-estadio">MetLife Stadium</span>
-            </div>
-            <div class="jogo-copa-time">
-              <span class="jogo-copa-flag">🏆</span>
-              <span class="jogo-copa-nome">A definir</span>
-            </div>
-          </div>
-        </div>
+        <div class="jogo-copa destaque" data-fase="r1 brasil"><div class="jogo-copa-fase"><span>🇧🇷 Grupo C — Rodada 1</span><span>13 Jun • 19h</span></div><div class="jogo-copa-body"><div class="jogo-copa-time"><span class="jogo-copa-flag">🇧🇷</span><span class="jogo-copa-nome">Brasil</span></div><div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">19:00</span><span class="jogo-copa-estadio">Filadélfia</span></div><div class="jogo-copa-time"><span class="jogo-copa-flag">🇲🇦</span><span class="jogo-copa-nome">Marrocos</span></div></div></div>
+
+        <div class="jogo-copa" data-fase="r1"><div class="jogo-copa-fase"><span>Grupo C — Rodada 1</span><span>14 Jun • 16h</span></div><div class="jogo-copa-body"><div class="jogo-copa-time"><span class="jogo-copa-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span><span class="jogo-copa-nome">Escócia</span></div><div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">16:00</span><span class="jogo-copa-estadio">Boston</span></div><div class="jogo-copa-time"><span class="jogo-copa-flag">🇭🇹</span><span class="jogo-copa-nome">Haiti</span></div></div></div>
+
+        <div class="jogo-copa" data-fase="r1"><div class="jogo-copa-fase"><span>Grupo D — Rodada 1</span><span>14 Jun • 22h</span></div><div class="jogo-copa-body"><div class="jogo-copa-time"><span class="jogo-copa-flag">🇺🇸</span><span class="jogo-copa-nome">Estados Unidos</span></div><div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">22:00</span><span class="jogo-copa-estadio">Seattle</span></div><div class="jogo-copa-time"><span class="jogo-copa-flag">🇦🇺</span><span class="jogo-copa-nome">Austrália</span></div></div></div>
+
+        <div class="jogo-copa" data-fase="r1"><div class="jogo-copa-fase"><span>Grupo E — Rodada 1</span><span>15 Jun • 14h</span></div><div class="jogo-copa-body"><div class="jogo-copa-time"><span class="jogo-copa-flag">🇩🇪</span><span class="jogo-copa-nome">Alemanha</span></div><div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">14:00</span><span class="jogo-copa-estadio">Houston</span></div><div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇼</span><span class="jogo-copa-nome">Curaçao</span></div></div></div>
+
+        <div class="jogo-copa" data-fase="r1"><div class="jogo-copa-fase"><span>Grupo F — Rodada 1</span><span>15 Jun • 17h</span></div><div class="jogo-copa-body"><div class="jogo-copa-time"><span class="jogo-copa-flag">🇳🇱</span><span class="jogo-copa-nome">Holanda</span></div><div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">17:00</span><span class="jogo-copa-estadio">Dallas</span></div><div class="jogo-copa-time"><span class="jogo-copa-flag">🇯🇵</span><span class="jogo-copa-nome">Japão</span></div></div></div>
+
+        <div class="jogo-copa" data-fase="r1"><div class="jogo-copa-fase"><span>Grupo H — Rodada 1</span><span>16 Jun • 13h</span></div><div class="jogo-copa-body"><div class="jogo-copa-time"><span class="jogo-copa-flag">🇪🇸</span><span class="jogo-copa-nome">Espanha</span></div><div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">13:00</span><span class="jogo-copa-estadio">Atlanta</span></div><div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇻</span><span class="jogo-copa-nome">Cabo Verde</span></div></div></div>
+
+        <div class="jogo-copa" data-fase="r1"><div class="jogo-copa-fase"><span>Grupo I — Rodada 1</span><span>17 Jun • 16h</span></div><div class="jogo-copa-body"><div class="jogo-copa-time"><span class="jogo-copa-flag">🇫🇷</span><span class="jogo-copa-nome">França</span></div><div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">16:00</span><span class="jogo-copa-estadio">Nova York</span></div><div class="jogo-copa-time"><span class="jogo-copa-flag">🇸🇳</span><span class="jogo-copa-nome">Senegal</span></div></div></div>
+
+        <div class="jogo-copa" data-fase="r1"><div class="jogo-copa-fase"><span>Grupo J — Rodada 1</span><span>17 Jun • 22h</span></div><div class="jogo-copa-body"><div class="jogo-copa-time"><span class="jogo-copa-flag">🇦🇷</span><span class="jogo-copa-nome">Argentina</span></div><div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">22:00</span><span class="jogo-copa-estadio">Kansas City</span></div><div class="jogo-copa-time"><span class="jogo-copa-flag">🇩🇿</span><span class="jogo-copa-nome">Argélia</span></div></div></div>
+
+        <div class="jogo-copa" data-fase="r1"><div class="jogo-copa-fase"><span>Grupo K — Rodada 1</span><span>18 Jun • 14h</span></div><div class="jogo-copa-body"><div class="jogo-copa-time"><span class="jogo-copa-flag">🇵🇹</span><span class="jogo-copa-nome">Portugal</span></div><div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">14:00</span><span class="jogo-copa-estadio">Houston</span></div><div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇩</span><span class="jogo-copa-nome">RD Congo</span></div></div></div>
+
+        <div class="jogo-copa" data-fase="r1"><div class="jogo-copa-fase"><span>Grupo L — Rodada 1</span><span>18 Jun • 17h</span></div><div class="jogo-copa-body"><div class="jogo-copa-time"><span class="jogo-copa-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="jogo-copa-nome">Inglaterra</span></div><div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">17:00</span><span class="jogo-copa-estadio">Dallas</span></div><div class="jogo-copa-time"><span class="jogo-copa-flag">🇭🇷</span><span class="jogo-copa-nome">Croácia</span></div></div></div>
+
+        <!-- RODADA 2 BRASIL -->
+        <div class="jogo-copa destaque" data-fase="r2 brasil"><div class="jogo-copa-fase"><span>🇧🇷 Grupo C — Rodada 2</span><span>19 Jun • 22h</span></div><div class="jogo-copa-body"><div class="jogo-copa-time"><span class="jogo-copa-flag">🇧🇷</span><span class="jogo-copa-nome">Brasil</span></div><div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">22:00</span><span class="jogo-copa-estadio">Filadélfia</span></div><div class="jogo-copa-time"><span class="jogo-copa-flag">🇭🇹</span><span class="jogo-copa-nome">Haiti</span></div></div></div>
+
+        <!-- RODADA 3 BRASIL -->
+        <div class="jogo-copa destaque" data-fase="r3 brasil"><div class="jogo-copa-fase"><span>🇧🇷 Grupo C — Rodada 3</span><span>24 Jun • 21h30</span></div><div class="jogo-copa-body"><div class="jogo-copa-time"><span class="jogo-copa-flag">🇧🇷</span><span class="jogo-copa-nome">Brasil</span></div><div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">21:30</span><span class="jogo-copa-estadio">A definir</span></div><div class="jogo-copa-time"><span class="jogo-copa-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span><span class="jogo-copa-nome">Escócia</span></div></div></div>
 
       </div>
     </div>
 
-    <!-- ==================== CLASSIFICAÇÃO ==================== -->
+    <!-- ===== CLASSIFICAÇÃO ===== -->
     <div id="secao-classificacao" class="copa-secao">
-      <div class="aviso-dados">
-        ⏳ A classificação será atualizada automaticamente assim que os jogos começarem em 11 de junho de 2026.
-      </div>
+      <div class="aviso-dados">⏳ A classificação será atualizada assim que os jogos começarem em 11 de junho de 2026.</div>
       <div class="classificacao-wrap">
+
+        <div class="classificacao-grupo">
+          <div class="classificacao-grupo-header">🇧🇷 Grupo C — Brasil</div>
+          <table class="classificacao-table">
+            <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
+            <tbody>
+              <tr><td class="cl-pos classificado">1</td><td><div class="cl-time"><span class="cl-flag">🇧🇷</span>Brasil</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
+              <tr><td class="cl-pos classificado">2</td><td><div class="cl-time"><span class="cl-flag">🇲🇦</span>Marrocos</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
+              <tr><td class="cl-pos">3</td><td><div class="cl-time"><span class="cl-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span>Escócia</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
+              <tr><td class="cl-pos">4</td><td><div class="cl-time"><span class="cl-flag">🇭🇹</span>Haiti</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
+            </tbody>
+          </table>
+        </div>
 
         <div class="classificacao-grupo">
           <div class="classificacao-grupo-header">Grupo A</div>
           <table class="classificacao-table">
-            <thead>
-              <tr>
-                <th colspan="2">Seleção</th>
-                <th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th>
-              </tr>
-            </thead>
+            <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
             <tbody>
-              <tr><td class="cl-pos classificado">1</td><td><div class="cl-time"><span class="cl-flag">🇺🇸</span>Estados Unidos</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
-              <tr><td class="cl-pos classificado">2</td><td><div class="cl-time"><span class="cl-flag">🇷🇸</span>Sérvia</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
-              <tr><td class="cl-pos">3</td><td><div class="cl-time"><span class="cl-flag">🇵🇦</span>Panamá</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
-              <tr><td class="cl-pos">4</td><td><div class="cl-time"><span class="cl-flag">🇧🇫</span>Burkina Faso</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
+              <tr><td class="cl-pos classificado">1</td><td><div class="cl-time"><span class="cl-flag">🇲🇽</span>México</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
+              <tr><td class="cl-pos classificado">2</td><td><div class="cl-time"><span class="cl-flag">🇰🇷</span>Coreia do Sul</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
+              <tr><td class="cl-pos">3</td><td><div class="cl-time"><span class="cl-flag">🇿🇦</span>África do Sul</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
+              <tr><td class="cl-pos">4</td><td><div class="cl-time"><span class="cl-flag">🇨🇿</span>Rep. Tcheca</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
             </tbody>
           </table>
         </div>
 
         <div class="classificacao-grupo">
-          <div class="classificacao-grupo-header">Grupo B</div>
+          <div class="classificacao-grupo-header">Grupo J — Argentina</div>
           <table class="classificacao-table">
-            <thead>
-              <tr>
-                <th colspan="2">Seleção</th>
-                <th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th>
-              </tr>
-            </thead>
+            <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
             <tbody>
               <tr><td class="cl-pos classificado">1</td><td><div class="cl-time"><span class="cl-flag">🇦🇷</span>Argentina</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
-              <tr><td class="cl-pos classificado">2</td><td><div class="cl-time"><span class="cl-flag">🇨🇦</span>Canadá</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
-              <tr><td class="cl-pos">3</td><td><div class="cl-time"><span class="cl-flag">🇨🇱</span>Chile</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
-              <tr><td class="cl-pos">4</td><td><div class="cl-time"><span class="cl-flag">🇦🇱</span>Albânia</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
+              <tr><td class="cl-pos classificado">2</td><td><div class="cl-time"><span class="cl-flag">🇦🇹</span>Áustria</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
+              <tr><td class="cl-pos">3</td><td><div class="cl-time"><span class="cl-flag">🇩🇿</span>Argélia</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
+              <tr><td class="cl-pos">4</td><td><div class="cl-time"><span class="cl-flag">🇯🇴</span>Jordânia</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
             </tbody>
           </table>
         </div>
 
         <div class="classificacao-grupo">
-          <div class="classificacao-grupo-header">Grupo F — Brasil</div>
+          <div class="classificacao-grupo-header">Grupo I — França</div>
           <table class="classificacao-table">
-            <thead>
-              <tr>
-                <th colspan="2">Seleção</th>
-                <th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th>
-              </tr>
-            </thead>
+            <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
             <tbody>
-              <tr><td class="cl-pos classificado">1</td><td><div class="cl-time"><span class="cl-flag">🇧🇷</span>Brasil</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
-              <tr><td class="cl-pos classificado">2</td><td><div class="cl-time"><span class="cl-flag">🇲🇽</span>México</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
-              <tr><td class="cl-pos">3</td><td><div class="cl-time"><span class="cl-flag">🇩🇰</span>Dinamarca</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
-              <tr><td class="cl-pos">4</td><td><div class="cl-time"><span class="cl-flag">🇨🇲</span>Camarões</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
+              <tr><td class="cl-pos classificado">1</td><td><div class="cl-time"><span class="cl-flag">🇫🇷</span>França</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
+              <tr><td class="cl-pos classificado">2</td><td><div class="cl-time"><span class="cl-flag">🇳🇴</span>Noruega</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
+              <tr><td class="cl-pos">3</td><td><div class="cl-time"><span class="cl-flag">🇸🇳</span>Senegal</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
+              <tr><td class="cl-pos">4</td><td><div class="cl-time"><span class="cl-flag">🇮🇶</span>Iraque</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
             </tbody>
           </table>
         </div>
@@ -800,74 +375,34 @@
       </div>
     </div>
 
-    <!-- ==================== ARTILHARIA ==================== -->
+    <!-- ===== ARTILHARIA ===== -->
     <div id="secao-artilharia" class="copa-secao">
-      <div class="aviso-dados">
-        ⏳ A artilharia será atualizada automaticamente assim que os jogos começarem em 11 de junho de 2026.
-      </div>
+      <div class="aviso-dados">⏳ A artilharia será atualizada assim que os jogos começarem em 11 de junho de 2026.</div>
       <div class="artilharia-wrap">
-        <div class="artilheiro-card">
-          <div class="artilheiro-pos top1">1</div>
-          <div class="artilheiro-info">
-            <div class="artilheiro-nome">🇵🇹 Cristiano Ronaldo</div>
-            <div class="artilheiro-pais">Portugal</div>
-          </div>
-          <div class="artilheiro-gols">0<span>gols</span></div>
-        </div>
-        <div class="artilheiro-card">
-          <div class="artilheiro-pos top2">2</div>
-          <div class="artilheiro-info">
-            <div class="artilheiro-nome">🇦🇷 Lionel Messi</div>
-            <div class="artilheiro-pais">Argentina</div>
-          </div>
-          <div class="artilheiro-gols">0<span>gols</span></div>
-        </div>
-        <div class="artilheiro-card">
-          <div class="artilheiro-pos top3">3</div>
-          <div class="artilheiro-info">
-            <div class="artilheiro-nome">🇧🇷 Vinicius Jr.</div>
-            <div class="artilheiro-pais">Brasil</div>
-          </div>
-          <div class="artilheiro-gols">0<span>gols</span></div>
-        </div>
-        <div class="artilheiro-card">
-          <div class="artilheiro-pos">4</div>
-          <div class="artilheiro-info">
-            <div class="artilheiro-nome">🇫🇷 Kylian Mbappé</div>
-            <div class="artilheiro-pais">França</div>
-          </div>
-          <div class="artilheiro-gols">0<span>gols</span></div>
-        </div>
-        <div class="artilheiro-card">
-          <div class="artilheiro-pos">5</div>
-          <div class="artilheiro-info">
-            <div class="artilheiro-nome">🇳🇴 Erling Haaland</div>
-            <div class="artilheiro-pais">Noruega</div>
-          </div>
-          <div class="artilheiro-gols">0<span>gols</span></div>
-        </div>
+        <div class="artilheiro-card"><div class="artilheiro-pos top1">1</div><div class="artilheiro-info"><div class="artilheiro-nome">🇵🇹 Cristiano Ronaldo</div><div class="artilheiro-pais">Portugal • Grupo K</div></div><div class="artilheiro-gols">0<span>gols</span></div></div>
+        <div class="artilheiro-card"><div class="artilheiro-pos top2">2</div><div class="artilheiro-info"><div class="artilheiro-nome">🇦🇷 Lionel Messi</div><div class="artilheiro-pais">Argentina • Grupo J</div></div><div class="artilheiro-gols">0<span>gols</span></div></div>
+        <div class="artilheiro-card"><div class="artilheiro-pos top3">3</div><div class="artilheiro-info"><div class="artilheiro-nome">🇧🇷 Vinicius Jr.</div><div class="artilheiro-pais">Brasil • Grupo C</div></div><div class="artilheiro-gols">0<span>gols</span></div></div>
+        <div class="artilheiro-card"><div class="artilheiro-pos">4</div><div class="artilheiro-info"><div class="artilheiro-nome">🇫🇷 Kylian Mbappé</div><div class="artilheiro-pais">França • Grupo I</div></div><div class="artilheiro-gols">0<span>gols</span></div></div>
+        <div class="artilheiro-card"><div class="artilheiro-pos">5</div><div class="artilheiro-info"><div class="artilheiro-nome">🇳🇴 Erling Haaland</div><div class="artilheiro-pais">Noruega • Grupo I</div></div><div class="artilheiro-gols">0<span>gols</span></div></div>
+        <div class="artilheiro-card"><div class="artilheiro-pos">6</div><div class="artilheiro-info"><div class="artilheiro-nome">🇩🇪 Florian Wirtz</div><div class="artilheiro-pais">Alemanha • Grupo E</div></div><div class="artilheiro-gols">0<span>gols</span></div></div>
+        <div class="artilheiro-card"><div class="artilheiro-pos">7</div><div class="artilheiro-info"><div class="artilheiro-nome">🇪🇸 Lamine Yamal</div><div class="artilheiro-pais">Espanha • Grupo H</div></div><div class="artilheiro-gols">0<span>gols</span></div></div>
+        <div class="artilheiro-card"><div class="artilheiro-pos">8</div><div class="artilheiro-info"><div class="artilheiro-nome">🇧🇷 Rodrygo</div><div class="artilheiro-pais">Brasil • Grupo C</div></div><div class="artilheiro-gols">0<span>gols</span></div></div>
       </div>
     </div>
 
   </main>
 
-  <!-- ==================== NAV BOTTOM ==================== -->
   <nav class="nav-bottom" role="navigation" aria-label="Navegação principal">
     <a href="/" class="nav-item"><span class="nav-icon">⚽</span><span class="nav-label">Jogos</span></a>
     <a href="/tabela/" class="nav-item"><span class="nav-icon">📊</span><span class="nav-label">Tabela</span></a>
     <a href="/noticias/" class="nav-item"><span class="nav-icon">📰</span><span class="nav-label">Notícias</span></a>
     <a href="/videos/" class="nav-item"><span class="nav-icon">▶️</span><span class="nav-label">Vídeos</span></a>
-    <a href="/artilharia/" class="nav-item"><span class="nav-icon">👟</span><span class="nav-label">Artilharia</span></a>
+    <a href="/artilharia/" class="nav-item"><span class="nav-icon">👟</span><span class="nav-label">Artilharia</span></div></a>
   </nav>
 
-  <!-- ==================== FOOTER ==================== -->
   <footer>
     <div class="footer-logo">Placar <span>do Futebol</span></div>
-    <div class="footer-links">
-      <a href="/sobre/">Sobre</a>
-      <a href="/privacidade/">Privacidade</a>
-      <a href="/contato/">Contato</a>
-    </div>
+    <div class="footer-links"><a href="/sobre/">Sobre</a><a href="/privacidade/">Privacidade</a><a href="/contato/">Contato</a></div>
     <p class="footer-copy">© 2026 placardofutebol.com — Resultados ao vivo</p>
   </footer>
 
@@ -883,11 +418,13 @@
       document.querySelectorAll('.fase-btn').forEach(b => b.classList.remove('ativo'));
       el.classList.add('ativo');
       document.querySelectorAll('#jogos-copa .jogo-copa').forEach(j => {
-        if (fase === 'todos' || j.dataset.fase === fase) {
-          j.style.display = '';
-        } else {
-          j.style.display = 'none';
-        }
+        j.style.display = (fase === 'todos' || j.dataset.fase.includes(fase)) ? '' : 'none';
+      });
+    }
+  </script>
+
+</body>
+</html>
       });
     }
   </script>
