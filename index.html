@@ -442,18 +442,18 @@ function verificarJogosAtrasados() {
       if (deOntem.length) gruposOntem[lid] = deOntem;
     });
 
-    // Prioridade de ordenação entre grupos: ao vivo > contagem regressiva > agendado > encerrado
-function prioridadeGrupo(lista) {
-  if (lista.some(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short))) return 0;
-  const agora = Date.now();
-  if (lista.some(j => {
-    if (!['NS','TBD'].includes(j.fixture.status.short)) return false;
-    const diffMin = (new Date(j.fixture.date) - agora) / 60000;
-    return diffMin >= 0 && diffMin <= 30;
-  })) return 1;
-  if (lista.some(j => ['NS','TBD'].includes(j.fixture.status.short))) return 2;
-  return 3;
-}
+   // Prioridade de ordenação entre grupos: ao vivo > contagem regressiva > agendado > encerrado
+    const prioridadeGrupo = lista => {
+      if (lista.some(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short))) return 0;
+      const agora = Date.now();
+      if (lista.some(j => {
+        if (!['NS','TBD'].includes(j.fixture.status.short)) return false;
+        const diffMin = (new Date(j.fixture.date) - agora) / 60000;
+        return diffMin >= 0 && diffMin <= 30;
+      })) return 1;
+      if (lista.some(j => ['NS','TBD'].includes(j.fixture.status.short))) return 2;
+      return 3;
+    };
 
 function ordenarGrupos(grupos) {
   return Object.fromEntries(
