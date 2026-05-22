@@ -625,3 +625,14 @@ footer {
   #pef-mini { bottom: 24px; right: 24px; }
   #pef-grande { bottom: 24px; right: 24px; left: auto; width: 320px; }
 }
+.filtro-completo {
+  background: var(--verde-escuro);
+  color: white;
+  border-color: var(--verde-escuro);
+  margin-left: auto;
+}
+.filtro-completo:hover {
+  background: var(--verde);
+  border-color: var(--verde);
+  color: white;
+}
