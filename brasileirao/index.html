@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Brasileirão Série A 2026 - Jogos, Tabela de Classificação e Artilharia. Acompanhe todas as rodadas ao vivo.">
+  <meta name="theme-color" content="#1a7a30">
+  <title>Brasileirão 2026 - Jogos, Tabela e Artilharia | Placar do Futebol</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <style>
+    /* ── HERO ── */
+    .bra-hero {
+      background: linear-gradient(135deg, var(--verde-escuro) 0%, var(--verde) 60%, #2d9e4e 100%);
+      padding: 20px 16px 16px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      user-select: none;
+    }
+    .bra-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(245,200,0,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .bra-hero:active { opacity: 0.92; }
+    .bra-hero-titulo {
+      font-family: var(--font-titulo);
+      font-size: 26px;
+      font-weight: 800;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      line-height: 1;
+    }
+    .bra-hero-titulo span { color: var(--amarelo); }
+    .bra-hero-sub {
+      font-family: var(--font-corpo);
+      font-size: 11px;
+      color: rgba(255,255,255,0.7);
+      margin-top: 4px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .bra-hero-badges {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .bra-hero-badge {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-family: var(--font-corpo);
+      font-size: 11px;
+      color: white;
+      font-weight: 600;
+    }
+    .bra-hero-refresh {
+      font-family: var(--font-corpo);
+      font-size: 10px;
+      color: rgba(255,255,255,0.45);
+      margin-top: 8px;
+      letter-spacing: 1px;
+    }
+
+    /* ── NAV ABAS ── */
+    .bra-nav {
+      background: white;
+      border-bottom: 2px solid var(--cinza-borda);
+      position: sticky;
+      top: 52px;
+      z-index: 85;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .bra-nav::-webkit-scrollbar { display: none; }
+    .bra-nav-inner {
+      display: flex;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .bra-tab {
+      padding: 12px 22px;
+      font-family: var(--font-corpo);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--cinza-texto);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .bra-tab:hover { color: var(--verde); }
+    .bra-tab.ativa { color: var(--verde); border-bottom-color: var(--verde); }
+
+    /* ── SEÇÕES ── */
+    .bra-secao { display: none; }
+    .bra-secao.ativa { display: block; }
+
+    /* ── CARROSSEL DE RODADAS ── */
+    .rodada-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      background: white;
+      border-bottom: 1px solid var(--cinza-borda);
+      padding: 10px 16px;
+      position: sticky;
+      top: 96px;
+      z-index: 80;
+      max-width: 100%;
+    }
+    .rodada-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1.5px solid var(--cinza-borda);
+      background: white;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      color: var(--verde);
+      flex-shrink: 0;
+    }
+    .rodada-btn:hover { background: var(--verde-claro); border-color: var(--verde); }
+    .rodada-btn:disabled { color: var(--cinza-borda); cursor: default; background: white; }
+    .rodada-info {
+      flex: 1;
+      text-align: center;
+      padding: 0 12px;
+    }
+    .rodada-titulo {
+      font-family: var(--font-titulo);
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--preto);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: block;
+    }
+    .rodada-subtitulo {
+      font-family: var(--font-corpo);
+      font-size: 11px;
+      color: var(--cinza-texto);
+      display: block;
+      margin-top: 1px;
+    }
+
+    /* ── FILTROS DE STATUS ── */
+    .bra-filtros {
+      display: flex;
+      gap: 8px;
+      padding: 12px 12px 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .bra-filtros::-webkit-scrollbar { display: none; }
+    @media (min-width: 640px) { .bra-filtros { padding: 14px 24px 0; } }
+
+    /* ── JOGOS LISTA ── */
+    .bra-jogos-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 12px 12px 20px;
+    }
+    @media (min-width: 640px) { .bra-jogos-wrap { padding: 14px 24px 20px; } }
+
+    .bra-jogo {
+      background: white;
+      border-radius: var(--radius-card);
+      box-shadow: var(--sombra);
+      margin-bottom: 10px;
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .bra-jogo:hover { transform: translateY(-1px); box-shadow: var(--sombra-hover); }
+    .bra-jogo-topo {
+      background: var(--verde-claro);
+      border-left: 3px solid var(--verde);
+      padding: 5px 12px;
+      font-family: var(--font-titulo);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--verde-escuro);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .bra-jogo-topo.ao-vivo-topo {
+      background: #fff0f0;
+      border-left-color: var(--vermelho);
+      color: var(--vermelho);
+    }
+    .bra-jogo-corpo {
+      padding: 12px 14px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 8px;
+    }
+    .bra-time {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-align: center;
+    }
+    .bra-time-escudo {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+    }
+    .bra-time-nome {
+      font-family: var(--font-corpo);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--preto);
+    }
+    .bra-centro {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      min-width: 80px;
+      text-align: center;
+    }
+    .bra-placar {
+      font-family: var(--font-titulo);
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--preto);
+      letter-spacing: 3px;
+      line-height: 1;
+    }
+    .bra-status {
+      font-family: var(--font-corpo);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--cinza-texto);
+    }
+    .bra-status.vivo { color: var(--vermelho); animation: piscando 1.2s ease infinite; }
+    .bra-status.encerrado { color: #999; }
+    .bra-status.em-breve { color: #e67e00; animation: piscando 1.2s ease infinite; }
+    .bra-estadio {
+      font-family: var(--font-corpo);
+      font-size: 10px;
+      color: var(--cinza-texto);
+      margin-top: 2px;
+    }
+
+    /* ── LOADING / VAZIO ── */
+    .bra-loading {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--cinza-texto);
+    }
+    .bra-loading .spinner {
+      width: 28px; height: 28px;
+      border: 3px solid var(--cinza-borda);
+      border-top-color: var(--verde);
+      border-radius: 50%;
+      animation: girar 0.8s linear infinite;
+      margin: 0 auto 12px;
+    }
+    .bra-vazio {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--cinza-texto);
+      font-family: var(--font-corpo);
+      font-size: 14px;
+    }
+
+    /* ── TABELA ── */
+    .bra-tabela-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px 12px 20px;
+    }
+    @media (min-width: 640px) { .bra-tabela-wrap { padding: 20px 24px; } }
+    .bra-tabela-card {
+      background: white;
+      border-radius: var(--radius-card);
+      box-shadow: var(--sombra);
+      overflow: hidden;
+    }
+    .bra-tabela-header {
+      background: var(--verde);
+      padding: 10px 16px;
+      font-family: var(--font-titulo);
+      font-size: 15px;
+      font-weight: 800;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .bra-tabela-legenda {
+      font-size: 11px;
+      font-weight: 400;
+      opacity: 0.8;
+    }
+    table.bra-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-corpo);
+      font-size: 12px;
+    }
+    .bra-table thead tr { background: var(--cinza-bg); }
+    .bra-table th {
+      padding: 7px 6px;
+      text-align: center;
+      font-weight: 700;
+      color: var(--cinza-texto);
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+    .bra-table th:nth-child(2) { text-align: left; padding-left: 12px; }
+    .bra-table td {
+      padding: 9px 6px;
+      text-align: center;
+      border-bottom: 1px solid var(--cinza-borda);
+      color: var(--preto);
+    }
+    .bra-table td:nth-child(2) { text-align: left; padding-left: 12px; }
+    .bra-table tr:last-child td { border-bottom: none; }
+    .bra-table tbody tr:hover { background: #f8faf9; }
+    .tb-pos { font-weight: 700; font-size: 11px; color: var(--cinza-texto); }
+    .tb-pos.libertadores { color: #1565C0; }
+    .tb-pos.sulamericana { color: #e67e00; }
+    .tb-pos.rebaixado { color: var(--vermelho); }
+    .tb-pos.lider { color: var(--verde); }
+    .tb-time-cell { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+    .tb-escudo { width: 18px; height: 18px; object-fit: contain; }
+    .tb-pts { font-weight: 800; color: var(--preto); font-size: 13px; }
+    .tb-legenda-wrap {
+      padding: 10px 14px;
+      background: var(--cinza-bg);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .tb-legenda-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-corpo);
+      font-size: 10px;
+      color: var(--cinza-texto);
+    }
+    .tb-legenda-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .aviso-tabela {
+      background: #fff8e1;
+      border: 1px solid var(--amarelo);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-family: var(--font-corpo);
+      font-size: 12px;
+      color: #7a6000;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    /* ── ARTILHARIA ── */
+    .bra-art-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px 12px 20px;
+    }
+    @media (min-width: 640px) { .bra-art-wrap { padding: 20px 24px; } }
+    .art-card {
+      background: white;
+      border-radius: var(--radius-card);
+      box-shadow: var(--sombra);
+      margin-bottom: 8px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .art-pos {
+      font-family: var(--font-titulo);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--cinza-borda);
+      width: 28px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .art-pos.p1 { color: #f5c800; }
+    .art-pos.p2 { color: #adb5bd; }
+    .art-pos.p3 { color: #cd7f32; }
+    .art-escudo {
+      width: 32px; height: 32px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .art-info { flex: 1; }
+    .art-nome {
+      font-family: var(--font-corpo);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--preto);
+    }
+    .art-time {
+      font-family: var(--font-corpo);
+      font-size: 11px;
+      color: var(--cinza-texto);
+      margin-top: 2px;
+    }
+    .art-gols {
+      font-family: var(--font-titulo);
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--verde);
+      text-align: center;
+    }
+    .art-gols span {
+      font-family: var(--font-corpo);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--cinza-texto);
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <span class="logo-principal">Placar <span>do Futebol</span></span>
+        <span class="logo-sub">Resultados ao vivo</span>
+      </a>
+      <div class="header-ao-vivo"><span class="dot-vivo"></span>AO VIVO</div>
+    </div>
+  </header>
+
+  <div class="bra-hero" onclick="atualizarPagina()" title="Clique para atualizar">
+    <div class="bra-hero-titulo">🇧🇷 Brasileirão <span>2026</span></div>
+    <div class="bra-hero-sub">Série A · 20 clubes · 38 rodadas</div>
+    <div class="bra-hero-badges">
+      <span class="bra-hero-badge">⚽ 380 Jogos</span>
+      <span class="bra-hero-badge" id="badge-rodada-atual">⏳ Carregando...</span>
+      <span class="bra-hero-badge" id="badge-jogos-hoje">📅 Verificando...</span>
+    </div>
+    <div class="bra-hero-refresh">↻ toque para atualizar</div>
+  </div>
+
+  <nav class="bra-nav">
+    <div class="bra-nav-inner">
+      <div class="bra-tab ativa" onclick="mudarAba(this, 'jogos')">⚽ Jogos</div>
+      <div class="bra-tab" onclick="mudarAba(this, 'tabela')">📊 Tabela</div>
+      <div class="bra-tab" onclick="mudarAba(this, 'artilharia')">👟 Artilharia</div>
+    </div>
+  </nav>
+
+  <main style="padding-bottom: 20px;">
+
+    <!-- ===== JOGOS ===== -->
+    <div id="secao-jogos" class="bra-secao ativa">
+
+      <div class="rodada-nav">
+        <button class="rodada-btn" id="btn-anterior" onclick="mudarRodada(-1)" title="Rodada anterior">&#8592;</button>
+        <div class="rodada-info">
+          <span class="rodada-titulo" id="rodada-titulo">Rodada 1</span>
+          <span class="rodada-subtitulo" id="rodada-subtitulo">Carregando...</span>
+        </div>
+        <button class="rodada-btn" id="btn-proxima" onclick="mudarRodada(1)" title="Próxima rodada">&#8594;</button>
+      </div>
+
+      <div class="bra-filtros">
+        <button class="filtro-btn ativo" onclick="filtrarStatus(this, 'todos')">Todos</button>
+        <button class="filtro-btn" onclick="filtrarStatus(this, 'ao-vivo')">● Ao Vivo</button>
+        <button class="filtro-btn" onclick="filtrarStatus(this, 'agendado')">Agendados</button>
+        <button class="filtro-btn" onclick="filtrarStatus(this, 'encerrado')">Encerrados</button>
+      </div>
+
+      <div class="bra-jogos-wrap">
+        <div id="jogos-container" class="bra-loading">
+          <div class="spinner"></div>
+          <p>Carregando jogos...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TABELA ===== -->
+    <div id="secao-tabela" class="bra-secao">
+      <div class="bra-tabela-wrap">
+        <div class="aviso-tabela" id="aviso-tabela" style="display:none">⏳ Tabela sendo carregada...</div>
+        <div class="bra-tabela-card">
+          <div class="bra-tabela-header">
+            <span>🇧🇷 Brasileirão Série A 2026</span>
+            <span class="bra-tabela-legenda" id="tabela-atualizada"></span>
+          </div>
+          <table class="bra-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Clube</th>
+                <th>J</th>
+                <th>V</th>
+                <th>E</th>
+                <th>D</th>
+                <th>GP</th>
+                <th>GC</th>
+                <th>SG</th>
+                <th>Pts</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-body">
+              <tr><td colspan="10" style="text-align:center;padding:20px;color:var(--cinza-texto);font-size:13px;">Carregando classificação...</td></tr>
+            </tbody>
+          </table>
+          <div class="tb-legenda-wrap">
+            <div class="tb-legenda-item"><div class="tb-legenda-dot" style="background:#1565C0"></div>Libertadores</div>
+            <div class="tb-legenda-item"><div class="tb-legenda-dot" style="background:#e67e00"></div>Sul-Americana</div>
+            <div class="tb-legenda-item"><div class="tb-legenda-dot" style="background:var(--vermelho)"></div>Rebaixamento</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ARTILHARIA ===== -->
+    <div id="secao-artilharia" class="bra-secao">
+      <div class="bra-art-wrap">
+        <div id="artilharia-container" class="bra-loading">
+          <div class="spinner"></div>
+          <p>Carregando artilharia...</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <nav class="nav-bottom" role="navigation" aria-label="Navegação principal">
+    <a href="/" class="nav-item"><span class="nav-icon">⚽</span><span class="nav-label">Jogos</span></a>
+    <a href="/tabela/" class="nav-item"><span class="nav-icon">📊</span><span class="nav-label">Tabela</span></a>
+    <a href="/noticias/" class="nav-item"><span class="nav-icon">📰</span><span class="nav-label">Notícias</span></a>
+    <a href="/videos/" class="nav-item"><span class="nav-icon">▶️</span><span class="nav-label">Vídeos</span></a>
+    <a href="/artilharia/" class="nav-item"><span class="nav-icon">👟</span><span class="nav-label">Artilharia</span></a>
+  </nav>
+
+  <footer>
+    <div class="footer-logo">Placar <span>do Futebol</span></div>
+    <div class="footer-links">
+      <a href="/sobre/">Sobre</a>
+      <a href="/privacidade/">Privacidade</a>
+      <a href="/contato/">Contato</a>
+    </div>
+    <p class="footer-copy">© 2026 placardofutebol.com — Resultados ao vivo</p>
+  </footer>
+
+  <script>
+    const PROXY   = 'https://futebol-proxy.placardofutebol-com.workers.dev';
+    const LEAGUE  = 71;
+    const SEASON  = 2026;
+    const TOTAL_RODADAS = 38;
+
+    let rodadaAtual   = 1;
+    let rodadaVendo   = 1;
+    let jogosPorRodada = {};
+    let statusFiltro  = 'todos';
+    let timerAoVivo   = null;
+
+    // ── Nomes abreviados ──
+    const SIGLAS = {
+      'Atletico Mineiro':'Atlético-MG','Atletico Paranaense':'Athletico-PR',
+      'Atletico Goianiense':'Atlético-GO','Vasco da Gama':'Vasco',
+      'Sao Paulo':'São Paulo','Fluminense':'Fluminense','Flamengo':'Flamengo',
+      'Palmeiras':'Palmeiras','Cruzeiro':'Cruzeiro','Internacional':'Internacional',
+      'Corinthians':'Corinthians','Botafogo':'Botafogo','Santos':'Santos',
+      'Gremio':'Grêmio','Bahia':'Bahia','Fortaleza':'Fortaleza',
+      'Ceara':'Ceará','Coritiba':'Coritiba','Goias':'Goiás','Cuiaba':'Cuiabá',
+      'Mirassol':'Mirassol','Novorizontino':'Novorizontino','Sport':'Sport',
+      'America Mineiro':'América-MG','Red Bull Bragantino':'Bragantino',
+      'Juventude':'Juventude','Vitoria':'Vitória','Chapecoense':'Chapecoense',
+    };
+    function nomeTime(n) { return SIGLAS[n] || n; }
+
+    // ── Navegação por abas ──
+    function mudarAba(el, secao) {
+      document.querySelectorAll('.bra-tab').forEach(t => t.classList.remove('ativa'));
+      document.querySelectorAll('.bra-secao').forEach(s => s.classList.remove('ativa'));
+      el.classList.add('ativa');
+      document.getElementById('secao-' + secao).classList.add('ativa');
+      if (secao === 'tabela') carregarTabela();
+      if (secao === 'artilharia') carregarArtilharia();
+    }
+
+    // ── Filtro de status ──
+    function filtrarStatus(el, status) {
+      document.querySelectorAll('.bra-filtros .filtro-btn').forEach(b => b.classList.remove('ativo'));
+      el.classList.add('ativo');
+      statusFiltro = status;
+      renderJogos();
+    }
+
+    // ── Atualizar página ──
+    function atualizarPagina() {
+      jogosPorRodada = {};
+      carregarRodada(rodadaVendo);
+    }
+
+    // ── Determinar rodada atual ──
+    async function determinarRodadaAtual() {
+      try {
+        const r = await fetch(`${PROXY}/fixtures/rounds?league=${LEAGUE}&season=${SEASON}&current=true`);
+        const d = await r.json();
+        if (d.response && d.response.length) {
+          const str = d.response[0]; // ex: "Regular Season - 12"
+          const match = str.match(/(\d+)$/);
+          if (match) {
+            rodadaAtual = parseInt(match[1]);
+            rodadaVendo = rodadaAtual;
+          }
+        }
+      } catch(e) {
+        console.log('Rodada atual não detectada, usando 1');
+      }
+      document.getElementById('badge-rodada-atual').textContent = `🏆 Rodada ${rodadaAtual}`;
+      atualizarBotoesRodada();
+      carregarRodada(rodadaVendo);
+    }
+
+    // ── Mudar rodada ──
+    function mudarRodada(dir) {
+      const nova = rodadaVendo + dir;
+      if (nova < 1 || nova > TOTAL_RODADAS) return;
+      rodadaVendo = nova;
+      atualizarBotoesRodada();
+      carregarRodada(rodadaVendo);
+    }
+
+    function atualizarBotoesRodada() {
+      document.getElementById('btn-anterior').disabled = rodadaVendo <= 1;
+      document.getElementById('btn-proxima').disabled  = rodadaVendo >= TOTAL_RODADAS;
+      document.getElementById('rodada-titulo').textContent = `Rodada ${rodadaVendo}`;
+    }
+
+    // ── Carregar jogos de uma rodada ──
+    async function carregarRodada(rodada) {
+      document.getElementById('jogos-container').innerHTML = `
+        <div class="bra-loading"><div class="spinner"></div><p>Carregando rodada ${rodada}...</p></div>`;
+
+      if (jogosPorRodada[rodada]) {
+        renderJogos();
+        return;
+      }
+
+      try {
+        const round = `Regular Season - ${rodada}`;
+        const r = await fetch(`${PROXY}/fixtures?league=${LEAGUE}&season=${SEASON}&round=${encodeURIComponent(round)}`);
+        const d = await r.json();
+        jogosPorRodada[rodada] = d.response || [];
+        renderJogos();
+        atualizarSubtitulo(rodada);
+        atualizarBadgeHoje(d.response || []);
+        agendarAoVivo();
+      } catch(e) {
+        document.getElementById('jogos-container').innerHTML =
+          `<div class="bra-vazio">⚠️ Erro ao carregar os jogos. Tente novamente.</div>`;
+      }
+    }
+
+    function atualizarSubtitulo(rodada) {
+      const jogos = jogosPorRodada[rodada] || [];
+      if (!jogos.length) {
+        document.getElementById('rodada-subtitulo').textContent = 'Sem jogos';
+        return;
+      }
+      const datas = jogos.map(j => new Date(j.fixture.date));
+      const min = new Date(Math.min(...datas));
+      const max = new Date(Math.max(...datas));
+      const fmt = d => d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+      document.getElementById('rodada-subtitulo').textContent =
+        fmt(min) === fmt(max) ? fmt(min) : `${fmt(min)} – ${fmt(max)}`;
+    }
+
+    function atualizarBadgeHoje(jogos) {
+      const hoje = new Date().toISOString().split('T')[0];
+      const hoje_count = jogos.filter(j => j.fixture.date.startsWith(hoje)).length;
+      document.getElementById('badge-jogos-hoje').textContent =
+        hoje_count > 0 ? `📅 ${hoje_count} jogo${hoje_count > 1 ? 's' : ''} hoje` : '📅 Nenhum jogo hoje';
+    }
+
+    // ── Renderizar jogos ──
+    function renderJogos() {
+      const container = document.getElementById('jogos-container');
+      let jogos = [...(jogosPorRodada[rodadaVendo] || [])];
+
+      // Filtro de status
+      if (statusFiltro === 'ao-vivo') {
+        jogos = jogos.filter(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
+      } else if (statusFiltro === 'agendado') {
+        jogos = jogos.filter(j => ['NS','TBD'].includes(j.fixture.status.short));
+      } else if (statusFiltro === 'encerrado') {
+        jogos = jogos.filter(j => ['FT','AET','PEN','BT','AWD','WO'].includes(j.fixture.status.short));
+      }
+
+      if (!jogos.length) {
+        container.innerHTML = `<div class="bra-vazio">Nenhum jogo encontrado para este filtro.</div>`;
+        return;
+      }
+
+      // Ordenar: ao vivo > agendado > encerrado, depois por horário
+      const ordemStatus = s => {
+        if (['1H','2H','HT','ET','P'].includes(s)) return 0;
+        if (['NS','TBD'].includes(s)) return 1;
+        return 2;
+      };
+      jogos.sort((a,b) => {
+        const diff = ordemStatus(a.fixture.status.short) - ordemStatus(b.fixture.status.short);
+        if (diff !== 0) return diff;
+        return new Date(a.fixture.date) - new Date(b.fixture.date);
+      });
+
+      container.innerHTML = jogos.map(j => cardJogo(j)).join('');
+    }
+
+    function cardJogo(j) {
+      const st = j.fixture.status.short;
+      const gH = j.goals.home;
+      const gA = j.goals.away;
+      const aoVivo = ['1H','2H','HT','ET','P'].includes(st);
+      const encerrado = ['FT','AET','PEN','BT','AWD','WO'].includes(st);
+
+      let statusTexto = '';
+      let statusClasse = '';
+      let topoClasse = '';
+
+      if (aoVivo) {
+        statusClasse = 'vivo';
+        topoClasse = 'ao-vivo-topo';
+        if (st === 'HT') {
+          statusTexto = 'Intervalo';
+        } else {
+          const min = j.fixture.status.elapsed || 0;
+          statusTexto = `${min}'`;
+        }
+      } else if (encerrado) {
+        statusClasse = 'encerrado';
+        statusTexto = 'Encerrado';
+      } else {
+        const dataJogo = new Date(j.fixture.date);
+        const diffMin = Math.floor((dataJogo - Date.now()) / 60000);
+        if (diffMin <= 5 && diffMin > -10) {
+          statusClasse = 'em-breve';
+          statusTexto = '⚽ Iniciando...';
+        } else if (diffMin <= 60 && diffMin > 0) {
+          statusClasse = 'em-breve';
+          statusTexto = `⏱️ ${diffMin}min`;
+        } else {
+          statusTexto = dataJogo.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        }
+      }
+
+      const placar = (gH !== null && gA !== null)
+        ? `<span class="bra-placar">${gH} × ${gA}</span>`
+        : `<span class="bra-placar" style="font-size:20px;opacity:.5">×</span>`;
+
+      const dataFmt = new Date(j.fixture.date).toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: '2-digit' });
+      const estadio = j.fixture.venue?.name ? j.fixture.venue.name : '';
+
+      return `
+        <a href="/brasileirao/${slugTime(j.teams.home.name)}-vs-${slugTime(j.teams.away.name)}/" class="bra-jogo">
+          <div class="bra-jogo-topo ${topoClasse}">
+            <span>${aoVivo ? '🔴 AO VIVO' : dataFmt}</span>
+            <span>${estadio}</span>
+          </div>
+          <div class="bra-jogo-corpo">
+            <div class="bra-time">
+              <img class="bra-time-escudo" src="${j.teams.home.logo}" alt="${j.teams.home.name}"
+                onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><text y=\'18\' font-size=\'18\'>⚽</text></svg>'">
+              <span class="bra-time-nome">${nomeTime(j.teams.home.name)}</span>
+            </div>
+            <div class="bra-centro">
+              ${placar}
+              <div class="bra-status ${statusClasse}">${statusTexto}</div>
+              ${estadio ? `<div class="bra-estadio"></div>` : ''}
+            </div>
+            <div class="bra-time">
+              <img class="bra-time-escudo" src="${j.teams.away.logo}" alt="${j.teams.away.name}"
+                onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><text y=\'18\' font-size=\'18\'>⚽</text></svg>'">
+              <span class="bra-time-nome">${nomeTime(j.teams.away.name)}</span>
+            </div>
+          </div>
+        </a>`;
+    }
+
+    function slugTime(nome) {
+      return nome.toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '');
+    }
+
+    // ── Atualização ao vivo ──
+    function agendarAoVivo() {
+      clearTimeout(timerAoVivo);
+      const jogos = jogosPorRodada[rodadaVendo] || [];
+      const temVivo = jogos.some(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
+      if (temVivo) {
+        timerAoVivo = setTimeout(async () => {
+          delete jogosPorRodada[rodadaVendo];
+          await carregarRodada(rodadaVendo);
+        }, 30000);
+      } else {
+        const temAgendado = jogos.some(j => ['NS','TBD'].includes(j.fixture.status.short));
+        if (temAgendado) {
+          timerAoVivo = setTimeout(async () => {
+            delete jogosPorRodada[rodadaVendo];
+            await carregarRodada(rodadaVendo);
+          }, 60000);
+        }
+      }
+    }
+
+    // ── TABELA ──
+    async function carregarTabela() {
+      const tbody = document.getElementById('tabela-body');
+      if (tbody.dataset.loaded) return;
+      tbody.innerHTML = `<tr><td colspan="10" style="text-align:center;padding:20px;color:var(--cinza-texto)"><div class="spinner" style="margin:0 auto 8px;width:24px;height:24px;border:3px solid var(--cinza-borda);border-top-color:var(--verde);border-radius:50%;animation:girar 0.8s linear infinite"></div>Carregando...</td></tr>`;
+
+      try {
+        const r = await fetch(`${PROXY}/standings?league=${LEAGUE}&season=${SEASON}`);
+        const d = await r.json();
+        if (!d.response || !d.response.length) throw new Error('Sem dados');
+
+        const standings = d.response[0].league.standings[0];
+        tbody.innerHTML = standings.map((t, i) => {
+          const pos = i + 1;
+          let posClasse = '';
+          if (pos === 1) posClasse = 'lider';
+          else if (pos <= 6) posClasse = 'libertadores';
+          else if (pos <= 12) posClasse = 'sulamericana';
+          else if (pos >= 17) posClasse = 'rebaixado';
+
+          return `
+            <tr>
+              <td class="tb-pos ${posClasse}">${pos}</td>
+              <td>
+                <div class="tb-time-cell">
+                  <img class="tb-escudo" src="${t.team.logo}" alt="${t.team.name}"
+                    onerror="this.style.display='none'">
+                  ${nomeTime(t.team.name)}
+                </div>
+              </td>
+              <td>${t.all.played}</td>
+              <td>${t.all.win}</td>
+              <td>${t.all.draw}</td>
+              <td>${t.all.lose}</td>
+              <td>${t.all.goals.for}</td>
+              <td>${t.all.goals.against}</td>
+              <td>${t.goalsDiff}</td>
+              <td class="tb-pts">${t.points}</td>
+            </tr>`;
+        }).join('');
+
+        tbody.dataset.loaded = '1';
+        document.getElementById('tabela-atualizada').textContent =
+          'Atualizado ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+      } catch(e) {
+        tbody.innerHTML = `<tr><td colspan="10" style="text-align:center;padding:20px;color:var(--cinza-texto);font-size:13px;">⚠️ Não foi possível carregar a tabela.</td></tr>`;
+      }
+    }
+
+    // ── ARTILHARIA ──
+    async function carregarArtilharia() {
+      const container = document.getElementById('artilharia-container');
+      if (container.dataset.loaded) return;
+      container.innerHTML = `<div class="bra-loading"><div class="spinner"></div><p>Carregando artilharia...</p></div>`;
+
+      try {
+        const r = await fetch(`${PROXY}/players/topscorers?league=${LEAGUE}&season=${SEASON}`);
+        const d = await r.json();
+        if (!d.response || !d.response.length) throw new Error('Sem dados');
+
+        const posClasses = ['p1','p2','p3'];
+        container.innerHTML = d.response.map((item, i) => {
+          const p = item.player;
+          const s = item.statistics[0];
+          const gols = s.goals.total || 0;
+          const posClass = posClasses[i] || '';
+
+          return `
+            <div class="art-card">
+              <div class="art-pos ${posClass}">${i+1}</div>
+              <img class="art-escudo" src="${s.team.logo}" alt="${s.team.name}"
+                onerror="this.style.display='none'">
+              <div class="art-info">
+                <div class="art-nome">${p.name}</div>
+                <div class="art-time">${nomeTime(s.team.name)}</div>
+              </div>
+              <div class="art-gols">${gols}<span>gols</span></div>
+            </div>`;
+        }).join('');
+
+        container.dataset.loaded = '1';
+
+      } catch(e) {
+        container.innerHTML = `<div class="bra-vazio">⚠️ Não foi possível carregar a artilharia.</div>`;
+      }
+    }
+
+    // ── Inicializar ──
+    determinarRodadaAtual();
+
+    // Atualiza ao vivo a cada 30s se a aba jogos estiver ativa
+    setInterval(() => {
+      const secao = document.getElementById('secao-jogos');
+      if (!secao.classList.contains('ativa')) return;
+      const jogos = jogosPorRodada[rodadaVendo] || [];
+      const temVivo = jogos.some(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
+      if (temVivo) renderJogos();
+    }, 30000);
+  </script>
+
+</body>
+</html>
