@@ -914,11 +914,14 @@
           return `
             <div class="art-card">
               <div class="art-pos ${posClass}">${i+1}</div>
-              <img class="art-escudo" src="${s.team.logo}" alt="${s.team.name}"
-                onerror="this.style.display='none'">
+              <img class="art-foto" src="${p.photo}" alt="${p.name}"
+                onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><text y=\'18\' font-size=\'18\'>👤</text></svg>'">
               <div class="art-info">
                 <div class="art-nome">${p.name}</div>
-                <div class="art-time">${nomeTime(s.team.name)}</div>
+                <div class="art-time">
+                  <img src="${s.team.logo}" style="width:12px;height:12px;object-fit:contain;vertical-align:middle;margin-right:3px" onerror="this.style.display='none'">
+                  ${nomeTime(s.team.name)}
+                </div>
               </div>
               <div class="art-gols">${gols}<span>gols</span></div>
             </div>`;
