@@ -1249,8 +1249,140 @@
     }
   }, 120000);
 </script>
-  
+  <script>
+  async function carregarJogos() {
+    try {
+      const res = await fetch(`${PROXY}/fixtures?league=1&season=2026`);
+      const data = await res.json();
 
+      if (!data.response || !data.response.length) return;
+
+      data.response.forEach(fixture => {
+        const t1 = fixture.teams.home.name;
+        const t2 = fixture.teams.away.name;
+        const gH = fixture.goals.home;
+        const gA = fixture.goals.away;
+        const status = fixture.fixture.status.short; // NS, 1H, HT, 2H, FT, etc.
+
+        if (gH === null || gA === null) return;
+
+        // Procura o card do jogo pelo nome dos times
+        document.querySelectorAll('.jogo-copa').forEach(card => {
+          const nomes = card.querySelectorAll('.jogo-copa-nome');
+          if (!nomes.length) return;
+          const n1 = nomes[0].textContent.trim();
+          const n2 = nomes[1].textContent.trim();
+
+          // Verifica se bate com alguma variação de nome
+          const bate = (
+            (t1.includes(n1) || n1.includes(t1) || similarNome(t1, n1)) &&
+            (t2.includes(n2) || n2.includes(t2) || similarNome(t2, n2))
+          ) || (
+            (t2.includes(n1) || n1.includes(t2) || similarNome(t2, n1)) &&
+            (t1.includes(n2) || n2.includes(t1) || similarNome(t1, n2))
+          );
+
+          if (!bate) return;
+
+          const placar = card.querySelector('.jogo-copa-placar');
+          const horario = card.querySelector('.jogo-copa-horario');
+          if (!placar) return;
+
+          placar.textContent = `${gH} - ${gA}`;
+          placar.style.color = 'var(--preto)';
+
+          if (horario) {
+            if (status === 'FT') {
+              horario.textContent = 'Encerrado';
+              horario.style.color = 'var(--cinza-texto)';
+            } else if (['1H','2H','HT','ET','P'].includes(status)) {
+              const min = fixture.fixture.status.elapsed;
+              horario.textContent = min ? `${min}'` : 'Ao vivo';
+              horario.style.color = '#e53935';
+            }
+          }
+        });
+      });
+
+      // Esconde aviso
+      const aviso = document.querySelector('#secao-jogos .aviso-dados');
+      if (aviso) aviso.style.display = 'none';
+
+    } catch(e) {
+      console.log('Jogos indisponível:', e);
+    }
+  }
+
+  // Função auxiliar para nomes parecidos (ex: "Brazil" vs "Brasil")
+  function similarNome(a, b) {
+    const norm = s => s.toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z]/g, '');
+    return norm(a) === norm(b);
+  }
+
+  // Roda ao abrir a aba jogos
+  const tabJogos = document.querySelector('[onclick*="jogos"]');
+  if (tabJogos) {
+    tabJogos.addEventListener('click', () => carregarJogos());
+  }
+
+  // Atualiza a cada 30 segundos se a aba estiver ativa
+  setInterval(() => {
+    const secao = document.getElementById('secao-jogos');
+    if (secao && secao.classList.contains('ativa')) carregarJogos();
+  }, 30000);
+</script>
+<script>
+  async function carregarArtilharia() {
+    try {
+      const res = await fetch(`${PROXY}/players/topscorers?league=1&season=2026`);
+      const data = await res.json();
+
+      if (!data.response || !data.response.length) return;
+
+      const cards = document.querySelectorAll('.artilheiro-card');
+
+      data.response.forEach((item, i) => {
+        const card = cards[i];
+        if (!card) return;
+
+        const nome = item.player.name;
+        const gols = item.statistics[0].goals.total || 0;
+        const pais = item.statistics[0].team.name;
+
+        const nomeEl = card.querySelector('.artilheiro-nome');
+        const paisEl = card.querySelector('.artilheiro-pais');
+        const golsEl = card.querySelector('.artilheiro-gols');
+
+        if (nomeEl) nomeEl.textContent = nomeEl.textContent.split(' ').slice(0,2).join(' ') + ' ' + nome;
+        if (paisEl) paisEl.textContent = pais;
+        if (golsEl) {
+          golsEl.innerHTML = `${gols}<span>gols</span>`;
+        }
+      });
+
+      // Esconde aviso
+      const aviso = document.querySelector('#secao-artilharia .aviso-dados');
+      if (aviso) aviso.style.display = 'none';
+
+    } catch(e) {
+      console.log('Artilharia indisponível:', e);
+    }
+  }
+
+  // Roda ao abrir a aba artilharia
+  const tabArtilharia = document.querySelector('[onclick*="artilharia"]');
+  if (tabArtilharia) {
+    tabArtilharia.addEventListener('click', () => carregarArtilharia());
+  }
+
+  // Atualiza a cada 5 minutos se a aba estiver ativa
+  setInterval(() => {
+    const secao = document.getElementById('secao-artilharia');
+    if (secao && secao.classList.contains('ativa')) carregarArtilharia();
+  }, 300000);
+</script>
   <script>
     // ── Navegação por abas ──
     function mudarAba(el, secao) {
