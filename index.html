@@ -455,22 +455,17 @@ function verificarJogosAtrasados() {
       return 3;
     };
 
-function ordenarGrupos(grupos) {
-  return Object.fromEntries(
-    Object.entries(grupos).sort(([, a], [, b]) => prioridadeGrupo(a) - prioridadeGrupo(b))
-  );
-}
-
-let html = '';
-if (Object.keys(gruposHoje).length) {
-  html += renderGrupos(ordenarGrupos(gruposHoje));
-}
-if (Object.keys(gruposAmanha).length) {
-  html += renderGrupos(ordenarGrupos(gruposAmanha));
-}
-if (Object.keys(gruposOntem).length) {
-  html += renderGrupos(ordenarGrupos(gruposOntem));
-}
+const ordenarGrupos = grupos => Object.fromEntries(
+      Object.entries(grupos).sort(([, a], [, b]) => prioridadeGrupo(a) - prioridadeGrupo(b))
+    );
+    let html = '';
+    if (Object.keys(gruposHoje).length) {
+      html += renderGrupos(ordenarGrupos(gruposHoje));
+    }
+    if (Object.keys(gruposAmanha).length) {
+      html += renderGrupos(ordenarGrupos(gruposAmanha));
+    }
+    if (Object.keys(gruposOntem).length) {
 
   function renderGrupos(grupos) {
     let html = '';
