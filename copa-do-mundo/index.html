@@ -1175,7 +1175,80 @@
     <div class="footer-links"><a href="/sobre/">Sobre</a><a href="/privacidade/">Privacidade</a><a href="/contato/">Contato</a></div>
     <p class="footer-copy">© 2026 placardofutebol.com — Resultados ao vivo</p>
   </footer>
+<script>
+  const PROXY = 'https://futebol-proxy.placardofutebol-com.workers.dev';
 
+  async function carregarClassificacao() {
+    try {
+      const res = await fetch(`${PROXY}/standings?league=1&season=2026`);
+      const data = await res.json();
+
+      if (!data.response || !data.response.length) return;
+
+      // A API retorna um array de grupos dentro de response[0].league.standings
+      const standings = data.response[0].league.standings;
+
+      standings.forEach(grupo => {
+        // Descobre o nome do grupo pelo primeiro time (ex: "Group A")
+        const nomeGrupo = grupo[0].group; // ex: "Group A"
+        const letraGrupo = nomeGrupo.replace('Group ', ''); // ex: "A"
+
+        // Acha o card correspondente no HTML pelo header
+        const headers = document.querySelectorAll('.classificacao-grupo-header');
+        let cardTarget = null;
+        headers.forEach(h => {
+          if (h.textContent.includes(`Grupo ${letraGrupo}`)) {
+            cardTarget = h.closest('.classificacao-grupo');
+          }
+        });
+        if (!cardTarget) return;
+
+        // Pega o tbody e atualiza linha a linha
+        const tbody = cardTarget.querySelector('tbody');
+        if (!tbody) return;
+        const rows = tbody.querySelectorAll('tr');
+
+        grupo.forEach((time, i) => {
+          const row = rows[i];
+          if (!row) return;
+          const tds = row.querySelectorAll('td');
+          // tds: 0=#, 1=seleção(flag+nome), 2=J, 3=V, 4=E, 5=D, 6=GP, 7=GC, 8=SG, 9=Pts
+          tds[2].textContent = time.all.played;
+          tds[3].textContent = time.all.win;
+          tds[4].textContent = time.all.draw;
+          tds[5].textContent = time.all.lose;
+          tds[6].textContent = time.all.goals.for;
+          tds[7].textContent = time.all.goals.against;
+          tds[8].textContent = time.goalsDiff;
+          tds[9].textContent = time.points;
+        });
+      });
+
+      // Se chegou aqui com dados reais, esconde o aviso
+      const aviso = document.querySelector('#secao-classificacao .aviso-dados');
+      if (aviso) aviso.style.display = 'none';
+
+    } catch(e) {
+      console.log('Classificação indisponível:', e);
+    }
+  }
+
+  // Roda ao abrir a aba de classificação
+  const tabClassificacao = document.querySelector('[onclick*="classificacao"]');
+  if (tabClassificacao) {
+    tabClassificacao.addEventListener('click', () => {
+      carregarClassificacao();
+    });
+  }
+
+  // Atualiza a cada 2 minutos se a aba estiver ativa
+  setInterval(() => {
+    const secao = document.getElementById('secao-classificacao');
+    if (secao && secao.classList.contains('ativa')) {
+      carregarClassificacao();
+    }
+  }, 120000);
+</script>
   
 
   <script>
