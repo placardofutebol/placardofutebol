@@ -465,7 +465,11 @@ const ordenarGrupos = grupos => Object.fromEntries(
     if (Object.keys(gruposAmanha).length) {
       html += renderGrupos(ordenarGrupos(gruposAmanha));
     }
-    if (Object.keys(gruposOntem).length) {
+   if (Object.keys(gruposOntem).length) {
+      html += renderGrupos(ordenarGrupos(gruposOntem));
+    }
+    container.innerHTML = html;
+  }
 
   function renderGrupos(grupos) {
     let html = '';
