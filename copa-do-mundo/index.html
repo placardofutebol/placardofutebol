@@ -54,7 +54,6 @@
     .grupo-pais:last-child { border-bottom: none; }
     .grupo-pais-flag { font-size: 18px; width: 24px; text-align: center; }
     .grupo-pais.brasil { background: #f0faf3; font-weight: 700; }
-    .grupo-pais.indefinido { color: var(--cinza-texto); font-style: italic; font-size: 12px; }
 
     /* JOGOS */
     .jogos-filtro { display: flex; gap: 8px; padding: 14px 12px 0; overflow-x: auto; scrollbar-width: none; max-width: 900px; margin: 0 auto; }
@@ -64,11 +63,11 @@
     .jogos-lista { max-width: 900px; margin: 0 auto; padding: 14px 12px; }
     @media (min-width: 640px) { .jogos-lista { padding: 16px 24px; } .jogos-filtro { padding: 16px 24px 0; } }
 
-    /* separador de data */
     .jogo-data-sep { font-family: var(--font-titulo); font-size: 13px; font-weight: 700; color: var(--verde-escuro); text-transform: uppercase; letter-spacing: 0.5px; padding: 14px 4px 6px; border-bottom: 2px solid var(--verde-claro); margin-bottom: 8px; }
     .jogo-data-sep:first-child { padding-top: 0; }
 
-    .jogo-copa { background: white; border-radius: var(--radius-card); margin-bottom: 10px; box-shadow: var(--sombra); overflow: hidden; }
+    .jogo-copa { background: white; border-radius: var(--radius-card); margin-bottom: 10px; box-shadow: var(--sombra); overflow: hidden; text-decoration: none; display: block; transition: transform 0.15s, box-shadow 0.15s; }
+    .jogo-copa:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
     .jogo-copa.destaque { border: 2px solid var(--verde); }
     .jogo-copa-fase { background: var(--verde-claro); border-left: 3px solid var(--verde); padding: 5px 12px; font-family: var(--font-titulo); font-size: 11px; font-weight: 700; color: var(--verde-escuro); text-transform: uppercase; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center; }
     .jogo-copa.destaque .jogo-copa-fase { background: #d4f0dc; border-left-color: var(--verde-escuro); }
@@ -81,7 +80,6 @@
     .jogo-copa-horario { font-family: var(--font-corpo); font-size: 11px; font-weight: 600; color: var(--verde); }
     .jogo-copa-estadio { font-family: var(--font-corpo); font-size: 10px; color: var(--cinza-texto); margin-top: 2px; }
 
-    /* tag madrugada */
     .tag-madrugada { background: #1e1e2e; color: #a78bfa; font-size: 9px; font-weight: 700; padding: 1px 6px; border-radius: 4px; margin-left: 4px; vertical-align: middle; }
 
     /* CLASSIFICAÇÃO */
@@ -117,6 +115,22 @@
     .artilheiro-gols { font-family: var(--font-titulo); font-size: 22px; font-weight: 800; color: var(--verde); }
     .artilheiro-gols span { font-family: var(--font-corpo); font-size: 10px; font-weight: 600; color: var(--cinza-texto); display: block; text-align: center; }
     .aviso-dados { background: #fff8e1; border: 1px solid #f5c800; border-radius: var(--radius-sm); padding: 12px 16px; margin: 16px auto 0; font-family: var(--font-corpo); font-size: 12px; color: #7a6000; text-align: center; max-width: 860px; }
+
+    /* GERADOR */
+    #gerador-panel { position: fixed; bottom: 70px; right: 16px; z-index: 999; }
+    #gerador-btn { background: var(--verde); color: white; border: none; border-radius: 50px; padding: 10px 18px; font-family: var(--font-corpo); font-size: 12px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.25); display: flex; align-items: center; gap: 6px; }
+    #gerador-btn:hover { background: var(--verde-escuro); }
+    #gerador-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; padding: 16px; }
+    #gerador-modal.aberto { display: flex; }
+    #gerador-box { background: white; border-radius: 16px; padding: 24px; max-width: 480px; width: 100%; max-height: 85vh; overflow-y: auto; }
+    #gerador-box h2 { font-family: var(--font-titulo); font-size: 18px; font-weight: 800; color: var(--verde-escuro); margin: 0 0 8px; }
+    #gerador-box p { font-family: var(--font-corpo); font-size: 12px; color: var(--cinza-texto); margin: 0 0 16px; }
+    #gerador-progress { background: var(--cinza-bg); border-radius: 8px; height: 8px; margin: 12px 0; overflow: hidden; display: none; }
+    #gerador-progress-bar { height: 100%; background: var(--verde); border-radius: 8px; transition: width 0.2s; width: 0%; }
+    #gerador-log { font-family: monospace; font-size: 11px; color: #333; background: #f5f5f5; border-radius: 8px; padding: 10px; max-height: 200px; overflow-y: auto; display: none; margin-top: 8px; }
+    .gerador-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn-gerar { background: var(--verde); color: white; border: none; border-radius: 8px; padding: 10px 20px; font-family: var(--font-corpo); font-size: 13px; font-weight: 700; cursor: pointer; flex: 1; }
+    .btn-fechar { background: var(--cinza-bg); color: var(--cinza-texto); border: none; border-radius: 8px; padding: 10px 20px; font-family: var(--font-corpo); font-size: 13px; font-weight: 600; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -131,7 +145,6 @@
     </div>
   </header>
 
-  <!-- Hero clicável para recarregar a página -->
   <div class="copa-hero" onclick="location.reload()" title="Clique para atualizar">
     <div class="copa-hero-titulo">🌍 Copa do <span>Mundo</span> 2026</div>
     <div class="copa-hero-sub">EUA · Canadá · México</div>
@@ -165,7 +178,7 @@
             <li class="grupo-pais"><span class="grupo-pais-flag">🇲🇽</span> México</li>
             <li class="grupo-pais"><span class="grupo-pais-flag">🇿🇦</span> África do Sul</li>
             <li class="grupo-pais"><span class="grupo-pais-flag">🇰🇷</span> Coreia do Sul</li>
-            <li class="grupo-pais indefinido"><span class="grupo-pais-flag">🏆</span> Europa D *</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇨🇿</span> Tchéquia</li>
           </ul>
         </div>
 
@@ -175,7 +188,7 @@
             <li class="grupo-pais"><span class="grupo-pais-flag">🇨🇦</span> Canadá</li>
             <li class="grupo-pais"><span class="grupo-pais-flag">🇶🇦</span> Qatar</li>
             <li class="grupo-pais"><span class="grupo-pais-flag">🇨🇭</span> Suíça</li>
-            <li class="grupo-pais indefinido"><span class="grupo-pais-flag">🏆</span> Europa A *</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇧🇦</span> Bósnia e Herzegovina</li>
           </ul>
         </div>
 
@@ -195,7 +208,7 @@
             <li class="grupo-pais"><span class="grupo-pais-flag">🇺🇸</span> Estados Unidos</li>
             <li class="grupo-pais"><span class="grupo-pais-flag">🇵🇾</span> Paraguai</li>
             <li class="grupo-pais"><span class="grupo-pais-flag">🇦🇺</span> Austrália</li>
-            <li class="grupo-pais indefinido"><span class="grupo-pais-flag">🏆</span> Europa C *</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇹🇷</span> Turquia</li>
           </ul>
         </div>
 
@@ -215,7 +228,7 @@
             <li class="grupo-pais"><span class="grupo-pais-flag">🇳🇱</span> Holanda</li>
             <li class="grupo-pais"><span class="grupo-pais-flag">🇯🇵</span> Japão</li>
             <li class="grupo-pais"><span class="grupo-pais-flag">🇹🇳</span> Tunísia</li>
-            <li class="grupo-pais indefinido"><span class="grupo-pais-flag">🏆</span> Europa B *</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇸🇪</span> Suécia</li>
           </ul>
         </div>
 
@@ -245,7 +258,7 @@
             <li class="grupo-pais"><span class="grupo-pais-flag">🇫🇷</span> França</li>
             <li class="grupo-pais"><span class="grupo-pais-flag">🇸🇳</span> Senegal</li>
             <li class="grupo-pais"><span class="grupo-pais-flag">🇳🇴</span> Noruega</li>
-            <li class="grupo-pais indefinido"><span class="grupo-pais-flag">🏆</span> Repescagem 2 *</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇮🇶</span> Iraque</li>
           </ul>
         </div>
 
@@ -265,7 +278,7 @@
             <li class="grupo-pais"><span class="grupo-pais-flag">🇵🇹</span> Portugal</li>
             <li class="grupo-pais"><span class="grupo-pais-flag">🇨🇴</span> Colômbia</li>
             <li class="grupo-pais"><span class="grupo-pais-flag">🇺🇿</span> Uzbequistão</li>
-            <li class="grupo-pais indefinido"><span class="grupo-pais-flag">🏆</span> Repescagem 1 *</li>
+            <li class="grupo-pais"><span class="grupo-pais-flag">🇨🇩</span> Congo DR</li>
           </ul>
         </div>
 
@@ -280,7 +293,7 @@
         </div>
 
       </div>
-      <div style="text-align:center; padding: 0 12px 16px; font-family: var(--font-corpo); font-size: 11px; color: var(--cinza-texto);">* Seleções marcadas com Europa A/B/C/D e Repescagem serão confirmadas em março de 2026.</div>
+      <div style="text-align:center; padding: 0 12px 16px; font-family: var(--font-corpo); font-size: 11px; color: var(--cinza-texto);">Grupos confirmados após o sorteio final em dezembro de 2025 e playoffs de março de 2026.</div>
     </div>
 
     <!-- ===== JOGOS ===== -->
@@ -295,774 +308,690 @@
       </div>
       <div class="jogos-lista" id="jogos-copa">
 
-        <!-- ══════════════════════════════════
-             1ª RODADA — 18 jogos (11–17 Jun)
-             Fonte: FIFA oficial
-             ══════════════════════════════════ -->
-
+        <!-- ══ 1ª RODADA ══ -->
         <div class="jogo-data-sep" data-fase="r1">📅 11 de junho (qui)</div>
 
-        <!-- GrupoA R1: México x África do Sul — Jogo de abertura -->
-        <div class="jogo-copa" data-fase="r1">
+        <a href="/copa-do-mundo/mexico-vs-africa-do-sul/" class="jogo-copa" data-fase="r1">
           <div class="jogo-copa-fase"><span>Grupo A — Rodada 1 · ABERTURA</span><span>11 Jun • 16h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇲🇽</span><span class="jogo-copa-nome">México</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">16:00</span><span class="jogo-copa-estadio">Cidade do México</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇿🇦</span><span class="jogo-copa-nome">África do Sul</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoA R1: Coreia do Sul x Europa D -->
-        <div class="jogo-copa" data-fase="r1">
+        <a href="/copa-do-mundo/coreia-do-sul-vs-tchequia/" class="jogo-copa" data-fase="r1">
           <div class="jogo-copa-fase"><span>Grupo A — Rodada 1</span><span>11 Jun • 23h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇰🇷</span><span class="jogo-copa-nome">Coreia do Sul</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">23:00</span><span class="jogo-copa-estadio">Guadalajara</span></div>
-            <div class="jogo-copa-time"><span class="jogo-copa-flag">🏆</span><span class="jogo-copa-nome">Europa D</span></div>
+            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇿</span><span class="jogo-copa-nome">Tchéquia</span></div>
           </div>
-        </div>
+        </a>
 
         <div class="jogo-data-sep" data-fase="r1">📅 12 de junho (sex)</div>
 
-        <!-- GrupoB R1: Canadá x Europa A -->
-        <div class="jogo-copa" data-fase="r1">
+        <a href="/copa-do-mundo/canada-vs-bosnia-e-herzegovina/" class="jogo-copa" data-fase="r1">
           <div class="jogo-copa-fase"><span>Grupo B — Rodada 1</span><span>12 Jun • 16h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇦</span><span class="jogo-copa-nome">Canadá</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">16:00</span><span class="jogo-copa-estadio">Toronto</span></div>
-            <div class="jogo-copa-time"><span class="jogo-copa-flag">🏆</span><span class="jogo-copa-nome">Europa A</span></div>
+            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇧🇦</span><span class="jogo-copa-nome">Bósnia e Herzegovina</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoD R1: Estados Unidos x Paraguai -->
-        <div class="jogo-copa" data-fase="r1">
+        <a href="/copa-do-mundo/estados-unidos-vs-paraguai/" class="jogo-copa" data-fase="r1">
           <div class="jogo-copa-fase"><span>Grupo D — Rodada 1</span><span>12 Jun • 22h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇺🇸</span><span class="jogo-copa-nome">Estados Unidos</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">22:00</span><span class="jogo-copa-estadio">Los Angeles</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇵🇾</span><span class="jogo-copa-nome">Paraguai</span></div>
           </div>
-        </div>
+        </a>
 
         <div class="jogo-data-sep" data-fase="r1">📅 13 de junho (sáb)</div>
 
-        <!-- GrupoD R1: Austrália x Europa C — 1h MADRUGADA -->
-        <div class="jogo-copa" data-fase="r1">
+        <a href="/copa-do-mundo/australia-vs-turquia/" class="jogo-copa" data-fase="r1">
           <div class="jogo-copa-fase"><span>Grupo D — Rodada 1 <span class="tag-madrugada">🌙 madrugada</span></span><span>13 Jun • 1h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇦🇺</span><span class="jogo-copa-nome">Austrália</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">01:00</span><span class="jogo-copa-estadio">Vancouver</span></div>
-            <div class="jogo-copa-time"><span class="jogo-copa-flag">🏆</span><span class="jogo-copa-nome">Europa C</span></div>
+            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇹🇷</span><span class="jogo-copa-nome">Turquia</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoB R1: Qatar x Suíça -->
-        <div class="jogo-copa" data-fase="r1">
+        <a href="/copa-do-mundo/qatar-vs-suica/" class="jogo-copa" data-fase="r1">
           <div class="jogo-copa-fase"><span>Grupo B — Rodada 1</span><span>13 Jun • 16h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇶🇦</span><span class="jogo-copa-nome">Qatar</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">16:00</span><span class="jogo-copa-estadio">San Francisco</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇭</span><span class="jogo-copa-nome">Suíça</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoC R1: Brasil x Marrocos ⭐ DESTAQUE -->
-        <div class="jogo-copa destaque" data-fase="r1 brasil">
+        <a href="/copa-do-mundo/brasil-vs-marrocos/" class="jogo-copa destaque" data-fase="r1 brasil">
           <div class="jogo-copa-fase"><span>🇧🇷 Grupo C — Rodada 1</span><span>13 Jun • 19h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇧🇷</span><span class="jogo-copa-nome">Brasil</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">19:00</span><span class="jogo-copa-estadio">Nova York/NJ</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇲🇦</span><span class="jogo-copa-nome">Marrocos</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoC R1: Haiti x Escócia -->
-        <div class="jogo-copa" data-fase="r1">
+        <a href="/copa-do-mundo/haiti-vs-escocia/" class="jogo-copa" data-fase="r1">
           <div class="jogo-copa-fase"><span>Grupo C — Rodada 1</span><span>13 Jun • 22h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇭🇹</span><span class="jogo-copa-nome">Haiti</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">22:00</span><span class="jogo-copa-estadio">Boston</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span><span class="jogo-copa-nome">Escócia</span></div>
           </div>
-        </div>
+        </a>
 
         <div class="jogo-data-sep" data-fase="r1">📅 14 de junho (dom)</div>
 
-        <!-- GrupoE R1: Alemanha x Curaçao -->
-        <div class="jogo-copa" data-fase="r1">
+        <a href="/copa-do-mundo/alemanha-vs-curacao/" class="jogo-copa" data-fase="r1">
           <div class="jogo-copa-fase"><span>Grupo E — Rodada 1</span><span>14 Jun • 14h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇩🇪</span><span class="jogo-copa-nome">Alemanha</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">14:00</span><span class="jogo-copa-estadio">Houston</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇼</span><span class="jogo-copa-nome">Curaçao</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoF R1: Holanda x Japão -->
-        <div class="jogo-copa" data-fase="r1">
+        <a href="/copa-do-mundo/holanda-vs-japao/" class="jogo-copa" data-fase="r1">
           <div class="jogo-copa-fase"><span>Grupo F — Rodada 1</span><span>14 Jun • 17h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇳🇱</span><span class="jogo-copa-nome">Holanda</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">17:00</span><span class="jogo-copa-estadio">Dallas</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇯🇵</span><span class="jogo-copa-nome">Japão</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoE R1: Costa do Marfim x Equador -->
-        <div class="jogo-copa" data-fase="r1">
+        <a href="/copa-do-mundo/costa-do-marfim-vs-equador/" class="jogo-copa" data-fase="r1">
           <div class="jogo-copa-fase"><span>Grupo E — Rodada 1</span><span>14 Jun • 20h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇮</span><span class="jogo-copa-nome">Costa do Marfim</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">20:00</span><span class="jogo-copa-estadio">Filadélfia</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇪🇨</span><span class="jogo-copa-nome">Equador</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoF R1: Europa B x Tunísia — 23h -->
-        <div class="jogo-copa" data-fase="r1">
+        <a href="/copa-do-mundo/suecia-vs-tunisia/" class="jogo-copa" data-fase="r1">
           <div class="jogo-copa-fase"><span>Grupo F — Rodada 1</span><span>14 Jun • 23h</span></div>
           <div class="jogo-copa-body">
-            <div class="jogo-copa-time"><span class="jogo-copa-flag">🏆</span><span class="jogo-copa-nome">Europa B</span></div>
+            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇸🇪</span><span class="jogo-copa-nome">Suécia</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">23:00</span><span class="jogo-copa-estadio">Monterrey</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇹🇳</span><span class="jogo-copa-nome">Tunísia</span></div>
           </div>
-        </div>
+        </a>
 
         <div class="jogo-data-sep" data-fase="r1">📅 15 de junho (seg)</div>
 
-        <!-- GrupoH R1: Espanha x Cabo Verde -->
-        <div class="jogo-copa" data-fase="r1">
+        <a href="/copa-do-mundo/espanha-vs-cabo-verde/" class="jogo-copa" data-fase="r1">
           <div class="jogo-copa-fase"><span>Grupo H — Rodada 1</span><span>15 Jun • 13h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇪🇸</span><span class="jogo-copa-nome">Espanha</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">13:00</span><span class="jogo-copa-estadio">Atlanta</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇻</span><span class="jogo-copa-nome">Cabo Verde</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoG R1: Bélgica x Egito -->
-        <div class="jogo-copa" data-fase="r1">
+        <a href="/copa-do-mundo/belgica-vs-egito/" class="jogo-copa" data-fase="r1">
           <div class="jogo-copa-fase"><span>Grupo G — Rodada 1</span><span>15 Jun • 16h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇧🇪</span><span class="jogo-copa-nome">Bélgica</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">16:00</span><span class="jogo-copa-estadio">Seattle</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇪🇬</span><span class="jogo-copa-nome">Egito</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoH R1: Arábia Saudita x Uruguai -->
-        <div class="jogo-copa" data-fase="r1">
+        <a href="/copa-do-mundo/arabia-saudita-vs-uruguai/" class="jogo-copa" data-fase="r1">
           <div class="jogo-copa-fase"><span>Grupo H — Rodada 1</span><span>15 Jun • 19h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇸🇦</span><span class="jogo-copa-nome">Arábia Saudita</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">19:00</span><span class="jogo-copa-estadio">Miami</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇺🇾</span><span class="jogo-copa-nome">Uruguai</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoG R1: Irã x Nova Zelândia -->
-        <div class="jogo-copa" data-fase="r1">
+        <a href="/copa-do-mundo/ira-vs-nova-zelandia/" class="jogo-copa" data-fase="r1">
           <div class="jogo-copa-fase"><span>Grupo G — Rodada 1</span><span>15 Jun • 22h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇮🇷</span><span class="jogo-copa-nome">Irã</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">22:00</span><span class="jogo-copa-estadio">Los Angeles</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇳🇿</span><span class="jogo-copa-nome">Nova Zelândia</span></div>
           </div>
-        </div>
+        </a>
 
         <div class="jogo-data-sep" data-fase="r1">📅 16 de junho (ter)</div>
 
-        <!-- GrupoJ R1: Argentina x Argélia -->
-        <div class="jogo-copa" data-fase="r1">
-          <div class="jogo-copa-fase"><span>Grupo J — Rodada 1</span><span>16 Jun • 14h</span></div>
-          <div class="jogo-copa-body">
-            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇦🇷</span><span class="jogo-copa-nome">Argentina</span></div>
-            <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">14:00</span><span class="jogo-copa-estadio">Kansas City</span></div>
-            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇩🇿</span><span class="jogo-copa-nome">Argélia</span></div>
-          </div>
-        </div>
-
-        <!-- GrupoI R1: França x Senegal -->
-        <div class="jogo-copa" data-fase="r1">
+        <a href="/copa-do-mundo/franca-vs-senegal/" class="jogo-copa" data-fase="r1">
           <div class="jogo-copa-fase"><span>Grupo I — Rodada 1</span><span>16 Jun • 16h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇫🇷</span><span class="jogo-copa-nome">França</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">16:00</span><span class="jogo-copa-estadio">Nova York/NJ</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇸🇳</span><span class="jogo-copa-nome">Senegal</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoI R1: Repescagem 2 x Noruega -->
-        <div class="jogo-copa" data-fase="r1">
+        <a href="/copa-do-mundo/iraque-vs-noruega/" class="jogo-copa" data-fase="r1">
           <div class="jogo-copa-fase"><span>Grupo I — Rodada 1</span><span>16 Jun • 19h</span></div>
           <div class="jogo-copa-body">
-            <div class="jogo-copa-time"><span class="jogo-copa-flag">🏆</span><span class="jogo-copa-nome">Repescagem 2</span></div>
+            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇮🇶</span><span class="jogo-copa-nome">Iraque</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">19:00</span><span class="jogo-copa-estadio">Boston</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇳🇴</span><span class="jogo-copa-nome">Noruega</span></div>
           </div>
-        </div>
+        </a>
+
+        <a href="/copa-do-mundo/argentina-vs-argelia/" class="jogo-copa" data-fase="r1">
+          <div class="jogo-copa-fase"><span>Grupo J — Rodada 1</span><span>16 Jun • 22h</span></div>
+          <div class="jogo-copa-body">
+            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇦🇷</span><span class="jogo-copa-nome">Argentina</span></div>
+            <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">22:00</span><span class="jogo-copa-estadio">Kansas City</span></div>
+            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇩🇿</span><span class="jogo-copa-nome">Argélia</span></div>
+          </div>
+        </a>
 
         <div class="jogo-data-sep" data-fase="r1">📅 17 de junho (qua)</div>
 
-        <!-- GrupoJ R1: Áustria x Jordânia — 1h MADRUGADA -->
-        <div class="jogo-copa" data-fase="r1">
+        <a href="/copa-do-mundo/austria-vs-jordania/" class="jogo-copa" data-fase="r1">
           <div class="jogo-copa-fase"><span>Grupo J — Rodada 1 <span class="tag-madrugada">🌙 madrugada</span></span><span>17 Jun • 1h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇦🇹</span><span class="jogo-copa-nome">Áustria</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">01:00</span><span class="jogo-copa-estadio">San Francisco</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇯🇴</span><span class="jogo-copa-nome">Jordânia</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoK R1: Portugal x Repescagem 1 -->
-        <div class="jogo-copa" data-fase="r1">
+        <a href="/copa-do-mundo/portugal-vs-congo-dr/" class="jogo-copa" data-fase="r1">
           <div class="jogo-copa-fase"><span>Grupo K — Rodada 1</span><span>17 Jun • 14h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇵🇹</span><span class="jogo-copa-nome">Portugal</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">14:00</span><span class="jogo-copa-estadio">Houston</span></div>
-            <div class="jogo-copa-time"><span class="jogo-copa-flag">🏆</span><span class="jogo-copa-nome">Repescagem 1</span></div>
+            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇩</span><span class="jogo-copa-nome">Congo DR</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoL R1: Inglaterra x Croácia -->
-        <div class="jogo-copa" data-fase="r1">
+        <a href="/copa-do-mundo/inglaterra-vs-croacia/" class="jogo-copa" data-fase="r1">
           <div class="jogo-copa-fase"><span>Grupo L — Rodada 1</span><span>17 Jun • 17h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="jogo-copa-nome">Inglaterra</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">17:00</span><span class="jogo-copa-estadio">Dallas</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇭🇷</span><span class="jogo-copa-nome">Croácia</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoL R1: Gana x Panamá -->
-        <div class="jogo-copa" data-fase="r1">
+        <a href="/copa-do-mundo/gana-vs-panama/" class="jogo-copa" data-fase="r1">
           <div class="jogo-copa-fase"><span>Grupo L — Rodada 1</span><span>17 Jun • 20h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇬🇭</span><span class="jogo-copa-nome">Gana</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">20:00</span><span class="jogo-copa-estadio">Toronto</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇵🇦</span><span class="jogo-copa-nome">Panamá</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoK R1: Uzbequistão x Colômbia — 23h -->
-        <div class="jogo-copa" data-fase="r1">
+        <a href="/copa-do-mundo/uzbequistao-vs-colombia/" class="jogo-copa" data-fase="r1">
           <div class="jogo-copa-fase"><span>Grupo K — Rodada 1</span><span>17 Jun • 23h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇺🇿</span><span class="jogo-copa-nome">Uzbequistão</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">23:00</span><span class="jogo-copa-estadio">Cidade do México</span></div>
-            <div class="jogo-copa-time"><span class="jojo-copa-flag">🇨🇴</span><span class="jogo-copa-nome">Colômbia</span></div>
+            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇴</span><span class="jogo-copa-nome">Colômbia</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- ══════════════════════════════════
-             2ª RODADA — 25 jogos (18–23 Jun)
-             Fonte: FIFA oficial
-             ══════════════════════════════════ -->
-
+        <!-- ══ 2ª RODADA ══ -->
         <div class="jogo-data-sep" data-fase="r2">📅 18 de junho (qui)</div>
 
-        <!-- GrupoA R2: Europa D x África do Sul -->
-        <div class="jogo-copa" data-fase="r2">
+        <a href="/copa-do-mundo/tchequia-vs-africa-do-sul/" class="jogo-copa" data-fase="r2">
           <div class="jogo-copa-fase"><span>Grupo A — Rodada 2</span><span>18 Jun • 13h</span></div>
           <div class="jogo-copa-body">
-            <div class="jogo-copa-time"><span class="jogo-copa-flag">🏆</span><span class="jogo-copa-nome">Europa D</span></div>
+            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇿</span><span class="jogo-copa-nome">Tchéquia</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">13:00</span><span class="jogo-copa-estadio">Atlanta</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇿🇦</span><span class="jogo-copa-nome">África do Sul</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoB R2: Suíça x Europa A -->
-        <div class="jogo-copa" data-fase="r2">
+        <a href="/copa-do-mundo/suica-vs-bosnia-e-herzegovina/" class="jogo-copa" data-fase="r2">
           <div class="jogo-copa-fase"><span>Grupo B — Rodada 2</span><span>18 Jun • 16h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇭</span><span class="jogo-copa-nome">Suíça</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">16:00</span><span class="jogo-copa-estadio">Los Angeles</span></div>
-            <div class="jogo-copa-time"><span class="jogo-copa-flag">🏆</span><span class="jogo-copa-nome">Europa A</span></div>
+            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇧🇦</span><span class="jogo-copa-nome">Bósnia e Herzegovina</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoB R2: Canadá x Qatar -->
-        <div class="jogo-copa" data-fase="r2">
+        <a href="/copa-do-mundo/canada-vs-qatar/" class="jogo-copa" data-fase="r2">
           <div class="jogo-copa-fase"><span>Grupo B — Rodada 2</span><span>18 Jun • 19h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇦</span><span class="jogo-copa-nome">Canadá</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">19:00</span><span class="jogo-copa-estadio">Vancouver</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇶🇦</span><span class="jogo-copa-nome">Qatar</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoA R2: México x Coreia do Sul -->
-        <div class="jogo-copa" data-fase="r2">
+        <a href="/copa-do-mundo/mexico-vs-coreia-do-sul/" class="jogo-copa" data-fase="r2">
           <div class="jogo-copa-fase"><span>Grupo A — Rodada 2</span><span>18 Jun • 22h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇲🇽</span><span class="jogo-copa-nome">México</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">22:00</span><span class="jogo-copa-estadio">Guadalajara</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇰🇷</span><span class="jogo-copa-nome">Coreia do Sul</span></div>
           </div>
-        </div>
+        </a>
 
         <div class="jogo-data-sep" data-fase="r2">📅 19 de junho (sex)</div>
 
-        <!-- GrupoD R2: Europa C x Paraguai — 1h MADRUGADA -->
-        <div class="jogo-copa" data-fase="r2">
+        <a href="/copa-do-mundo/turquia-vs-paraguai/" class="jogo-copa" data-fase="r2">
           <div class="jogo-copa-fase"><span>Grupo D — Rodada 2 <span class="tag-madrugada">🌙 madrugada</span></span><span>19 Jun • 1h</span></div>
           <div class="jogo-copa-body">
-            <div class="jogo-copa-time"><span class="jogo-copa-flag">🏆</span><span class="jogo-copa-nome">Europa C</span></div>
+            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇹🇷</span><span class="jogo-copa-nome">Turquia</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">01:00</span><span class="jogo-copa-estadio">San Francisco</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇵🇾</span><span class="jogo-copa-nome">Paraguai</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoD R2: Estados Unidos x Austrália -->
-        <div class="jogo-copa" data-fase="r2">
+        <a href="/copa-do-mundo/estados-unidos-vs-australia/" class="jogo-copa" data-fase="r2">
           <div class="jogo-copa-fase"><span>Grupo D — Rodada 2</span><span>19 Jun • 16h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇺🇸</span><span class="jogo-copa-nome">Estados Unidos</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">16:00</span><span class="jogo-copa-estadio">Seattle</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇦🇺</span><span class="jogo-copa-nome">Austrália</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoC R2: Escócia x Marrocos -->
-        <div class="jogo-copa" data-fase="r2">
-          <div class="jogo-copa-fase"><span>Grupo C — Rodada 2</span><span>19 Jun • 19h</span></div>
+        <a href="/copa-do-mundo/escocia-vs-marrocos/" class="jogo-copa" data-fase="r2">
+          <div class="jogo-copa-fase"><span>Grupo C — Rodada 2</span><span>19 Jun • 16h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span><span class="jogo-copa-nome">Escócia</span></div>
-            <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">19:00</span><span class="jogo-copa-estadio">Boston</span></div>
+            <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">16:00</span><span class="jogo-copa-estadio">Boston</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇲🇦</span><span class="jogo-copa-nome">Marrocos</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoC R2: Brasil x Haiti ⭐ DESTAQUE -->
-        <div class="jogo-copa destaque" data-fase="r2 brasil">
+        <a href="/copa-do-mundo/brasil-vs-haiti/" class="jogo-copa destaque" data-fase="r2 brasil">
           <div class="jogo-copa-fase"><span>🇧🇷 Grupo C — Rodada 2</span><span>19 Jun • 22h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇧🇷</span><span class="jogo-copa-nome">Brasil</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">22:00</span><span class="jogo-copa-estadio">Filadélfia</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇭🇹</span><span class="jogo-copa-nome">Haiti</span></div>
           </div>
-        </div>
+        </a>
 
         <div class="jogo-data-sep" data-fase="r2">📅 20 de junho (sáb)</div>
 
-        <!-- GrupoF R2: Holanda x Europa B -->
-        <div class="jogo-copa" data-fase="r2">
+        <a href="/copa-do-mundo/holanda-vs-suecia/" class="jogo-copa" data-fase="r2">
           <div class="jogo-copa-fase"><span>Grupo F — Rodada 2</span><span>20 Jun • 14h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇳🇱</span><span class="jogo-copa-nome">Holanda</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">14:00</span><span class="jogo-copa-estadio">Houston</span></div>
-            <div class="jogo-copa-time"><span class="jogo-copa-flag">🏆</span><span class="jogo-copa-nome">Europa B</span></div>
+            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇸🇪</span><span class="jogo-copa-nome">Suécia</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoE R2: Alemanha x Costa do Marfim -->
-        <div class="jogo-copa" data-fase="r2">
+        <a href="/copa-do-mundo/alemanha-vs-costa-do-marfim/" class="jogo-copa" data-fase="r2">
           <div class="jogo-copa-fase"><span>Grupo E — Rodada 2</span><span>20 Jun • 17h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇩🇪</span><span class="jogo-copa-nome">Alemanha</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">17:00</span><span class="jogo-copa-estadio">Toronto</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇮</span><span class="jogo-copa-nome">Costa do Marfim</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoE R2: Equador x Curaçao -->
-        <div class="jogo-copa" data-fase="r2">
+        <a href="/copa-do-mundo/equador-vs-curacao/" class="jogo-copa" data-fase="r2">
           <div class="jogo-copa-fase"><span>Grupo E — Rodada 2</span><span>20 Jun • 21h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇪🇨</span><span class="jogo-copa-nome">Equador</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">21:00</span><span class="jogo-copa-estadio">Kansas City</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇼</span><span class="jogo-copa-nome">Curaçao</span></div>
           </div>
-        </div>
+        </a>
 
         <div class="jogo-data-sep" data-fase="r2">📅 21 de junho (dom)</div>
 
-        <!-- GrupoF R2: Tunísia x Japão — 1h MADRUGADA -->
-        <div class="jogo-copa" data-fase="r2">
+        <a href="/copa-do-mundo/tunisia-vs-japao/" class="jogo-copa" data-fase="r2">
           <div class="jogo-copa-fase"><span>Grupo F — Rodada 2 <span class="tag-madrugada">🌙 madrugada</span></span><span>21 Jun • 1h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇹🇳</span><span class="jogo-copa-nome">Tunísia</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">01:00</span><span class="jogo-copa-estadio">Monterrey</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇯🇵</span><span class="jogo-copa-nome">Japão</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoH R2: Espanha x Arábia Saudita -->
-        <div class="jogo-copa" data-fase="r2">
+        <a href="/copa-do-mundo/espanha-vs-arabia-saudita/" class="jogo-copa" data-fase="r2">
           <div class="jogo-copa-fase"><span>Grupo H — Rodada 2</span><span>21 Jun • 13h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇪🇸</span><span class="jogo-copa-nome">Espanha</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">13:00</span><span class="jogo-copa-estadio">Atlanta</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇸🇦</span><span class="jogo-copa-nome">Arábia Saudita</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoG R2: Bélgica x Irã -->
-        <div class="jogo-copa" data-fase="r2">
+        <a href="/copa-do-mundo/belgica-vs-ira/" class="jogo-copa" data-fase="r2">
           <div class="jogo-copa-fase"><span>Grupo G — Rodada 2</span><span>21 Jun • 16h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇧🇪</span><span class="jogo-copa-nome">Bélgica</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">16:00</span><span class="jogo-copa-estadio">Los Angeles</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇮🇷</span><span class="jogo-copa-nome">Irã</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoH R2: Uruguai x Cabo Verde -->
-        <div class="jogo-copa" data-fase="r2">
+        <a href="/copa-do-mundo/uruguai-vs-cabo-verde/" class="jogo-copa" data-fase="r2">
           <div class="jogo-copa-fase"><span>Grupo H — Rodada 2</span><span>21 Jun • 19h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇺🇾</span><span class="jogo-copa-nome">Uruguai</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">19:00</span><span class="jogo-copa-estadio">Miami</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇻</span><span class="jogo-copa-nome">Cabo Verde</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoG R2: Nova Zelândia x Egito -->
-        <div class="jogo-copa" data-fase="r2">
+        <a href="/copa-do-mundo/nova-zelandia-vs-egito/" class="jogo-copa" data-fase="r2">
           <div class="jogo-copa-fase"><span>Grupo G — Rodada 2</span><span>21 Jun • 22h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇳🇿</span><span class="jogo-copa-nome">Nova Zelândia</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">22:00</span><span class="jogo-copa-estadio">Vancouver</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇪🇬</span><span class="jogo-copa-nome">Egito</span></div>
           </div>
-        </div>
+        </a>
 
         <div class="jogo-data-sep" data-fase="r2">📅 22 de junho (seg)</div>
 
-        <!-- GrupoJ R2: Argentina x Áustria -->
-        <div class="jogo-copa" data-fase="r2">
+        <a href="/copa-do-mundo/argentina-vs-austria/" class="jogo-copa" data-fase="r2">
           <div class="jogo-copa-fase"><span>Grupo J — Rodada 2</span><span>22 Jun • 14h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇦🇷</span><span class="jogo-copa-nome">Argentina</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">14:00</span><span class="jogo-copa-estadio">Dallas</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇦🇹</span><span class="jogo-copa-nome">Áustria</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoI R2: França x Repescagem 2 -->
-        <div class="jogo-copa" data-fase="r2">
+        <a href="/copa-do-mundo/franca-vs-iraque/" class="jogo-copa" data-fase="r2">
           <div class="jogo-copa-fase"><span>Grupo I — Rodada 2</span><span>22 Jun • 18h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇫🇷</span><span class="jogo-copa-nome">França</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">18:00</span><span class="jogo-copa-estadio">Filadélfia</span></div>
-            <div class="jogo-copa-time"><span class="jogo-copa-flag">🏆</span><span class="jogo-copa-nome">Repescagem 2</span></div>
+            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇮🇶</span><span class="jogo-copa-nome">Iraque</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoI R2: Noruega x Senegal -->
-        <div class="jogo-copa" data-fase="r2">
+        <a href="/copa-do-mundo/noruega-vs-senegal/" class="jogo-copa" data-fase="r2">
           <div class="jogo-copa-fase"><span>Grupo I — Rodada 2</span><span>22 Jun • 21h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇳🇴</span><span class="jogo-copa-nome">Noruega</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">21:00</span><span class="jogo-copa-estadio">Nova York/NJ</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇸🇳</span><span class="jogo-copa-nome">Senegal</span></div>
           </div>
-        </div>
+        </a>
 
         <div class="jogo-data-sep" data-fase="r2">📅 23 de junho (ter)</div>
 
-        <!-- GrupoJ R2: Jordânia x Argélia — 0h MADRUGADA -->
-        <div class="jogo-copa" data-fase="r2">
+        <a href="/copa-do-mundo/jordania-vs-argelia/" class="jogo-copa" data-fase="r2">
           <div class="jogo-copa-fase"><span>Grupo J — Rodada 2 <span class="tag-madrugada">🌙 madrugada</span></span><span>23 Jun • 0h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇯🇴</span><span class="jogo-copa-nome">Jordânia</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">00:00</span><span class="jogo-copa-estadio">San Francisco</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇩🇿</span><span class="jogo-copa-nome">Argélia</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoK R2: Portugal x Uzbequistão -->
-        <div class="jogo-copa" data-fase="r2">
+        <a href="/copa-do-mundo/portugal-vs-uzbequistao/" class="jogo-copa" data-fase="r2">
           <div class="jogo-copa-fase"><span>Grupo K — Rodada 2</span><span>23 Jun • 14h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇵🇹</span><span class="jogo-copa-nome">Portugal</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">14:00</span><span class="jogo-copa-estadio">Houston</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇺🇿</span><span class="jogo-copa-nome">Uzbequistão</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoL R2: Inglaterra x Gana -->
-        <div class="jogo-copa" data-fase="r2">
+        <a href="/copa-do-mundo/inglaterra-vs-gana/" class="jogo-copa" data-fase="r2">
           <div class="jogo-copa-fase"><span>Grupo L — Rodada 2</span><span>23 Jun • 17h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="jogo-copa-nome">Inglaterra</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">17:00</span><span class="jogo-copa-estadio">Boston</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇬🇭</span><span class="jogo-copa-nome">Gana</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoL R2: Panamá x Croácia -->
-        <div class="jogo-copa" data-fase="r2">
+        <a href="/copa-do-mundo/panama-vs-croacia/" class="jogo-copa" data-fase="r2">
           <div class="jogo-copa-fase"><span>Grupo L — Rodada 2</span><span>23 Jun • 20h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇵🇦</span><span class="jogo-copa-nome">Panamá</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">20:00</span><span class="jogo-copa-estadio">Toronto</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇭🇷</span><span class="jogo-copa-nome">Croácia</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoK R2: Colômbia x Repescagem 1 -->
-        <div class="jogo-copa" data-fase="r2">
+        <a href="/copa-do-mundo/colombia-vs-congo-dr/" class="jogo-copa" data-fase="r2">
           <div class="jogo-copa-fase"><span>Grupo K — Rodada 2</span><span>23 Jun • 23h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇴</span><span class="jogo-copa-nome">Colômbia</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">23:00</span><span class="jogo-copa-estadio">Guadalajara</span></div>
-            <div class="jogo-copa-time"><span class="jogo-copa-flag">🏆</span><span class="jogo-copa-nome">Repescagem 1</span></div>
+            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇩</span><span class="jogo-copa-nome">Congo DR</span></div>
           </div>
-        </div>
-<!-- ══════════════════════════════════
-             3ª RODADA — 24–27 Jun
-             Jogos simultâneos por grupo
-             Fonte: FIFA oficial
-             ══════════════════════════════════ -->
+        </a>
 
+        <!-- ══ 3ª RODADA ══ -->
         <div class="jogo-data-sep" data-fase="r3">📅 24 de junho (qua)</div>
 
-        <!-- GrupoB R3: Suíça x Canadá — simultâneo -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/suica-vs-canada/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo B — Rodada 3</span><span>24 Jun • 16h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇭</span><span class="jogo-copa-nome">Suíça</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">16:00</span><span class="jogo-copa-estadio">Vancouver</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇦</span><span class="jogo-copa-nome">Canadá</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoB R3: Europa A x Qatar — simultâneo -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/bosnia-e-herzegovina-vs-qatar/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo B — Rodada 3</span><span>24 Jun • 16h</span></div>
           <div class="jogo-copa-body">
-            <div class="jogo-copa-time"><span class="jogo-copa-flag">🏆</span><span class="jogo-copa-nome">Europa A</span></div>
+            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇧🇦</span><span class="jogo-copa-nome">Bósnia e Herzegovina</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">16:00</span><span class="jogo-copa-estadio">Seattle</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇶🇦</span><span class="jogo-copa-nome">Qatar</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoC R3: Brasil x Escócia ⭐ DESTAQUE — simultâneo -->
-        <div class="jogo-copa destaque" data-fase="r3 brasil">
+        <a href="/copa-do-mundo/brasil-vs-escocia/" class="jogo-copa destaque" data-fase="r3 brasil">
           <div class="jogo-copa-fase"><span>🇧🇷 Grupo C — Rodada 3</span><span>24 Jun • 19h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇧🇷</span><span class="jogo-copa-nome">Brasil</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">19:00</span><span class="jogo-copa-estadio">Miami</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span><span class="jogo-copa-nome">Escócia</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoC R3: Marrocos x Haiti — simultâneo -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/marrocos-vs-haiti/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo C — Rodada 3</span><span>24 Jun • 19h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇲🇦</span><span class="jogo-copa-nome">Marrocos</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">19:00</span><span class="jogo-copa-estadio">Atlanta</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇭🇹</span><span class="jogo-copa-nome">Haiti</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoA R3: Europa D x México — simultâneo -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/tchequia-vs-mexico/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo A — Rodada 3</span><span>24 Jun • 22h</span></div>
           <div class="jogo-copa-body">
-            <div class="jogo-copa-time"><span class="jogo-copa-flag">🏆</span><span class="jogo-copa-nome">Europa D</span></div>
+            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇿</span><span class="jogo-copa-nome">Tchéquia</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">22:00</span><span class="jogo-copa-estadio">Cidade do México</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇲🇽</span><span class="jogo-copa-nome">México</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoA R3: África do Sul x Coreia do Sul — simultâneo -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/africa-do-sul-vs-coreia-do-sul/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo A — Rodada 3</span><span>24 Jun • 22h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇿🇦</span><span class="jogo-copa-nome">África do Sul</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">22:00</span><span class="jogo-copa-estadio">Monterrey</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇰🇷</span><span class="jogo-copa-nome">Coreia do Sul</span></div>
           </div>
-        </div>
+        </a>
 
         <div class="jogo-data-sep" data-fase="r3">📅 25 de junho (qui)</div>
 
-        <!-- GrupoE R3: Equador x Alemanha — simultâneo -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/equador-vs-alemanha/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo E — Rodada 3</span><span>25 Jun • 17h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇪🇨</span><span class="jogo-copa-nome">Equador</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">17:00</span><span class="jogo-copa-estadio">Nova York/NJ</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇩🇪</span><span class="jogo-copa-nome">Alemanha</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoE R3: Curaçao x Costa do Marfim — simultâneo -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/curacao-vs-costa-do-marfim/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo E — Rodada 3</span><span>25 Jun • 17h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇼</span><span class="jogo-copa-nome">Curaçao</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">17:00</span><span class="jogo-copa-estadio">Filadélfia</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇮</span><span class="jogo-copa-nome">Costa do Marfim</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoF R3: Japão x Europa B — simultâneo -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/japao-vs-suecia/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo F — Rodada 3</span><span>25 Jun • 20h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇯🇵</span><span class="jogo-copa-nome">Japão</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">20:00</span><span class="jogo-copa-estadio">Dallas</span></div>
-            <div class="jogo-copa-time"><span class="jogo-copa-flag">🏆</span><span class="jogo-copa-nome">Europa B</span></div>
+            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇸🇪</span><span class="jogo-copa-nome">Suécia</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoF R3: Tunísia x Holanda — simultâneo -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/tunisia-vs-holanda/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo F — Rodada 3</span><span>25 Jun • 20h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇹🇳</span><span class="jogo-copa-nome">Tunísia</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">20:00</span><span class="jogo-copa-estadio">Kansas City</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇳🇱</span><span class="jogo-copa-nome">Holanda</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoD R3: Europa C x Estados Unidos — simultâneo -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/turquia-vs-estados-unidos/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo D — Rodada 3</span><span>25 Jun • 23h</span></div>
           <div class="jogo-copa-body">
-            <div class="jogo-copa-time"><span class="jogo-copa-flag">🏆</span><span class="jogo-copa-nome">Europa C</span></div>
+            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇹🇷</span><span class="jogo-copa-nome">Turquia</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">23:00</span><span class="jogo-copa-estadio">Los Angeles</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇺🇸</span><span class="jogo-copa-nome">Estados Unidos</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoD R3: Paraguai x Austrália — simultâneo -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/paraguai-vs-australia/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo D — Rodada 3</span><span>25 Jun • 23h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇵🇾</span><span class="jogo-copa-nome">Paraguai</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">23:00</span><span class="jogo-copa-estadio">San Francisco</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇦🇺</span><span class="jogo-copa-nome">Austrália</span></div>
           </div>
-        </div>
+        </a>
 
         <div class="jogo-data-sep" data-fase="r3">📅 26 de junho (sex)</div>
 
-        <!-- GrupoI R3: Noruega x França — simultâneo -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/noruega-vs-franca/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo I — Rodada 3</span><span>26 Jun • 16h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇳🇴</span><span class="jogo-copa-nome">Noruega</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">16:00</span><span class="jogo-copa-estadio">Boston</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇫🇷</span><span class="jogo-copa-nome">França</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoI R3: Senegal x Repescagem 2 — simultâneo -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/senegal-vs-iraque/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo I — Rodada 3</span><span>26 Jun • 16h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇸🇳</span><span class="jogo-copa-nome">Senegal</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">16:00</span><span class="jogo-copa-estadio">Toronto</span></div>
-            <div class="jogo-copa-time"><span class="jogo-copa-flag">🏆</span><span class="jogo-copa-nome">Repescagem 2</span></div>
+            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇮🇶</span><span class="jogo-copa-nome">Iraque</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoH R3: Cabo Verde x Arábia Saudita — simultâneo -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/cabo-verde-vs-arabia-saudita/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo H — Rodada 3</span><span>26 Jun • 21h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇻</span><span class="jogo-copa-nome">Cabo Verde</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">21:00</span><span class="jogo-copa-estadio">Houston</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇸🇦</span><span class="jogo-copa-nome">Arábia Saudita</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoH R3: Uruguai x Espanha — simultâneo -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/uruguai-vs-espanha/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo H — Rodada 3</span><span>26 Jun • 21h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇺🇾</span><span class="jogo-copa-nome">Uruguai</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">21:00</span><span class="jogo-copa-estadio">Guadalajara</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇪🇸</span><span class="jogo-copa-nome">Espanha</span></div>
           </div>
-        </div>
+        </a>
 
         <div class="jogo-data-sep" data-fase="r3">📅 27 de junho (sáb)</div>
 
-        <!-- GrupoG R3: Egito x Irã — simultâneo — 0h MADRUGADA -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/egito-vs-ira/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo G — Rodada 3 <span class="tag-madrugada">🌙 madrugada</span></span><span>27 Jun • 0h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇪🇬</span><span class="jogo-copa-nome">Egito</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">00:00</span><span class="jogo-copa-estadio">Seattle</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇮🇷</span><span class="jogo-copa-nome">Irã</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoG R3: Nova Zelândia x Bélgica — simultâneo — 0h MADRUGADA -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/nova-zelandia-vs-belgica/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo G — Rodada 3 <span class="tag-madrugada">🌙 madrugada</span></span><span>27 Jun • 0h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇳🇿</span><span class="jogo-copa-nome">Nova Zelândia</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">00:00</span><span class="jogo-copa-estadio">Vancouver</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇧🇪</span><span class="jogo-copa-nome">Bélgica</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoL R3: Panamá x Inglaterra — simultâneo -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/panama-vs-inglaterra/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo L — Rodada 3</span><span>27 Jun • 18h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇵🇦</span><span class="jogo-copa-nome">Panamá</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">18:00</span><span class="jogo-copa-estadio">Nova York/NJ</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="jogo-copa-nome">Inglaterra</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoL R3: Croácia x Gana — simultâneo -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/croacia-vs-gana/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo L — Rodada 3</span><span>27 Jun • 18h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇭🇷</span><span class="jogo-copa-nome">Croácia</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">18:00</span><span class="jogo-copa-estadio">Filadélfia</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇬🇭</span><span class="jogo-copa-nome">Gana</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoK R3: Colômbia x Portugal — simultâneo -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/colombia-vs-portugal/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo K — Rodada 3</span><span>27 Jun • 20h30</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇴</span><span class="jogo-copa-nome">Colômbia</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">20:30</span><span class="jogo-copa-estadio">Miami</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇵🇹</span><span class="jogo-copa-nome">Portugal</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoK R3: Repescagem 1 x Uzbequistão — simultâneo -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/congo-dr-vs-uzbequistao/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo K — Rodada 3</span><span>27 Jun • 20h30</span></div>
           <div class="jogo-copa-body">
-            <div class="jogo-copa-time"><span class="jogo-copa-flag">🏆</span><span class="jogo-copa-nome">Repescagem 1</span></div>
+            <div class="jogo-copa-time"><span class="jogo-copa-flag">🇨🇩</span><span class="jogo-copa-nome">Congo DR</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">20:30</span><span class="jogo-copa-estadio">Atlanta</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇺🇿</span><span class="jogo-copa-nome">Uzbequistão</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoJ R3: Argélia x Áustria — simultâneo -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/argelia-vs-austria/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo J — Rodada 3</span><span>27 Jun • 23h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇩🇿</span><span class="jogo-copa-nome">Argélia</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">23:00</span><span class="jogo-copa-estadio">Kansas City</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇦🇹</span><span class="jogo-copa-nome">Áustria</span></div>
           </div>
-        </div>
+        </a>
 
-        <!-- GrupoJ R3: Jordânia x Argentina — simultâneo -->
-        <div class="jogo-copa" data-fase="r3">
+        <a href="/copa-do-mundo/jordania-vs-argentina/" class="jogo-copa" data-fase="r3">
           <div class="jogo-copa-fase"><span>Grupo J — Rodada 3</span><span>27 Jun • 23h</span></div>
           <div class="jogo-copa-body">
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇯🇴</span><span class="jogo-copa-nome">Jordânia</span></div>
             <div class="jogo-copa-centro"><span class="jogo-copa-placar">×</span><span class="jogo-copa-horario">23:00</span><span class="jogo-copa-estadio">Dallas</span></div>
             <div class="jogo-copa-time"><span class="jogo-copa-flag">🇦🇷</span><span class="jogo-copa-nome">Argentina</span></div>
           </div>
-        </div>
+        </a>
 
       </div>
     </div>
@@ -1071,7 +1000,6 @@
     <div id="secao-classificacao" class="copa-secao">
       <div class="aviso-dados">⏳ A classificação será atualizada assim que os jogos começarem em 11 de junho de 2026.</div>
       <div class="classificacao-wrap">
-
         <div class="classificacao-grupo">
           <div class="classificacao-grupo-header">🇧🇷 Grupo C — Brasil</div>
           <table class="classificacao-table">
@@ -1084,7 +1012,6 @@
             </tbody>
           </table>
         </div>
-
         <div class="classificacao-grupo">
           <div class="classificacao-grupo-header">Grupo A</div>
           <table class="classificacao-table">
@@ -1093,11 +1020,10 @@
               <tr><td class="cl-pos classificado">1</td><td><div class="cl-time"><span class="cl-flag">🇲🇽</span>México</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
               <tr><td class="cl-pos classificado">2</td><td><div class="cl-time"><span class="cl-flag">🇰🇷</span>Coreia do Sul</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
               <tr><td class="cl-pos">3</td><td><div class="cl-time"><span class="cl-flag">🇿🇦</span>África do Sul</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
-              <tr><td class="cl-pos">4</td><td><div class="cl-time"><span class="cl-flag">🏆</span>Europa D</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
+              <tr><td class="cl-pos">4</td><td><div class="cl-time"><span class="cl-flag">🇨🇿</span>Tchéquia</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
             </tbody>
           </table>
         </div>
-
         <div class="classificacao-grupo">
           <div class="classificacao-grupo-header">Grupo J — Argentina</div>
           <table class="classificacao-table">
@@ -1110,7 +1036,6 @@
             </tbody>
           </table>
         </div>
-
         <div class="classificacao-grupo">
           <div class="classificacao-grupo-header">Grupo I — França</div>
           <table class="classificacao-table">
@@ -1119,11 +1044,10 @@
               <tr><td class="cl-pos classificado">1</td><td><div class="cl-time"><span class="cl-flag">🇫🇷</span>França</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
               <tr><td class="cl-pos classificado">2</td><td><div class="cl-time"><span class="cl-flag">🇳🇴</span>Noruega</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
               <tr><td class="cl-pos">3</td><td><div class="cl-time"><span class="cl-flag">🇸🇳</span>Senegal</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
-              <tr><td class="cl-pos">4</td><td><div class="cl-time"><span class="cl-flag">🏆</span>Repescagem 2</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
+              <tr><td class="cl-pos">4</td><td><div class="cl-time"><span class="cl-flag">🇮🇶</span>Iraque</div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="cl-pts">0</td></tr>
             </tbody>
           </table>
         </div>
-
       </div>
     </div>
 
@@ -1158,7 +1082,30 @@
     <p class="footer-copy">© 2026 placardofutebol.com — Resultados ao vivo</p>
   </footer>
 
+  <!-- ══════════════════════════════════════════════
+       GERADOR DE PÁGINAS INDIVIDUAIS
+       Clique no botão verde 🛠️ para abrir
+       ══════════════════════════════════════════════ -->
+  <div id="gerador-panel">
+    <button id="gerador-btn" onclick="abrirGerador()">🛠️ Gerar páginas dos jogos</button>
+  </div>
+
+  <div id="gerador-modal">
+    <div id="gerador-box">
+      <h2>🛠️ Gerador de Páginas SEO</h2>
+      <p>Gera automaticamente uma página HTML para cada jogo da fase de grupos (72 jogos). Cada página inclui meta tags, Schema markup e layout completo pronto para receber a API quando a Copa começar.</p>
+      <p style="color:#b45309; background:#fef9c3; padding:8px 10px; border-radius:6px; margin-bottom:12px;">⚠️ O navegador vai baixar 72 arquivos ZIP. Permita múltiplos downloads quando solicitado.</p>
+      <div class="gerador-actions">
+        <button class="btn-gerar" onclick="gerarPaginas()">⚡ Gerar e baixar todas as páginas</button>
+        <button class="btn-fechar" onclick="fecharGerador()">Fechar</button>
+      </div>
+      <div id="gerador-progress"><div id="gerador-progress-bar"></div></div>
+      <div id="gerador-log"></div>
+    </div>
+  </div>
+
   <script>
+    // ── Navegação por abas ──
     function mudarAba(el, secao) {
       document.querySelectorAll('.copa-tab').forEach(t => t.classList.remove('ativa'));
       document.querySelectorAll('.copa-secao').forEach(s => s.classList.remove('ativa'));
@@ -1166,21 +1113,335 @@
       document.getElementById('secao-' + secao).classList.add('ativa');
     }
 
+    // ── Filtro de fase ──
     function filtrarFase(el, fase) {
       document.querySelectorAll('.fase-btn').forEach(b => b.classList.remove('ativo'));
       el.classList.add('ativo');
-      // cards e separadores de data
       document.querySelectorAll('#jogos-copa .jogo-copa').forEach(j => {
         j.style.display = (fase === 'todos' || j.dataset.fase.includes(fase)) ? '' : 'none';
       });
-      // separadores: mostrar apenas os que têm ao menos um jogo visível logo após
       document.querySelectorAll('#jogos-copa .jogo-data-sep').forEach(sep => {
-        const fase_sep = sep.dataset.fase;
-        const visivel = (fase === 'todos' || fase === fase_sep);
-        sep.style.display = visivel ? '' : 'none';
+        sep.style.display = (fase === 'todos' || fase === sep.dataset.fase) ? '' : 'none';
       });
     }
-  </script>
 
+    // ── Gerador ──
+    function abrirGerador() {
+      document.getElementById('gerador-modal').classList.add('aberto');
+    }
+    function fecharGerador() {
+      document.getElementById('gerador-modal').classList.remove('aberto');
+    }
+    document.getElementById('gerador-modal').addEventListener('click', function(e) {
+      if (e.target === this) fecharGerador();
+    });
+
+    // ── Dados de todos os jogos ──
+    const JOGOS = [
+      // GRUPO A - R1
+      {slug:'mexico-vs-africa-do-sul', t1:'México', f1:'🇲🇽', t2:'África do Sul', f2:'🇿🇦', grupo:'A', rodada:'1', data:'11 de junho de 2026', hora:'16:00', estadio:'Estadio Azteca', cidade:'Cidade do México', abertura:true},
+      {slug:'coreia-do-sul-vs-tchequia', t1:'Coreia do Sul', f1:'🇰🇷', t2:'Tchéquia', f2:'🇨🇿', grupo:'A', rodada:'1', data:'11 de junho de 2026', hora:'23:00', estadio:'Estadio Akron', cidade:'Guadalajara'},
+      // GRUPO B - R1
+      {slug:'canada-vs-bosnia-e-herzegovina', t1:'Canadá', f1:'🇨🇦', t2:'Bósnia e Herzegovina', f2:'🇧🇦', grupo:'B', rodada:'1', data:'12 de junho de 2026', hora:'16:00', estadio:'BMO Field', cidade:'Toronto'},
+      {slug:'estados-unidos-vs-paraguai', t1:'Estados Unidos', f1:'🇺🇸', t2:'Paraguai', f2:'🇵🇾', grupo:'D', rodada:'1', data:'12 de junho de 2026', hora:'22:00', estadio:'SoFi Stadium', cidade:'Los Angeles'},
+      // GRUPO D - R1
+      {slug:'australia-vs-turquia', t1:'Austrália', f1:'🇦🇺', t2:'Turquia', f2:'🇹🇷', grupo:'D', rodada:'1', data:'13 de junho de 2026', hora:'01:00', estadio:'BC Place', cidade:'Vancouver'},
+      {slug:'qatar-vs-suica', t1:'Qatar', f1:'🇶🇦', t2:'Suíça', f2:'🇨🇭', grupo:'B', rodada:'1', data:'13 de junho de 2026', hora:'16:00', estadio:'Levi\'s Stadium', cidade:'San Francisco'},
+      {slug:'brasil-vs-marrocos', t1:'Brasil', f1:'🇧🇷', t2:'Marrocos', f2:'🇲🇦', grupo:'C', rodada:'1', data:'13 de junho de 2026', hora:'19:00', estadio:'MetLife Stadium', cidade:'Nova York/NJ', brasil:true},
+      {slug:'haiti-vs-escocia', t1:'Haiti', f1:'🇭🇹', t2:'Escócia', f2:'🏴󠁧󠁢󠁳󠁣󠁴󠁿', grupo:'C', rodada:'1', data:'13 de junho de 2026', hora:'22:00', estadio:'Gillette Stadium', cidade:'Boston'},
+      // GRUPO E/F - R1
+      {slug:'alemanha-vs-curacao', t1:'Alemanha', f1:'🇩🇪', t2:'Curaçao', f2:'🇨🇼', grupo:'E', rodada:'1', data:'14 de junho de 2026', hora:'14:00', estadio:'NRG Stadium', cidade:'Houston'},
+      {slug:'holanda-vs-japao', t1:'Holanda', f1:'🇳🇱', t2:'Japão', f2:'🇯🇵', grupo:'F', rodada:'1', data:'14 de junho de 2026', hora:'17:00', estadio:'AT&T Stadium', cidade:'Dallas'},
+      {slug:'costa-do-marfim-vs-equador', t1:'Costa do Marfim', f1:'🇨🇮', t2:'Equador', f2:'🇪🇨', grupo:'E', rodada:'1', data:'14 de junho de 2026', hora:'20:00', estadio:'Lincoln Financial Field', cidade:'Filadélfia'},
+      {slug:'suecia-vs-tunisia', t1:'Suécia', f1:'🇸🇪', t2:'Tunísia', f2:'🇹🇳', grupo:'F', rodada:'1', data:'14 de junho de 2026', hora:'23:00', estadio:'Estadio BBVA', cidade:'Monterrey'},
+      // GRUPO G/H - R1
+      {slug:'espanha-vs-cabo-verde', t1:'Espanha', f1:'🇪🇸', t2:'Cabo Verde', f2:'🇨🇻', grupo:'H', rodada:'1', data:'15 de junho de 2026', hora:'13:00', estadio:'Mercedes-Benz Stadium', cidade:'Atlanta'},
+      {slug:'belgica-vs-egito', t1:'Bélgica', f1:'🇧🇪', t2:'Egito', f2:'🇪🇬', grupo:'G', rodada:'1', data:'15 de junho de 2026', hora:'16:00', estadio:'Lumen Field', cidade:'Seattle'},
+      {slug:'arabia-saudita-vs-uruguai', t1:'Arábia Saudita', f1:'🇸🇦', t2:'Uruguai', f2:'🇺🇾', grupo:'H', rodada:'1', data:'15 de junho de 2026', hora:'19:00', estadio:'Hard Rock Stadium', cidade:'Miami'},
+      {slug:'ira-vs-nova-zelandia', t1:'Irã', f1:'🇮🇷', t2:'Nova Zelândia', f2:'🇳🇿', grupo:'G', rodada:'1', data:'15 de junho de 2026', hora:'22:00', estadio:'SoFi Stadium', cidade:'Los Angeles'},
+      // GRUPO I/J - R1
+      {slug:'franca-vs-senegal', t1:'França', f1:'🇫🇷', t2:'Senegal', f2:'🇸🇳', grupo:'I', rodada:'1', data:'16 de junho de 2026', hora:'16:00', estadio:'MetLife Stadium', cidade:'Nova York/NJ'},
+      {slug:'iraque-vs-noruega', t1:'Iraque', f1:'🇮🇶', t2:'Noruega', f2:'🇳🇴', grupo:'I', rodada:'1', data:'16 de junho de 2026', hora:'19:00', estadio:'Gillette Stadium', cidade:'Boston'},
+      {slug:'argentina-vs-argelia', t1:'Argentina', f1:'🇦🇷', t2:'Argélia', f2:'🇩🇿', grupo:'J', rodada:'1', data:'16 de junho de 2026', hora:'22:00', estadio:'Arrowhead Stadium', cidade:'Kansas City'},
+      // GRUPO J/K/L - R1
+      {slug:'austria-vs-jordania', t1:'Áustria', f1:'🇦🇹', t2:'Jordânia', f2:'🇯🇴', grupo:'J', rodada:'1', data:'17 de junho de 2026', hora:'01:00', estadio:'Levi\'s Stadium', cidade:'San Francisco'},
+      {slug:'portugal-vs-congo-dr', t1:'Portugal', f1:'🇵🇹', t2:'Congo DR', f2:'🇨🇩', grupo:'K', rodada:'1', data:'17 de junho de 2026', hora:'14:00', estadio:'NRG Stadium', cidade:'Houston'},
+      {slug:'inglaterra-vs-croacia', t1:'Inglaterra', f1:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', t2:'Croácia', f2:'🇭🇷', grupo:'L', rodada:'1', data:'17 de junho de 2026', hora:'17:00', estadio:'AT&T Stadium', cidade:'Dallas'},
+      {slug:'gana-vs-panama', t1:'Gana', f1:'🇬🇭', t2:'Panamá', f2:'🇵🇦', grupo:'L', rodada:'1', data:'17 de junho de 2026', hora:'20:00', estadio:'BMO Field', cidade:'Toronto'},
+      {slug:'uzbequistao-vs-colombia', t1:'Uzbequistão', f1:'🇺🇿', t2:'Colômbia', f2:'🇨🇴', grupo:'K', rodada:'1', data:'17 de junho de 2026', hora:'23:00', estadio:'Estadio Azteca', cidade:'Cidade do México'},
+      // GRUPO A/B - R2
+      {slug:'tchequia-vs-africa-do-sul', t1:'Tchéquia', f1:'🇨🇿', t2:'África do Sul', f2:'🇿🇦', grupo:'A', rodada:'2', data:'18 de junho de 2026', hora:'13:00', estadio:'Mercedes-Benz Stadium', cidade:'Atlanta'},
+      {slug:'suica-vs-bosnia-e-herzegovina', t1:'Suíça', f1:'🇨🇭', t2:'Bósnia e Herzegovina', f2:'🇧🇦', grupo:'B', rodada:'2', data:'18 de junho de 2026', hora:'16:00', estadio:'SoFi Stadium', cidade:'Los Angeles'},
+      {slug:'canada-vs-qatar', t1:'Canadá', f1:'🇨🇦', t2:'Qatar', f2:'🇶🇦', grupo:'B', rodada:'2', data:'18 de junho de 2026', hora:'19:00', estadio:'BC Place', cidade:'Vancouver'},
+      {slug:'mexico-vs-coreia-do-sul', t1:'México', f1:'🇲🇽', t2:'Coreia do Sul', f2:'🇰🇷', grupo:'A', rodada:'2', data:'18 de junho de 2026', hora:'22:00', estadio:'Estadio Akron', cidade:'Guadalajara'},
+      // GRUPO C/D - R2
+      {slug:'turquia-vs-paraguai', t1:'Turquia', f1:'🇹🇷', t2:'Paraguai', f2:'🇵🇾', grupo:'D', rodada:'2', data:'19 de junho de 2026', hora:'01:00', estadio:'Levi\'s Stadium', cidade:'San Francisco'},
+      {slug:'estados-unidos-vs-australia', t1:'Estados Unidos', f1:'🇺🇸', t2:'Austrália', f2:'🇦🇺', grupo:'D', rodada:'2', data:'19 de junho de 2026', hora:'16:00', estadio:'Lumen Field', cidade:'Seattle'},
+      {slug:'escocia-vs-marrocos', t1:'Escócia', f1:'🏴󠁧󠁢󠁳󠁣󠁴󠁿', t2:'Marrocos', f2:'🇲🇦', grupo:'C', rodada:'2', data:'19 de junho de 2026', hora:'16:00', estadio:'Gillette Stadium', cidade:'Boston'},
+      {slug:'brasil-vs-haiti', t1:'Brasil', f1:'🇧🇷', t2:'Haiti', f2:'🇭🇹', grupo:'C', rodada:'2', data:'19 de junho de 2026', hora:'22:00', estadio:'Lincoln Financial Field', cidade:'Filadélfia', brasil:true},
+      // GRUPO E/F - R2
+      {slug:'holanda-vs-suecia', t1:'Holanda', f1:'🇳🇱', t2:'Suécia', f2:'🇸🇪', grupo:'F', rodada:'2', data:'20 de junho de 2026', hora:'14:00', estadio:'NRG Stadium', cidade:'Houston'},
+      {slug:'alemanha-vs-costa-do-marfim', t1:'Alemanha', f1:'🇩🇪', t2:'Costa do Marfim', f2:'🇨🇮', grupo:'E', rodada:'2', data:'20 de junho de 2026', hora:'17:00', estadio:'BMO Field', cidade:'Toronto'},
+      {slug:'equador-vs-curacao', t1:'Equador', f1:'🇪🇨', t2:'Curaçao', f2:'🇨🇼', grupo:'E', rodada:'2', data:'20 de junho de 2026', hora:'21:00', estadio:'Arrowhead Stadium', cidade:'Kansas City'},
+      {slug:'tunisia-vs-japao', t1:'Tunísia', f1:'🇹🇳', t2:'Japão', f2:'🇯🇵', grupo:'F', rodada:'2', data:'21 de junho de 2026', hora:'01:00', estadio:'Estadio BBVA', cidade:'Monterrey'},
+      // GRUPO G/H - R2
+      {slug:'espanha-vs-arabia-saudita', t1:'Espanha', f1:'🇪🇸', t2:'Arábia Saudita', f2:'🇸🇦', grupo:'H', rodada:'2', data:'21 de junho de 2026', hora:'13:00', estadio:'Mercedes-Benz Stadium', cidade:'Atlanta'},
+      {slug:'belgica-vs-ira', t1:'Bélgica', f1:'🇧🇪', t2:'Irã', f2:'🇮🇷', grupo:'G', rodada:'2', data:'21 de junho de 2026', hora:'16:00', estadio:'SoFi Stadium', cidade:'Los Angeles'},
+      {slug:'uruguai-vs-cabo-verde', t1:'Uruguai', f1:'🇺🇾', t2:'Cabo Verde', f2:'🇨🇻', grupo:'H', rodada:'2', data:'21 de junho de 2026', hora:'19:00', estadio:'Hard Rock Stadium', cidade:'Miami'},
+      {slug:'nova-zelandia-vs-egito', t1:'Nova Zelândia', f1:'🇳🇿', t2:'Egito', f2:'🇪🇬', grupo:'G', rodada:'2', data:'21 de junho de 2026', hora:'22:00', estadio:'BC Place', cidade:'Vancouver'},
+      // GRUPO I/J - R2
+      {slug:'argentina-vs-austria', t1:'Argentina', f1:'🇦🇷', t2:'Áustria', f2:'🇦🇹', grupo:'J', rodada:'2', data:'22 de junho de 2026', hora:'14:00', estadio:'AT&T Stadium', cidade:'Dallas'},
+      {slug:'franca-vs-iraque', t1:'França', f1:'🇫🇷', t2:'Iraque', f2:'🇮🇶', grupo:'I', rodada:'2', data:'22 de junho de 2026', hora:'18:00', estadio:'Lincoln Financial Field', cidade:'Filadélfia'},
+      {slug:'noruega-vs-senegal', t1:'Noruega', f1:'🇳🇴', t2:'Senegal', f2:'🇸🇳', grupo:'I', rodada:'2', data:'22 de junho de 2026', hora:'21:00', estadio:'MetLife Stadium', cidade:'Nova York/NJ'},
+      {slug:'jordania-vs-argelia', t1:'Jordânia', f1:'🇯🇴', t2:'Argélia', f2:'🇩🇿', grupo:'J', rodada:'2', data:'23 de junho de 2026', hora:'00:00', estadio:'Levi\'s Stadium', cidade:'San Francisco'},
+      // GRUPO K/L - R2
+      {slug:'portugal-vs-uzbequistao', t1:'Portugal', f1:'🇵🇹', t2:'Uzbequistão', f2:'🇺🇿', grupo:'K', rodada:'2', data:'23 de junho de 2026', hora:'14:00', estadio:'NRG Stadium', cidade:'Houston'},
+      {slug:'inglaterra-vs-gana', t1:'Inglaterra', f1:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', t2:'Gana', f2:'🇬🇭', grupo:'L', rodada:'2', data:'23 de junho de 2026', hora:'17:00', estadio:'Gillette Stadium', cidade:'Boston'},
+      {slug:'panama-vs-croacia', t1:'Panamá', f1:'🇵🇦', t2:'Croácia', f2:'🇭🇷', grupo:'L', rodada:'2', data:'23 de junho de 2026', hora:'20:00', estadio:'BMO Field', cidade:'Toronto'},
+      {slug:'colombia-vs-congo-dr', t1:'Colômbia', f1:'🇨🇴', t2:'Congo DR', f2:'🇨🇩', grupo:'K', rodada:'2', data:'23 de junho de 2026', hora:'23:00', estadio:'Estadio Akron', cidade:'Guadalajara'},
+      // GRUPO A/B/C - R3
+      {slug:'suica-vs-canada', t1:'Suíça', f1:'🇨🇭', t2:'Canadá', f2:'🇨🇦', grupo:'B', rodada:'3', data:'24 de junho de 2026', hora:'16:00', estadio:'BC Place', cidade:'Vancouver'},
+      {slug:'bosnia-e-herzegovina-vs-qatar', t1:'Bósnia e Herzegovina', f1:'🇧🇦', t2:'Qatar', f2:'🇶🇦', grupo:'B', rodada:'3', data:'24 de junho de 2026', hora:'16:00', estadio:'Lumen Field', cidade:'Seattle'},
+      {slug:'brasil-vs-escocia', t1:'Brasil', f1:'🇧🇷', t2:'Escócia', f2:'🏴󠁧󠁢󠁳󠁣󠁴󠁿', grupo:'C', rodada:'3', data:'24 de junho de 2026', hora:'19:00', estadio:'Hard Rock Stadium', cidade:'Miami', brasil:true},
+      {slug:'marrocos-vs-haiti', t1:'Marrocos', f1:'🇲🇦', t2:'Haiti', f2:'🇭🇹', grupo:'C', rodada:'3', data:'24 de junho de 2026', hora:'19:00', estadio:'Mercedes-Benz Stadium', cidade:'Atlanta'},
+      {slug:'tchequia-vs-mexico', t1:'Tchéquia', f1:'🇨🇿', t2:'México', f2:'🇲🇽', grupo:'A', rodada:'3', data:'24 de junho de 2026', hora:'22:00', estadio:'Estadio Azteca', cidade:'Cidade do México'},
+      {slug:'africa-do-sul-vs-coreia-do-sul', t1:'África do Sul', f1:'🇿🇦', t2:'Coreia do Sul', f2:'🇰🇷', grupo:'A', rodada:'3', data:'24 de junho de 2026', hora:'22:00', estadio:'Estadio BBVA', cidade:'Monterrey'},
+      // GRUPO D/E/F - R3
+      {slug:'equador-vs-alemanha', t1:'Equador', f1:'🇪🇨', t2:'Alemanha', f2:'🇩🇪', grupo:'E', rodada:'3', data:'25 de junho de 2026', hora:'17:00', estadio:'MetLife Stadium', cidade:'Nova York/NJ'},
+      {slug:'curacao-vs-costa-do-marfim', t1:'Curaçao', f1:'🇨🇼', t2:'Costa do Marfim', f2:'🇨🇮', grupo:'E', rodada:'3', data:'25 de junho de 2026', hora:'17:00', estadio:'Lincoln Financial Field', cidade:'Filadélfia'},
+      {slug:'japao-vs-suecia', t1:'Japão', f1:'🇯🇵', t2:'Suécia', f2:'🇸🇪', grupo:'F', rodada:'3', data:'25 de junho de 2026', hora:'20:00', estadio:'AT&T Stadium', cidade:'Dallas'},
+      {slug:'tunisia-vs-holanda', t1:'Tunísia', f1:'🇹🇳', t2:'Holanda', f2:'🇳🇱', grupo:'F', rodada:'3', data:'25 de junho de 2026', hora:'20:00', estadio:'Arrowhead Stadium', cidade:'Kansas City'},
+      {slug:'turquia-vs-estados-unidos', t1:'Turquia', f1:'🇹🇷', t2:'Estados Unidos', f2:'🇺🇸', grupo:'D', rodada:'3', data:'25 de junho de 2026', hora:'23:00', estadio:'SoFi Stadium', cidade:'Los Angeles'},
+      {slug:'paraguai-vs-australia', t1:'Paraguai', f1:'🇵🇾', t2:'Austrália', f2:'🇦🇺', grupo:'D', rodada:'3', data:'25 de junho de 2026', hora:'23:00', estadio:'Levi\'s Stadium', cidade:'San Francisco'},
+      // GRUPO G/H/I - R3
+      {slug:'noruega-vs-franca', t1:'Noruega', f1:'🇳🇴', t2:'França', f2:'🇫🇷', grupo:'I', rodada:'3', data:'26 de junho de 2026', hora:'16:00', estadio:'Gillette Stadium', cidade:'Boston'},
+      {slug:'senegal-vs-iraque', t1:'Senegal', f1:'🇸🇳', t2:'Iraque', f2:'🇮🇶', grupo:'I', rodada:'3', data:'26 de junho de 2026', hora:'16:00', estadio:'BMO Field', cidade:'Toronto'},
+      {slug:'cabo-verde-vs-arabia-saudita', t1:'Cabo Verde', f1:'🇨🇻', t2:'Arábia Saudita', f2:'🇸🇦', grupo:'H', rodada:'3', data:'26 de junho de 2026', hora:'21:00', estadio:'NRG Stadium', cidade:'Houston'},
+      {slug:'uruguai-vs-espanha', t1:'Uruguai', f1:'🇺🇾', t2:'Espanha', f2:'🇪🇸', grupo:'H', rodada:'3', data:'26 de junho de 2026', hora:'21:00', estadio:'Estadio Akron', cidade:'Guadalajara'},
+      {slug:'egito-vs-ira', t1:'Egito', f1:'🇪🇬', t2:'Irã', f2:'🇮🇷', grupo:'G', rodada:'3', data:'27 de junho de 2026', hora:'00:00', estadio:'Lumen Field', cidade:'Seattle'},
+      {slug:'nova-zelandia-vs-belgica', t1:'Nova Zelândia', f1:'🇳🇿', t2:'Bélgica', f2:'🇧🇪', grupo:'G', rodada:'3', data:'27 de junho de 2026', hora:'00:00', estadio:'BC Place', cidade:'Vancouver'},
+      // GRUPO J/K/L - R3
+      {slug:'panama-vs-inglaterra', t1:'Panamá', f1:'🇵🇦', t2:'Inglaterra', f2:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', grupo:'L', rodada:'3', data:'27 de junho de 2026', hora:'18:00', estadio:'MetLife Stadium', cidade:'Nova York/NJ'},
+      {slug:'croacia-vs-gana', t1:'Croácia', f1:'🇭🇷', t2:'Gana', f2:'🇬🇭', grupo:'L', rodada:'3', data:'27 de junho de 2026', hora:'18:00', estadio:'Lincoln Financial Field', cidade:'Filadélfia'},
+      {slug:'colombia-vs-portugal', t1:'Colômbia', f1:'🇨🇴', t2:'Portugal', f2:'🇵🇹', grupo:'K', rodada:'3', data:'27 de junho de 2026', hora:'20:30', estadio:'Hard Rock Stadium', cidade:'Miami'},
+      {slug:'congo-dr-vs-uzbequistao', t1:'Congo DR', f1:'🇨🇩', t2:'Uzbequistão', f2:'🇺🇿', grupo:'K', rodada:'3', data:'27 de junho de 2026', hora:'20:30', estadio:'Mercedes-Benz Stadium', cidade:'Atlanta'},
+      {slug:'argelia-vs-austria', t1:'Argélia', f1:'🇩🇿', t2:'Áustria', f2:'🇦🇹', grupo:'J', rodada:'3', data:'27 de junho de 2026', hora:'23:00', estadio:'Arrowhead Stadium', cidade:'Kansas City'},
+      {slug:'jordania-vs-argentina', t1:'Jordânia', f1:'🇯🇴', t2:'Argentina', f2:'🇦🇷', grupo:'J', rodada:'3', data:'27 de junho de 2026', hora:'23:00', estadio:'AT&T Stadium', cidade:'Dallas'},
+    ];
+
+    function gerarHTMLJogo(j) {
+      const titulo = `${j.t1} x ${j.t2} — Copa do Mundo 2026 | Placar do Futebol`;
+      const desc = `Acompanhe ${j.t1} x ${j.t2} ao vivo — Grupo ${j.grupo}, ${j.rodada}ª Rodada da Copa do Mundo 2026. ${j.data}, ${j.hora}, ${j.estadio}, ${j.cidade}.`;
+      const schema = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "SportsEvent",
+        "name": `${j.t1} x ${j.t2}`,
+        "startDate": `2026-${j.data.split(' de ').map((p,i)=>i===0?p.padStart(2,'0'):i===1?({'janeiro':'01','fevereiro':'02','março':'03','abril':'04','maio':'05','junho':'06','julho':'07'}[p]||'06'):p).join('-')}T${j.hora}:00-03:00`,
+        "location": {"@type":"Place","name":j.estadio,"address":j.cidade},
+        "homeTeam": {"@type":"SportsTeam","name":j.t1},
+        "awayTeam": {"@type":"SportsTeam","name":j.t2},
+        "sport": "Futebol",
+        "url": `https://placardofutebol.com/copa-do-mundo/${j.slug}/`
+      });
+
+      return `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${titulo}</title>
+  <meta name="description" content="${desc}">
+  <meta name="theme-color" content="#1a7a30">
+  <meta property="og:title" content="${titulo}">
+  <meta property="og:description" content="${desc}">
+  <meta property="og:url" content="https://placardofutebol.com/copa-do-mundo/${j.slug}/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://placardofutebol.com/copa-do-mundo/${j.slug}/">
+  <link rel="stylesheet" href="../../css/style.css">
+  <script type="application/ld+json">${schema}<\/script>
+  <style>
+    .jogo-hero{background:linear-gradient(135deg,#1a7a30,#2d9e4e);padding:20px 16px;text-align:center;color:white}
+    .jogo-hero-grupo{font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:.75;margin-bottom:8px}
+    .jogo-placar-box{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;max-width:400px;margin:16px auto 0}
+    .jogo-time-hero{display:flex;flex-direction:column;align-items:center;gap:6px}
+    .jogo-flag-big{font-size:48px;line-height:1}
+    .jogo-time-nome{font-size:14px;font-weight:700}
+    .jogo-score{font-size:42px;font-weight:900;letter-spacing:4px;font-family:'Barlow',sans-serif;min-width:100px;text-align:center}
+    .jogo-score.pendente{font-size:28px;opacity:.6}
+    .jogo-meta{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px}
+    .jogo-meta-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600}
+    .jogo-secoes{max-width:700px;margin:0 auto;padding:16px 12px}
+    .jogo-secao-card{background:white;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:14px;overflow:hidden}
+    .jogo-secao-header{background:#f5f5f5;padding:10px 16px;font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.5px}
+    .jogo-secao-body{padding:14px 16px;font-size:13px;color:#333;line-height:1.6}
+    .stat-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+    .stat-bar-wrap{flex:1;background:#f0f0f0;border-radius:4px;height:6px;overflow:hidden}
+    .stat-bar{height:100%;background:#1a7a30;border-radius:4px;width:0%;transition:width .5s}
+    .stat-label{font-size:11px;color:#888;min-width:60px;text-align:center}
+    .stat-val{font-size:13px;font-weight:700;min-width:30px;text-align:center}
+    .aviso-api{background:#fff8e1;border:1px solid #f5c800;border-radius:8px;padding:12px 16px;font-size:12px;color:#7a6000;text-align:center;margin-bottom:14px}
+    .btn-voltar{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#f0faf3;border:1px solid #1a7a30;border-radius:20px;color:#1a7a30;font-size:12px;font-weight:700;text-decoration:none;margin:12px 16px}
+    .countdown{font-size:20px;font-weight:800;color:#f5c800;display:block;margin-top:4px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo"><span class="logo-principal">Placar <span>do Futebol</span></span><span class="logo-sub">Resultados ao vivo</span></a>
+      <div class="header-ao-vivo"><span class="dot-vivo"></span>AO VIVO</div>
+    </div>
+  </header>
+
+  <a href="/copa-do-mundo/" class="btn-voltar">← Copa do Mundo 2026</a>
+
+  <div class="jogo-hero"${j.brasil?' style="border-bottom:3px solid #f5c800"':''}>
+    <div class="jogo-hero-grupo">🌍 Copa do Mundo 2026 · Grupo ${j.grupo} · ${j.rodada}ª Rodada${j.abertura?' · JOGO DE ABERTURA':''}</div>
+    <div class="jogo-placar-box">
+      <div class="jogo-time-hero"><span class="jogo-flag-big">${j.f1}</span><span class="jogo-time-nome">${j.t1}</span></div>
+      <div id="placar-centro">
+        <div class="jogo-score pendente" id="placar">×</div>
+        <div id="status-jogo" style="font-size:11px;opacity:.7;margin-top:4px">${j.hora} • ${j.data}</div>
+      </div>
+      <div class="jogo-time-hero"><span class="jogo-flag-big">${j.f2}</span><span class="jogo-time-nome">${j.t2}</span></div>
+    </div>
+    <div class="jogo-meta">
+      <span class="jogo-meta-badge">🏟️ ${j.estadio}</span>
+      <span class="jogo-meta-badge">📍 ${j.cidade}</span>
+      <span class="jogo-meta-badge">📅 ${j.data}</span>
+      <span class="jogo-meta-badge">⏰ ${j.hora} (Brasília)</span>
+    </div>
+  </div>
+
+  <div class="jogo-secoes">
+    <div class="aviso-api" id="aviso-pre">
+      ⏳ Jogo ainda não começou. O placar ao vivo, estatísticas e escalações serão carregados automaticamente quando a partida iniciar.
+      <span class="countdown" id="countdown">Calculando...</span>
+    </div>
+
+    <div class="jogo-secao-card" id="card-stats" style="display:none">
+      <div class="jogo-secao-header">📊 Estatísticas</div>
+      <div class="jogo-secao-body" id="stats-body">Carregando...</div>
+    </div>
+
+    <div class="jogo-secao-card" id="card-eventos" style="display:none">
+      <div class="jogo-secao-header">⚽ Eventos</div>
+      <div class="jogo-secao-body" id="eventos-body">Carregando...</div>
+    </div>
+
+    <div class="jogo-secao-card">
+      <div class="jogo-secao-header">ℹ️ Informações do jogo</div>
+      <div class="jogo-secao-body">
+        <strong>Competição:</strong> FIFA Copa do Mundo 2026<br>
+        <strong>Fase:</strong> Fase de Grupos — Grupo ${j.grupo}, ${j.rodada}ª Rodada<br>
+        <strong>Data:</strong> ${j.data}<br>
+        <strong>Horário:</strong> ${j.hora} (horário de Brasília)<br>
+        <strong>Estádio:</strong> ${j.estadio}<br>
+        <strong>Cidade:</strong> ${j.cidade}
+      </div>
+    </div>
+  </div>
+
+  <nav class="nav-bottom">
+    <a href="/" class="nav-item"><span class="nav-icon">⚽</span><span class="nav-label">Jogos</span></a>
+    <a href="/tabela/" class="nav-item"><span class="nav-icon">📊</span><span class="nav-label">Tabela</span></a>
+    <a href="/noticias/" class="nav-item"><span class="nav-icon">📰</span><span class="nav-label">Notícias</span></a>
+    <a href="/videos/" class="nav-item"><span class="nav-icon">▶️</span><span class="nav-label">Vídeos</span></a>
+    <a href="/artilharia/" class="nav-item"><span class="nav-icon">👟</span><span class="nav-label">Artilharia</span></a>
+  </nav>
+
+  <footer>
+    <div class="footer-logo">Placar <span>do Futebol</span></div>
+    <div class="footer-links"><a href="/sobre/">Sobre</a><a href="/privacidade/">Privacidade</a><a href="/contato/">Contato</a></div>
+    <p class="footer-copy">© 2026 placardofutebol.com — Resultados ao vivo</p>
+  </footer>
+
+  <script>
+    const PROXY = 'https://futebol-proxy.placardofutebol-com.workers.dev';
+    const SLUG = '${j.slug}';
+    const T1 = '${j.t1}', T2 = '${j.t2}';
+
+    // Countdown
+    (function() {
+      const parts = '${j.data}'.match(/(\\d+) de (\\w+) de (\\d+)/);
+      const meses = {janeiro:1,fevereiro:2,março:3,abril:4,maio:5,junho:6,julho:7,agosto:8,setembro:9,outubro:10,novembro:11,dezembro:12};
+      if (!parts) return;
+      const [h,m] = '${j.hora}'.split(':').map(Number);
+      const alvo = new Date(+parts[3], meses[parts[2].toLowerCase()]-1, +parts[1], h, m, 0);
+      function atualizar() {
+        const diff = alvo - Date.now();
+        if (diff <= 0) {
+          document.getElementById('countdown').textContent = 'Jogo em andamento ou encerrado';
+          buscarDadosAPI();
+          return;
+        }
+        const d = Math.floor(diff/86400000), hr = Math.floor((diff%86400000)/3600000),
+              mn = Math.floor((diff%3600000)/60000), sc = Math.floor((diff%60000)/1000);
+        document.getElementById('countdown').textContent =
+          d > 0 ? d+'d '+hr+'h '+mn+'m' : hr+'h '+mn+'m '+sc+'s';
+      }
+      atualizar();
+      setInterval(atualizar, 1000);
+    })();
+
+    async function buscarDadosAPI() {
+      try {
+        const r = await fetch(PROXY + '?endpoint=fixtures&league=1&season=2026&team=&search=' + encodeURIComponent(T1));
+        const d = await r.json();
+        if (!d.response || !d.response.length) return;
+        const fixture = d.response.find(f =>
+          (f.teams.home.name.includes(T1) || f.teams.away.name.includes(T1)) &&
+          (f.teams.home.name.includes(T2) || f.teams.away.name.includes(T2))
+        );
+        if (!fixture) return;
+        const g = fixture.goals, s = fixture.score;
+        if (g.home !== null) {
+          document.getElementById('placar').textContent = g.home + ' - ' + g.away;
+          document.getElementById('placar').classList.remove('pendente');
+          document.getElementById('aviso-pre').style.display = 'none';
+          document.getElementById('card-stats').style.display = '';
+          document.getElementById('card-eventos').style.display = '';
+        }
+      } catch(e) { console.log('API indisponível', e); }
+    }
+  <\/script>
+</body>
+</html>`;
+    }
+
+    async function gerarPaginas() {
+      const btn = document.querySelector('.btn-gerar');
+      btn.disabled = true;
+      btn.textContent = '⏳ Gerando...';
+      const progress = document.getElementById('gerador-progress');
+      const bar = document.getElementById('gerador-progress-bar');
+      const log = document.getElementById('gerador-log');
+      progress.style.display = 'block';
+      log.style.display = 'block';
+      log.textContent = '';
+
+      for (let i = 0; i < JOGOS.length; i++) {
+        const j = JOGOS[i];
+        const html = gerarHTMLJogo(j);
+        const blob = new Blob([html], {type: 'text/html;charset=utf-8'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = j.slug + '.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        const pct = Math.round(((i+1)/JOGOS.length)*100);
+        bar.style.width = pct + '%';
+        log.textContent += '✅ ' + j.slug + '\n';
+        log.scrollTop = log.scrollHeight;
+        await new Promise(r => setTimeout(r, 120));
+      }
+
+      btn.textContent = '✅ ' + JOGOS.length + ' páginas geradas!';
+      log.textContent += '\n🎉 Pronto! Mova cada arquivo para copa-do-mundo/[slug]/index.html';
+    }
+  </script>
 </body>
 </html>
