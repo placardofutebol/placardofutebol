@@ -660,7 +660,7 @@ function abreviarTime(nome) {
     const liga = String(jogo.league.id);
     const base = liga === '72' ? '/brasileirao-serie-b/' :
                  liga === '13' ? '/libertadores/' :
-                 liga === '11' ? '/sul-americana/' : '/brasileirao/';
+                 liga === '11' ? '/sulamericana/' : '/brasileirao/';
     const home = slugNome(jogo.teams.home.name);
     const away = slugNome(jogo.teams.away.name);
     window.location.href = base + home + '-vs-' + away + '/';
