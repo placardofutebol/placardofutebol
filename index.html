@@ -651,7 +651,19 @@ function abreviarTime(nome) {
   }
 
   function abrirJogo(id) {
-    console.log('Jogo:', id);
+    const jogo = todosJogos.find(j => j.fixture.id === id);
+    if (!jogo) return;
+    if (String(jogo.league.id) !== '71') return;
+    const home = slugNome(jogo.teams.home.name);
+    const away = slugNome(jogo.teams.away.name);
+    window.location.href = `/brasileirao/${home}-vs-${away}/`;
+  }
+
+  function slugNome(nome) {
+    return nome.toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '');
   }
 let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
