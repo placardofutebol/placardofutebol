@@ -629,7 +629,6 @@ footer {
   background: var(--verde-escuro);
   color: white;
   border-color: var(--verde-escuro);
-  margin-left: auto;
 }
 .filtro-completo:hover {
   background: var(--verde);
