@@ -435,7 +435,7 @@
 
     async function carregarArtilharia() {
       const container = document.getElementById('artilharia-container');
-      if (container.dataset.loaded) return;
+      if (container.dataset.loaded === '1') return;
       container.innerHTML = '<div class="bra-loading"><div class="spinner"></div><p>Carregando artilharia...</p></div>';
       try {
         const r = await fetch(`${PROXY}/players/topscorers?league=${LEAGUE}&season=${SEASON}`);
