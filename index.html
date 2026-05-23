@@ -372,11 +372,22 @@ function verificarJogosAtrasados() {
     setTimeout(() => mini.classList.remove('oculto'), 300);
   }
 
+  const PAGINAS_LIGAS = {
+    '71': '/brasileirao/',
+  };
+
   function selecionarLiga(el, liga) {
     document.querySelectorAll('.liga-tab').forEach(t => t.classList.remove('ativa'));
     el.classList.add('ativa');
     ligaAtiva = liga;
     renderizar();
+    const btnCompleto = document.getElementById('btn-completo-liga');
+    if (PAGINAS_LIGAS[liga]) {
+      btnCompleto.href = PAGINAS_LIGAS[liga];
+      btnCompleto.style.display = 'flex';
+    } else {
+      btnCompleto.style.display = 'none';
+    }
   }
 
   function filtrarStatus(el, status) {
