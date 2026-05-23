@@ -654,10 +654,14 @@ function abreviarTime(nome) {
   function abrirJogo(id) {
     const jogo = todosJogos.find(j => j.fixture.id === id);
     if (!jogo) return;
-    if (String(jogo.league.id) !== '71') return;
+    if (!['71','72'].includes(String(jogo.league.id))) return;
+    const liga = String(jogo.league.id);
+    const base = liga === '72' ? '/brasileirao-serie-b/' : '/brasileirao/';
     const home = slugNome(jogo.teams.home.name);
     const away = slugNome(jogo.teams.away.name);
-    window.location.href = `/brasileirao/${home}-vs-${away}/`;
+    window.location.href = base + home + '-vs-' + away + '/';
+    return;
+    
   }
 
   function slugNome(nome) {
