@@ -674,8 +674,6 @@
     }
 
    function atualizarPagina() {
-      // Detecta qual aba está ativa antes de atualizar
-      const abaAtiva = document.querySelector('.cop-tab.ativa');
       const secaoAtiva = document.querySelector('.cop-secao.ativa');
       const secaoId = secaoAtiva ? secaoAtiva.id.replace('secao-', '') : 'jogos';
 
@@ -686,13 +684,23 @@
       document.getElementById('chave-paineis').innerHTML = '';
       todosRounds = [];
 
-      // Volta para a mesma aba que estava
+      const tabs = document.querySelectorAll('.cop-tab');
+      const secoes = document.querySelectorAll('.cop-secao');
+      tabs.forEach(t => t.classList.remove('ativa'));
+      secoes.forEach(s => s.classList.remove('ativa'));
+
       if (secaoId === 'chaveamento') {
-        inicializar().then(() => mudarAba(abaAtiva, 'chaveamento'));
+        tabs[1].classList.add('ativa');
+        document.getElementById('secao-chaveamento').classList.add('ativa');
+        inicializar();
+        setTimeout(() => carregarChaveamento(), 800);
       } else if (secaoId === 'artilharia') {
-        mudarAba(abaAtiva, 'artilharia');
+        tabs[2].classList.add('ativa');
+        document.getElementById('secao-artilharia').classList.add('ativa');
+        carregarArtilharia();
       } else {
-        mudarAba(document.querySelector('.cop-tab'), 'jogos');
+        tabs[0].classList.add('ativa');
+        document.getElementById('secao-jogos').classList.add('ativa');
         inicializar();
       }
     }
