@@ -1,1 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Entre em contato com o Placar do Futebol. Sugestões, erros ou dúvidas — respondemos todos.">
+  <meta name="theme-color" content="#1a7a30">
+  <title>Contato | Placar do Futebol</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .pagina-interna {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+    .pagina-titulo {
+      font-family: var(--font-titulo);
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--preto);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .pagina-titulo span { color: var(--verde); }
+    .pagina-subtitulo {
+      font-size: 13px;
+      color: var(--cinza-texto);
+      margin-bottom: 28px;
+    }
 
+    /* Cards informativos */
+    .card-info {
+      background: white;
+      border-radius: var(--radius-card);
+      box-shadow: var(--sombra);
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .card-info h2 {
+      font-family: var(--font-titulo);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--verde-escuro);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 10px;
+    }
+    .card-info p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #444;
+    }
+
+    /* Formulário */
+    .form-contato {
+      background: white;
+      border-radius: var(--radius-card);
+      box-shadow: var(--sombra);
+      padding: 24px 20px;
+      margin-bottom: 16px;
+    }
+    .form-contato h2 {
+      font-family: var(--font-titulo);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--verde-escuro);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 18px;
+    }
+    .campo-grupo {
+      margin-bottom: 14px;
+    }
+    .campo-grupo label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--cinza-texto);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+    }
+    .campo-grupo input,
+    .campo-grupo select,
+    .campo-grupo textarea {
+      width: 100%;
+      padding: 10px 14px;
+      font-family: var(--font-corpo);
+      font-size: 14px;
+      color: var(--preto);
+      background: var(--cinza-bg);
+      border: 1.5px solid var(--cinza-borda);
+      border-radius: var(--radius-sm);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none;
+    }
+    .campo-grupo input:focus,
+    .campo-grupo select:focus,
+    .campo-grupo textarea:focus {
+      border-color: var(--verde);
+      box-shadow: 0 0 0 3px rgba(26,122,48,0.1);
+      background: white;
+    }
+    .campo-grupo textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+    .btn-enviar {
+      width: 100%;
+      padding: 13px;
+      background: var(--verde);
+      color: white;
+      font-family: var(--font-titulo);
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 6px;
+    }
+    .btn-enviar:hover { background: var(--verde-escuro); }
+    .btn-enviar:active { transform: scale(0.98); }
+
+    /* Feedback de envio */
+    #msg-feedback {
+      display: none;
+      background: var(--verde-claro);
+      border-left: 3px solid var(--verde);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      margin-top: 14px;
+      font-size: 14px;
+      color: var(--verde-escuro);
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    /* Opções de contato rápido */
+    .contato-opcoes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .contato-opcao {
+      background: white;
+      border-radius: var(--radius-card);
+      box-shadow: var(--sombra);
+      padding: 16px;
+      text-align: center;
+    }
+    .contato-opcao .icone {
+      font-size: 26px;
+      margin-bottom: 6px;
+    }
+    .contato-opcao .titulo {
+      font-family: var(--font-titulo);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--verde-escuro);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .contato-opcao .desc {
+      font-size: 12px;
+      color: var(--cinza-texto);
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <span class="logo-principal">Placar <span>do Futebol</span></span>
+        <span class="logo-sub">Resultados ao vivo</span>
+      </a>
+      <div class="header-ao-vivo">
+        <span class="dot-vivo"></span>
+        AO VIVO
+      </div>
+    </div>
+  </header>
+
+  <main class="pagina-interna" role="main">
+    <h1 class="pagina-titulo">Fale <span>Conosco</span></h1>
+    <p class="pagina-subtitulo">Sugestões, erros ou dúvidas — respondemos todos os contatos</p>
+
+    <div class="contato-opcoes">
+      <div class="contato-opcao">
+        <div class="icone">🐛</div>
+        <div class="titulo">Erro no site</div>
+        <div class="desc">Placar errado, jogo faltando ou bug?</div>
+      </div>
+      <div class="contato-opcao">
+        <div class="icone">💡</div>
+        <div class="titulo">Sugestão</div>
+        <div class="desc">Quer ver uma liga ou função nova?</div>
+      </div>
+      <div class="contato-opcao">
+        <div class="icone">🤝</div>
+        <div class="titulo">Parceria</div>
+        <div class="desc">Mídia, conteúdo ou integração?</div>
+      </div>
+      <div class="contato-opcao">
+        <div class="icone">❓</div>
+        <div class="titulo">Dúvida geral</div>
+        <div class="desc">Qualquer outra questão sobre o site</div>
+      </div>
+    </div>
+
+    <div class="form-contato">
+      <h2>✉️ Envie sua mensagem</h2>
+
+      <div class="campo-grupo">
+        <label for="nome">Seu nome</label>
+        <input type="text" id="nome" placeholder="Como podemos te chamar?" autocomplete="name">
+      </div>
+
+      <div class="campo-grupo">
+        <label for="email">E-mail para resposta</label>
+        <input type="email" id="email" placeholder="seu@email.com" autocomplete="email">
+      </div>
+
+      <div class="campo-grupo">
+        <label for="assunto">Assunto</label>
+        <select id="assunto">
+          <option value="">Selecione o assunto...</option>
+          <option value="erro">🐛 Erro no site / placar incorreto</option>
+          <option value="sugestao">💡 Sugestão de melhoria</option>
+          <option value="liga">🏆 Solicitar nova liga</option>
+          <option value="parceria">🤝 Parceria ou mídia</option>
+          <option value="privacidade">🔒 Privacidade / dados</option>
+          <option value="outro">❓ Outro assunto</option>
+        </select>
+      </div>
+
+      <div class="campo-grupo">
+        <label for="mensagem">Mensagem</label>
+        <textarea id="mensagem" placeholder="Descreva sua dúvida, sugestão ou problema com o máximo de detalhes possível..."></textarea>
+      </div>
+
+      <button class="btn-enviar" onclick="enviarFormulario()">Enviar mensagem ⚽</button>
+
+      <div id="msg-feedback">
+        ✅ Mensagem enviada! Obrigado pelo contato — responderemos em breve no e-mail informado.
+      </div>
+    </div>
+
+    <div class="card-info">
+      <h2>⏱️ Tempo de resposta</h2>
+      <p>Respondemos normalmente em até <strong>48 horas úteis</strong>. Para erros críticos de placar durante jogos ao vivo, priorizamos a correção imediata.</p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-logo">Placar <span>do Futebol</span></div>
+    <div class="footer-links">
+      <a href="/sobre/">Sobre</a>
+      <a href="/privacidade/">Privacidade</a>
+      <a href="/contato/">Contato</a>
+    </div>
+    <p class="footer-copy">© 2026 placardofutebol.com — Resultados ao vivo</p>
+  </footer>
+
+  <nav class="nav-bottom" role="navigation" aria-label="Navegação principal">
+    <a href="/" class="nav-item"><span class="nav-icon">⚽</span><span class="nav-label">Jogos</span></a>
+    <a href="/tabela/" class="nav-item"><span class="nav-icon">📊</span><span class="nav-label">Tabela</span></a>
+    <a href="/noticias/" class="nav-item"><span class="nav-icon">📰</span><span class="nav-label">Notícias</span></a>
+    <a href="/videos/" class="nav-item"><span class="nav-icon">▶️</span><span class="nav-label">Vídeos</span></a>
+    <a href="/artilharia/" class="nav-item"><span class="nav-icon">👟</span><span class="nav-label">Artilharia</span></a>
+  </nav>
+
+  <script>
+    function enviarFormulario() {
+      const nome     = document.getElementById('nome').value.trim();
+      const email    = document.getElementById('email').value.trim();
+      const assunto  = document.getElementById('assunto').value;
+      const mensagem = document.getElementById('mensagem').value.trim();
+      const feedback = document.getElementById('msg-feedback');
+
+      if (!nome || !email || !assunto || !mensagem) {
+        alert('Por favor, preencha todos os campos antes de enviar.');
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        alert('Informe um e-mail válido.');
+        return;
+      }
+
+      // Monta mailto como fallback simples e confiável
+      const corpo = encodeURIComponent(
+        `Nome: ${nome}\nAssunto: ${assunto}\n\n${mensagem}`
+      );
+      window.location.href = `mailto:contato@placardofutebol.com?subject=${encodeURIComponent('[Contato] ' + assunto)}&body=${corpo}`;
+
+      feedback.style.display = 'block';
+      feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  </script>
+
+</body>
+</html>
