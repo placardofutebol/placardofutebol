@@ -677,29 +677,36 @@
       const secaoAtiva = document.querySelector('.cop-secao.ativa');
       const secaoId = secaoAtiva ? secaoAtiva.id.replace('secao-', '') : 'jogos';
 
+      // Reset geral
       jogosPorRound = {};
-      delete document.getElementById('artilharia-container').dataset.loaded;
+      todosRounds = [];
       chaveCarregado = false;
+      delete document.getElementById('artilharia-container').dataset.loaded;
       document.getElementById('chave-fases-nav').innerHTML = '';
       document.getElementById('chave-paineis').innerHTML = '';
-      todosRounds = [];
 
-      const tabs = document.querySelectorAll('.cop-tab');
-      const secoes = document.querySelectorAll('.cop-secao');
-      tabs.forEach(t => t.classList.remove('ativa'));
-      secoes.forEach(s => s.classList.remove('ativa'));
+      // Remove classes ativas
+      document.querySelectorAll('.cop-tab').forEach(t => t.classList.remove('ativa'));
+      document.querySelectorAll('.cop-secao').forEach(s => s.classList.remove('ativa'));
 
       if (secaoId === 'chaveamento') {
-        tabs[1].classList.add('ativa');
+        document.querySelectorAll('.cop-tab')[1].classList.add('ativa');
         document.getElementById('secao-chaveamento').classList.add('ativa');
-        inicializar();
-        setTimeout(() => carregarChaveamento(), 800);
+        // Carrega rounds primeiro, depois chaveamento
+        fetch(`${PROXY}/fixtures/rounds?league=${LEAGUE}&season=${SEASON}`)
+          .then(r => r.json())
+          .then(d => {
+            todosRounds = d.response || [];
+            document.getElementById('badge-total-rounds').textContent = '🏆 ' + todosRounds.length + ' fases';
+            carregarChaveamento();
+          })
+          .catch(() => carregarChaveamento());
       } else if (secaoId === 'artilharia') {
-        tabs[2].classList.add('ativa');
+        document.querySelectorAll('.cop-tab')[2].classList.add('ativa');
         document.getElementById('secao-artilharia').classList.add('ativa');
         carregarArtilharia();
       } else {
-        tabs[0].classList.add('ativa');
+        document.querySelectorAll('.cop-tab')[0].classList.add('ativa');
         document.getElementById('secao-jogos').classList.add('ativa');
         inicializar();
       }
