@@ -1386,12 +1386,23 @@
 </script>
   <script>
     // ── Navegação por abas ──
-    function mudarAba(el, secao) {
-      document.querySelectorAll('.copa-tab').forEach(t => t.classList.remove('ativa'));
-      document.querySelectorAll('.copa-secao').forEach(s => s.classList.remove('ativa'));
-      el.classList.add('ativa');
-      document.getElementById('secao-' + secao).classList.add('ativa');
-    }
+   function mudarAba(el, secao) {
+  document.querySelectorAll('.copa-tab').forEach(t => t.classList.remove('ativa'));
+  document.querySelectorAll('.copa-secao').forEach(s => s.classList.remove('ativa'));
+  el.classList.add('ativa');
+  document.getElementById('secao-' + secao).classList.add('ativa');
+  location.hash = secao;
+}
+
+// Restaura a aba ao carregar
+(function() {
+  const hash = location.hash.replace('#', '');
+  const validas = ['grupos','jogos','classificacao','artilharia'];
+  if (validas.includes(hash)) {
+    const tab = document.querySelector(`[onclick*="${hash}"]`);
+    if (tab) mudarAba(tab, hash);
+  }
+})();
 
     // ── Filtro de fase ──
     function filtrarFase(el, fase) {
