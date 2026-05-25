@@ -298,7 +298,7 @@
       const corpo = encodeURIComponent(
         `Nome: ${nome}\nAssunto: ${assunto}\n\n${mensagem}`
       );
-      window.location.href = `mailto:contato@placardofutebol.com?subject=${encodeURIComponent('[Contato] ' + assunto)}&body=${corpo}`;
+      window.location.href = `mailto:placardofutebol.com@gmail.com?subject=${encodeURIComponent('[Contato] ' + assunto)}&body=${corpo}`;
 
       feedback.style.display = 'block';
       feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
