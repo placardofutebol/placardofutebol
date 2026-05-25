@@ -1,1 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sobre o Placar do Futebol — resultados ao vivo, placares e classificação das principais ligas do futebol mundial.">
+  <meta name="theme-color" content="#1a7a30">
+  <title>Sobre | Placar do Futebol</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .pagina-interna {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+    .pagina-titulo {
+      font-family: var(--font-titulo);
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--preto);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .pagina-titulo span { color: var(--verde); }
+    .pagina-subtitulo {
+      font-size: 13px;
+      color: var(--cinza-texto);
+      margin-bottom: 28px;
+    }
+    .card-info {
+      background: white;
+      border-radius: var(--radius-card);
+      box-shadow: var(--sombra);
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .card-info h2 {
+      font-family: var(--font-titulo);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--verde-escuro);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-info p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #444;
+    }
+    .card-info ul {
+      margin: 10px 0 0 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .card-info ul li {
+      font-size: 14px;
+      color: #444;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.5;
+    }
+    .card-info ul li::before {
+      content: '✔';
+      color: var(--verde);
+      font-size: 13px;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+    .destaque-verde {
+      background: var(--verde-claro);
+      border-left: 3px solid var(--verde);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--verde-escuro);
+      font-weight: 600;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
 
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <span class="logo-principal">Placar <span>do Futebol</span></span>
+        <span class="logo-sub">Resultados ao vivo</span>
+      </a>
+      <div class="header-ao-vivo">
+        <span class="dot-vivo"></span>
+        AO VIVO
+      </div>
+    </div>
+  </header>
+
+  <main class="pagina-interna" role="main">
+    <h1 class="pagina-titulo">Sobre o <span>Projeto</span></h1>
+    <p class="pagina-subtitulo">Conheça a história e o propósito do Placar do Futebol</p>
+
+    <div class="card-info">
+      <h2>⚽ O que é o Placar do Futebol?</h2>
+      <p>
+        O <strong>Placar do Futebol</strong> é um site brasileiro de resultados esportivos ao vivo,
+        focado em oferecer uma experiência rápida, leve e sem ruídos para o torcedor que quer
+        acompanhar os jogos em tempo real — seja no celular ou no computador.
+      </p>
+      <div class="destaque-verde">
+        🇧🇷 Feito por brasileiros, para brasileiros. Com foco total no futebol que interessa.
+      </div>
+    </div>
+
+    <div class="card-info">
+      <h2>🏆 Ligas cobertas</h2>
+      <ul>
+        <li>Brasileirão Série A e Série B</li>
+        <li>Copa do Brasil</li>
+        <li>Libertadores e Sul-Americana</li>
+        <li>Champions League</li>
+        <li>Premier League e La Liga</li>
+        <li>Copa do Mundo</li>
+      </ul>
+    </div>
+
+    <div class="card-info">
+      <h2>⚡ Por que usar o Placar do Futebol?</h2>
+      <ul>
+        <li>Resultados atualizados em tempo real, sem precisar recarregar a página</li>
+        <li>Interface limpa e rápida — carrega em segundos mesmo no 4G</li>
+        <li>Funciona como app no celular (instale pela tela inicial)</li>
+        <li>Alertas de gol com o Pefinho, nosso mascote digital</li>
+        <li>Sem cadastro, sem anúncios invasivos, sem complicação</li>
+      </ul>
+    </div>
+
+    <div class="card-info">
+      <h2>📡 Fonte dos dados</h2>
+      <p>
+        Os dados de jogos, placares e classificações são fornecidos por meio de APIs
+        esportivas parceiras, processados e exibidos em tempo real no site.
+        Eventuais atrasos de até 1 minuto podem ocorrer dependendo da cobertura da competição.
+      </p>
+    </div>
+
+    <div class="card-info">
+      <h2>💬 Contato</h2>
+      <p>
+        Encontrou algum erro, quer sugerir uma liga ou tem alguma dúvida?
+        Fale com a gente pela nossa <a href="/contato/" style="color:var(--verde);font-weight:600;">página de contato</a>.
+        Respondemos todos os e-mails.
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-logo">Placar <span>do Futebol</span></div>
+    <div class="footer-links">
+      <a href="/sobre/">Sobre</a>
+      <a href="/privacidade/">Privacidade</a>
+      <a href="/contato/">Contato</a>
+    </div>
+    <p class="footer-copy">© 2026 placardofutebol.com — Resultados ao vivo</p>
+  </footer>
+
+  <nav class="nav-bottom" role="navigation" aria-label="Navegação principal">
+    <a href="/" class="nav-item"><span class="nav-icon">⚽</span><span class="nav-label">Jogos</span></a>
+    <a href="/tabela/" class="nav-item"><span class="nav-icon">📊</span><span class="nav-label">Tabela</span></a>
+    <a href="/noticias/" class="nav-item"><span class="nav-icon">📰</span><span class="nav-label">Notícias</span></a>
+    <a href="/videos/" class="nav-item"><span class="nav-icon">▶️</span><span class="nav-label">Vídeos</span></a>
+    <a href="/artilharia/" class="nav-item"><span class="nav-icon">👟</span><span class="nav-label">Artilharia</span></a>
+  </nav>
+
+</body>
+</html>
