@@ -673,15 +673,28 @@
       renderJogos();
     }
 
-    function atualizarPagina() {
+   function atualizarPagina() {
+      // Detecta qual aba está ativa antes de atualizar
+      const abaAtiva = document.querySelector('.cop-tab.ativa');
+      const secaoAtiva = document.querySelector('.cop-secao.ativa');
+      const secaoId = secaoAtiva ? secaoAtiva.id.replace('secao-', '') : 'jogos';
+
       jogosPorRound = {};
       delete document.getElementById('artilharia-container').dataset.loaded;
       chaveCarregado = false;
       document.getElementById('chave-fases-nav').innerHTML = '';
       document.getElementById('chave-paineis').innerHTML = '';
-      mudarAba(document.querySelector('.cop-tab'), 'jogos');
       todosRounds = [];
-      inicializar();
+
+      // Volta para a mesma aba que estava
+      if (secaoId === 'chaveamento') {
+        inicializar().then(() => mudarAba(abaAtiva, 'chaveamento'));
+      } else if (secaoId === 'artilharia') {
+        mudarAba(abaAtiva, 'artilharia');
+      } else {
+        mudarAba(document.querySelector('.cop-tab'), 'jogos');
+        inicializar();
+      }
     }
 
     async function inicializar() {
