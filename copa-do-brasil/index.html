@@ -803,12 +803,44 @@
         if (['NS','TBD'].includes(s)) return 1;
         return 2;
       };
-      jogos.sort((a,b) => {
-        const diff = ordemStatus(a.fixture.status.short) - ordemStatus(b.fixture.status.short);
-        if (diff !== 0) return diff;
-        return new Date(a.fixture.date) - new Date(b.fixture.date);
+     // Agrupa ida + volta juntos pelo par de times
+      const pares = {};
+      jogos.forEach(j => {
+        const idA = Math.min(j.teams.home.id, j.teams.away.id);
+        const idB = Math.max(j.teams.home.id, j.teams.away.id);
+        const chave = idA + '_' + idB;
+        if (!pares[chave]) pares[chave] = [];
+        pares[chave].push(j);
       });
-      container.innerHTML = jogos.map(j => cardJogo(j)).join('');
+
+      // Ordena dentro de cada par por data (ida primeiro)
+      Object.values(pares).forEach(par => {
+        par.sort((a,b) => new Date(a.fixture.date) - new Date(b.fixture.date));
+      });
+
+      // Ordena os pares: pares com jogo ao vivo primeiro, depois por data do primeiro jogo
+      const paresOrdenados = Object.values(pares).sort((parA, parB) => {
+        const vivoA = parA.some(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short)) ? 0 : 1;
+        const vivoB = parB.some(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short)) ? 0 : 1;
+        if (vivoA !== vivoB) return vivoA - vivoB;
+        return new Date(parA[0].fixture.date) - new Date(parB[0].fixture.date);
+      });
+
+      // Renderiza ida embaixo da volta, com separador visual entre pares
+      let html = '';
+      paresOrdenados.forEach(par => {
+        html += par.map((j, idx) => {
+          const isVolta = idx === 1;
+          const card = cardJogo(j);
+          // Na volta, reduz margin-top para ficar colado com a ida
+          return isVolta
+            ? card.replace('class="cop-jogo"', 'class="cop-jogo" style="margin-top:-4px;border-top:1px dashed var(--cinza-borda);border-radius:0 0 var(--radius-card) var(--radius-card)"')
+            : card.replace('class="cop-jogo"', 'class="cop-jogo" style="border-radius:var(--radius-card) var(--radius-card) 0 0;margin-bottom:0"');
+        }).join('');
+        html += '<div style="margin-bottom:14px"></div>';
+      });
+
+      container.innerHTML = html;
     }
 
     function cardJogo(j) {
