@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -88,6 +89,128 @@
     .art-time { font-family: var(--font-corpo); font-size: 11px; color: var(--cinza-texto); margin-top: 2px; }
     .art-gols { font-family: var(--font-titulo); font-size: 24px; font-weight: 800; color: var(--verde); text-align: center; }
     .art-gols span { font-family: var(--font-corpo); font-size: 10px; font-weight: 600; color: var(--cinza-texto); display: block; }
+
+    /* ── CHAVEAMENTO ── */
+    .chave-wrap { max-width: 900px; margin: 0 auto; padding: 16px 12px 20px; }
+    @media (min-width: 640px) { .chave-wrap { padding: 20px 24px; } }
+
+    .chave-fases { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; padding-bottom: 8px; }
+    .chave-fases::-webkit-scrollbar { display: none; }
+
+    .chave-coluna { flex: 0 0 auto; width: 200px; display: flex; flex-direction: column; }
+    @media (max-width: 480px) { .chave-coluna { width: 160px; } }
+
+    .chave-fase-titulo {
+      font-family: var(--font-titulo); font-size: 11px; font-weight: 800;
+      color: var(--verde-escuro); text-transform: uppercase; letter-spacing: 1px;
+      background: var(--verde-claro); border-left: 3px solid var(--verde);
+      padding: 6px 10px; margin-bottom: 12px; border-radius: 0 4px 4px 0;
+    }
+
+    .chave-confrontos { display: flex; flex-direction: column; gap: 0; flex: 1; }
+
+    .chave-confronto {
+      display: flex; flex-direction: column;
+      margin-bottom: 0;
+      position: relative;
+    }
+
+    /* linha conectora vertical entre confrontos */
+    .chave-confronto::after {
+      content: '';
+      position: absolute;
+      right: -1px; top: 50%;
+      width: 16px; height: 2px;
+      background: var(--cinza-borda);
+    }
+    .chave-coluna:last-child .chave-confronto::after { display: none; }
+
+    .chave-card {
+      background: white; border-radius: 8px; box-shadow: var(--sombra);
+      overflow: hidden; margin-bottom: 4px; cursor: pointer;
+      border: 1.5px solid transparent; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .chave-card:hover { border-color: var(--verde); box-shadow: var(--sombra-hover); }
+    .chave-card.classificado { border-color: var(--verde); }
+
+    .chave-leg {
+      font-family: var(--font-corpo); font-size: 9px; font-weight: 700;
+      color: var(--verde-escuro); background: var(--verde-claro);
+      padding: 2px 8px; text-transform: uppercase; letter-spacing: 0.5px;
+      display: flex; justify-content: space-between;
+    }
+    .chave-leg.vivo-leg { background: #fff0f0; color: var(--vermelho); }
+
+    .chave-time-row {
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 8px; border-bottom: 1px solid var(--cinza-borda);
+      position: relative;
+    }
+    .chave-time-row:last-child { border-bottom: none; }
+    .chave-time-row.vencedor { background: rgba(26,122,48,0.06); font-weight: 800; }
+
+    .chave-escudo { width: 18px; height: 18px; object-fit: contain; flex-shrink: 0; }
+    .chave-nome {
+      font-family: var(--font-corpo); font-size: 11px; font-weight: 600;
+      color: var(--preto); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .chave-nome.indefinido { color: #aaa; font-style: italic; font-weight: 400; }
+    .chave-gol-agg {
+      font-family: var(--font-titulo); font-size: 13px; font-weight: 800;
+      color: var(--preto); min-width: 16px; text-align: right;
+    }
+    .chave-gol-agg.vencedor-gol { color: var(--verde); }
+
+    /* espaçadores para alinhar fases seguintes verticalmente */
+    .chave-spacer { flex: 1; }
+
+    /* modal de confronto expandido */
+    .confronto-modal-bg {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      z-index: 999; align-items: flex-end; justify-content: center;
+    }
+    .confronto-modal-bg.aberto { display: flex; }
+    .confronto-modal {
+      background: white; border-radius: 16px 16px 0 0; width: 100%; max-width: 500px;
+      padding: 0 0 24px; max-height: 85vh; overflow-y: auto;
+    }
+    .modal-handle { width: 40px; height: 4px; background: var(--cinza-borda); border-radius: 2px; margin: 12px auto 16px; }
+    .modal-titulo {
+      font-family: var(--font-titulo); font-size: 17px; font-weight: 800;
+      color: var(--preto); text-align: center; padding: 0 20px 14px;
+      border-bottom: 1px solid var(--cinza-borda); text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .modal-legs { padding: 14px 20px; display: flex; flex-direction: column; gap: 12px; }
+    .modal-leg-titulo {
+      font-family: var(--font-corpo); font-size: 11px; font-weight: 700; color: var(--cinza-texto);
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+    }
+    .modal-placar-row {
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px;
+      background: var(--verde-claro); border-radius: 8px; padding: 10px 12px;
+    }
+    .modal-time { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; }
+    .modal-time img { width: 28px; height: 28px; object-fit: contain; }
+    .modal-time-nome { font-family: var(--font-corpo); font-size: 11px; font-weight: 700; color: var(--preto); }
+    .modal-placar-centro { text-align: center; }
+    .modal-placar-num {
+      font-family: var(--font-titulo); font-size: 26px; font-weight: 800;
+      color: var(--preto); letter-spacing: 3px; display: block;
+    }
+    .modal-placar-st { font-family: var(--font-corpo); font-size: 10px; color: var(--cinza-texto); }
+    .modal-agg {
+      background: var(--verde); border-radius: 8px; padding: 10px 16px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .modal-agg-label { font-family: var(--font-corpo); font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.8); }
+    .modal-agg-placar { font-family: var(--font-titulo); font-size: 22px; font-weight: 800; color: white; letter-spacing: 2px; }
+    .modal-agg-class { font-family: var(--font-corpo); font-size: 11px; font-weight: 700; color: var(--amarelo); text-align: right; }
+    .modal-fechar {
+      display: block; margin: 16px 20px 0;
+      background: var(--cinza-borda); color: var(--preto); border: none;
+      border-radius: 8px; padding: 10px; font-family: var(--font-corpo);
+      font-size: 13px; font-weight: 600; cursor: pointer; width: calc(100% - 40px);
+    }
   </style>
 </head>
 <body>
@@ -116,6 +239,7 @@
   <nav class="cop-nav">
     <div class="cop-nav-inner">
       <div class="cop-tab ativa" onclick="mudarAba(this, 'jogos')">⚽ Jogos</div>
+      <div class="cop-tab" onclick="mudarAba(this, 'chaveamento')">🏆 Chaves</div>
       <div class="cop-tab" onclick="mudarAba(this, 'artilharia')">👟 Artilharia</div>
     </div>
   </nav>
@@ -145,6 +269,16 @@
       </div>
     </div>
 
+    <!-- SEÇÃO CHAVEAMENTO -->
+    <div id="secao-chaveamento" class="cop-secao">
+      <div class="chave-wrap">
+        <div id="chave-container" class="cop-loading">
+          <div class="spinner"></div>
+          <p>Carregando chaveamento...</p>
+        </div>
+      </div>
+    </div>
+
     <div id="secao-artilharia" class="cop-secao">
       <div class="cop-art-wrap">
         <div id="artilharia-container" class="cop-loading">
@@ -155,6 +289,16 @@
     </div>
 
   </main>
+
+  <!-- MODAL CONFRONTO -->
+  <div class="confronto-modal-bg" id="confronto-modal-bg" onclick="fecharModal(event)">
+    <div class="confronto-modal" id="confronto-modal">
+      <div class="modal-handle"></div>
+      <div class="modal-titulo" id="modal-titulo">Confronto</div>
+      <div class="modal-legs" id="modal-legs"></div>
+      <button class="modal-fechar" onclick="fecharModalBtn()">Fechar</button>
+    </div>
+  </div>
 
   <nav class="nav-bottom" role="navigation">
     <a href="/" class="nav-item"><span class="nav-icon">⚽</span><span class="nav-label">Jogos</span></a>
@@ -185,12 +329,22 @@
     let statusFiltro  = 'todos';
     let timerAoVivo   = null;
 
+    // ── FASES a exibir no chaveamento (ordem do mata-mata da Copa do Brasil) ──
+    // Ajuste os nomes conforme a API retorna
+    const FASES_CHAVE = [
+      { label: 'Oitavas',     keywords: ['oitavas', 'round of 16',  '1/8'] },
+      { label: 'Quartas',     keywords: ['quartas', 'quarter',      '1/4'] },
+      { label: 'Semifinal',   keywords: ['semi',    'semifinal'           ] },
+      { label: 'Final',       keywords: ['final'                          ] },
+    ];
+
     function mudarAba(el, secao) {
       document.querySelectorAll('.cop-tab').forEach(t => t.classList.remove('ativa'));
       document.querySelectorAll('.cop-secao').forEach(s => s.classList.remove('ativa'));
       el.classList.add('ativa');
       document.getElementById('secao-' + secao).classList.add('ativa');
       if (secao === 'artilharia') carregarArtilharia();
+      if (secao === 'chaveamento') carregarChaveamento();
     }
 
     function filtrarStatus(el, status) {
@@ -203,6 +357,7 @@
     function atualizarPagina() {
       jogosPorRound = {};
       delete document.getElementById('artilharia-container').dataset.loaded;
+      delete document.getElementById('chave-container').dataset.loaded;
       mudarAba(document.querySelector('.cop-tab'), 'jogos');
       todosRounds = [];
       inicializar();
@@ -401,6 +556,234 @@
       }
     }
 
+    // ════════════════════════════════════════════
+    //  CHAVEAMENTO
+    // ════════════════════════════════════════════
+
+    let todosJogosChave = {}; // roundName -> fixtures[]
+    let confrontosModal = {}; // chave para abrir modal
+
+    async function carregarChaveamento() {
+      const container = document.getElementById('chave-container');
+      if (container.dataset.loaded === '1') return;
+
+      container.innerHTML = '<div class="cop-loading"><div class="spinner"></div><p>Carregando chaveamento...</p></div>';
+
+      try {
+        // Busca todos os rounds para encontrar os de mata-mata
+        if (!todosRounds.length) {
+          const r = await fetch(`${PROXY}/fixtures/rounds?league=${LEAGUE}&season=${SEASON}`);
+          const d = await r.json();
+          todosRounds = d.response || [];
+        }
+
+        // Identifica quais rounds pertencem a cada fase do chave
+        const faseRounds = FASES_CHAVE.map(fase => ({
+          ...fase,
+          rounds: todosRounds.filter(r =>
+            fase.keywords.some(k => r.toLowerCase().includes(k.toLowerCase()))
+          )
+        }));
+
+        // Busca fixtures de todos os rounds relevantes (em paralelo)
+        const roundsNecessarios = faseRounds.flatMap(f => f.rounds).filter(r => !jogosPorRound[r]);
+        await Promise.all(roundsNecessarios.map(async round => {
+          if (jogosPorRound[round]) return;
+          const r = await fetch(`${PROXY}/fixtures?league=${LEAGUE}&season=${SEASON}&round=${encodeURIComponent(round)}`);
+          const d = await r.json();
+          jogosPorRound[round] = d.response || [];
+        }));
+
+        // Agrupa ida+volta por confronto para cada fase
+        const fasesDados = faseRounds.map(fase => {
+          const fixtures = fase.rounds.flatMap(r => jogosPorRound[r] || []);
+          const confrontos = agruparConfrontos(fixtures);
+          return { label: fase.label, confrontos };
+        }).filter(f => f.confrontos.length > 0);
+
+        if (!fasesDados.length) {
+          container.innerHTML = '<div class="cop-vazio">Chaveamento ainda não disponível para esta edição.</div>';
+          return;
+        }
+
+        container.innerHTML = renderChaveamento(fasesDados);
+        container.dataset.loaded = '1';
+      } catch(e) {
+        container.innerHTML = '<div class="cop-vazio">⚠️ Erro ao carregar o chaveamento.</div>';
+      }
+    }
+
+    // Agrupa fixtures de ida+volta pelo par de times
+    function agruparConfrontos(fixtures) {
+      const mapa = {};
+      fixtures.forEach(f => {
+        const timeA = f.teams.home.id < f.teams.away.id ? f.teams.home : f.teams.away;
+        const timeB = f.teams.home.id < f.teams.away.id ? f.teams.away : f.teams.home;
+        const chave = timeA.id + '_' + timeB.id;
+        if (!mapa[chave]) mapa[chave] = { timeA, timeB, jogos: [] };
+        mapa[chave].jogos.push(f);
+      });
+
+      return Object.values(mapa).map(c => {
+        c.jogos.sort((a, b) => new Date(a.fixture.date) - new Date(b.fixture.date));
+        return calcularAgregado(c);
+      });
+    }
+
+    function calcularAgregado(c) {
+      const { timeA, timeB, jogos } = c;
+      let golsA = 0, golsB = 0, classificado = null;
+
+      jogos.forEach(j => {
+        const ehEncerrado = ['FT','AET','PEN','BT','AWD','WO'].includes(j.fixture.status.short);
+        if (!ehEncerrado) return;
+        const gH = j.goals.home ?? 0;
+        const gA = j.goals.away ?? 0;
+        if (j.teams.home.id === timeA.id) { golsA += gH; golsB += gA; }
+        else                              { golsA += gA; golsB += gH; }
+      });
+
+      // Verifica se todos os jogos encerraram
+      const tudo = jogos.every(j => ['FT','AET','PEN','BT','AWD','WO'].includes(j.fixture.status.short));
+      if (tudo && jogos.length >= 2) {
+        if (golsA > golsB) classificado = timeA;
+        else if (golsB > golsA) classificado = timeB;
+        else {
+          // empate no agregado: verifica penaltis ou quem passou
+          const ultimo = jogos[jogos.length - 1];
+          if (ultimo.fixture.status.short === 'PEN') {
+            const score = ultimo.score?.penalty;
+            if (score) {
+              const pA = ultimo.teams.home.id === timeA.id ? score.home : score.away;
+              const pB = ultimo.teams.home.id === timeA.id ? score.away : score.home;
+              classificado = pA > pB ? timeA : timeB;
+            }
+          }
+        }
+      }
+
+      return { timeA, timeB, jogos, golsA, golsB, classificado };
+    }
+
+    function renderChaveamento(fasesDados) {
+      confrontosModal = {};
+      let html = '<div class="chave-fases">';
+
+      fasesDados.forEach((fase, fi) => {
+        html += '<div class="chave-coluna">';
+        html += '<div class="chave-fase-titulo">' + fase.label + '</div>';
+        html += '<div class="chave-confrontos">';
+
+        fase.confrontos.forEach((c, ci) => {
+          const chaveModal = fi + '_' + ci;
+          confrontosModal[chaveModal] = c;
+
+          const temJogos = c.jogos.length > 0;
+          const algumVivo = c.jogos.some(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
+          const algumEncerrado = c.jogos.some(j => ['FT','AET','PEN','BT','AWD','WO'].includes(j.fixture.status.short));
+
+          const classA = c.classificado?.id === c.timeA.id ? 'vencedor' : '';
+          const classB = c.classificado?.id === c.timeB.id ? 'vencedor' : '';
+
+          const golsAStr = algumEncerrado ? String(c.golsA) : '-';
+          const golsBStr = algumEncerrado ? String(c.golsB) : '-';
+
+          const legLabel = algumVivo ? '🔴 AO VIVO' :
+            (c.jogos.length === 0 ? 'A definir' :
+              (algumEncerrado && c.jogos.every(j => ['FT','AET','PEN','BT','AWD','WO'].includes(j.fixture.status.short))
+                ? 'Encerrado' : 'Em andamento'));
+          const legClass = algumVivo ? 'vivo-leg' : '';
+
+          html += '<div class="chave-confronto" onclick="abrirModal(\'' + chaveModal + '\')">';
+          html += '<div class="chave-card' + (c.classificado ? ' classificado' : '') + '">';
+          html += '<div class="chave-leg ' + legClass + '"><span>' + legLabel + '</span><span>' + c.jogos.length + ' jogo' + (c.jogos.length !== 1 ? 's' : '') + '</span></div>';
+
+          // Time A
+          html += '<div class="chave-time-row ' + classA + '">';
+          html += '<img class="chave-escudo" src="' + (c.timeA.logo || '') + '" onerror="this.style.display=\'none\'">';
+          html += '<span class="chave-nome">' + c.timeA.name + '</span>';
+          html += '<span class="chave-gol-agg ' + (classA ? 'vencedor-gol' : '') + '">' + golsAStr + '</span>';
+          html += '</div>';
+
+          // Time B
+          html += '<div class="chave-time-row ' + classB + '">';
+          html += '<img class="chave-escudo" src="' + (c.timeB.logo || '') + '" onerror="this.style.display=\'none\'">';
+          html += '<span class="chave-nome">' + c.timeB.name + '</span>';
+          html += '<span class="chave-gol-agg ' + (classB ? 'vencedor-gol' : '') + '">' + golsBStr + '</span>';
+          html += '</div>';
+
+          html += '</div>'; // chave-card
+          html += '</div>'; // chave-confronto
+        });
+
+        html += '</div>'; // chave-confrontos
+        html += '</div>'; // chave-coluna
+      });
+
+      html += '</div>'; // chave-fases
+      return html;
+    }
+
+    function abrirModal(chaveModal) {
+      const c = confrontosModal[chaveModal];
+      if (!c) return;
+      document.getElementById('modal-titulo').textContent = c.timeA.name + ' × ' + c.timeB.name;
+
+      let html = '';
+
+      if (!c.jogos.length) {
+        html = '<div style="text-align:center;color:var(--cinza-texto);padding:20px 0">Jogo ainda não definido</div>';
+      } else {
+        c.jogos.forEach((j, idx) => {
+          const gH = j.goals.home;
+          const gA = j.goals.away;
+          const encerrado = ['FT','AET','PEN','BT','AWD','WO'].includes(j.fixture.status.short);
+          const aoVivo = ['1H','2H','HT','ET','P'].includes(j.fixture.status.short);
+          const dataFmt = new Date(j.fixture.date).toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: '2-digit' });
+          const horario = new Date(j.fixture.date).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+          const statusTxt = aoVivo ? '🔴 AO VIVO' : (encerrado ? 'Encerrado' : horario);
+
+          html += '<div>';
+          html += '<div class="modal-leg-titulo">' + (idx === 0 ? 'Jogo de Ida' : 'Jogo de Volta') + ' · ' + dataFmt + '</div>';
+          html += '<div class="modal-placar-row">';
+          html += '<div class="modal-time"><img src="' + j.teams.home.logo + '" onerror="this.style.display=\'none\'"><span class="modal-time-nome">' + j.teams.home.name + '</span></div>';
+          html += '<div class="modal-placar-centro">';
+          if (gH !== null && gA !== null) {
+            html += '<span class="modal-placar-num">' + gH + ' × ' + gA + '</span>';
+          } else {
+            html += '<span class="modal-placar-num" style="opacity:.4">× </span>';
+          }
+          html += '<span class="modal-placar-st">' + statusTxt + '</span>';
+          html += '</div>';
+          html += '<div class="modal-time"><img src="' + j.teams.away.logo + '" onerror="this.style.display=\'none\'"><span class="modal-time-nome">' + j.teams.away.name + '</span></div>';
+          html += '</div></div>';
+        });
+
+        // Agregado (só se ao menos um jogo encerrado)
+        const algumEncerrado = c.jogos.some(j => ['FT','AET','PEN','BT','AWD','WO'].includes(j.fixture.status.short));
+        if (algumEncerrado) {
+          html += '<div class="modal-agg">';
+          html += '<div><div class="modal-agg-label">Agregado</div><div class="modal-agg-placar">' + c.golsA + ' × ' + c.golsB + '</div></div>';
+          if (c.classificado) {
+            html += '<div class="modal-agg-class">✅ ' + c.classificado.name + '<br>classificado</div>';
+          } else {
+            html += '<div class="modal-agg-class" style="color:rgba(255,255,255,0.6)">Em disputa</div>';
+          }
+          html += '</div>';
+        }
+      }
+
+      document.getElementById('modal-legs').innerHTML = html;
+      document.getElementById('confronto-modal-bg').classList.add('aberto');
+    }
+
+    function fecharModal(e) {
+      if (e.target === document.getElementById('confronto-modal-bg')) fecharModalBtn();
+    }
+    function fecharModalBtn() {
+      document.getElementById('confronto-modal-bg').classList.remove('aberto');
+    }
+
     inicializar();
 
     setInterval(() => {
@@ -415,3 +798,5 @@
 
 </body>
 </html>
+
+
