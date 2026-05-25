@@ -626,40 +626,28 @@
     // ── MAPEAMENTO DE FASES (bate com o que a API retorna) ──
     // A API-Football retorna nomes em inglês para a Copa do Brasil.
     // Adicionamos variações comuns para cobrir diferentes temporadas.
-    const FASES_CONFIG = [
+   const FASES_CONFIG = [
       {
-        label: 'Rodada 1',
-        labelCurto: 'R1',
+        label: 'Fase 1',
+        labelCurto: 'F1',
         keywords: ['round of 64', '1st round', 'primeira fase', '1ª fase', 'fase 1'],
         cssClass: 'fase-r1'
       },
       {
-        label: 'Rodada 2',
-        labelCurto: 'R2',
+        label: 'Fase 2',
+        labelCurto: 'F2',
         keywords: ['round of 32', '2nd round', 'segunda fase', '2ª fase', 'fase 2'],
         cssClass: 'fase-r2'
       },
       {
-        label: 'Oitavas',
-        labelCurto: '1/8',
-        keywords: ['round of 16', 'oitavas', '1/8', 'eighth'],
+        label: 'Fase 3',
+        labelCurto: 'F3',
+        keywords: ['round of 16', 'oitavas', '1/8', 'eighth', 'quarter', 'quartas', '1/4', 'semi', 'semifinal', '1/2'],
         cssClass: 'fase-oitavas'
       },
       {
-        label: 'Quartas',
-        labelCurto: '1/4',
-        keywords: ['quarter', 'quartas', '1/4'],
-        cssClass: 'fase-quartas'
-      },
-      {
-        label: 'Semifinal',
-        labelCurto: 'Semi',
-        keywords: ['semi', 'semifinal', '1/2'],
-        cssClass: 'fase-semi'
-      },
-      {
-        label: 'Final',
-        labelCurto: 'Final',
+        label: 'Fase 4',
+        labelCurto: 'F4',
         keywords: ['final'],
         cssClass: 'fase-final'
       },
