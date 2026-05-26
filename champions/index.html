@@ -692,7 +692,9 @@
   <script>
     const PROXY  = 'https://futebol-proxy.placardofutebol-com.workers.dev';
     const LEAGUE = 2;
-    const SEASON = 2025;
+   const ANO    = new Date().getFullYear();
+    const MES    = new Date().getMonth() + 1;
+    const SEASON = MES >= 8 ? ANO : ANO - 1;
 
     // ── Mapa: string da API → label legível ──
     const LABEL_ROUND = {
