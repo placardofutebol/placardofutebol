@@ -830,12 +830,29 @@ async function inicializar() {
     }
 
     function mudarRodada(dir) {
-      const novo = roundIndex + dir;
-      if (novo < 0 || novo >= todosRounds.length) return;
-      roundIndex = novo;
-      atualizarBotoes();
-      carregarRound(roundIndex);
-    }
+  const totalFixas = FASES_FIXAS.length;
+  const totalApi   = todosRounds.length;
+  const offset     = totalFixas - totalApi;
+  const fiAtual    = offset + roundIndex;
+  const fiNovo     = fiAtual + dir;
+
+  if (fiNovo < 0 || fiNovo >= totalFixas) return;
+
+  const roundNovo = fiNovo - offset;
+
+  if (roundNovo < 0) {
+    roundIndex = roundNovo;
+    atualizarBotoes();
+    document.getElementById('rodada-subtitulo').textContent = '';
+    document.getElementById('jogos-container').innerHTML =
+      '<div class="cop-vazio">⏳ Esta fase ainda não tem jogos definidos.</div>';
+    return;
+  }
+
+  roundIndex = roundNovo;
+  atualizarBotoes();
+  carregarRound(roundIndex);
+}
 
     function atualizarBotoes() {
   const totalFixas = FASES_FIXAS.length;
