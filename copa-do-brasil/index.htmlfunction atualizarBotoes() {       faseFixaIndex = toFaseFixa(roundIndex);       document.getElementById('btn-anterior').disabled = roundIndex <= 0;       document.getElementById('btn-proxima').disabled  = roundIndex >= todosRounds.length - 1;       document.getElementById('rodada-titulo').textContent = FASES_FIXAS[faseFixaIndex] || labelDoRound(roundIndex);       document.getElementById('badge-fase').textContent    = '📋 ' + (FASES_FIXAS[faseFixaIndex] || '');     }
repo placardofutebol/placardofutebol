@@ -239,10 +239,10 @@
       document.getElementById('badge-fase').textContent = '📋 ' + labelDoRound(roundIndex);
     }
 
-    function atualizarBotoes() {
+   function atualizarBotoes() {
       faseFixaIndex = toFaseFixa(roundIndex);
-      document.getElementById('btn-anterior').disabled = faseFixaIndex <= 0;
-      document.getElementById('btn-proxima').disabled  = faseFixaIndex >= FASES_FIXAS.length - 1;
+      document.getElementById('btn-anterior').disabled = roundIndex <= 0;
+      document.getElementById('btn-proxima').disabled  = roundIndex >= todosRounds.length - 1;
       document.getElementById('rodada-titulo').textContent = FASES_FIXAS[faseFixaIndex] || labelDoRound(roundIndex);
       document.getElementById('badge-fase').textContent    = '📋 ' + (FASES_FIXAS[faseFixaIndex] || '');
     }
