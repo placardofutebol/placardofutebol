@@ -688,13 +688,20 @@
     }
 
     // ── Determinar jornada atual ──
-    async function determinarRodadaAtual() {
+   async function determinarRodadaAtual() {
       try {
-        const r = await fetch(`${PROXY}/fixtures/rounds?league=${LEAGUE}&season=${SEASON}&current=true`);
+        const r = await fetch(`${PROXY}/fixtures?league=${LEAGUE}&season=${SEASON}&next=10`);
         const d = await r.json();
         if (d.response && d.response.length) {
-          const n = parsearRodada(d.response[0]);
+          const n = parsearRodada(d.response[0].league.round);
           if (n) { rodadaAtual = n; rodadaVendo = n; }
+        } else {
+          const r2 = await fetch(`${PROXY}/fixtures?league=${LEAGUE}&season=${SEASON}&last=10`);
+          const d2 = await r2.json();
+          if (d2.response && d2.response.length) {
+            const n = parsearRodada(d2.response[d2.response.length - 1].league.round);
+            if (n) { rodadaAtual = n; rodadaVendo = n; }
+          }
         }
       } catch(e) {
         console.log('Jornada atual não detectada, usando 1');
