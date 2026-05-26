@@ -252,7 +252,8 @@
       if (novaFaseFixa < 0 || novaFaseFixa >= FASES_FIXAS.length) return;
 
       faseFixaIndex = novaFaseFixa;
-      const novoRound = novaFaseFixa;
+      const offset = FASES_FIXAS.length - todosRounds.length;
+      const novoRound = novaFaseFixa - offset;
       document.getElementById('btn-anterior').disabled = faseFixaIndex <= 0;
       document.getElementById('btn-proxima').disabled  = faseFixaIndex >= FASES_FIXAS.length - 1;
       document.getElementById('rodada-titulo').textContent = FASES_FIXAS[faseFixaIndex];
