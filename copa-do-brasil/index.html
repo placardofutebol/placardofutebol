@@ -665,16 +665,15 @@
 
     // Usa posição do round para definir o label — ignora nome da API
     todosRounds.forEach((rn, fi) => {
-      const total = todosRounds.length;
-      const pos   = total - fi; // posição inversa: último round = fase mais avançada
+  const total        = todosRounds.length;
+  const posDoFim     = total - 1 - fi; // 0 = último round (Final), 1 = Semifinal...
 
-      // Labels especiais para as últimas fases
-      let label;
-      if      (pos === 1) label = 'Final';
-      else if (pos === 2) label = 'Semifinal';
-      else if (pos === 3) label = 'Quartas';
-      else if (pos === 4) label = 'Oitavas';
-      else                label = 'Fase ' + (fi + 1);
+  let label;
+  if      (posDoFim === 0) label = 'Final';
+  else if (posDoFim === 1) label = 'Semifinal';
+  else if (posDoFim === 2) label = 'Quartas';
+  else if (posDoFim === 3) label = 'Oitavas';
+  else                     label = 'Fase ' + (fi + 1);
 
       const fixtures   = jogosPorRound[rn] || [];
       const confrontos = agruparConfrontos(fixtures);
