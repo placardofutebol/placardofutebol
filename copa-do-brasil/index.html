@@ -786,7 +786,11 @@ const FASES_FIXAS = [
   'Fase 1', 'Fase 2', 'Fase 3', 'Fase 4', 'Fase 5',
   'Oitavas', 'Quartas', 'Semifinal', 'Final'
 ];
-
+function labelFase(fi) {
+  const totalApi  = todosRounds.length;
+  const offset    = FASES_FIXAS.length - totalApi;
+  return FASES_FIXAS[offset + fi] || ('Fase ' + (fi + 1));
+}
 async function inicializar() {
   try {
     async function inicializar() {
