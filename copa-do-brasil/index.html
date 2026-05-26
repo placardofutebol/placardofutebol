@@ -626,32 +626,111 @@
     // ── MAPEAMENTO DE FASES (bate com o que a API retorna) ──
     // A API-Football retorna nomes em inglês para a Copa do Brasil.
     // Adicionamos variações comuns para cobrir diferentes temporadas.
-   const FASES_CONFIG = [
-      {
-        label: 'Fase 1',
-        labelCurto: 'F1',
-        keywords: ['round of 64', '1st round', 'primeira fase', '1ª fase', 'fase 1'],
-        cssClass: 'fase-r1'
-      },
-      {
-        label: 'Fase 2',
-        labelCurto: 'F2',
-        keywords: ['round of 32', '2nd round', 'segunda fase', '2ª fase', 'fase 2'],
-        cssClass: 'fase-r2'
-      },
-      {
-        label: 'Fase 3',
-        labelCurto: 'F3',
-        keywords: ['round of 16', 'oitavas', '1/8', 'eighth', 'quarter', 'quartas', '1/4', 'semi', 'semifinal', '1/2'],
-        cssClass: 'fase-oitavas'
-      },
-      {
-        label: 'Fase 4',
-        labelCurto: 'F4',
-        keywords: ['final'],
-        cssClass: 'fase-final'
-      },
-    ];
+   async function carregarChaveamento() {
+  if (chaveCarregado) return;
+
+  const navEl    = document.getElementById('chave-fases-nav');
+  const paineiEl = document.getElementById('chave-paineis');
+  const loadEl   = document.getElementById('chave-loading');
+
+  navEl.innerHTML = '';
+  paineiEl.innerHTML = '';
+  loadEl.style.display = 'block';
+
+  try {
+    if (!todosRounds.length) {
+      const r = await fetch(`${PROXY}/fixtures/rounds?league=${LEAGUE}&season=${SEASON}`);
+      const d = await r.json();
+      todosRounds = d.response || [];
+    }
+
+    // Busca todos os fixtures em paralelo
+    await Promise.all(todosRounds.map(async rn => {
+      if (jogosPorRound[rn]) return;
+      try {
+        const r = await fetch(`${PROXY}/fixtures?league=${LEAGUE}&season=${SEASON}&round=${encodeURIComponent(rn)}`);
+        const d = await r.json();
+        jogosPorRound[rn] = d.response || [];
+      } catch(e) { jogosPorRound[rn] = []; }
+    }));
+
+    loadEl.style.display = 'none';
+
+    if (!todosRounds.length) {
+      paineiEl.innerHTML = '<div class="cop-vazio">Chaveamento ainda não disponível.</div>';
+      return;
+    }
+
+    confrontosModalMap = {};
+
+    // Usa posição do round para definir o label — ignora nome da API
+    todosRounds.forEach((rn, fi) => {
+      const total = todosRounds.length;
+      const pos   = total - fi; // posição inversa: último round = fase mais avançada
+
+      // Labels especiais para as últimas fases
+      let label;
+      if      (pos === 1) label = 'Final';
+      else if (pos === 2) label = 'Semifinal';
+      else if (pos === 3) label = 'Quartas';
+      else if (pos === 4) label = 'Oitavas';
+      else                label = 'Fase ' + (fi + 1);
+
+      const fixtures   = jogosPorRound[rn] || [];
+      const confrontos = agruparConfrontos(fixtures);
+      const temVivo    = fixtures.some(j => ['1H','2H','HT','ET','P'].includes(j.fixture?.status?.short));
+
+      // Nav pill
+      const pill = document.createElement('div');
+      pill.className = 'chave-fase-pill' + (fi === 0 ? ' ativa' : '');
+      pill.dataset.fi = fi;
+      pill.innerHTML  = (temVivo ? '<span class="pill-dot"></span>' : '') + label;
+      pill.onclick    = () => selecionarFase(fi);
+      navEl.appendChild(pill);
+
+      // Datas do intervalo
+      const datas  = fixtures.map(j => new Date(j.fixture?.date)).filter(d => !isNaN(d));
+      const minD   = datas.length ? new Date(Math.min(...datas)) : null;
+      const maxD   = datas.length ? new Date(Math.max(...datas)) : null;
+      const fmtD   = d => d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+      const intervalo = minD && maxD
+        ? (fmtD(minD) === fmtD(maxD) ? fmtD(minD) : fmtD(minD) + ' – ' + fmtD(maxD))
+        : '';
+
+      // Painel
+      const painel = document.createElement('div');
+      painel.className = 'chave-fase-painel' + (fi === 0 ? ' ativa' : '');
+      painel.id = 'chave-painel-' + fi;
+      painel.innerHTML = `
+        <div class="chave-fase-header">
+          <div>
+            <div class="chave-fase-header-titulo">${label}</div>
+            ${intervalo ? `<div class="chave-fase-header-info">${intervalo} · ${confrontos.length} confronto${confrontos.length !== 1 ? 's' : ''}</div>` : ''}
+          </div>
+        </div>
+        <div class="chave-grid" id="chave-grid-${fi}"></div>
+      `;
+      paineiEl.appendChild(painel);
+
+      const grid = painel.querySelector('#chave-grid-' + fi);
+      if (!confrontos.length) {
+        grid.innerHTML = '<div class="cop-vazio" style="grid-column:1/-1">Nenhum confronto nesta fase.</div>';
+      } else {
+        confrontos.forEach((c, ci) => {
+          const chaveModal = fi + '_' + ci;
+          confrontosModalMap[chaveModal] = { ...c, faseLabel: label };
+          grid.appendChild(criarCardConfronto(c, chaveModal));
+        });
+      }
+    });
+
+    chaveCarregado = true;
+
+  } catch(e) {
+    loadEl.style.display = 'none';
+    paineiEl.innerHTML = '<div class="cop-vazio">⚠️ Erro ao carregar o chaveamento.</div>';
+  }
+}
 
     // ════════════════════════════════════════
     //  JOGOS
