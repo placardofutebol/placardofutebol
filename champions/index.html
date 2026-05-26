@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="UEFA Champions League 2025/26 - Jogos, Tabela da Fase de Liga e Artilharia. Acompanhe todos os jogos ao vivo.">
+  <meta name="theme-color" content="#0a1744">
+  <title>Champions League 2025/26 - Jogos, Tabela e Artilharia | Placar do Futebol</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <style>
+    /* ── VARIÁVEIS UCL ── */
+    :root {
+      --ucl-azul:        #0a1744;
+      --ucl-azul-medio:  #122068;
+      --ucl-azul-claro:  #1a2f8a;
+      --ucl-dourado:     #f0c040;
+      --ucl-dourado-2:   #d4a017;
+      --ucl-estrela:     #ffd700;
+      --ucl-bg:          #f0f2f8;
+      --ucl-borda:       #dde2f0;
+      --ucl-texto-cinza: #5a6480;
+    }
+
+    /* ── HERO ── */
+    .ucl-hero {
+      background: linear-gradient(135deg, #060d2e 0%, var(--ucl-azul) 40%, var(--ucl-azul-medio) 75%, #1a2f8a 100%);
+      padding: 20px 16px 18px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Estrelas de fundo decorativas */
+    .ucl-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 30%, rgba(240,192,64,0.10) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 70%, rgba(240,192,64,0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 100%, rgba(255,255,255,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Padrão de estrelinhas UCL */
+    .ucl-hero::after {
+      content: '✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦';
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 7px;
+      letter-spacing: 10px;
+      color: rgba(240,192,64,0.35);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .ucl-hero:active { opacity: 0.92; }
+
+    .ucl-hero-ball {
+      font-size: 38px;
+      line-height: 1;
+      filter: drop-shadow(0 0 10px rgba(240,192,64,0.4));
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .ucl-hero-titulo {
+      font-family: var(--font-titulo);
+      font-size: 24px;
+      font-weight: 800;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      line-height: 1.1;
+    }
+    .ucl-hero-titulo span { color: var(--ucl-dourado); }
+
+    .ucl-hero-sub {
+      font-family: var(--font-corpo);
+      font-size: 10px;
+      color: rgba(255,255,255,0.55);
+      margin-top: 4px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+    }
+
+    .ucl-hero-badges {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .ucl-hero-badge {
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(240,192,64,0.30);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-family: var(--font-corpo);
+      font-size: 11px;
+      color: rgba(255,255,255,0.9);
+      font-weight: 600;
+    }
+    .ucl-hero-badge.destaque {
+      background: rgba(240,192,64,0.18);
+      border-color: rgba(240,192,64,0.55);
+      color: var(--ucl-dourado);
+    }
+
+    .ucl-hero-refresh {
+      font-family: var(--font-corpo);
+      font-size: 10px;
+      color: rgba(255,255,255,0.30);
+      margin-top: 8px;
+      letter-spacing: 1px;
+    }
+
+    /* ── NAV ABAS ── */
+    .ucl-nav {
+      background: white;
+      border-bottom: 2px solid var(--ucl-borda);
+      position: sticky;
+      top: 52px;
+      z-index: 85;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .ucl-nav::-webkit-scrollbar { display: none; }
+    .ucl-nav-inner {
+      display: flex;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .ucl-tab {
+      padding: 12px 22px;
+      font-family: var(--font-corpo);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ucl-texto-cinza);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .ucl-tab:hover { color: var(--ucl-azul); }
+    .ucl-tab.ativa { color: var(--ucl-azul); border-bottom-color: var(--ucl-dourado); }
+
+    /* ── SEÇÕES ── */
+    .ucl-secao { display: none; }
+    .ucl-secao.ativa { display: block; }
+
+    /* ── CARROSSEL DE RODADAS ── */
+    .rodada-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      background: white;
+      border-bottom: 1px solid var(--ucl-borda);
+      padding: 10px 16px;
+      position: sticky;
+      top: 96px;
+      z-index: 80;
+    }
+    .rodada-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1.5px solid var(--ucl-borda);
+      background: white;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      color: var(--ucl-azul);
+      flex-shrink: 0;
+    }
+    .rodada-btn:hover { background: var(--ucl-bg); border-color: var(--ucl-azul-claro); }
+    .rodada-btn:disabled { color: var(--ucl-borda); cursor: default; background: white; }
+    .rodada-info {
+      flex: 1;
+      text-align: center;
+      padding: 0 12px;
+    }
+    .rodada-titulo {
+      font-family: var(--font-titulo);
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--ucl-azul);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: block;
+    }
+    .rodada-subtitulo {
+      font-family: var(--font-corpo);
+      font-size: 11px;
+      color: var(--ucl-texto-cinza);
+      display: block;
+      margin-top: 1px;
+    }
+    /* Indicador de fase */
+    .rodada-fase {
+      display: inline-block;
+      font-family: var(--font-corpo);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--ucl-azul-claro);
+      background: var(--ucl-bg);
+      border: 1px solid var(--ucl-borda);
+      border-radius: 4px;
+      padding: 1px 6px;
+      margin-bottom: 3px;
+    }
+
+    /* ── FILTROS ── */
+    .ucl-filtros {
+      display: flex;
+      gap: 8px;
+      padding: 12px 12px 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .ucl-filtros::-webkit-scrollbar { display: none; }
+    @media (min-width: 640px) { .ucl-filtros { padding: 14px 24px 0; } }
+
+    /* ── JOGOS LISTA ── */
+    .ucl-jogos-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 12px 12px 20px;
+    }
+    @media (min-width: 640px) { .ucl-jogos-wrap { padding: 14px 24px 20px; } }
+
+    .ucl-jogo {
+      background: white;
+      border-radius: var(--radius-card);
+      box-shadow: var(--sombra);
+      margin-bottom: 10px;
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .ucl-jogo:hover { transform: translateY(-1px); box-shadow: var(--sombra-hover); }
+
+    .ucl-jogo-topo {
+      background: var(--ucl-bg);
+      border-left: 3px solid var(--ucl-azul);
+      padding: 5px 12px;
+      font-family: var(--font-titulo);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ucl-azul-medio);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ucl-jogo-topo.ao-vivo-topo {
+      background: #fff0f0;
+      border-left-color: var(--vermelho);
+      color: var(--vermelho);
+    }
+
+    .ucl-jogo-corpo {
+      padding: 12px 14px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 8px;
+    }
+    .ucl-time {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-align: center;
+    }
+    .ucl-time-escudo {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+    }
+    .ucl-time-nome {
+      font-family: var(--font-corpo);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--preto);
+    }
+    .ucl-centro {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      min-width: 80px;
+      text-align: center;
+    }
+    .ucl-placar {
+      font-family: var(--font-titulo);
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--ucl-azul);
+      letter-spacing: 3px;
+      line-height: 1;
+    }
+    .ucl-status {
+      font-family: var(--font-corpo);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ucl-texto-cinza);
+    }
+    .ucl-status.vivo   { color: var(--vermelho); animation: piscando 1.2s ease infinite; }
+    .ucl-status.encerrado { color: #999; }
+    .ucl-status.em-breve  { color: #e67e00; animation: piscando 1.2s ease infinite; }
+    .ucl-estadio {
+      font-family: var(--font-corpo);
+      font-size: 10px;
+      color: var(--ucl-texto-cinza);
+      margin-top: 2px;
+    }
+
+    /* ── LOADING / VAZIO ── */
+    .ucl-loading {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--ucl-texto-cinza);
+    }
+    .ucl-loading .spinner {
+      width: 28px; height: 28px;
+      border: 3px solid var(--ucl-borda);
+      border-top-color: var(--ucl-azul);
+      border-radius: 50%;
+      animation: girar 0.8s linear infinite;
+      margin: 0 auto 12px;
+    }
+    .ucl-vazio {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--ucl-texto-cinza);
+      font-family: var(--font-corpo);
+      font-size: 14px;
+    }
+
+    /* ── TABELA ── */
+    .ucl-tabela-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px 12px 20px;
+    }
+    @media (min-width: 640px) { .ucl-tabela-wrap { padding: 20px 24px; } }
+
+    .ucl-tabela-card {
+      background: white;
+      border-radius: var(--radius-card);
+      box-shadow: var(--sombra);
+      overflow: hidden;
+    }
+    .ucl-tabela-header {
+      background: linear-gradient(135deg, var(--ucl-azul) 0%, var(--ucl-azul-medio) 100%);
+      padding: 10px 16px;
+      font-family: var(--font-titulo);
+      font-size: 14px;
+      font-weight: 800;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ucl-tabela-legenda {
+      font-size: 10px;
+      font-weight: 400;
+      opacity: 0.7;
+    }
+
+    /* Aviso de fase */
+    .ucl-fase-info {
+      background: var(--ucl-bg);
+      border-left: 3px solid var(--ucl-azul-claro);
+      padding: 8px 14px;
+      font-family: var(--font-corpo);
+      font-size: 11px;
+      color: var(--ucl-azul-medio);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    table.ucl-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-corpo);
+      font-size: 12px;
+    }
+    .ucl-table thead tr { background: #f5f6fa; }
+    .ucl-table th {
+      padding: 7px 4px;
+      text-align: center;
+      font-weight: 700;
+      color: var(--ucl-texto-cinza);
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+    .ucl-table th:nth-child(2) { text-align: left; padding-left: 4px; width: 140px; max-width: 140px; }
+    .ucl-table td {
+      padding: 9px 4px;
+      text-align: center;
+      border-bottom: 1px solid var(--ucl-borda);
+      color: var(--preto);
+    }
+    .ucl-table td:nth-child(2) {
+      text-align: left; padding-left: 4px;
+      width: 140px; max-width: 140px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .ucl-table tr:last-child td { border-bottom: none; }
+    .ucl-table tbody tr:hover { background: #f5f7fc; }
+
+    /* Zonas da tabela UCL */
+    .tb-pos { font-weight: 700; font-size: 11px; color: var(--ucl-texto-cinza); }
+    .tb-pos.oitavas   { color: #1565C0; }     /* Top 8 → direto oitavas */
+    .tb-pos.playoff   { color: #e67e00; }     /* 9–24 → playoff */
+    .tb-pos.eliminado { color: var(--vermelho); } /* 25–36 → fora */
+    .tb-pos.lider     { color: var(--ucl-dourado-2); font-size: 13px; }
+
+    /* Indicador de zona (barra lateral colorida) */
+    .ucl-table tbody tr.zona-oitavas   td:first-child { border-left: 3px solid #1565C0; }
+    .ucl-table tbody tr.zona-playoff   td:first-child { border-left: 3px solid #e67e00; }
+    .ucl-table tbody tr.zona-eliminado td:first-child { border-left: 3px solid var(--vermelho); }
+    .ucl-table tbody tr.zona-lider     td:first-child { border-left: 3px solid var(--ucl-dourado); }
+
+    .tb-time-cell { display: flex; align-items: center; gap: 4px; font-weight: 600; }
+    .tb-escudo    { width: 16px; height: 16px; object-fit: contain; flex-shrink: 0; }
+    .tb-pts       { font-weight: 800; color: var(--preto); font-size: 13px; }
+
+    .tb-legenda-wrap {
+      padding: 10px 14px;
+      background: #f5f6fa;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .tb-legenda-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-corpo);
+      font-size: 10px;
+      color: var(--ucl-texto-cinza);
+    }
+    .tb-legenda-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── ARTILHARIA ── */
+    .ucl-art-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px 12px 20px;
+    }
+    @media (min-width: 640px) { .ucl-art-wrap { padding: 20px 24px; } }
+
+    .art-card {
+      background: white;
+      border-radius: var(--radius-card);
+      box-shadow: var(--sombra);
+      margin-bottom: 8px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .art-pos {
+      font-family: var(--font-titulo);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--ucl-borda);
+      width: 28px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .art-pos.p1 { color: var(--ucl-estrela); }
+    .art-pos.p2 { color: #adb5bd; }
+    .art-pos.p3 { color: #cd7f32; }
+    .art-foto {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 2px solid var(--ucl-borda);
+    }
+    .art-info { flex: 1; }
+    .art-nome {
+      font-family: var(--font-corpo);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--preto);
+    }
+    .art-time {
+      font-family: var(--font-corpo);
+      font-size: 11px;
+      color: var(--ucl-texto-cinza);
+      margin-top: 2px;
+    }
+    .art-gols {
+      font-family: var(--font-titulo);
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--ucl-azul);
+      text-align: center;
+    }
+    .art-gols span {
+      font-family: var(--font-corpo);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--ucl-texto-cinza);
+      display: block;
+    }
+
+    /* ── FASES KNOCKOUT (separador visual) ── */
+    .ucl-fase-separador {
+      background: linear-gradient(135deg, var(--ucl-azul) 0%, var(--ucl-azul-medio) 100%);
+      margin: 0 0 10px 0;
+      padding: 7px 14px;
+      border-radius: var(--radius-card) var(--radius-card) 0 0;
+      font-family: var(--font-titulo);
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--ucl-dourado);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    @keyframes girar { to { transform: rotate(360deg); } }
+    @keyframes piscando { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <span class="logo-principal">Placar <span>do Futebol</span></span>
+        <span class="logo-sub">Resultados ao vivo</span>
+      </a>
+      <div class="header-ao-vivo"><span class="dot-vivo"></span>AO VIVO</div>
+    </div>
+  </header>
+
+  <!-- ── HERO UCL ── -->
+  <div class="ucl-hero" onclick="atualizarPagina()" title="Clique para atualizar">
+    <span class="ucl-hero-ball">🏆</span>
+    <div class="ucl-hero-titulo">UEFA Champions <span>League</span></div>
+    <div class="ucl-hero-sub">Temporada 2025/26 · Fase de Liga</div>
+    <div class="ucl-hero-badges">
+      <span class="ucl-hero-badge">⚽ 36 Times</span>
+      <span class="ucl-hero-badge destaque" id="badge-rodada-atual">⏳ Carregando...</span>
+      <span class="ucl-hero-badge" id="badge-jogos-hoje">📅 Verificando...</span>
+      <span class="ucl-hero-badge">🏟️ Final em Budapest</span>
+    </div>
+    <div class="ucl-hero-refresh">↻ toque para atualizar</div>
+  </div>
+
+  <!-- ── ABAS ── -->
+  <nav class="ucl-nav">
+    <div class="ucl-nav-inner">
+      <div class="ucl-tab ativa" onclick="mudarAba(this, 'jogos')">⚽ Jogos</div>
+      <div class="ucl-tab" onclick="mudarAba(this, 'tabela')">📊 Tabela</div>
+      <div class="ucl-tab" onclick="mudarAba(this, 'artilharia')">👟 Artilharia</div>
+    </div>
+  </nav>
+
+  <main style="padding-bottom: 20px;">
+
+    <!-- ===== JOGOS ===== -->
+    <div id="secao-jogos" class="ucl-secao ativa">
+
+      <div class="rodada-nav">
+        <button class="rodada-btn" id="btn-anterior" onclick="mudarRodada(-1)" title="Rodada anterior">&#8592;</button>
+        <div class="rodada-info">
+          <span class="rodada-fase" id="rodada-fase-label">Fase de Liga</span>
+          <span class="rodada-titulo" id="rodada-titulo">Rodada 1</span>
+          <span class="rodada-subtitulo" id="rodada-subtitulo">Carregando...</span>
+        </div>
+        <button class="rodada-btn" id="btn-proxima" onclick="mudarRodada(1)" title="Próxima rodada">&#8594;</button>
+      </div>
+
+      <div class="ucl-filtros">
+        <button class="filtro-btn ativo" onclick="filtrarStatus(this, 'todos')">Todos</button>
+        <button class="filtro-btn" onclick="filtrarStatus(this, 'ao-vivo')">● Ao Vivo</button>
+        <button class="filtro-btn" onclick="filtrarStatus(this, 'agendado')">Agendados</button>
+        <button class="filtro-btn" onclick="filtrarStatus(this, 'encerrado')">Encerrados</button>
+      </div>
+
+      <div class="ucl-jogos-wrap">
+        <div id="jogos-container" class="ucl-loading">
+          <div class="spinner"></div>
+          <p>Carregando jogos...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TABELA ===== -->
+    <div id="secao-tabela" class="ucl-secao">
+      <div class="ucl-tabela-wrap">
+        <div class="ucl-tabela-card">
+          <div class="ucl-tabela-header">
+            <span>🏆 Fase de Liga 2025/26</span>
+            <span class="ucl-tabela-legenda" id="tabela-atualizada"></span>
+          </div>
+          <div class="ucl-fase-info">
+            ℹ️ Top 8 avançam direto às oitavas · 9º–24º disputam playoff · 25º–36º eliminados
+          </div>
+          <table class="ucl-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Clube</th>
+                <th>Pts</th>
+                <th>J</th>
+                <th>V</th>
+                <th>E</th>
+                <th>D</th>
+                <th>GP</th>
+                <th>GC</th>
+                <th>SG</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-body">
+              <tr><td colspan="10" style="text-align:center;padding:20px;color:var(--ucl-texto-cinza);font-size:13px;">Carregando classificação...</td></tr>
+            </tbody>
+          </table>
+          <div class="tb-legenda-wrap">
+            <div class="tb-legenda-item"><div class="tb-legenda-dot" style="background:#1565C0"></div>Oitavas de Final (direto)</div>
+            <div class="tb-legenda-item"><div class="tb-legenda-dot" style="background:#e67e00"></div>Playoff (9º–24º)</div>
+            <div class="tb-legenda-item"><div class="tb-legenda-dot" style="background:var(--vermelho)"></div>Eliminado (25º–36º)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ARTILHARIA ===== -->
+    <div id="secao-artilharia" class="ucl-secao">
+      <div class="ucl-art-wrap">
+        <div id="artilharia-container" class="ucl-loading">
+          <div class="spinner"></div>
+          <p>Carregando artilharia...</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <nav class="nav-bottom" role="navigation" aria-label="Navegação principal">
+    <a href="/" class="nav-item"><span class="nav-icon">⚽</span><span class="nav-label">Jogos</span></a>
+    <a href="/tabela/" class="nav-item"><span class="nav-icon">📊</span><span class="nav-label">Tabela</span></a>
+    <a href="/noticias/" class="nav-item"><span class="nav-icon">📰</span><span class="nav-label">Notícias</span></a>
+    <a href="/videos/" class="nav-item"><span class="nav-icon">▶️</span><span class="nav-label">Vídeos</span></a>
+    <a href="/artilharia/" class="nav-item"><span class="nav-icon">👟</span><span class="nav-label">Artilharia</span></a>
+  </nav>
+
+  <footer>
+    <div class="footer-logo">Placar <span>do Futebol</span></div>
+    <div class="footer-links">
+      <a href="/sobre/">Sobre</a>
+      <a href="/privacidade/">Privacidade</a>
+      <a href="/contato/">Contato</a>
+    </div>
+    <p class="footer-copy">© 2026 placardofutebol.com — Resultados ao vivo</p>
+  </footer>
+
+  <script>
+    const PROXY  = 'https://futebol-proxy.placardofutebol-com.workers.dev';
+    const LEAGUE = 2;       // Champions League na API-Football
+    const SEASON = 2025;    // Temporada 2025/26 = "2025" na API
+
+    // Estrutura da UCL 2025/26:
+    // Fase de Liga: 8 rodadas (MD1–MD8)
+    // Playoff: 1 rodada
+    // Oitavas, Quartas, Semi, Final
+    const FASES = [
+      { id: 'league',   label: 'Fase de Liga',  rodadas: 8,  offset: 1 },
+      { id: 'playoff',  label: 'Playoff',        rodadas: 2,  offset: 9  },
+      { id: 'r16',      label: 'Oitavas de Final', rodadas: 2, offset: 11 },
+      { id: 'qf',       label: 'Quartas de Final', rodadas: 2, offset: 13 },
+      { id: 'sf',       label: 'Semifinais',     rodadas: 2,  offset: 15 },
+      { id: 'final',    label: 'Final',           rodadas: 1,  offset: 17 },
+    ];
+    const TOTAL_RODADAS = 17; // total virtual de "rodadas" para navegar
+
+    // Mapa de round strings da API → rodada virtual
+    // Ajuste conforme retorno real da API
+    const ROUND_MAP = {
+      'League Stage - 1': 1,
+      'League Stage - 2': 2,
+      'League Stage - 3': 3,
+      'League Stage - 4': 4,
+      'League Stage - 5': 5,
+      'League Stage - 6': 6,
+      'League Stage - 7': 7,
+      'League Stage - 8': 8,
+      'Round of 16 - 1st Leg': 11,
+      'Round of 16 - 2nd Leg': 12,
+      'Quarter-finals - 1st Leg': 13,
+      'Quarter-finals - 2nd Leg': 14,
+      'Semi-finals - 1st Leg': 15,
+      'Semi-finals - 2nd Leg': 16,
+      'Final': 17,
+    };
+
+    // Rodadas virtuais → round strings para busca
+    const ROUND_NAMES = {
+      1: 'League Stage - 1',
+      2: 'League Stage - 2',
+      3: 'League Stage - 3',
+      4: 'League Stage - 4',
+      5: 'League Stage - 5',
+      6: 'League Stage - 6',
+      7: 'League Stage - 7',
+      8: 'League Stage - 8',
+      9: 'Knockout Round Play-offs - 1st Leg',
+      10: 'Knockout Round Play-offs - 2nd Leg',
+      11: 'Round of 16 - 1st Leg',
+      12: 'Round of 16 - 2nd Leg',
+      13: 'Quarter-finals - 1st Leg',
+      14: 'Quarter-finals - 2nd Leg',
+      15: 'Semi-finals - 1st Leg',
+      16: 'Semi-finals - 2nd Leg',
+      17: 'Final',
+    };
+
+    let rodadaAtual  = 1;
+    let rodadaVendo  = 1;
+    let jogosPorRodada = {};
+    let statusFiltro = 'todos';
+    let timerAoVivo  = null;
+
+    // ── Determina label da fase e número ──
+    function infoRodada(r) {
+      if (r <= 8) return { fase: 'Fase de Liga', label: `Rodada ${r} de 8` };
+      if (r <= 10) return { fase: 'Playoff', label: `Jogo ${r - 8}` };
+      if (r <= 12) return { fase: 'Oitavas de Final', label: `Jogo ${r - 10}` };
+      if (r <= 14) return { fase: 'Quartas de Final', label: `Jogo ${r - 12}` };
+      if (r <= 16) return { fase: 'Semifinais', label: `Jogo ${r - 14}` };
+      return { fase: 'Final', label: 'Final · Budapest 2026' };
+    }
+
+    // ── Navegação por abas ──
+    function mudarAba(el, secao) {
+      document.querySelectorAll('.ucl-tab').forEach(t => t.classList.remove('ativa'));
+      document.querySelectorAll('.ucl-secao').forEach(s => s.classList.remove('ativa'));
+      el.classList.add('ativa');
+      document.getElementById('secao-' + secao).classList.add('ativa');
+      if (secao === 'tabela')     carregarTabela();
+      if (secao === 'artilharia') carregarArtilharia();
+      location.hash = secao;
+    }
+
+    // Restaura aba ao carregar
+    (function() {
+      const hash = location.hash.replace('#', '');
+      const validas = ['jogos','tabela','artilharia'];
+      if (validas.includes(hash)) {
+        const tab = document.querySelector(`[onclick*="${hash}"]`);
+        if (tab) mudarAba(tab, hash);
+      }
+    })();
+
+    // ── Filtro de status ──
+    function filtrarStatus(el, status) {
+      document.querySelectorAll('.ucl-filtros .filtro-btn').forEach(b => b.classList.remove('ativo'));
+      el.classList.add('ativo');
+      statusFiltro = status;
+      renderJogos();
+    }
+
+    // ── Atualizar página ──
+    function atualizarPagina() {
+      jogosPorRodada = {};
+      delete document.getElementById('tabela-body').dataset.loaded;
+      delete document.getElementById('artilharia-container').dataset.loaded;
+      const tab = document.querySelector('.ucl-tab');
+      mudarAba(tab, 'jogos');
+      carregarRodada(rodadaVendo);
+    }
+
+    // ── Determinar rodada atual ──
+    async function determinarRodadaAtual() {
+      try {
+        const r = await fetch(`${PROXY}/fixtures/rounds?league=${LEAGUE}&season=${SEASON}&current=true`);
+        const d = await r.json();
+        if (d.response && d.response.length) {
+          const str = d.response[0];
+          const mapped = ROUND_MAP[str];
+          if (mapped) {
+            rodadaAtual = mapped;
+            rodadaVendo = mapped;
+          }
+        }
+      } catch(e) {
+        console.log('Rodada atual não detectada, usando 1');
+      }
+
+      const info = infoRodada(rodadaAtual);
+      document.getElementById('badge-rodada-atual').textContent = `🏆 ${info.label}`;
+      atualizarBotoesRodada();
+      carregarRodada(rodadaVendo);
+    }
+
+    // ── Mudar rodada ──
+    function mudarRodada(dir) {
+      const nova = rodadaVendo + dir;
+      if (nova < 1 || nova > TOTAL_RODADAS) return;
+      rodadaVendo = nova;
+      atualizarBotoesRodada();
+      carregarRodada(rodadaVendo);
+    }
+
+    function atualizarBotoesRodada() {
+      document.getElementById('btn-anterior').disabled = rodadaVendo <= 1;
+      document.getElementById('btn-proxima').disabled  = rodadaVendo >= TOTAL_RODADAS;
+      const info = infoRodada(rodadaVendo);
+      document.getElementById('rodada-fase-label').textContent = info.fase;
+      document.getElementById('rodada-titulo').textContent = info.label;
+    }
+
+    // ── Carregar jogos de uma rodada ──
+    async function carregarRodada(rodada) {
+      const info = infoRodada(rodada);
+      document.getElementById('jogos-container').innerHTML = `
+        <div class="ucl-loading"><div class="spinner"></div><p>Carregando ${info.label}...</p></div>`;
+
+      if (jogosPorRodada[rodada]) { renderJogos(); return; }
+
+      try {
+        const roundStr = ROUND_NAMES[rodada] || `League Stage - ${rodada}`;
+        const r = await fetch(`${PROXY}/fixtures?league=${LEAGUE}&season=${SEASON}&round=${encodeURIComponent(roundStr)}`);
+        const d = await r.json();
+        jogosPorRodada[rodada] = d.response || [];
+        renderJogos();
+        atualizarSubtitulo(rodada);
+        atualizarBadgeHoje(d.response || []);
+        agendarAoVivo();
+      } catch(e) {
+        document.getElementById('jogos-container').innerHTML =
+          `<div class="ucl-vazio">⚠️ Erro ao carregar os jogos. Tente novamente.</div>`;
+      }
+    }
+
+    function atualizarSubtitulo(rodada) {
+      const jogos = jogosPorRodada[rodada] || [];
+      if (!jogos.length) {
+        document.getElementById('rodada-subtitulo').textContent = 'Sem jogos cadastrados';
+        return;
+      }
+      const datas = jogos.map(j => new Date(j.fixture.date));
+      const min = new Date(Math.min(...datas));
+      const max = new Date(Math.max(...datas));
+      const fmt = d => d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+      document.getElementById('rodada-subtitulo').textContent =
+        fmt(min) === fmt(max) ? fmt(min) : `${fmt(min)} – ${fmt(max)}`;
+    }
+
+    function atualizarBadgeHoje(jogos) {
+      const hoje = new Date().toISOString().split('T')[0];
+      const n = jogos.filter(j => j.fixture.date.startsWith(hoje)).length;
+      document.getElementById('badge-jogos-hoje').textContent =
+        n > 0 ? `📅 ${n} jogo${n > 1 ? 's' : ''} hoje` : '📅 Nenhum jogo hoje';
+    }
+
+    // ── Renderizar jogos ──
+    function renderJogos() {
+      const container = document.getElementById('jogos-container');
+      let jogos = [...(jogosPorRodada[rodadaVendo] || [])];
+
+      if (statusFiltro === 'ao-vivo') {
+        jogos = jogos.filter(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
+      } else if (statusFiltro === 'agendado') {
+        jogos = jogos.filter(j => ['NS','TBD'].includes(j.fixture.status.short));
+      } else if (statusFiltro === 'encerrado') {
+        jogos = jogos.filter(j => ['FT','AET','PEN','BT','AWD','WO'].includes(j.fixture.status.short));
+      }
+
+      if (!jogos.length) {
+        container.innerHTML = `<div class="ucl-vazio">Nenhum jogo encontrado para este filtro.</div>`;
+        return;
+      }
+
+      const ordemStatus = s => {
+        if (['1H','2H','HT','ET','P'].includes(s)) return 0;
+        if (['NS','TBD'].includes(s)) return 1;
+        return 2;
+      };
+      jogos.sort((a,b) => {
+        const diff = ordemStatus(a.fixture.status.short) - ordemStatus(b.fixture.status.short);
+        if (diff !== 0) return diff;
+        return new Date(a.fixture.date) - new Date(b.fixture.date);
+      });
+
+      container.innerHTML = jogos.map(j => cardJogo(j)).join('');
+    }
+
+    function cardJogo(j) {
+      const st = j.fixture.status.short;
+      const gH = j.goals.home;
+      const gA = j.goals.away;
+      const aoVivo   = ['1H','2H','HT','ET','P'].includes(st);
+      const encerrado = ['FT','AET','PEN','BT','AWD','WO'].includes(st);
+
+      let statusTexto = '', statusClasse = '', topoClasse = '';
+
+      if (aoVivo) {
+        statusClasse = 'vivo';
+        topoClasse   = 'ao-vivo-topo';
+        statusTexto  = st === 'HT' ? 'Intervalo' : `${j.fixture.status.elapsed || 0}'`;
+      } else if (encerrado) {
+        statusClasse = 'encerrado';
+        statusTexto  = 'Encerrado';
+      } else {
+        const dataJogo = new Date(j.fixture.date);
+        const diffMin  = Math.floor((dataJogo - Date.now()) / 60000);
+        if (diffMin <= 5 && diffMin > -10) {
+          statusClasse = 'em-breve'; statusTexto = '⚽ Iniciando...';
+        } else if (diffMin <= 60 && diffMin > 0) {
+          statusClasse = 'em-breve'; statusTexto = `⏱️ ${diffMin}min`;
+        } else {
+          statusTexto = dataJogo.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        }
+      }
+
+      const placar = (gH !== null && gA !== null)
+        ? `<span class="ucl-placar">${gH} × ${gA}</span>`
+        : `<span class="ucl-placar" style="font-size:20px;opacity:.4">×</span>`;
+
+      const dataFmt = new Date(j.fixture.date).toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: '2-digit' });
+      const estadio = j.fixture.venue?.name || '';
+
+      return `
+        <a href="/champions/${slugTime(j.teams.home.name)}-vs-${slugTime(j.teams.away.name)}/" class="ucl-jogo">
+          <div class="ucl-jogo-topo ${topoClasse}">
+            <span>${aoVivo ? '🔴 AO VIVO' : dataFmt}</span>
+            <span>${estadio}</span>
+          </div>
+          <div class="ucl-jogo-corpo">
+            <div class="ucl-time">
+              <img class="ucl-time-escudo" src="${j.teams.home.logo}" alt="${j.teams.home.name}"
+                onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><text y=\'18\' font-size=\'18\'>⚽</text></svg>'">
+              <span class="ucl-time-nome">${j.teams.home.name}</span>
+            </div>
+            <div class="ucl-centro">
+              ${placar}
+              <div class="ucl-status ${statusClasse}">${statusTexto}</div>
+            </div>
+            <div class="ucl-time">
+              <img class="ucl-time-escudo" src="${j.teams.away.logo}" alt="${j.teams.away.name}"
+                onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><text y=\'18\' font-size=\'18\'>⚽</text></svg>'">
+              <span class="ucl-time-nome">${j.teams.away.name}</span>
+            </div>
+          </div>
+        </a>`;
+    }
+
+    function slugTime(nome) {
+      return nome.toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '');
+    }
+
+    // ── Atualização ao vivo ──
+    function agendarAoVivo() {
+      clearTimeout(timerAoVivo);
+      const jogos = jogosPorRodada[rodadaVendo] || [];
+      const temVivo = jogos.some(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
+      if (temVivo) {
+        timerAoVivo = setTimeout(async () => {
+          delete jogosPorRodada[rodadaVendo];
+          await carregarRodada(rodadaVendo);
+        }, 30000);
+      } else {
+        const temAgendado = jogos.some(j => ['NS','TBD'].includes(j.fixture.status.short));
+        if (temAgendado) {
+          timerAoVivo = setTimeout(async () => {
+            delete jogosPorRodada[rodadaVendo];
+            await carregarRodada(rodadaVendo);
+          }, 60000);
+        }
+      }
+    }
+
+    // ── TABELA ──
+    async function carregarTabela() {
+      const tbody = document.getElementById('tabela-body');
+      if (tbody.dataset.loaded === '1') return;
+
+      tbody.innerHTML = `<tr><td colspan="10" style="text-align:center;padding:20px;color:var(--ucl-texto-cinza)">
+        <div class="spinner" style="margin:0 auto 8px;width:24px;height:24px;border:3px solid var(--ucl-borda);border-top-color:var(--ucl-azul);border-radius:50%;animation:girar 0.8s linear infinite"></div>
+        Carregando...</td></tr>`;
+
+      try {
+        const r = await fetch(`${PROXY}/standings?league=${LEAGUE}&season=${SEASON}`);
+        const d = await r.json();
+        if (!d.response || !d.response.length) throw new Error('Sem dados');
+
+        const standings = d.response[0].league.standings[0];
+        tbody.innerHTML = standings.map((t, i) => {
+          const pos = i + 1;
+          let posClasse = '', zonaClasse = '';
+
+          if (pos === 1)        { posClasse = 'lider';     zonaClasse = 'zona-lider'; }
+          else if (pos <= 8)    { posClasse = 'oitavas';   zonaClasse = 'zona-oitavas'; }
+          else if (pos <= 24)   { posClasse = 'playoff';   zonaClasse = 'zona-playoff'; }
+          else                  { posClasse = 'eliminado'; zonaClasse = 'zona-eliminado'; }
+
+          return `
+            <tr class="${zonaClasse}">
+              <td class="tb-pos ${posClasse}">${pos}</td>
+              <td>
+                <div class="tb-time-cell">
+                  <img class="tb-escudo" src="${t.team.logo}" alt="${t.team.name}"
+                    onerror="this.style.display='none'">
+                  ${t.team.name}
+                </div>
+              </td>
+              <td class="tb-pts">${t.points}</td>
+              <td>${t.all.played}</td>
+              <td>${t.all.win}</td>
+              <td>${t.all.draw}</td>
+              <td>${t.all.lose}</td>
+              <td>${t.all.goals.for}</td>
+              <td>${t.all.goals.against}</td>
+              <td>${t.goalsDiff}</td>
+            </tr>`;
+        }).join('');
+
+        tbody.dataset.loaded = '1';
+        document.getElementById('tabela-atualizada').textContent =
+          'Atualizado ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+      } catch(e) {
+        tbody.innerHTML = `<tr><td colspan="10" style="text-align:center;padding:20px;color:var(--ucl-texto-cinza);font-size:13px;">⚠️ Não foi possível carregar a tabela.</td></tr>`;
+      }
+    }
+
+    // ── ARTILHARIA ──
+    async function carregarArtilharia() {
+      const container = document.getElementById('artilharia-container');
+      if (container.dataset.loaded === '1') return;
+      container.innerHTML = `<div class="ucl-loading"><div class="spinner"></div><p>Carregando artilharia...</p></div>`;
+
+      try {
+        const r = await fetch(`${PROXY}/players/topscorers?league=${LEAGUE}&season=${SEASON}`);
+        const d = await r.json();
+        if (!d.response || !d.response.length) throw new Error('Sem dados');
+
+        const posClasses = ['p1','p2','p3'];
+        container.innerHTML = d.response.map((item, i) => {
+          const p = item.player;
+          const s = item.statistics[0];
+          const gols = s.goals.total || 0;
+          const posClass = posClasses[i] || '';
+
+          return `
+            <div class="art-card">
+              <div class="art-pos ${posClass}">${i+1}</div>
+              <img class="art-foto" src="${p.photo}" alt="${p.name}"
+                onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><text y=\'18\' font-size=\'18\'>👤</text></svg>'">
+              <div class="art-info">
+                <div class="art-nome">${p.name}</div>
+                <div class="art-time">
+                  <img src="${s.team.logo}" style="width:12px;height:12px;object-fit:contain;vertical-align:middle;margin-right:3px" onerror="this.style.display='none'">
+                  ${s.team.name}
+                </div>
+              </div>
+              <div class="art-gols">${gols}<span>gols</span></div>
+            </div>`;
+        }).join('');
+
+        container.dataset.loaded = '1';
+
+      } catch(e) {
+        container.innerHTML = `<div class="ucl-vazio">⚠️ Não foi possível carregar a artilharia.</div>`;
+      }
+    }
+
+    // ── Inicializar ──
+    determinarRodadaAtual();
+
+    setInterval(() => {
+      const secao = document.getElementById('secao-jogos');
+      if (!secao.classList.contains('ativa')) return;
+      const jogos = jogosPorRodada[rodadaVendo] || [];
+      const temVivo = jogos.some(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
+      if (temVivo) renderJogos();
+    }, 30000);
+  </script>
+
+</body>
+</html>
