@@ -691,78 +691,41 @@
 
   <script>
     const PROXY  = 'https://futebol-proxy.placardofutebol-com.workers.dev';
-    const LEAGUE = 2;       // Champions League na API-Football
-    const SEASON = 2025;    // Temporada 2025/26 = "2025" na API
+    const LEAGUE = 2;
+    const SEASON = 2025;
 
-    // Estrutura da UCL 2025/26:
-    // Fase de Liga: 8 rodadas (MD1–MD8)
-    // Playoff: 1 rodada
-    // Oitavas, Quartas, Semi, Final
-    const FASES = [
-      { id: 'league',   label: 'Fase de Liga',  rodadas: 8,  offset: 1 },
-      { id: 'playoff',  label: 'Playoff',        rodadas: 2,  offset: 9  },
-      { id: 'r16',      label: 'Oitavas de Final', rodadas: 2, offset: 11 },
-      { id: 'qf',       label: 'Quartas de Final', rodadas: 2, offset: 13 },
-      { id: 'sf',       label: 'Semifinais',     rodadas: 2,  offset: 15 },
-      { id: 'final',    label: 'Final',           rodadas: 1,  offset: 17 },
-    ];
-    const TOTAL_RODADAS = 17; // total virtual de "rodadas" para navegar
-
-    // Mapa de round strings da API → rodada virtual
-    // Ajuste conforme retorno real da API
-    const ROUND_MAP = {
-      'League Stage - 1': 1,
-      'League Stage - 2': 2,
-      'League Stage - 3': 3,
-      'League Stage - 4': 4,
-      'League Stage - 5': 5,
-      'League Stage - 6': 6,
-      'League Stage - 7': 7,
-      'League Stage - 8': 8,
-      'Round of 16 - 1st Leg': 11,
-      'Round of 16 - 2nd Leg': 12,
-      'Quarter-finals - 1st Leg': 13,
-      'Quarter-finals - 2nd Leg': 14,
-      'Semi-finals - 1st Leg': 15,
-      'Semi-finals - 2nd Leg': 16,
-      'Final': 17,
+    // ── Mapa: string da API → label legível ──
+    const LABEL_ROUND = {
+      'League Stage - 1': { fase: 'Fase de Liga', label: 'Rodada 1 de 8' },
+      'League Stage - 2': { fase: 'Fase de Liga', label: 'Rodada 2 de 8' },
+      'League Stage - 3': { fase: 'Fase de Liga', label: 'Rodada 3 de 8' },
+      'League Stage - 4': { fase: 'Fase de Liga', label: 'Rodada 4 de 8' },
+      'League Stage - 5': { fase: 'Fase de Liga', label: 'Rodada 5 de 8' },
+      'League Stage - 6': { fase: 'Fase de Liga', label: 'Rodada 6 de 8' },
+      'League Stage - 7': { fase: 'Fase de Liga', label: 'Rodada 7 de 8' },
+      'League Stage - 8': { fase: 'Fase de Liga', label: 'Rodada 8 de 8' },
+      'Knockout Round Play-offs - 1st Leg': { fase: 'Playoff',          label: '1ª Mão' },
+      'Knockout Round Play-offs - 2nd Leg': { fase: 'Playoff',          label: '2ª Mão' },
+      'Round of 16 - 1st Leg':              { fase: 'Oitavas de Final', label: '1ª Mão' },
+      'Round of 16 - 2nd Leg':              { fase: 'Oitavas de Final', label: '2ª Mão' },
+      'Quarter-finals - 1st Leg':           { fase: 'Quartas de Final', label: '1ª Mão' },
+      'Quarter-finals - 2nd Leg':           { fase: 'Quartas de Final', label: '2ª Mão' },
+      'Semi-finals - 1st Leg':              { fase: 'Semifinais',       label: '1ª Mão' },
+      'Semi-finals - 2nd Leg':              { fase: 'Semifinais',       label: '2ª Mão' },
+      'Final':                              { fase: 'Final',            label: 'Final · Budapest 2026' },
     };
 
-    // Rodadas virtuais → round strings para busca
-    const ROUND_NAMES = {
-      1: 'League Stage - 1',
-      2: 'League Stage - 2',
-      3: 'League Stage - 3',
-      4: 'League Stage - 4',
-      5: 'League Stage - 5',
-      6: 'League Stage - 6',
-      7: 'League Stage - 7',
-      8: 'League Stage - 8',
-      9: 'Knockout Round Play-offs - 1st Leg',
-      10: 'Knockout Round Play-offs - 2nd Leg',
-      11: 'Round of 16 - 1st Leg',
-      12: 'Round of 16 - 2nd Leg',
-      13: 'Quarter-finals - 1st Leg',
-      14: 'Quarter-finals - 2nd Leg',
-      15: 'Semi-finals - 1st Leg',
-      16: 'Semi-finals - 2nd Leg',
-      17: 'Final',
-    };
+    // Lista dinâmica: só os rounds que a API confirmou ter jogos
+    let roundsDisponiveis = [];   // array de strings da API, na ordem
+    let idxAtual          = 0;    // índice em roundsDisponiveis
+    let idxVendo          = 0;
 
-    let rodadaAtual  = 1;
-    let rodadaVendo  = 1;
-    let jogosPorRodada = {};
-    let statusFiltro = 'todos';
-    let timerAoVivo  = null;
+    let jogosPorRound  = {};      // chave = string do round
+    let statusFiltro   = 'todos';
+    let timerAoVivo    = null;
 
-    // ── Determina label da fase e número ──
-    function infoRodada(r) {
-      if (r <= 8) return { fase: 'Fase de Liga', label: `Rodada ${r} de 8` };
-      if (r <= 10) return { fase: 'Playoff', label: `Jogo ${r - 8}` };
-      if (r <= 12) return { fase: 'Oitavas de Final', label: `Jogo ${r - 10}` };
-      if (r <= 14) return { fase: 'Quartas de Final', label: `Jogo ${r - 12}` };
-      if (r <= 16) return { fase: 'Semifinais', label: `Jogo ${r - 14}` };
-      return { fase: 'Final', label: 'Final · Budapest 2026' };
+    function infoDoRound(roundStr) {
+      return LABEL_ROUND[roundStr] || { fase: roundStr, label: roundStr };
     }
 
     // ── Navegação por abas ──
@@ -776,7 +739,6 @@
       location.hash = secao;
     }
 
-    // Restaura aba ao carregar
     (function() {
       const hash = location.hash.replace('#', '');
       const validas = ['jogos','tabela','artilharia'];
@@ -796,69 +758,103 @@
 
     // ── Atualizar página ──
     function atualizarPagina() {
-      jogosPorRodada = {};
+      jogosPorRound = {};
+      roundsDisponiveis = [];
       delete document.getElementById('tabela-body').dataset.loaded;
       delete document.getElementById('artilharia-container').dataset.loaded;
       const tab = document.querySelector('.ucl-tab');
       mudarAba(tab, 'jogos');
-      carregarRodada(rodadaVendo);
+      inicializar();
     }
 
-    // ── Determinar rodada atual ──
-    async function determinarRodadaAtual() {
+    // ── INICIALIZAR: busca todos os rounds disponíveis, depois acha o atual ──
+    async function inicializar() {
+      document.getElementById('jogos-container').innerHTML =
+        `<div class="ucl-loading"><div class="spinner"></div><p>Carregando...</p></div>`;
+
       try {
-        const r = await fetch(`${PROXY}/fixtures/rounds?league=${LEAGUE}&season=${SEASON}&current=true`);
-        const d = await r.json();
-        if (d.response && d.response.length) {
-          const str = d.response[0];
-          const mapped = ROUND_MAP[str];
-          if (mapped) {
-            rodadaAtual = mapped;
-            rodadaVendo = mapped;
-          }
-        }
-      } catch(e) {
-        console.log('Rodada atual não detectada, usando 1');
-      }
+        // 1. Todos os rounds da competição
+        const rAll = await fetch(`${PROXY}/fixtures/rounds?league=${LEAGUE}&season=${SEASON}`);
+        const dAll = await rAll.json();
+        const todosRounds = dAll.response || [];
 
-      const info = infoRodada(rodadaAtual);
-      document.getElementById('badge-rodada-atual').textContent = `🏆 ${info.label}`;
-      atualizarBotoesRodada();
-      carregarRodada(rodadaVendo);
+        // 2. Round atual
+        let roundAtualStr = null;
+        try {
+          const rCur = await fetch(`${PROXY}/fixtures/rounds?league=${LEAGUE}&season=${SEASON}&current=true`);
+          const dCur = await rCur.json();
+          if (dCur.response && dCur.response.length) roundAtualStr = dCur.response[0];
+        } catch(e) {}
+
+        // 3. Filtra apenas rounds que existem no nosso mapa de labels
+        //    (ignora rounds genéricos como "Qualifying" que não queremos exibir)
+        //    Se quiser mostrar TODOS os rounds da API, basta remover o filtro abaixo.
+        roundsDisponiveis = todosRounds.filter(r => LABEL_ROUND[r] !== undefined);
+
+        // Se a API retornar rounds fora do mapa, ainda assim mostra todos
+        if (roundsDisponiveis.length === 0) roundsDisponiveis = todosRounds;
+
+        if (roundsDisponiveis.length === 0) {
+          document.getElementById('jogos-container').innerHTML =
+            `<div class="ucl-vazio">Nenhuma rodada encontrada para esta temporada.</div>`;
+          return;
+        }
+
+        // 4. Posiciona no round atual (ou no último disponível como fallback)
+        idxAtual = roundsDisponiveis.length - 1;
+        if (roundAtualStr) {
+          const idx = roundsDisponiveis.indexOf(roundAtualStr);
+          if (idx !== -1) idxAtual = idx;
+        }
+        idxVendo = idxAtual;
+
+        const info = infoDoRound(roundsDisponiveis[idxAtual]);
+        document.getElementById('badge-rodada-atual').textContent = `🏆 ${info.fase}`;
+
+        atualizarBotoesRodada();
+        carregarRodada(idxVendo);
+
+      } catch(e) {
+        document.getElementById('jogos-container').innerHTML =
+          `<div class="ucl-vazio">⚠️ Erro ao inicializar. Tente novamente.</div>`;
+      }
     }
 
-    // ── Mudar rodada ──
+    // ── Mudar rodada (por índice no array dinâmico) ──
     function mudarRodada(dir) {
-      const nova = rodadaVendo + dir;
-      if (nova < 1 || nova > TOTAL_RODADAS) return;
-      rodadaVendo = nova;
+      const novo = idxVendo + dir;
+      if (novo < 0 || novo >= roundsDisponiveis.length) return;
+      idxVendo = novo;
       atualizarBotoesRodada();
-      carregarRodada(rodadaVendo);
+      carregarRodada(idxVendo);
     }
 
     function atualizarBotoesRodada() {
-      document.getElementById('btn-anterior').disabled = rodadaVendo <= 1;
-      document.getElementById('btn-proxima').disabled  = rodadaVendo >= TOTAL_RODADAS;
-      const info = infoRodada(rodadaVendo);
+      document.getElementById('btn-anterior').disabled = idxVendo <= 0;
+      document.getElementById('btn-proxima').disabled  = idxVendo >= roundsDisponiveis.length - 1;
+      const roundStr = roundsDisponiveis[idxVendo] || '';
+      const info = infoDoRound(roundStr);
       document.getElementById('rodada-fase-label').textContent = info.fase;
-      document.getElementById('rodada-titulo').textContent = info.label;
+      document.getElementById('rodada-titulo').textContent     = info.label;
     }
 
-    // ── Carregar jogos de uma rodada ──
-    async function carregarRodada(rodada) {
-      const info = infoRodada(rodada);
-      document.getElementById('jogos-container').innerHTML = `
-        <div class="ucl-loading"><div class="spinner"></div><p>Carregando ${info.label}...</p></div>`;
+    // ── Carregar jogos de um índice ──
+    async function carregarRodada(idx) {
+      const roundStr = roundsDisponiveis[idx];
+      if (!roundStr) return;
+      const info = infoDoRound(roundStr);
 
-      if (jogosPorRodada[rodada]) { renderJogos(); return; }
+      document.getElementById('jogos-container').innerHTML = `
+        <div class="ucl-loading"><div class="spinner"></div><p>Carregando ${info.fase}...</p></div>`;
+
+      if (jogosPorRound[roundStr]) { renderJogos(); return; }
 
       try {
-        const roundStr = ROUND_NAMES[rodada] || `League Stage - ${rodada}`;
         const r = await fetch(`${PROXY}/fixtures?league=${LEAGUE}&season=${SEASON}&round=${encodeURIComponent(roundStr)}`);
         const d = await r.json();
-        jogosPorRodada[rodada] = d.response || [];
+        jogosPorRound[roundStr] = d.response || [];
         renderJogos();
-        atualizarSubtitulo(rodada);
+        atualizarSubtitulo(roundStr);
         atualizarBadgeHoje(d.response || []);
         agendarAoVivo();
       } catch(e) {
@@ -867,8 +863,8 @@
       }
     }
 
-    function atualizarSubtitulo(rodada) {
-      const jogos = jogosPorRodada[rodada] || [];
+    function atualizarSubtitulo(roundStr) {
+      const jogos = jogosPorRound[roundStr] || [];
       if (!jogos.length) {
         document.getElementById('rodada-subtitulo').textContent = 'Sem jogos cadastrados';
         return;
@@ -891,7 +887,8 @@
     // ── Renderizar jogos ──
     function renderJogos() {
       const container = document.getElementById('jogos-container');
-      let jogos = [...(jogosPorRodada[rodadaVendo] || [])];
+      const roundStr = roundsDisponiveis[idxVendo] || '';
+      let jogos = [...(jogosPorRound[roundStr] || [])];
 
       if (statusFiltro === 'ao-vivo') {
         jogos = jogos.filter(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
@@ -990,19 +987,20 @@
     // ── Atualização ao vivo ──
     function agendarAoVivo() {
       clearTimeout(timerAoVivo);
-      const jogos = jogosPorRodada[rodadaVendo] || [];
+      const roundStr = roundsDisponiveis[idxVendo] || '';
+      const jogos = jogosPorRound[roundStr] || [];
       const temVivo = jogos.some(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
       if (temVivo) {
         timerAoVivo = setTimeout(async () => {
-          delete jogosPorRodada[rodadaVendo];
-          await carregarRodada(rodadaVendo);
+          delete jogosPorRound[roundStr];
+          await carregarRodada(idxVendo);
         }, 30000);
       } else {
         const temAgendado = jogos.some(j => ['NS','TBD'].includes(j.fixture.status.short));
         if (temAgendado) {
           timerAoVivo = setTimeout(async () => {
-            delete jogosPorRodada[rodadaVendo];
-            await carregarRodada(rodadaVendo);
+            delete jogosPorRound[roundStr];
+            await carregarRodada(idxVendo);
           }, 60000);
         }
       }
@@ -1104,12 +1102,13 @@
     }
 
     // ── Inicializar ──
-    determinarRodadaAtual();
+    inicializar();
 
     setInterval(() => {
       const secao = document.getElementById('secao-jogos');
       if (!secao.classList.contains('ativa')) return;
-      const jogos = jogosPorRodada[rodadaVendo] || [];
+      const roundStr = roundsDisponiveis[idxVendo] || '';
+      const jogos = jogosPorRound[roundStr] || [];
       const temVivo = jogos.some(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
       if (temVivo) renderJogos();
     }, 30000);
