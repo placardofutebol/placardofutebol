@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Libertadores 2026 - Jogos, Tabela por Grupos e Artilharia. Acompanhe todas as fases ao vivo.">
+  <meta name="theme-color" content="#1a7a30">
+  <title>Libertadores 2026 - Jogos, Tabela e Artilharia | Placar do Futebol</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <style>
+    .lib-hero {
+      background: linear-gradient(135deg, #1a2a7a 0%, #2d4e9e 50%, #3a5fb5 100%);
+      padding: 20px 16px 16px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      user-select: none;
+    }
+    .lib-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 50%, rgba(245,200,0,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .lib-hero:active { opacity: 0.92; }
+    .lib-hero-titulo { font-family: var(--font-titulo); font-size: 26px; font-weight: 800; color: white; text-transform: uppercase; letter-spacing: 1px; line-height: 1; }
+    .lib-hero-titulo span { color: var(--amarelo); }
+    .lib-hero-sub { font-family: var(--font-corpo); font-size: 11px; color: rgba(255,255,255,0.65); margin-top: 4px; letter-spacing: 2px; text-transform: uppercase; }
+    .lib-hero-badges { display: flex; justify-content: center; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .lib-hero-badge { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 4px 12px; font-family: var(--font-corpo); font-size: 11px; color: white; font-weight: 600; }
+    .lib-hero-refresh { font-family: var(--font-corpo); font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 8px; letter-spacing: 1px; }
+
+    .lib-nav { background: white; border-bottom: 2px solid var(--cinza-borda); position: sticky; top: 52px; z-index: 85; overflow-x: auto; scrollbar-width: none; }
+    .lib-nav::-webkit-scrollbar { display: none; }
+    .lib-nav-inner { display: flex; max-width: 900px; margin: 0 auto; }
+    .lib-tab { padding: 12px 22px; font-family: var(--font-corpo); font-size: 13px; font-weight: 600; color: var(--cinza-texto); cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; user-select: none; }
+    .lib-tab:hover { color: var(--verde); }
+    .lib-tab.ativa { color: var(--verde); border-bottom-color: var(--verde); }
+
+    .lib-secao { display: none; }
+    .lib-secao.ativa { display: block; }
+
+    /* CARROSSEL */
+    .rodada-nav { display: flex; align-items: center; justify-content: center; background: white; border-bottom: 1px solid var(--cinza-borda); padding: 10px 16px; position: sticky; top: 96px; z-index: 80; }
+    .rodada-btn { width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid var(--cinza-borda); background: white; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; color: var(--verde); flex-shrink: 0; }
+    .rodada-btn:hover { background: var(--verde-claro); border-color: var(--verde); }
+    .rodada-btn:disabled { color: var(--cinza-borda); cursor: default; background: white; }
+    .rodada-info { flex: 1; text-align: center; padding: 0 12px; }
+    .rodada-titulo { font-family: var(--font-titulo); font-size: 15px; font-weight: 800; color: var(--preto); text-transform: uppercase; letter-spacing: 0.5px; display: block; }
+    .rodada-subtitulo { font-family: var(--font-corpo); font-size: 11px; color: var(--cinza-texto); display: block; margin-top: 1px; }
+
+    /* FILTROS */
+    .lib-filtros { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 12px 0; max-width: 900px; margin: 0 auto; }
+    @media (min-width: 640px) { .lib-filtros { padding: 14px 24px 0; } }
+
+    /* JOGOS */
+    .lib-jogos-wrap { max-width: 900px; margin: 0 auto; padding: 12px 12px 20px; }
+    @media (min-width: 640px) { .lib-jogos-wrap { padding: 14px 24px 20px; } }
+    .lib-jogo { background: white; border-radius: var(--radius-card); box-shadow: var(--sombra); margin-bottom: 10px; overflow: hidden; text-decoration: none; display: block; transition: transform 0.15s, box-shadow 0.15s; }
+    .lib-jogo:hover { transform: translateY(-1px); box-shadow: var(--sombra-hover); }
+    .lib-jogo-topo { background: #f0f4ff; border-left: 3px solid #0f3460; padding: 5px 12px; font-family: var(--font-titulo); font-size: 11px; font-weight: 700; color: #0f3460; text-transform: uppercase; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center; }
+    .lib-jogo-topo.ao-vivo-topo { background: #fff0f0; border-left-color: var(--vermelho); color: var(--vermelho); }
+    .lib-jogo-corpo { padding: 12px 14px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; }
+    .lib-time { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+    .lib-time-escudo { width: 36px; height: 36px; object-fit: contain; }
+    .lib-time-nome { font-family: var(--font-corpo); font-size: 12px; font-weight: 700; color: var(--preto); }
+    .lib-centro { display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 80px; text-align: center; }
+    .lib-placar { font-family: var(--font-titulo); font-size: 28px; font-weight: 800; color: var(--preto); letter-spacing: 3px; line-height: 1; }
+    .lib-status { font-family: var(--font-corpo); font-size: 11px; font-weight: 600; color: var(--cinza-texto); }
+    .lib-status.vivo { color: var(--vermelho); animation: piscando 1.2s ease infinite; }
+    .lib-status.encerrado { color: #999; }
+    .lib-status.em-breve { color: #e67e00; animation: piscando 1.2s ease infinite; }
+
+    .lib-loading { text-align: center; padding: 40px 20px; color: var(--cinza-texto); }
+    .lib-loading .spinner { width: 28px; height: 28px; border: 3px solid var(--cinza-borda); border-top-color: var(--verde); border-radius: 50%; animation: girar 0.8s linear infinite; margin: 0 auto 12px; }
+    .lib-vazio { text-align: center; padding: 40px 20px; color: var(--cinza-texto); font-family: var(--font-corpo); font-size: 14px; }
+
+    /* TABELA POR GRUPOS */
+    .lib-tabela-wrap { max-width: 900px; margin: 0 auto; padding: 16px 12px 20px; }
+    @media (min-width: 640px) { .lib-tabela-wrap { padding: 20px 24px; } }
+    .lib-grupo-card { background: white; border-radius: var(--radius-card); box-shadow: var(--sombra); margin-bottom: 16px; overflow: hidden; }
+    .lib-grupo-header { background: #0f3460; padding: 8px 14px; font-family: var(--font-titulo); font-size: 14px; font-weight: 800; color: white; text-transform: uppercase; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center; }
+    .lib-grupo-header span { font-size: 11px; font-weight: 400; opacity: 0.75; }
+    table.lib-table { width: 100%; border-collapse: collapse; font-family: var(--font-corpo); font-size: 12px; }
+    .lib-table thead tr { background: var(--cinza-bg); }
+    .lib-table th { padding: 7px 4px; text-align: center; font-weight: 700; color: var(--cinza-texto); font-size: 10px; text-transform: uppercase; }
+    .lib-table th:nth-child(2) { text-align: left; padding-left: 4px; width: 140px; max-width: 140px; }
+    .lib-table td { padding: 9px 4px; text-align: center; border-bottom: 1px solid var(--cinza-borda); color: var(--preto); }
+    .lib-table td:nth-child(2) { text-align: left; padding-left: 4px; width: 140px; max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .lib-table tr:last-child td { border-bottom: none; }
+    .lib-table tbody tr:hover { background: #f8faf9; }
+    .tb-pos { font-weight: 700; font-size: 11px; color: var(--cinza-texto); }
+    .tb-pos.classificado { color: #0f3460; }
+    .tb-pos.rebaixado { color: var(--vermelho); }
+    .tb-time-cell { display: flex; align-items: center; gap: 4px; font-weight: 600; }
+    .tb-escudo { width: 16px; height: 16px; object-fit: contain; flex-shrink: 0; }
+    .tb-pts { font-weight: 800; color: var(--preto); font-size: 13px; }
+    .tb-legenda-wrap { padding: 8px 14px; background: var(--cinza-bg); display: flex; flex-wrap: wrap; gap: 10px; }
+    .tb-legenda-item { display: flex; align-items: center; gap: 5px; font-family: var(--font-corpo); font-size: 10px; color: var(--cinza-texto); }
+    .tb-legenda-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ARTILHARIA */
+    .lib-art-wrap { max-width: 900px; margin: 0 auto; padding: 16px 12px 20px; }
+    @media (min-width: 640px) { .lib-art-wrap { padding: 20px 24px; } }
+    .art-card { background: white; border-radius: var(--radius-card); box-shadow: var(--sombra); margin-bottom: 8px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; }
+    .art-pos { font-family: var(--font-titulo); font-size: 20px; font-weight: 800; color: var(--cinza-borda); width: 28px; text-align: center; flex-shrink: 0; }
+    .art-pos.p1 { color: #f5c800; } .art-pos.p2 { color: #adb5bd; } .art-pos.p3 { color: #cd7f32; }
+    .art-foto { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid var(--cinza-borda); }
+    .art-info { flex: 1; }
+    .art-nome { font-family: var(--font-corpo); font-size: 14px; font-weight: 700; color: var(--preto); }
+    .art-time { font-family: var(--font-corpo); font-size: 11px; color: var(--cinza-texto); margin-top: 2px; }
+    .art-gols { font-family: var(--font-titulo); font-size: 24px; font-weight: 800; color: var(--verde); text-align: center; }
+    .art-gols span { font-family: var(--font-corpo); font-size: 10px; font-weight: 600; color: var(--cinza-texto); display: block; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <span class="logo-principal">Placar <span>do Futebol</span></span>
+        <span class="logo-sub">Resultados ao vivo</span>
+      </a>
+      <div class="header-ao-vivo"><span class="dot-vivo"></span>AO VIVO</div>
+    </div>
+  </header>
+
+  <div class="lib-hero" onclick="atualizarPagina()" title="Clique para atualizar">
+    <div class="lib-hero-titulo">🌎 Libertadores <span>2026</span></div>
+    <div class="lib-hero-sub">CONMEBOL Libertadores · Fase de Grupos</div>
+    <div class="lib-hero-badges">
+      <span class="lib-hero-badge" id="badge-fase">⏳ Carregando...</span>
+      <span class="lib-hero-badge" id="badge-jogos-hoje">📅 Verificando...</span>
+      <span class="lib-hero-badge" id="badge-total-rounds">🏆 Todas as fases</span>
+    </div>
+    <div class="lib-hero-refresh">↻ toque para atualizar</div>
+  </div>
+
+  <nav class="lib-nav">
+    <div class="lib-nav-inner">
+      <div class="lib-tab ativa" onclick="mudarAba(this, 'jogos')">⚽ Jogos</div>
+      <div class="lib-tab" onclick="mudarAba(this, 'tabela')">📊 Tabela</div>
+      <div class="lib-tab" onclick="mudarAba(this, 'artilharia')">👟 Artilharia</div>
+    </div>
+  </nav>
+
+  <main style="padding-bottom: 20px;">
+
+    <!-- JOGOS -->
+    <div id="secao-jogos" class="lib-secao ativa">
+      <div class="rodada-nav">
+        <button class="rodada-btn" id="btn-anterior" onclick="mudarRodada(-1)">&#8592;</button>
+        <div class="rodada-info">
+          <span class="rodada-titulo" id="rodada-titulo">Carregando...</span>
+          <span class="rodada-subtitulo" id="rodada-subtitulo"></span>
+        </div>
+        <button class="rodada-btn" id="btn-proxima" onclick="mudarRodada(1)">&#8594;</button>
+      </div>
+      <div class="lib-filtros">
+        <button class="filtro-btn ativo" onclick="filtrarStatus(this, 'todos')">Todos</button>
+        <button class="filtro-btn" onclick="filtrarStatus(this, 'ao-vivo')">&#9679; Ao Vivo</button>
+        <button class="filtro-btn" onclick="filtrarStatus(this, 'agendado')">Agendados</button>
+        <button class="filtro-btn" onclick="filtrarStatus(this, 'encerrado')">Encerrados</button>
+      </div>
+      <div class="lib-jogos-wrap">
+        <div id="jogos-container" class="lib-loading">
+          <div class="spinner"></div>
+          <p>Carregando jogos...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABELA -->
+    <div id="secao-tabela" class="lib-secao">
+      <div class="lib-tabela-wrap">
+        <div id="tabela-container" class="lib-loading">
+          <div class="spinner"></div>
+          <p>Carregando tabela...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTILHARIA -->
+    <div id="secao-artilharia" class="lib-secao">
+      <div class="lib-art-wrap">
+        <div id="artilharia-container" class="lib-loading">
+          <div class="spinner"></div>
+          <p>Carregando artilharia...</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <nav class="nav-bottom" role="navigation">
+    <a href="/" class="nav-item"><span class="nav-icon">⚽</span><span class="nav-label">Jogos</span></a>
+    <a href="/tabela/" class="nav-item"><span class="nav-icon">📊</span><span class="nav-label">Tabela</span></a>
+    <a href="/noticias/" class="nav-item"><span class="nav-icon">📰</span><span class="nav-label">Noticias</span></a>
+    <a href="/videos/" class="nav-item"><span class="nav-icon">▶️</span><span class="nav-label">Videos</span></a>
+    <a href="/artilharia/" class="nav-item"><span class="nav-icon">👟</span><span class="nav-label">Artilharia</span></a>
+  </nav>
+
+  <footer>
+    <div class="footer-logo">Placar <span>do Futebol</span></div>
+    <div class="footer-links">
+      <a href="/sobre/">Sobre</a>
+      <a href="/privacidade/">Privacidade</a>
+      <a href="/contato/">Contato</a>
+    </div>
+    <p class="footer-copy">© 2026 placardofutebol.com — Resultados ao vivo</p>
+  </footer>
+
+  <script>
+    const PROXY  = 'https://futebol-proxy.placardofutebol-com.workers.dev';
+    const LEAGUE = 13;
+    const SEASON = 2026;
+
+    let todosRounds    = [];
+    let roundIndex     = 0;
+    let jogosPorRound  = {};
+    let statusFiltro   = 'todos';
+    let timerAoVivo    = null;
+
+    // ── Abas ──
+    function mudarAba(el, secao) {
+      document.querySelectorAll('.lib-tab').forEach(t => t.classList.remove('ativa'));
+      document.querySelectorAll('.lib-secao').forEach(s => s.classList.remove('ativa'));
+      el.classList.add('ativa');
+      document.getElementById('secao-' + secao).classList.add('ativa');
+      if (secao === 'tabela') carregarTabela();
+      if (secao === 'artilharia') carregarArtilharia();
+    }
+
+    // ── Filtros ──
+    function filtrarStatus(el, status) {
+      document.querySelectorAll('.lib-filtros .filtro-btn').forEach(b => b.classList.remove('ativo'));
+      el.classList.add('ativo');
+      statusFiltro = status;
+      renderJogos();
+    }
+
+    // ── Atualizar ──
+    function atualizarPagina() {
+      jogosPorRound = {};
+      delete document.getElementById('tabela-container').dataset.loaded;
+      delete document.getElementById('artilharia-container').dataset.loaded;
+      mudarAba(document.querySelector('.lib-tab'), 'jogos');
+      todosRounds = [];
+      inicializar();
+    }
+
+    // ── Inicializar: busca todos os rounds ──
+    async function inicializar() {
+      try {
+        const r = await fetch(`${PROXY}/fixtures/rounds?league=${LEAGUE}&season=${SEASON}`);
+        const d = await r.json();
+        todosRounds = d.response || [];
+
+        if (!todosRounds.length) {
+          document.getElementById('jogos-container').innerHTML =
+            '<div class="lib-vazio">Nenhuma rodada encontrada para esta temporada.</div>';
+          return;
+        }
+
+        document.getElementById('badge-total-rounds').textContent =
+          '🏆 ' + todosRounds.length + ' fases';
+
+        // Detectar round atual
+        await detectarRoundAtual();
+        atualizarBotoes();
+        carregarRound(roundIndex);
+
+      } catch(e) {
+        document.getElementById('jogos-container').innerHTML =
+          '<div class="lib-vazio">⚠️ Erro ao carregar. Tente novamente.</div>';
+      }
+    }
+
+    // ── Detectar round atual via API ──
+    async function detectarRoundAtual() {
+      try {
+        const r = await fetch(`${PROXY}/fixtures/rounds?league=${LEAGUE}&season=${SEASON}&current=true`);
+        const d = await r.json();
+        if (d.response && d.response.length) {
+          const currentRound = d.response[0];
+          const idx = todosRounds.indexOf(currentRound);
+          if (idx >= 0) roundIndex = idx;
+          else roundIndex = todosRounds.length - 1;
+        } else {
+          roundIndex = todosRounds.length - 1;
+        }
+      } catch(e) {
+        roundIndex = todosRounds.length - 1;
+      }
+      document.getElementById('badge-fase').textContent = '📋 ' + todosRounds[roundIndex];
+    }
+
+    // ── Mudar round ──
+    function mudarRodada(dir) {
+      const novo = roundIndex + dir;
+      if (novo < 0 || novo >= todosRounds.length) return;
+      roundIndex = novo;
+      atualizarBotoes();
+      carregarRound(roundIndex);
+    }
+
+    function atualizarBotoes() {
+      document.getElementById('btn-anterior').disabled = roundIndex <= 0;
+      document.getElementById('btn-proxima').disabled  = roundIndex >= todosRounds.length - 1;
+      const round = todosRounds[roundIndex] || '';
+      document.getElementById('rodada-titulo').textContent = round;
+      document.getElementById('badge-fase').textContent = '📋 ' + round;
+    }
+
+    // ── Carregar jogos do round ──
+    async function carregarRound(idx) {
+      const round = todosRounds[idx];
+      if (!round) return;
+
+      document.getElementById('jogos-container').innerHTML =
+        '<div class="lib-loading"><div class="spinner"></div><p>Carregando ' + round + '...</p></div>';
+
+      if (jogosPorRound[round]) { renderJogos(); atualizarSubtitulo(round); return; }
+
+      try {
+        const r = await fetch(`${PROXY}/fixtures?league=${LEAGUE}&season=${SEASON}&round=${encodeURIComponent(round)}`);
+        const d = await r.json();
+        jogosPorRound[round] = d.response || [];
+        renderJogos();
+        atualizarSubtitulo(round);
+        atualizarBadgeHoje(d.response || []);
+        agendarAoVivo();
+      } catch(e) {
+        document.getElementById('jogos-container').innerHTML =
+          '<div class="lib-vazio">⚠️ Erro ao carregar os jogos.</div>';
+      }
+    }
+
+    function atualizarSubtitulo(round) {
+      const jogos = jogosPorRound[round] || [];
+      if (!jogos.length) { document.getElementById('rodada-subtitulo').textContent = ''; return; }
+      const datas = jogos.map(j => new Date(j.fixture.date));
+      const min = new Date(Math.min(...datas));
+      const max = new Date(Math.max(...datas));
+      const fmt = d => d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+      document.getElementById('rodada-subtitulo').textContent =
+        fmt(min) === fmt(max) ? fmt(min) : fmt(min) + ' - ' + fmt(max);
+    }
+
+    function atualizarBadgeHoje(jogos) {
+      const hoje = new Date().toISOString().split('T')[0];
+      const n = jogos.filter(j => j.fixture.date.startsWith(hoje)).length;
+      document.getElementById('badge-jogos-hoje').textContent =
+        n > 0 ? '📅 ' + n + ' jogo' + (n > 1 ? 's' : '') + ' hoje' : '📅 Nenhum jogo hoje';
+    }
+
+    // ── Renderizar jogos ──
+    function renderJogos() {
+      const container = document.getElementById('jogos-container');
+      const round = todosRounds[roundIndex];
+      let jogos = [...(jogosPorRound[round] || [])];
+
+      if (statusFiltro === 'ao-vivo') {
+        jogos = jogos.filter(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
+      } else if (statusFiltro === 'agendado') {
+        jogos = jogos.filter(j => ['NS','TBD'].includes(j.fixture.status.short));
+      } else if (statusFiltro === 'encerrado') {
+        jogos = jogos.filter(j => ['FT','AET','PEN','BT','AWD','WO'].includes(j.fixture.status.short));
+      }
+
+      if (!jogos.length) {
+        container.innerHTML = '<div class="lib-vazio">Nenhum jogo encontrado para este filtro.</div>';
+        return;
+      }
+
+      const ordemStatus = s => {
+        if (['1H','2H','HT','ET','P'].includes(s)) return 0;
+        if (['NS','TBD'].includes(s)) return 1;
+        return 2;
+      };
+      jogos.sort((a,b) => {
+        const diff = ordemStatus(a.fixture.status.short) - ordemStatus(b.fixture.status.short);
+        if (diff !== 0) return diff;
+        return new Date(a.fixture.date) - new Date(b.fixture.date);
+      });
+
+      container.innerHTML = jogos.map(j => cardJogo(j)).join('');
+    }
+
+    function cardJogo(j) {
+      const st = j.fixture.status.short;
+      const gH = j.goals.home;
+      const gA = j.goals.away;
+      const aoVivo    = ['1H','2H','HT','ET','P'].includes(st);
+      const encerrado = ['FT','AET','PEN','BT','AWD','WO'].includes(st);
+      let statusTexto = '', statusClasse = '', topoClasse = '';
+
+      if (aoVivo) {
+        statusClasse = 'vivo'; topoClasse = 'ao-vivo-topo';
+        statusTexto = st === 'HT' ? 'Intervalo' : (j.fixture.status.elapsed || 0) + "'";
+      } else if (encerrado) {
+        statusClasse = 'encerrado'; statusTexto = 'Encerrado';
+      } else {
+        const dataJogo = new Date(j.fixture.date);
+        const diffMin = Math.floor((dataJogo - Date.now()) / 60000);
+        if (diffMin <= 5 && diffMin > -10)      { statusClasse = 'em-breve'; statusTexto = '⚽ Iniciando...'; }
+        else if (diffMin <= 60 && diffMin > 0)  { statusClasse = 'em-breve'; statusTexto = '⏱️ ' + diffMin + 'min'; }
+        else { statusTexto = dataJogo.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }); }
+      }
+
+      const placar = (gH !== null && gA !== null)
+        ? '<span class="lib-placar">' + gH + ' × ' + gA + '</span>'
+        : '<span class="lib-placar" style="font-size:20px;opacity:.5">×</span>';
+
+      const dataFmt = new Date(j.fixture.date).toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: '2-digit' });
+      const estadio = j.fixture.venue?.name || '';
+      const slugH = slugNome(j.teams.home.name);
+      const slugA = slugNome(j.teams.away.name);
+
+      return '<a href="/libertadores/' + slugH + '-vs-' + slugA + '/" class="lib-jogo">' +
+        '<div class="lib-jogo-topo ' + topoClasse + '"><span>' + (aoVivo ? '🔴 AO VIVO' : dataFmt) + '</span><span>' + estadio + '</span></div>' +
+        '<div class="lib-jogo-corpo">' +
+        '<div class="lib-time"><img class="lib-time-escudo" src="' + j.teams.home.logo + '" onerror="this.style.display=\'none\'"><span class="lib-time-nome">' + j.teams.home.name + '</span></div>' +
+        '<div class="lib-centro">' + placar + '<div class="lib-status ' + statusClasse + '">' + statusTexto + '</div></div>' +
+        '<div class="lib-time"><img class="lib-time-escudo" src="' + j.teams.away.logo + '" onerror="this.style.display=\'none\'"><span class="lib-time-nome">' + j.teams.away.name + '</span></div>' +
+        '</div></a>';
+    }
+
+    function slugNome(nome) {
+      return nome.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    }
+
+    // ── Ao vivo ──
+    function agendarAoVivo() {
+      clearTimeout(timerAoVivo);
+      const round = todosRounds[roundIndex];
+      const jogos = jogosPorRound[round] || [];
+      const temVivo = jogos.some(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
+      if (temVivo) {
+        timerAoVivo = setTimeout(async () => {
+          delete jogosPorRound[round];
+          await carregarRound(roundIndex);
+        }, 30000);
+      } else {
+        const temAgendado = jogos.some(j => ['NS','TBD'].includes(j.fixture.status.short));
+        if (temAgendado) timerAoVivo = setTimeout(async () => {
+          delete jogosPorRound[round];
+          await carregarRound(roundIndex);
+        }, 60000);
+      }
+    }
+
+    // ── TABELA por grupos ──
+    async function carregarTabela() {
+      const container = document.getElementById('tabela-container');
+      if (container.dataset.loaded === '1') return;
+      container.innerHTML = '<div class="lib-loading"><div class="spinner"></div><p>Carregando tabela...</p></div>';
+
+      try {
+        const r = await fetch(`${PROXY}/standings?league=${LEAGUE}&season=${SEASON}`);
+        const d = await r.json();
+        if (!d.response || !d.response.length) throw new Error('Sem dados');
+
+        const grupos = d.response[0].league.standings;
+        let html = '';
+
+        grupos.forEach(grupo => {
+          const nomeGrupo = grupo[0]?.group || 'Grupo';
+          html += '<div class="lib-grupo-card">' +
+            '<div class="lib-grupo-header">' + nomeGrupo + '<span>Atualizado ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) + '</span></div>' +
+            '<table class="lib-table"><thead><tr><th>#</th><th>Clube</th><th>Pts</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th></tr></thead><tbody>';
+
+          grupo.forEach((t, i) => {
+            const pos = i + 1;
+            const posClasse = pos <= 2 ? 'classificado' : pos >= grupo.length - 1 ? 'rebaixado' : '';
+            html += '<tr>' +
+              '<td class="tb-pos ' + posClasse + '">' + pos + '</td>' +
+              '<td><div class="tb-time-cell"><img class="tb-escudo" src="' + t.team.logo + '" onerror="this.style.display=\'none\'">' + t.team.name + '</div></td>' +
+              '<td class="tb-pts">' + t.points + '</td>' +
+              '<td>' + t.all.played + '</td>' +
+              '<td>' + t.all.win + '</td>' +
+              '<td>' + t.all.draw + '</td>' +
+              '<td>' + t.all.lose + '</td>' +
+              '<td>' + t.all.goals.for + '</td>' +
+              '<td>' + t.all.goals.against + '</td>' +
+              '<td>' + t.goalsDiff + '</td>' +
+              '</tr>';
+          });
+
+          html += '</tbody></table>' +
+            '<div class="tb-legenda-wrap">' +
+            '<div class="tb-legenda-item"><div class="tb-legenda-dot" style="background:#0f3460"></div>Classificado</div>' +
+            '<div class="tb-legenda-item"><div class="tb-legenda-dot" style="background:var(--vermelho)"></div>Eliminado</div>' +
+            '</div></div>';
+        });
+
+        container.innerHTML = html;
+        container.dataset.loaded = '1';
+
+      } catch(e) {
+        container.innerHTML = '<div class="lib-vazio">⚠️ Nao foi possivel carregar a tabela.</div>';
+      }
+    }
+
+    // ── ARTILHARIA ──
+    async function carregarArtilharia() {
+      const container = document.getElementById('artilharia-container');
+      if (container.dataset.loaded === '1') return;
+      container.innerHTML = '<div class="lib-loading"><div class="spinner"></div><p>Carregando artilharia...</p></div>';
+
+      try {
+        const r = await fetch(`${PROXY}/players/topscorers?league=${LEAGUE}&season=${SEASON}`);
+        const d = await r.json();
+        if (!d.response || !d.response.length) throw new Error('Sem dados');
+
+        const posClasses = ['p1','p2','p3'];
+        container.innerHTML = d.response.map((item, i) => {
+          const p = item.player;
+          const s = item.statistics[0];
+          const gols = s.goals.total || 0;
+          return '<div class="art-card">' +
+            '<div class="art-pos ' + (posClasses[i]||'') + '">' + (i+1) + '</div>' +
+            '<img class="art-foto" src="' + p.photo + '" onerror="this.style.display=\'none\'">' +
+            '<div class="art-info"><div class="art-nome">' + p.name + '</div>' +
+            '<div class="art-time"><img src="' + s.team.logo + '" style="width:12px;height:12px;object-fit:contain;vertical-align:middle;margin-right:3px" onerror="this.style.display=\'none\'"> ' + s.team.name + '</div></div>' +
+            '<div class="art-gols">' + gols + '<span>gols</span></div></div>';
+        }).join('');
+        container.dataset.loaded = '1';
+
+      } catch(e) {
+        container.innerHTML = '<div class="lib-vazio">⚠️ Nao foi possivel carregar a artilharia.</div>';
+      }
+    }
+
+    // ── Iniciar ──
+    inicializar();
+
+    setInterval(() => {
+      const secao = document.getElementById('secao-jogos');
+      if (!secao.classList.contains('ativa')) return;
+      const round = todosRounds[roundIndex];
+      const jogos = jogosPorRound[round] || [];
+      const temVivo = jogos.some(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
+      if (temVivo) renderJogos();
+    }, 30000);
+  </script>
+
+</body>
+</html>
