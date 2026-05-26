@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="La Liga EA Sports 2025/26 - Jogos, Tabela de Classificação e Artilharia. Acompanhe todas as rodadas ao vivo.">
+  <meta name="theme-color" content="#1a1a1a">
+  <title>La Liga 2025/26 - Jogos, Tabela e Artilharia | Placar do Futebol</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <style>
+    /* ── VARIÁVEIS LA LIGA ── */
+    :root {
+      --ll-preto:        #1a1a1a;
+      --ll-preto-meio:   #252525;
+      --ll-laranja:      #ff4b00;
+      --ll-laranja-2:    #e64200;
+      --ll-laranja-claro:#ff6a2a;
+      --ll-bg:           #f5f3f0;
+      --ll-borda:        #e8e3dc;
+      --ll-texto-cinza:  #6b6560;
+    }
+
+    /* ── HERO ── */
+    .ll-hero {
+      background: linear-gradient(135deg, #0d0d0d 0%, var(--ll-preto) 45%, #2a1a0d 80%, #3d1f00 100%);
+      padding: 20px 16px 18px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      user-select: none;
+    }
+    .ll-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 75% 40%, rgba(255,75,0,0.22) 0%, transparent 55%),
+        radial-gradient(ellipse at 15% 70%, rgba(255,75,0,0.10) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    /* Linha laranja decorativa no topo */
+    .ll-hero::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--ll-laranja), var(--ll-laranja-claro), var(--ll-laranja), transparent);
+      pointer-events: none;
+    }
+    .ll-hero:active { opacity: 0.92; }
+
+    .ll-hero-badge-liga {
+      display: inline-block;
+      background: var(--ll-laranja);
+      color: white;
+      font-family: var(--font-titulo);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 3px;
+      margin-bottom: 8px;
+    }
+    .ll-hero-titulo {
+      font-family: var(--font-titulo);
+      font-size: 28px;
+      font-weight: 900;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      line-height: 1;
+    }
+    .ll-hero-titulo span { color: var(--ll-laranja); }
+    .ll-hero-sub {
+      font-family: var(--font-corpo);
+      font-size: 10px;
+      color: rgba(255,255,255,0.45);
+      margin-top: 5px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+    }
+    .ll-hero-badges {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .ll-hero-badge {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,75,0,0.30);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-family: var(--font-corpo);
+      font-size: 11px;
+      color: rgba(255,255,255,0.85);
+      font-weight: 600;
+    }
+    .ll-hero-badge.destaque {
+      background: rgba(255,75,0,0.20);
+      border-color: rgba(255,75,0,0.60);
+      color: var(--ll-laranja-claro);
+    }
+    .ll-hero-refresh {
+      font-family: var(--font-corpo);
+      font-size: 10px;
+      color: rgba(255,255,255,0.25);
+      margin-top: 8px;
+      letter-spacing: 1px;
+    }
+
+    /* ── NAV ABAS ── */
+    .ll-nav {
+      background: white;
+      border-bottom: 2px solid var(--ll-borda);
+      position: sticky;
+      top: 52px;
+      z-index: 85;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .ll-nav::-webkit-scrollbar { display: none; }
+    .ll-nav-inner {
+      display: flex;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .ll-tab {
+      padding: 12px 22px;
+      font-family: var(--font-corpo);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ll-texto-cinza);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .ll-tab:hover { color: var(--ll-preto); }
+    .ll-tab.ativa { color: var(--ll-preto); border-bottom-color: var(--ll-laranja); }
+
+    /* ── SEÇÕES ── */
+    .ll-secao { display: none; }
+    .ll-secao.ativa { display: block; }
+
+    /* ── CARROSSEL DE RODADAS ── */
+    .rodada-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      background: white;
+      border-bottom: 1px solid var(--ll-borda);
+      padding: 10px 16px;
+      position: sticky;
+      top: 96px;
+      z-index: 80;
+    }
+    .rodada-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1.5px solid var(--ll-borda);
+      background: white;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      color: var(--ll-laranja);
+      flex-shrink: 0;
+    }
+    .rodada-btn:hover { background: var(--ll-bg); border-color: var(--ll-laranja); }
+    .rodada-btn:disabled { color: var(--ll-borda); cursor: default; background: white; }
+    .rodada-info {
+      flex: 1;
+      text-align: center;
+      padding: 0 12px;
+    }
+    .rodada-titulo {
+      font-family: var(--font-titulo);
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--ll-preto);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: block;
+    }
+    .rodada-subtitulo {
+      font-family: var(--font-corpo);
+      font-size: 11px;
+      color: var(--ll-texto-cinza);
+      display: block;
+      margin-top: 1px;
+    }
+
+    /* ── FILTROS ── */
+    .ll-filtros {
+      display: flex;
+      gap: 8px;
+      padding: 12px 12px 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .ll-filtros::-webkit-scrollbar { display: none; }
+    @media (min-width: 640px) { .ll-filtros { padding: 14px 24px 0; } }
+
+    /* ── JOGOS LISTA ── */
+    .ll-jogos-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 12px 12px 20px;
+    }
+    @media (min-width: 640px) { .ll-jogos-wrap { padding: 14px 24px 20px; } }
+
+    .ll-jogo {
+      background: white;
+      border-radius: var(--radius-card);
+      box-shadow: var(--sombra);
+      margin-bottom: 10px;
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .ll-jogo:hover { transform: translateY(-1px); box-shadow: var(--sombra-hover); }
+
+    .ll-jogo-topo {
+      background: var(--ll-bg);
+      border-left: 3px solid var(--ll-laranja);
+      padding: 5px 12px;
+      font-family: var(--font-titulo);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ll-preto-meio);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ll-jogo-topo.ao-vivo-topo {
+      background: #fff0f0;
+      border-left-color: var(--vermelho);
+      color: var(--vermelho);
+    }
+    .ll-jogo-corpo {
+      padding: 12px 14px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 8px;
+    }
+    .ll-time {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-align: center;
+    }
+    .ll-time-escudo {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+    }
+    .ll-time-nome {
+      font-family: var(--font-corpo);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--preto);
+    }
+    .ll-centro {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      min-width: 80px;
+      text-align: center;
+    }
+    .ll-placar {
+      font-family: var(--font-titulo);
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--ll-preto);
+      letter-spacing: 3px;
+      line-height: 1;
+    }
+    .ll-status {
+      font-family: var(--font-corpo);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ll-texto-cinza);
+    }
+    .ll-status.vivo    { color: var(--vermelho); animation: piscando 1.2s ease infinite; }
+    .ll-status.encerrado { color: #999; }
+    .ll-status.em-breve  { color: #e67e00; animation: piscando 1.2s ease infinite; }
+
+    /* ── LOADING / VAZIO ── */
+    .ll-loading {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--ll-texto-cinza);
+    }
+    .ll-loading .spinner {
+      width: 28px; height: 28px;
+      border: 3px solid var(--ll-borda);
+      border-top-color: var(--ll-laranja);
+      border-radius: 50%;
+      animation: girar 0.8s linear infinite;
+      margin: 0 auto 12px;
+    }
+    .ll-vazio {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--ll-texto-cinza);
+      font-family: var(--font-corpo);
+      font-size: 14px;
+    }
+
+    /* ── TABELA ── */
+    .ll-tabela-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px 12px 20px;
+    }
+    @media (min-width: 640px) { .ll-tabela-wrap { padding: 20px 24px; } }
+
+    .ll-tabela-card {
+      background: white;
+      border-radius: var(--radius-card);
+      box-shadow: var(--sombra);
+      overflow: hidden;
+    }
+    .ll-tabela-header {
+      background: linear-gradient(135deg, var(--ll-preto) 0%, #2d1200 100%);
+      padding: 10px 16px;
+      font-family: var(--font-titulo);
+      font-size: 14px;
+      font-weight: 800;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-left: 4px solid var(--ll-laranja);
+    }
+    .ll-tabela-legenda {
+      font-size: 10px;
+      font-weight: 400;
+      opacity: 0.6;
+    }
+
+    table.ll-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-corpo);
+      font-size: 12px;
+    }
+    .ll-table thead tr { background: #faf9f7; }
+    .ll-table th {
+      padding: 7px 4px;
+      text-align: center;
+      font-weight: 700;
+      color: var(--ll-texto-cinza);
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+    .ll-table th:nth-child(2) { text-align: left; padding-left: 4px; width: 140px; max-width: 140px; }
+    .ll-table td {
+      padding: 9px 4px;
+      text-align: center;
+      border-bottom: 1px solid var(--ll-borda);
+      color: var(--preto);
+    }
+    .ll-table td:nth-child(2) {
+      text-align: left; padding-left: 4px;
+      width: 140px; max-width: 140px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .ll-table tr:last-child td { border-bottom: none; }
+    .ll-table tbody tr:hover { background: #fdf9f6; }
+
+    /* Zonas La Liga */
+    .tb-pos { font-weight: 700; font-size: 11px; color: var(--ll-texto-cinza); }
+    .tb-pos.lider       { color: var(--ll-laranja); font-size: 13px; }
+    .tb-pos.champions   { color: #1565C0; }
+    .tb-pos.europa      { color: #e67e00; }
+    .tb-pos.conference  { color: #2e7d32; }
+    .tb-pos.rebaixado   { color: var(--vermelho); }
+
+    .ll-table tbody tr.zona-lider     td:first-child { border-left: 3px solid var(--ll-laranja); }
+    .ll-table tbody tr.zona-champions td:first-child { border-left: 3px solid #1565C0; }
+    .ll-table tbody tr.zona-europa    td:first-child { border-left: 3px solid #e67e00; }
+    .ll-table tbody tr.zona-conference td:first-child { border-left: 3px solid #2e7d32; }
+    .ll-table tbody tr.zona-rebaixado td:first-child { border-left: 3px solid var(--vermelho); }
+
+    .tb-time-cell { display: flex; align-items: center; gap: 4px; font-weight: 600; }
+    .tb-escudo    { width: 16px; height: 16px; object-fit: contain; flex-shrink: 0; }
+    .tb-pts       { font-weight: 800; color: var(--preto); font-size: 13px; }
+
+    .tb-legenda-wrap {
+      padding: 10px 14px;
+      background: #faf9f7;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .tb-legenda-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-corpo);
+      font-size: 10px;
+      color: var(--ll-texto-cinza);
+    }
+    .tb-legenda-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── ARTILHARIA ── */
+    .ll-art-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px 12px 20px;
+    }
+    @media (min-width: 640px) { .ll-art-wrap { padding: 20px 24px; } }
+
+    .art-card {
+      background: white;
+      border-radius: var(--radius-card);
+      box-shadow: var(--sombra);
+      margin-bottom: 8px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .art-pos {
+      font-family: var(--font-titulo);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--ll-borda);
+      width: 28px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .art-pos.p1 { color: var(--ll-laranja); }
+    .art-pos.p2 { color: #adb5bd; }
+    .art-pos.p3 { color: #cd7f32; }
+    .art-foto {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 2px solid var(--ll-borda);
+    }
+    .art-info { flex: 1; }
+    .art-nome {
+      font-family: var(--font-corpo);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--preto);
+    }
+    .art-time {
+      font-family: var(--font-corpo);
+      font-size: 11px;
+      color: var(--ll-texto-cinza);
+      margin-top: 2px;
+    }
+    .art-gols {
+      font-family: var(--font-titulo);
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--ll-laranja);
+      text-align: center;
+    }
+    .art-gols span {
+      font-family: var(--font-corpo);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--ll-texto-cinza);
+      display: block;
+    }
+
+    @keyframes girar   { to { transform: rotate(360deg); } }
+    @keyframes piscando { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <span class="logo-principal">Placar <span>do Futebol</span></span>
+        <span class="logo-sub">Resultados ao vivo</span>
+      </a>
+      <div class="header-ao-vivo"><span class="dot-vivo"></span>AO VIVO</div>
+    </div>
+  </header>
+
+  <!-- ── HERO LA LIGA ── -->
+  <div class="ll-hero" onclick="atualizarPagina()" title="Clique para atualizar">
+    <div class="ll-hero-badge-liga">LaLiga EA Sports</div>
+    <div class="ll-hero-titulo">La <span>Liga</span> 2026</div>
+    <div class="ll-hero-sub">España · 20 clubes · 38 jornadas</div>
+    <div class="ll-hero-badges">
+      <span class="ll-hero-badge">⚽ 380 Partidos</span>
+      <span class="ll-hero-badge destaque" id="badge-rodada-atual">⏳ Carregando...</span>
+      <span class="ll-hero-badge" id="badge-jogos-hoje">📅 Verificando...</span>
+    </div>
+    <div class="ll-hero-refresh">↻ toque para atualizar</div>
+  </div>
+
+  <!-- ── ABAS ── -->
+  <nav class="ll-nav">
+    <div class="ll-nav-inner">
+      <div class="ll-tab ativa" onclick="mudarAba(this, 'jogos')">⚽ Jogos</div>
+      <div class="ll-tab" onclick="mudarAba(this, 'tabela')">📊 Tabela</div>
+      <div class="ll-tab" onclick="mudarAba(this, 'artilharia')">👟 Artilharia</div>
+    </div>
+  </nav>
+
+  <main style="padding-bottom: 20px;">
+
+    <!-- ===== JOGOS ===== -->
+    <div id="secao-jogos" class="ll-secao ativa">
+
+      <div class="rodada-nav">
+        <button class="rodada-btn" id="btn-anterior" onclick="mudarRodada(-1)" title="Jornada anterior">&#8592;</button>
+        <div class="rodada-info">
+          <span class="rodada-titulo" id="rodada-titulo">Jornada 1</span>
+          <span class="rodada-subtitulo" id="rodada-subtitulo">Carregando...</span>
+        </div>
+        <button class="rodada-btn" id="btn-proxima" onclick="mudarRodada(1)" title="Próxima jornada">&#8594;</button>
+      </div>
+
+      <div class="ll-filtros">
+        <button class="filtro-btn ativo" onclick="filtrarStatus(this, 'todos')">Todos</button>
+        <button class="filtro-btn" onclick="filtrarStatus(this, 'ao-vivo')">● Ao Vivo</button>
+        <button class="filtro-btn" onclick="filtrarStatus(this, 'agendado')">Agendados</button>
+        <button class="filtro-btn" onclick="filtrarStatus(this, 'encerrado')">Encerrados</button>
+      </div>
+
+      <div class="ll-jogos-wrap">
+        <div id="jogos-container" class="ll-loading">
+          <div class="spinner"></div>
+          <p>Carregando jogos...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TABELA ===== -->
+    <div id="secao-tabela" class="ll-secao">
+      <div class="ll-tabela-wrap">
+        <div class="ll-tabela-card">
+          <div class="ll-tabela-header">
+            <span>🇪🇸 LaLiga EA Sports 2025/26</span>
+            <span class="ll-tabela-legenda" id="tabela-atualizada"></span>
+          </div>
+          <table class="ll-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Clube</th>
+                <th>Pts</th>
+                <th>J</th>
+                <th>V</th>
+                <th>E</th>
+                <th>D</th>
+                <th>GP</th>
+                <th>GC</th>
+                <th>SG</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-body">
+              <tr><td colspan="10" style="text-align:center;padding:20px;color:var(--ll-texto-cinza);font-size:13px;">Carregando classificação...</td></tr>
+            </tbody>
+          </table>
+          <div class="tb-legenda-wrap">
+            <div class="tb-legenda-item"><div class="tb-legenda-dot" style="background:#1565C0"></div>Champions League</div>
+            <div class="tb-legenda-item"><div class="tb-legenda-dot" style="background:#e67e00"></div>Europa League</div>
+            <div class="tb-legenda-item"><div class="tb-legenda-dot" style="background:#2e7d32"></div>Conference League</div>
+            <div class="tb-legenda-item"><div class="tb-legenda-dot" style="background:var(--vermelho)"></div>Rebaixamento</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ARTILHARIA ===== -->
+    <div id="secao-artilharia" class="ll-secao">
+      <div class="ll-art-wrap">
+        <div id="artilharia-container" class="ll-loading">
+          <div class="spinner"></div>
+          <p>Carregando artilharia...</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <nav class="nav-bottom" role="navigation" aria-label="Navegação principal">
+    <a href="/" class="nav-item"><span class="nav-icon">⚽</span><span class="nav-label">Jogos</span></a>
+    <a href="/tabela/" class="nav-item"><span class="nav-icon">📊</span><span class="nav-label">Tabela</span></a>
+    <a href="/noticias/" class="nav-item"><span class="nav-icon">📰</span><span class="nav-label">Notícias</span></a>
+    <a href="/videos/" class="nav-item"><span class="nav-icon">▶️</span><span class="nav-label">Vídeos</span></a>
+    <a href="/artilharia/" class="nav-item"><span class="nav-icon">👟</span><span class="nav-label">Artilharia</span></a>
+  </nav>
+
+  <footer>
+    <div class="footer-logo">Placar <span>do Futebol</span></div>
+    <div class="footer-links">
+      <a href="/sobre/">Sobre</a>
+      <a href="/privacidade/">Privacidade</a>
+      <a href="/contato/">Contato</a>
+    </div>
+    <p class="footer-copy">© 2026 placardofutebol.com — Resultados ao vivo</p>
+  </footer>
+
+  <script>
+    const PROXY        = 'https://futebol-proxy.placardofutebol-com.workers.dev';
+    const LEAGUE       = 140;   // La Liga na API-Football
+    const SEASON       = 2026;
+    const TOTAL_RODADAS = 38;
+
+    let rodadaAtual    = 1;
+    let rodadaVendo    = 1;
+    let jogosPorRodada = {};
+    let statusFiltro   = 'todos';
+    let timerAoVivo    = null;
+
+    // ── Extrair número da rodada do string da API ──
+    // La Liga usa "Regular Season - 1", "Regular Season - 2", etc.
+    function parsearRodada(str) {
+      const m = str.match(/(\d+)$/);
+      return m ? parseInt(m[1]) : null;
+    }
+
+    function roundStr(n) {
+      return `Regular Season - ${n}`;
+    }
+
+    // ── Navegação por abas ──
+    function mudarAba(el, secao) {
+      document.querySelectorAll('.ll-tab').forEach(t => t.classList.remove('ativa'));
+      document.querySelectorAll('.ll-secao').forEach(s => s.classList.remove('ativa'));
+      el.classList.add('ativa');
+      document.getElementById('secao-' + secao).classList.add('ativa');
+      if (secao === 'tabela')     carregarTabela();
+      if (secao === 'artilharia') carregarArtilharia();
+      location.hash = secao;
+    }
+
+    (function() {
+      const hash = location.hash.replace('#', '');
+      const validas = ['jogos','tabela','artilharia'];
+      if (validas.includes(hash)) {
+        const tab = document.querySelector(`[onclick*="${hash}"]`);
+        if (tab) mudarAba(tab, hash);
+      }
+    })();
+
+    // ── Filtro de status ──
+    function filtrarStatus(el, status) {
+      document.querySelectorAll('.ll-filtros .filtro-btn').forEach(b => b.classList.remove('ativo'));
+      el.classList.add('ativo');
+      statusFiltro = status;
+      renderJogos();
+    }
+
+    // ── Atualizar página ──
+    function atualizarPagina() {
+      jogosPorRodada = {};
+      delete document.getElementById('tabela-body').dataset.loaded;
+      delete document.getElementById('artilharia-container').dataset.loaded;
+      mudarAba(document.querySelector('.ll-tab'), 'jogos');
+      carregarRodada(rodadaVendo);
+    }
+
+    // ── Determinar jornada atual ──
+    async function determinarRodadaAtual() {
+      try {
+        const r = await fetch(`${PROXY}/fixtures/rounds?league=${LEAGUE}&season=${SEASON}&current=true`);
+        const d = await r.json();
+        if (d.response && d.response.length) {
+          const n = parsearRodada(d.response[0]);
+          if (n) { rodadaAtual = n; rodadaVendo = n; }
+        }
+      } catch(e) {
+        console.log('Jornada atual não detectada, usando 1');
+      }
+      document.getElementById('badge-rodada-atual').textContent = `🏆 Jornada ${rodadaAtual}`;
+      atualizarBotoesRodada();
+      carregarRodada(rodadaVendo);
+    }
+
+    // ── Mudar rodada ──
+    function mudarRodada(dir) {
+      const nova = rodadaVendo + dir;
+      if (nova < 1 || nova > TOTAL_RODADAS) return;
+      rodadaVendo = nova;
+      atualizarBotoesRodada();
+      carregarRodada(rodadaVendo);
+    }
+
+    function atualizarBotoesRodada() {
+      document.getElementById('btn-anterior').disabled = rodadaVendo <= 1;
+      document.getElementById('btn-proxima').disabled  = rodadaVendo >= TOTAL_RODADAS;
+      document.getElementById('rodada-titulo').textContent = `Jornada ${rodadaVendo}`;
+    }
+
+    // ── Carregar jogos de uma jornada ──
+    async function carregarRodada(rodada) {
+      document.getElementById('jogos-container').innerHTML = `
+        <div class="ll-loading"><div class="spinner"></div><p>Carregando jornada ${rodada}...</p></div>`;
+
+      if (jogosPorRodada[rodada]) { renderJogos(); return; }
+
+      try {
+        const r = await fetch(`${PROXY}/fixtures?league=${LEAGUE}&season=${SEASON}&round=${encodeURIComponent(roundStr(rodada))}`);
+        const d = await r.json();
+        jogosPorRodada[rodada] = d.response || [];
+        renderJogos();
+        atualizarSubtitulo(rodada);
+        atualizarBadgeHoje(d.response || []);
+        agendarAoVivo();
+      } catch(e) {
+        document.getElementById('jogos-container').innerHTML =
+          `<div class="ll-vazio">⚠️ Erro ao carregar os jogos. Tente novamente.</div>`;
+      }
+    }
+
+    function atualizarSubtitulo(rodada) {
+      const jogos = jogosPorRodada[rodada] || [];
+      if (!jogos.length) {
+        document.getElementById('rodada-subtitulo').textContent = 'Sem jogos';
+        return;
+      }
+      const datas = jogos.map(j => new Date(j.fixture.date));
+      const min = new Date(Math.min(...datas));
+      const max = new Date(Math.max(...datas));
+      const fmt = d => d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+      document.getElementById('rodada-subtitulo').textContent =
+        fmt(min) === fmt(max) ? fmt(min) : `${fmt(min)} – ${fmt(max)}`;
+    }
+
+    function atualizarBadgeHoje(jogos) {
+      const hoje = new Date().toISOString().split('T')[0];
+      const n = jogos.filter(j => j.fixture.date.startsWith(hoje)).length;
+      document.getElementById('badge-jogos-hoje').textContent =
+        n > 0 ? `📅 ${n} jogo${n > 1 ? 's' : ''} hoje` : '📅 Nenhum jogo hoje';
+    }
+
+    // ── Renderizar jogos ──
+    function renderJogos() {
+      const container = document.getElementById('jogos-container');
+      let jogos = [...(jogosPorRodada[rodadaVendo] || [])];
+
+      if (statusFiltro === 'ao-vivo') {
+        jogos = jogos.filter(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
+      } else if (statusFiltro === 'agendado') {
+        jogos = jogos.filter(j => ['NS','TBD'].includes(j.fixture.status.short));
+      } else if (statusFiltro === 'encerrado') {
+        jogos = jogos.filter(j => ['FT','AET','PEN','BT','AWD','WO'].includes(j.fixture.status.short));
+      }
+
+      if (!jogos.length) {
+        container.innerHTML = `<div class="ll-vazio">Nenhum jogo encontrado para este filtro.</div>`;
+        return;
+      }
+
+      const ordemStatus = s => {
+        if (['1H','2H','HT','ET','P'].includes(s)) return 0;
+        if (['NS','TBD'].includes(s)) return 1;
+        return 2;
+      };
+      jogos.sort((a,b) => {
+        const diff = ordemStatus(a.fixture.status.short) - ordemStatus(b.fixture.status.short);
+        if (diff !== 0) return diff;
+        return new Date(a.fixture.date) - new Date(b.fixture.date);
+      });
+
+      container.innerHTML = jogos.map(j => cardJogo(j)).join('');
+    }
+
+    function cardJogo(j) {
+      const st = j.fixture.status.short;
+      const gH = j.goals.home;
+      const gA = j.goals.away;
+      const aoVivo    = ['1H','2H','HT','ET','P'].includes(st);
+      const encerrado = ['FT','AET','PEN','BT','AWD','WO'].includes(st);
+
+      let statusTexto = '', statusClasse = '', topoClasse = '';
+
+      if (aoVivo) {
+        statusClasse = 'vivo';
+        topoClasse   = 'ao-vivo-topo';
+        statusTexto  = st === 'HT' ? 'Intervalo' : `${j.fixture.status.elapsed || 0}'`;
+      } else if (encerrado) {
+        statusClasse = 'encerrado';
+        statusTexto  = 'Encerrado';
+      } else {
+        const dataJogo = new Date(j.fixture.date);
+        const diffMin  = Math.floor((dataJogo - Date.now()) / 60000);
+        if (diffMin <= 5 && diffMin > -10) {
+          statusClasse = 'em-breve'; statusTexto = '⚽ Iniciando...';
+        } else if (diffMin <= 60 && diffMin > 0) {
+          statusClasse = 'em-breve'; statusTexto = `⏱️ ${diffMin}min`;
+        } else {
+          statusTexto = dataJogo.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        }
+      }
+
+      const placar = (gH !== null && gA !== null)
+        ? `<span class="ll-placar">${gH} × ${gA}</span>`
+        : `<span class="ll-placar" style="font-size:20px;opacity:.35">×</span>`;
+
+      const dataFmt = new Date(j.fixture.date).toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: '2-digit' });
+      const estadio = j.fixture.venue?.name || '';
+
+      return `
+        <a href="/la-liga/${slugTime(j.teams.home.name)}-vs-${slugTime(j.teams.away.name)}/" class="ll-jogo">
+          <div class="ll-jogo-topo ${topoClasse}">
+            <span>${aoVivo ? '🔴 AO VIVO' : dataFmt}</span>
+            <span>${estadio}</span>
+          </div>
+          <div class="ll-jogo-corpo">
+            <div class="ll-time">
+              <img class="ll-time-escudo" src="${j.teams.home.logo}" alt="${j.teams.home.name}"
+                onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><text y=\'18\' font-size=\'18\'>⚽</text></svg>'">
+              <span class="ll-time-nome">${j.teams.home.name}</span>
+            </div>
+            <div class="ll-centro">
+              ${placar}
+              <div class="ll-status ${statusClasse}">${statusTexto}</div>
+            </div>
+            <div class="ll-time">
+              <img class="ll-time-escudo" src="${j.teams.away.logo}" alt="${j.teams.away.name}"
+                onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><text y=\'18\' font-size=\'18\'>⚽</text></svg>'">
+              <span class="ll-time-nome">${j.teams.away.name}</span>
+            </div>
+          </div>
+        </a>`;
+    }
+
+    function slugTime(nome) {
+      return nome.toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '');
+    }
+
+    // ── Atualização ao vivo ──
+    function agendarAoVivo() {
+      clearTimeout(timerAoVivo);
+      const jogos = jogosPorRodada[rodadaVendo] || [];
+      const temVivo = jogos.some(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
+      if (temVivo) {
+        timerAoVivo = setTimeout(async () => {
+          delete jogosPorRodada[rodadaVendo];
+          await carregarRodada(rodadaVendo);
+        }, 30000);
+      } else {
+        const temAgendado = jogos.some(j => ['NS','TBD'].includes(j.fixture.status.short));
+        if (temAgendado) {
+          timerAoVivo = setTimeout(async () => {
+            delete jogosPorRodada[rodadaVendo];
+            await carregarRodada(rodadaVendo);
+          }, 60000);
+        }
+      }
+    }
+
+    // ── TABELA ──
+    async function carregarTabela() {
+      const tbody = document.getElementById('tabela-body');
+      if (tbody.dataset.loaded === '1') return;
+
+      tbody.innerHTML = `<tr><td colspan="10" style="text-align:center;padding:20px;color:var(--ll-texto-cinza)">
+        <div class="spinner" style="margin:0 auto 8px;width:24px;height:24px;border:3px solid var(--ll-borda);border-top-color:var(--ll-laranja);border-radius:50%;animation:girar 0.8s linear infinite"></div>
+        Carregando...</td></tr>`;
+
+      try {
+        const r = await fetch(`${PROXY}/standings?league=${LEAGUE}&season=${SEASON}`);
+        const d = await r.json();
+        if (!d.response || !d.response.length) throw new Error('Sem dados');
+
+        const standings = d.response[0].league.standings[0];
+        tbody.innerHTML = standings.map((t, i) => {
+          const pos = i + 1;
+          let posClasse = '', zonaClasse = '';
+
+          if (pos === 1)       { posClasse = 'lider';      zonaClasse = 'zona-lider'; }
+          else if (pos <= 4)   { posClasse = 'champions';  zonaClasse = 'zona-champions'; }
+          else if (pos === 5)  { posClasse = 'europa';     zonaClasse = 'zona-europa'; }
+          else if (pos <= 7)   { posClasse = 'conference'; zonaClasse = 'zona-conference'; }
+          else if (pos >= 18)  { posClasse = 'rebaixado';  zonaClasse = 'zona-rebaixado'; }
+
+          return `
+            <tr class="${zonaClasse}">
+              <td class="tb-pos ${posClasse}">${pos}</td>
+              <td>
+                <div class="tb-time-cell">
+                  <img class="tb-escudo" src="${t.team.logo}" alt="${t.team.name}"
+                    onerror="this.style.display='none'">
+                  ${t.team.name}
+                </div>
+              </td>
+              <td class="tb-pts">${t.points}</td>
+              <td>${t.all.played}</td>
+              <td>${t.all.win}</td>
+              <td>${t.all.draw}</td>
+              <td>${t.all.lose}</td>
+              <td>${t.all.goals.for}</td>
+              <td>${t.all.goals.against}</td>
+              <td>${t.goalsDiff}</td>
+            </tr>`;
+        }).join('');
+
+        tbody.dataset.loaded = '1';
+        document.getElementById('tabela-atualizada').textContent =
+          'Atualizado ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+      } catch(e) {
+        tbody.innerHTML = `<tr><td colspan="10" style="text-align:center;padding:20px;color:var(--ll-texto-cinza);font-size:13px;">⚠️ Não foi possível carregar a tabela.</td></tr>`;
+      }
+    }
+
+    // ── ARTILHARIA ──
+    async function carregarArtilharia() {
+      const container = document.getElementById('artilharia-container');
+      if (container.dataset.loaded === '1') return;
+      container.innerHTML = `<div class="ll-loading"><div class="spinner"></div><p>Carregando artilharia...</p></div>`;
+
+      try {
+        const r = await fetch(`${PROXY}/players/topscorers?league=${LEAGUE}&season=${SEASON}`);
+        const d = await r.json();
+        if (!d.response || !d.response.length) throw new Error('Sem dados');
+
+        const posClasses = ['p1','p2','p3'];
+        container.innerHTML = d.response.map((item, i) => {
+          const p = item.player;
+          const s = item.statistics[0];
+          const gols = s.goals.total || 0;
+          const posClass = posClasses[i] || '';
+
+          return `
+            <div class="art-card">
+              <div class="art-pos ${posClass}">${i+1}</div>
+              <img class="art-foto" src="${p.photo}" alt="${p.name}"
+                onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><text y=\'18\' font-size=\'18\'>👤</text></svg>'">
+              <div class="art-info">
+                <div class="art-nome">${p.name}</div>
+                <div class="art-time">
+                  <img src="${s.team.logo}" style="width:12px;height:12px;object-fit:contain;vertical-align:middle;margin-right:3px" onerror="this.style.display='none'">
+                  ${s.team.name}
+                </div>
+              </div>
+              <div class="art-gols">${gols}<span>gols</span></div>
+            </div>`;
+        }).join('');
+
+        container.dataset.loaded = '1';
+
+      } catch(e) {
+        container.innerHTML = `<div class="ll-vazio">⚠️ Não foi possível carregar a artilharia.</div>`;
+      }
+    }
+
+    // ── Inicializar ──
+    determinarRodadaAtual();
+
+    setInterval(() => {
+      const secao = document.getElementById('secao-jogos');
+      if (!secao.classList.contains('ativa')) return;
+      const jogos = jogosPorRodada[rodadaVendo] || [];
+      const temVivo = jogos.some(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
+      if (temVivo) renderJogos();
+    }, 30000);
+  </script>
+
+</body>
+</html>
