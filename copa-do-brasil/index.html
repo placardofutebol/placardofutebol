@@ -838,12 +838,16 @@ async function inicializar() {
     }
 
     function atualizarBotoes() {
-      document.getElementById('btn-anterior').disabled = roundIndex <= 0;
-      document.getElementById('btn-proxima').disabled  = roundIndex >= todosRounds.length - 1;
-      const round = todosRounds[roundIndex] || '';
-      document.getElementById('rodada-titulo').textContent = round;
-      document.getElementById('badge-fase').textContent = '📋 ' + round;
-    }
+  const totalFixas = FASES_FIXAS.length;
+  const totalApi   = todosRounds.length;
+  const offset     = totalFixas - totalApi;
+  const fi         = offset + roundIndex;
+
+  document.getElementById('btn-anterior').disabled = fi <= 0;
+  document.getElementById('btn-proxima').disabled  = fi >= totalFixas - 1;
+  document.getElementById('rodada-titulo').textContent = FASES_FIXAS[fi] || ('Fase ' + (fi + 1));
+  document.getElementById('badge-fase').textContent    = '📋 ' + (FASES_FIXAS[fi] || '');
+}
 
     async function carregarRound(idx) {
       const round = todosRounds[idx];
