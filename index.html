@@ -665,9 +665,15 @@ function abreviarTime(nome) {
         statusTexto = `${tempoReal}'`;
       }
 
-    } else if (['FT','AET','PEN','BT'].includes(status)) {
+   } else if (['FT','AET','PEN','BT'].includes(status) ||
+      (status === '2H' && (() => {
+        const timer = window._timers?.[j.fixture.id];
+        if (!timer) return false;
+        const minutos = Math.floor((Date.now() - timer.inicio) / 60000);
+        return (timer.base + minutos) > 100;
+      })())) {
       statusClass = 'encerrado';
-      statusTexto = 'Encerrado';
+      statusTexto = 'Encerrado*';
     } else {
       statusClass = 'agendado';
       const dataJogo = new Date(j.fixture.date);
