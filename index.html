@@ -157,7 +157,6 @@
   const CACHE_TTL_NORMAL    = 10 * 60 * 1000;
   const CACHE_TTL_MADRUGADA = 3 * 60 * 60 * 1000;
 
-  // CORRIGIDO: Copa do Brasil = 73, Libertadores = 13, Sul-Americana = 11
   const LIGAS_PERMITIDAS = {
     '71':  { nome: 'Brasileirão Série A', pais: 'Brasil',     emoji: '🇧🇷' },
     '72':  { nome: 'Brasileirão Série B', pais: 'Brasil',     emoji: '🇧🇷' },
@@ -195,118 +194,118 @@
     } catch(e) { return null; }
   }
 
-async function carregarJogos(forcar = false) {
-  const cache = lerCache();
-  const agora = Date.now();
+  async function carregarJogos(forcar = false) {
+    const cache = lerCache();
+    const agora = Date.now();
 
-  const cacheTemHoje = cache?.dados?.some(j =>
-    j.fixture.date.startsWith(new Date().toISOString().split('T')[0])
-  );
-  if (cache && !cacheTemHoje && !forcar) forcar = true;
+    const cacheTemHoje = cache?.dados?.some(j =>
+      j.fixture.date.startsWith(new Date().toISOString().split('T')[0])
+    );
+    if (cache && !cacheTemHoje && !forcar) forcar = true;
 
-  const cacheValido = cache && (agora - cache.ts) < cacheTTL();
+    const cacheValido = cache && (agora - cache.ts) < cacheTTL();
 
-  if (cache) {
-    todosJogos = cache.dados;
-    renderizar();
-    agendarProxima();
-    if (!forcar && cacheValido) return;
-    buscarEmBackground();
-    return;
-  }
-
-  mostrarSkeleton();
-  await buscarEmBackground();
-}
-
-async function buscarEmBackground() {
-  const hoje   = new Date().toISOString().split('T')[0];
-  const ontem  = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-  const amanha = new Date(Date.now() + 86400000).toISOString().split('T')[0];
-
-  function fetchComTimeout(url, ms = 8000) {
-    return Promise.race([
-      fetch(url).then(r => r.json()).catch(() => ({ response: [] })),
-      new Promise(resolve => setTimeout(() => resolve({ response: [] }), ms))
-    ]);
-  }
-
-  try {
-    const jogosMap = {};
-
-    const promises = [
-      fetchComTimeout(`${API_URL}/fixtures?date=${ontem}&season=2026`),
-      fetchComTimeout(`${API_URL}/fixtures?date=${hoje}&season=2026`),
-      fetchComTimeout(`${API_URL}/fixtures?date=${amanha}&season=2026`)
-    ];
-
-    promises.forEach(p => {
-      p.then(json => {
-        (json.response || []).forEach(j => {
-          if (LIGAS_PERMITIDAS[String(j.league.id)]) jogosMap[j.fixture.id] = j;
-        });
-        const novos = Object.values(jogosMap);
-        if (novos.length > 0) {
-          todosJogos = novos;
-          renderizar();
-        }
-      }).catch(() => {});
-    });
-
-    await Promise.allSettled(promises);
-
-    const novosJogos = Object.values(jogosMap);
-    const cacheAtual = lerCache();
-
-    if (novosJogos.length >= (cacheAtual?.dados?.length || 0) || !cacheAtual) {
-      todosJogos = novosJogos;
-      salvarCache(todosJogos);
-    } else {
-      todosJogos = cacheAtual.dados;
+    if (cache) {
+      todosJogos = cache.dados;
+      renderizar();
+      agendarProxima();
+      if (!forcar && cacheValido) return;
+      buscarEmBackground();
+      return;
     }
 
-    detectarGols(todosJogos);
-    renderizar();
-    agendarProxima();
-
-  } catch(err) {
-    console.error('Erro:', err);
-    if (!lerCache()) mostrarErro();
+    mostrarSkeleton();
+    await buscarEmBackground();
   }
-}
 
-function mostrarSkeleton() {
-  const card = () => `
-    <div style="background:white;border-radius:10px;padding:14px 16px;margin-bottom:8px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
-      <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;">
-        <div style="display:flex;align-items:center;gap:8px;">
-          <div style="width:32px;height:32px;border-radius:50%;background:#e8e8e8;animation:sk 1.2s infinite alternate;flex-shrink:0"></div>
-          <div style="width:60px;height:12px;border-radius:4px;background:#e8e8e8;animation:sk 1.2s infinite alternate"></div>
-        </div>
-        <div style="text-align:center;">
-          <div style="width:50px;height:20px;border-radius:4px;background:#e8e8e8;animation:sk 1.2s infinite alternate;margin:0 auto"></div>
-          <div style="width:40px;height:10px;border-radius:4px;background:#e8e8e8;animation:sk 1.2s infinite alternate;margin:6px auto 0"></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;justify-content:flex-end;">
-          <div style="width:60px;height:12px;border-radius:4px;background:#e8e8e8;animation:sk 1.2s infinite alternate"></div>
-          <div style="width:32px;height:32px;border-radius:50%;background:#e8e8e8;animation:sk 1.2s infinite alternate;flex-shrink:0"></div>
-        </div>
-      </div>
-    </div>`;
+  async function buscarEmBackground() {
+    const hoje   = new Date().toISOString().split('T')[0];
+    const ontem  = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+    const amanha = new Date(Date.now() + 86400000).toISOString().split('T')[0];
 
-  const grupo = () => `
-    <div style="background:white;border-radius:10px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);overflow:hidden;">
-      <div style="background:#e8f5ec;padding:10px 14px;display:flex;align-items:center;gap:8px;">
-        <div style="width:24px;height:24px;border-radius:50%;background:#d0e8d4;animation:sk 1.2s infinite alternate"></div>
-        <div style="width:120px;height:13px;border-radius:4px;background:#d0e8d4;animation:sk 1.2s infinite alternate"></div>
-      </div>
-      ${card()}${card()}${card()}
-    </div>`;
+    function fetchComTimeout(url, ms = 8000) {
+      return Promise.race([
+        fetch(url).then(r => r.json()).catch(() => ({ response: [] })),
+        new Promise(resolve => setTimeout(() => resolve({ response: [] }), ms))
+      ]);
+    }
 
-  document.getElementById('jogos-container').innerHTML = `
-    <style>@keyframes sk{from{opacity:.5}to{opacity:1}}</style>
-    ${grupo()}${grupo()}${grupo()}`;
-}
+    try {
+      const jogosMap = {};
+
+      const promises = [
+        fetchComTimeout(`${API_URL}/fixtures?date=${ontem}&season=2026`),
+        fetchComTimeout(`${API_URL}/fixtures?date=${hoje}&season=2026`),
+        fetchComTimeout(`${API_URL}/fixtures?date=${amanha}&season=2026`)
+      ];
+
+      promises.forEach(p => {
+        p.then(json => {
+          (json.response || []).forEach(j => {
+            if (LIGAS_PERMITIDAS[String(j.league.id)]) jogosMap[j.fixture.id] = j;
+          });
+          const novos = Object.values(jogosMap);
+          if (novos.length > 0) {
+            todosJogos = novos;
+            renderizar();
+          }
+        }).catch(() => {});
+      });
+
+      await Promise.allSettled(promises);
+
+      const novosJogos = Object.values(jogosMap);
+      const cacheAtual = lerCache();
+
+      if (novosJogos.length >= (cacheAtual?.dados?.length || 0) || !cacheAtual) {
+        todosJogos = novosJogos;
+        salvarCache(todosJogos);
+      } else {
+        todosJogos = cacheAtual.dados;
+      }
+
+      detectarGols(todosJogos);
+      renderizar();
+      agendarProxima();
+
+    } catch(err) {
+      console.error('Erro:', err);
+      if (!lerCache()) mostrarErro();
+    }
+  }
+
+  function mostrarSkeleton() {
+    const card = () => `
+      <div style="background:white;border-radius:10px;padding:14px 16px;margin-bottom:8px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:32px;height:32px;border-radius:50%;background:#e8e8e8;animation:sk 1.2s infinite alternate;flex-shrink:0"></div>
+            <div style="width:60px;height:12px;border-radius:4px;background:#e8e8e8;animation:sk 1.2s infinite alternate"></div>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:50px;height:20px;border-radius:4px;background:#e8e8e8;animation:sk 1.2s infinite alternate;margin:0 auto"></div>
+            <div style="width:40px;height:10px;border-radius:4px;background:#e8e8e8;animation:sk 1.2s infinite alternate;margin:6px auto 0"></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;justify-content:flex-end;">
+            <div style="width:60px;height:12px;border-radius:4px;background:#e8e8e8;animation:sk 1.2s infinite alternate"></div>
+            <div style="width:32px;height:32px;border-radius:50%;background:#e8e8e8;animation:sk 1.2s infinite alternate;flex-shrink:0"></div>
+          </div>
+        </div>
+      </div>`;
+
+    const grupo = () => `
+      <div style="background:white;border-radius:10px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);overflow:hidden;">
+        <div style="background:#e8f5ec;padding:10px 14px;display:flex;align-items:center;gap:8px;">
+          <div style="width:24px;height:24px;border-radius:50%;background:#d0e8d4;animation:sk 1.2s infinite alternate"></div>
+          <div style="width:120px;height:13px;border-radius:4px;background:#d0e8d4;animation:sk 1.2s infinite alternate"></div>
+        </div>
+        ${card()}${card()}${card()}
+      </div>`;
+
+    document.getElementById('jogos-container').innerHTML = `
+      <style>@keyframes sk{from{opacity:.5}to{opacity:1}}</style>
+      ${grupo()}${grupo()}${grupo()}`;
+  }
 
   function cacheTTL() {
     const hora = new Date().getHours();
@@ -331,7 +330,7 @@ function mostrarSkeleton() {
     if (ligas.length === 0) return;
     const hoje = new Date().toISOString().split('T')[0];
     try {
-    const resultados = await Promise.all(
+      const resultados = await Promise.all(
         ligas.map(liga =>
           fetch(`${API_URL}/fixtures?date=${hoje}&league=${liga}&season=2026`)
           .then(r => r.json()).catch(() => ({ response: [] }))
@@ -345,30 +344,31 @@ function mostrarSkeleton() {
       Object.values(jogosAtualizados).forEach(j => {
         if (!todosJogos.find(t => t.fixture.id === j.fixture.id)) todosJogos.push(j);
       });
-     if (todosJogos.length > 0) {
-  salvarCache(todosJogos);
-}
-detectarGols(Object.values(jogosAtualizados));
-renderizar();
+      if (todosJogos.length > 0) {
+        salvarCache(todosJogos);
+      }
+      detectarGols(Object.values(jogosAtualizados));
+      renderizar();
     } catch(err) { console.error('Erro ao atualizar ao vivo:', err); }
   }
-function verificarJogosAtrasados() {
-  const agora = Date.now();
-  const temJogoAtrasado = todosJogos.some(j => {
-    if (!['NS','TBD'].includes(j.fixture.status.short)) return false;
-    const inicio = new Date(j.fixture.date).getTime();
-    return agora > inicio + (1 * 60 * 1000); // 1 min após horário previsto
-  });
 
-  if (temJogoAtrasado) {
-    localStorage.removeItem('pf_jogos');
-    carregarJogos(true);
+  function verificarJogosAtrasados() {
+    const agora = Date.now();
+    const temJogoAtrasado = todosJogos.some(j => {
+      if (!['NS','TBD'].includes(j.fixture.status.short)) return false;
+      const inicio = new Date(j.fixture.date).getTime();
+      return agora > inicio + (1 * 60 * 1000);
+    });
+
+    if (temJogoAtrasado) {
+      localStorage.removeItem('pf_jogos');
+      carregarJogos(true);
+    }
   }
-}
 
- function agendarProxima() {
+  function agendarProxima() {
     clearTimeout(timerAtualizacao);
-    verificarJogosAtrasados(); // ← adiciona essa linha
+    verificarJogosAtrasados();
     const hora = new Date().getHours();
     const temVivo = ligasAoVivo().length > 0;
     if (temVivo) {
@@ -385,32 +385,32 @@ function verificarJogosAtrasados() {
       timerAtualizacao = setTimeout(() => carregarJogos(true), CACHE_TTL_MADRUGADA);
     } else if (todosJogos.some(j => ['NS','TBD'].includes(j.fixture.status.short))) {
       timerAtualizacao = setTimeout(() => carregarJogos(true), 60 * 1000);
-   } else {
-  timerAtualizacao = setTimeout(() => carregarJogos(true), 60 * 1000);
-}
+    } else {
+      timerAtualizacao = setTimeout(() => carregarJogos(true), 60 * 1000);
+    }
   }
 
   function detectarGols(jogos) {
-  jogos.forEach(j => {
-    const id = j.fixture.id;
-    if (j.goals.home === null || j.goals.away === null) {
-      placaresPrev[id] = placaresPrev[id] || 'pendente';
-      return;
-    }
-    const placarAtual = `${j.goals.home}-${j.goals.away}`;
-    const prev = placaresPrev[id];
-    if (prev && prev !== 'pendente' && prev !== placarAtual) {
-      const timeGol = j.goals.home > parseInt(prev.split('-')[0])
-        ? j.teams.home.name
-        : j.teams.away.name;
-      alertarGol(
-        `${j.teams.home.name} ${j.goals.home} × ${j.goals.away} ${j.teams.away.name}`,
-        `⚽ Gol de ${timeGol}!`
-      );
-    }
-    placaresPrev[id] = placarAtual;
-  });
-}
+    jogos.forEach(j => {
+      const id = j.fixture.id;
+      if (j.goals.home === null || j.goals.away === null) {
+        placaresPrev[id] = placaresPrev[id] || 'pendente';
+        return;
+      }
+      const placarAtual = `${j.goals.home}-${j.goals.away}`;
+      const prev = placaresPrev[id];
+      if (prev && prev !== 'pendente' && prev !== placarAtual) {
+        const timeGol = j.goals.home > parseInt(prev.split('-')[0])
+          ? j.teams.home.name
+          : j.teams.away.name;
+        alertarGol(
+          `${j.teams.home.name} ${j.goals.home} × ${j.goals.away} ${j.teams.away.name}`,
+          `⚽ Gol de ${timeGol}!`
+        );
+      }
+      placaresPrev[id] = placarAtual;
+    });
+  }
 
   function alertarGol(times, detalhe) {
     clearTimeout(timerPefinho);
@@ -437,7 +437,7 @@ function verificarJogosAtrasados() {
     setTimeout(() => mini.classList.remove('oculto'), 300);
   }
 
- const PAGINAS_LIGAS = {
+  const PAGINAS_LIGAS = {
     '71': '/brasileirao/',
     '72': '/brasileirao-serie-b/',
     '13': '/libertadores/',
@@ -446,7 +446,7 @@ function verificarJogosAtrasados() {
     '2':  '/champions/',
     '39': '/premier-league/',
     '140': '/la-liga/',
-};
+  };
 
   function selecionarLiga(el, liga) {
     document.querySelectorAll('.liga-tab').forEach(t => t.classList.remove('ativa'));
@@ -468,9 +468,7 @@ function verificarJogosAtrasados() {
     statusAtivo = status;
     renderizar();
   }
-   
 
-function renderizar() {
   function renderizar() {
     const container = document.getElementById('jogos-container');
     let jogos = [...todosJogos];
@@ -480,54 +478,52 @@ function renderizar() {
     } else if (statusAtivo === 'agendado') {
       jogos = jogos.filter(j => ['NS','TBD'].includes(j.fixture.status.short));
     } else if (statusAtivo === 'encerrado') {
-  jogos = jogos.filter(j =>
-    ['FT','AET','PEN','AWD','WO','BT'].includes(j.fixture.status.short)
-  );
-}
+      jogos = jogos.filter(j =>
+        ['FT','AET','PEN','AWD','WO','BT'].includes(j.fixture.status.short)
+      );
+    }
     if (jogos.length === 0) {
       container.innerHTML = `<div class="estado-vazio"><p>Nenhum jogo encontrado para este filtro.</p></div>`;
       return;
     }
-   const grupos = {};
+    const grupos = {};
     jogos.forEach(j => {
       const lid = String(j.league.id);
       if (!grupos[lid]) grupos[lid] = [];
       grupos[lid].push(j);
     });
 
-    // Ordena dentro de cada grupo: ao vivo > agendado > encerrado
     const ordem = s => {
       if (['1H','2H','HT','ET','P'].includes(s)) return 0;
       if (['NS','TBD'].includes(s)) return 1;
       return 2;
     };
-   Object.values(grupos).forEach(lista => {
-  lista.sort((a, b) => {
-    const ordemA = ordem(a.fixture.status.short);
-    const ordemB = ordem(b.fixture.status.short);
-    if (ordemA !== ordemB) return ordemA - ordemB;
-    // mesmo status: ordena por horário
-    return new Date(a.fixture.date) - new Date(b.fixture.date);
-  });
-});
-  const hoje = new Date().toISOString().split('T')[0];
-    const amanha = new Date(Date.now() + 86400000).toISOString().split('T')[0];
-    const ontem = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-
-    const gruposHoje = {};
-    const gruposAmanha = {};
-    const gruposOntem = {};
-
-    Object.entries(grupos).forEach(([lid, lista]) => {
-      const deHoje = lista.filter(j => j.fixture.date.startsWith(hoje));
-      const deAmanha = lista.filter(j => j.fixture.date.startsWith(amanha));
-      const deOntem = lista.filter(j => j.fixture.date.startsWith(ontem));
-      if (deHoje.length) gruposHoje[lid] = deHoje;
-      if (deAmanha.length) gruposAmanha[lid] = deAmanha;
-      if (deOntem.length) gruposOntem[lid] = deOntem;
+    Object.values(grupos).forEach(lista => {
+      lista.sort((a, b) => {
+        const ordemA = ordem(a.fixture.status.short);
+        const ordemB = ordem(b.fixture.status.short);
+        if (ordemA !== ordemB) return ordemA - ordemB;
+        return new Date(a.fixture.date) - new Date(b.fixture.date);
+      });
     });
 
-   // Prioridade de ordenação entre grupos: ao vivo > contagem regressiva > agendado > encerrado
+    const hoje  = new Date().toISOString().split('T')[0];
+    const amanha = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+    const ontem  = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+
+    const gruposHoje   = {};
+    const gruposAmanha = {};
+    const gruposOntem  = {};
+
+    Object.entries(grupos).forEach(([lid, lista]) => {
+      const deHoje   = lista.filter(j => j.fixture.date.startsWith(hoje));
+      const deAmanha = lista.filter(j => j.fixture.date.startsWith(amanha));
+      const deOntem  = lista.filter(j => j.fixture.date.startsWith(ontem));
+      if (deHoje.length)   gruposHoje[lid]   = deHoje;
+      if (deAmanha.length) gruposAmanha[lid] = deAmanha;
+      if (deOntem.length)  gruposOntem[lid]  = deOntem;
+    });
+
     const prioridadeGrupo = lista => {
       if (lista.some(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short))) return 0;
       const agora = Date.now();
@@ -540,19 +536,14 @@ function renderizar() {
       return 3;
     };
 
-const ordenarGrupos = grupos => Object.fromEntries(
+    const ordenarGrupos = grupos => Object.fromEntries(
       Object.entries(grupos).sort(([, a], [, b]) => prioridadeGrupo(a) - prioridadeGrupo(b))
     );
+
     let html = '';
-    if (Object.keys(gruposHoje).length) {
-      html += renderGrupos(ordenarGrupos(gruposHoje));
-    }
-    if (Object.keys(gruposAmanha).length) {
-      html += renderGrupos(ordenarGrupos(gruposAmanha));
-    }
-   if (Object.keys(gruposOntem).length) {
-      html += renderGrupos(ordenarGrupos(gruposOntem));
-    }
+    if (Object.keys(gruposHoje).length)   html += renderGrupos(ordenarGrupos(gruposHoje));
+    if (Object.keys(gruposAmanha).length) html += renderGrupos(ordenarGrupos(gruposAmanha));
+    if (Object.keys(gruposOntem).length)  html += renderGrupos(ordenarGrupos(gruposOntem));
     container.innerHTML = html;
   }
 
@@ -573,56 +564,52 @@ const ordenarGrupos = grupos => Object.fromEntries(
     return html;
   }
 
-function abreviarTime(nome) {
-  const siglas = {
-    'Atletico Mineiro':    'CAM',
-    'Atletico Paranaense': 'CAP',
-    'Atletico Goianiense': 'ACG',
-    'Vasco da Gama':       'VAS',
-    'Sao Paulo':           'SAO',
-    'Fluminense':          'FLU',
-    'Flamengo':            'FLA',
-    'Palmeiras':           'PAL',
-    'Cruzeiro':            'CRU',
-    'Internacional':       'INT',
-    'Corinthians':         'COR',
-    'Botafogo':            'BOT',
-    'Santos':              'SAN',
-    'Gremio':              'GRE',
-    'Bahia':               'BAH',
-    'Fortaleza':           'FOR',
-    'Ceara':               'CEA',
-    'Coritiba':            'COR',
-    'Goias':               'GOI',
-    'Cuiaba':              'CUI',
-    'Mirassol':            'MIR',
-    'Novorizontino':       'NOV',
-    'Operario PR':         'OPE',
-    'Sao Bernardo':        'SBF',
-    'America Mineiro':     'AME',
-    'Nautico':             'NAU',
-    'Botafogo SP':         'BOT',
-    'Manchester City':     'MCI',
-    'Manchester United':   'MUN',
-    'Tottenham Hotspur':   'TOT',
-    'Nottingham Forest':   'NFO',
-    'Newcastle United':    'NEW',
-    'West Ham United':     'WHU',
-    'Bayer Leverkusen':    'LEV',
-    'Borussia Dortmund':   'DOR',
-    'Atletico Madrid':     'ATM',
-    'Athletic Club':       'ATH',
-    'Real Madrid':         'RMA',
-    'Barcelona':           'BAR',
-    'Sporting CP':         'SPO',
-  };
-
-  // se tem sigla manual usa ela
-  if (siglas[nome]) return siglas[nome];
-  
-  // senão pega as 3 primeiras letras em maiúsculo
-  return nome.substring(0, 3).toUpperCase();
-}
+  function abreviarTime(nome) {
+    const siglas = {
+      'Atletico Mineiro':    'CAM',
+      'Atletico Paranaense': 'CAP',
+      'Atletico Goianiense': 'ACG',
+      'Vasco da Gama':       'VAS',
+      'Sao Paulo':           'SAO',
+      'Fluminense':          'FLU',
+      'Flamengo':            'FLA',
+      'Palmeiras':           'PAL',
+      'Cruzeiro':            'CRU',
+      'Internacional':       'INT',
+      'Corinthians':         'COR',
+      'Botafogo':            'BOT',
+      'Santos':              'SAN',
+      'Gremio':              'GRE',
+      'Bahia':               'BAH',
+      'Fortaleza':           'FOR',
+      'Ceara':               'CEA',
+      'Coritiba':            'COR',
+      'Goias':               'GOI',
+      'Cuiaba':              'CUI',
+      'Mirassol':            'MIR',
+      'Novorizontino':       'NOV',
+      'Operario PR':         'OPE',
+      'Sao Bernardo':        'SBF',
+      'America Mineiro':     'AME',
+      'Nautico':             'NAU',
+      'Botafogo SP':         'BOT',
+      'Manchester City':     'MCI',
+      'Manchester United':   'MUN',
+      'Tottenham Hotspur':   'TOT',
+      'Nottingham Forest':   'NFO',
+      'Newcastle United':    'NEW',
+      'West Ham United':     'WHU',
+      'Bayer Leverkusen':    'LEV',
+      'Borussia Dortmund':   'DOR',
+      'Atletico Madrid':     'ATM',
+      'Athletic Club':       'ATH',
+      'Real Madrid':         'RMA',
+      'Barcelona':           'BAR',
+      'Sporting CP':         'SPO',
+    };
+    if (siglas[nome]) return siglas[nome];
+    return nome.substring(0, 3).toUpperCase();
+  }
 
   function cardJogo(j) {
     const status  = j.fixture.status.short;
@@ -632,42 +619,42 @@ function abreviarTime(nome) {
 
     if (['1H','2H','HT','ET','P'].includes(status)) {
       statusClass = 'ao-vivo';
-      const elapsed = j.fixture.status.elapsed || 0;
+      const elapsed   = j.fixture.status.elapsed || 0;
       const fixtureId = j.fixture.id;
-      const agora = Date.now();
+      const agora     = Date.now();
 
       if (!window._timers) {
-  try {
-    window._timers = JSON.parse(localStorage.getItem('pf_timers') || '{}');
-  } catch(e) {
-    window._timers = {};
-  }
-}
+        try {
+          window._timers = JSON.parse(localStorage.getItem('pf_timers') || '{}');
+        } catch(e) {
+          window._timers = {};
+        }
+      }
       if (!window._timers[fixtureId]) {
         window._timers[fixtureId] = { base: elapsed, inicio: agora };
         localStorage.setItem('pf_timers', JSON.stringify(window._timers));
       } else if (elapsed > window._timers[fixtureId].base) {
-  window._timers[fixtureId] = { base: elapsed, inicio: agora };
-  localStorage.setItem('pf_timers', JSON.stringify(window._timers));
-}
+        window._timers[fixtureId] = { base: elapsed, inicio: agora };
+        localStorage.setItem('pf_timers', JSON.stringify(window._timers));
+      }
 
-      const timer = window._timers[fixtureId];
-      const minutos = Math.floor((agora - timer.inicio) / 60000);
+      const timer    = window._timers[fixtureId];
+      const minutos  = Math.floor((agora - timer.inicio) / 60000);
       const tempoReal = Math.max(elapsed, timer.base + minutos);
 
       if (status === 'HT') {
         statusTexto = 'Intervalo';
       } else if (tempoReal > 90 && status === '2H') {
-  const acrescimo = Math.min(tempoReal - 90, 5);
-  statusTexto = acrescimo >= 5 ? `90+5' ⏳` : `90+${acrescimo}'`;
-     } else if (tempoReal >= 45 && status === '1H') {
-  const acrescimo1T = Math.min(tempoReal - 45, 5);
-  statusTexto = acrescimo1T >= 5 ? `45+5' ⏳` : `45+${acrescimo1T}'`;
+        const acrescimo = Math.min(tempoReal - 90, 5);
+        statusTexto = acrescimo >= 5 ? `90+5' ⏳` : `90+${acrescimo}'`;
+      } else if (tempoReal >= 45 && status === '1H') {
+        const acrescimo1T = Math.min(tempoReal - 45, 5);
+        statusTexto = acrescimo1T >= 5 ? `45+5' ⏳` : `45+${acrescimo1T}'`;
       } else {
         statusTexto = `${tempoReal}'`;
       }
 
-   } else if (['FT','AET','PEN','BT'].includes(status) ||
+    } else if (['FT','AET','PEN','BT'].includes(status) ||
       (status === '2H' && (() => {
         const timer = window._timers?.[j.fixture.id];
         if (!timer) return false;
@@ -679,27 +666,27 @@ function abreviarTime(nome) {
     } else {
       statusClass = 'agendado';
       const dataJogo = new Date(j.fixture.date);
-      const agora = new Date();
-      const diffMs = dataJogo - agora;
-      const diffMin = Math.floor(diffMs / 60000);
+      const agora    = new Date();
+      const diffMs   = dataJogo - agora;
+      const diffMin  = Math.floor(diffMs / 60000);
       if (diffMin <= 0 && diffMin > -15) {
-  statusClass = 'em-breve';
-  statusTexto = `⚽ Iniciando...`;
-} else if (diffMin <= 30 && diffMin > 0) {
-  statusClass = 'em-breve';
-  statusTexto = `⏱️ ${diffMin} min`;
-} else {
+        statusClass = 'em-breve';
+        statusTexto = `⚽ Iniciando...`;
+      } else if (diffMin <= 30 && diffMin > 0) {
+        statusClass = 'em-breve';
+        statusTexto = `⏱️ ${diffMin} min`;
+      } else {
         const dataStr = dataJogo.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
         const horaStr = dataJogo.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
         statusTexto = `${dataStr}<br>${horaStr}`;
       }
     }
 
-
     const placar = statusClass === 'agendado'
       ? `<span class="placar-numeros">×</span>`
       : `<span class="placar-numeros">${golHome} × ${golAway}</span>`;
-   return `
+
+    return `
       <div class="jogo-card" onclick="abrirJogo(${j.fixture.id})">
         <div class="jogo-linha">
           <div class="time-esquerda">
@@ -709,7 +696,7 @@ function abreviarTime(nome) {
           </div>
           <div class="placar-centro">
             ${placar}
-           <div class="placar-status ${statusClass}">${statusTexto}</div>
+            <div class="placar-status ${statusClass}">${statusTexto}</div>
           </div>
           <div class="time-direita">
             <span class="time-nome direita">${abreviarTime(j.teams.away.name)}</span>
@@ -741,8 +728,6 @@ function abreviarTime(nome) {
     const home = slugNome(jogo.teams.home.name);
     const away = slugNome(jogo.teams.away.name);
     window.location.href = base + home + '-vs-' + away + '/';
-    return;
-    
   }
 
   function slugNome(nome) {
@@ -751,66 +736,68 @@ function abreviarTime(nome) {
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-|-$/g, '');
   }
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  document.getElementById('banner-instalar').style.display = 'block';
-});
 
-function instalarApp() {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(result => {
-      if (result.outcome === 'accepted') {
-        document.getElementById('banner-instalar').style.display = 'none';
-      }
-      deferredPrompt = null;
-    });
-  }
-}
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    document.getElementById('banner-instalar').style.display = 'block';
+  });
 
-window.addEventListener('appinstalled', () => {
-  document.getElementById('banner-instalar').style.display = 'none';
-});
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js');
-}
-  exibirData();
-carregarJogos();
-
-// Atualiza cronômetro dos jogos ao vivo a cada 30 segundos
-setInterval(() => {
- // Força reload se tem jogo que acabou de iniciar (menos de 3 minutos)
-const temJogoNovo = todosJogos.some(j => {
-  if (j.fixture.status.short !== '1H') return false;
-  const timer = window._timers?.[j.fixture.id];
-  if (!timer) return true; // sem timer = jogo novo
-  return timer.base <= 5;
-});
-if (temJogoNovo) {
-  carregarJogos(true);
-  return;
-} if (todosJogos.some(j => ['1H','2H','ET'].includes(j.fixture.status.short))) {
-    const temJogoMuitoLongo = todosJogos.some(j => {
-      const timer = window._timers?.[j.fixture.id];
-      if (!timer) return false;
-      const minutos = Math.floor((Date.now() - timer.inicio) / 60000);
-      if (j.fixture.status.short === '2H') return (timer.base + minutos) > 95;
-      if (j.fixture.status.short === 'ET') return (timer.base + minutos) > 125;
-      return false;
-    });
-    if (temJogoMuitoLongo) {
-  if (!window._reloadTentativas) window._reloadTentativas = 0;
-  window._reloadTentativas++;
-  if (window._reloadTentativas <= 10) {
-    carregarJogos(true);
-  }
-} else {
-      renderizar();
+  function instalarApp() {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(result => {
+        if (result.outcome === 'accepted') {
+          document.getElementById('banner-instalar').style.display = 'none';
+        }
+        deferredPrompt = null;
+      });
     }
   }
-}, 30 * 1000);
+
+  window.addEventListener('appinstalled', () => {
+    document.getElementById('banner-instalar').style.display = 'none';
+  });
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+  }
+
+  exibirData();
+  carregarJogos();
+
+  setInterval(() => {
+    const temJogoNovo = todosJogos.some(j => {
+      if (j.fixture.status.short !== '1H') return false;
+      const timer = window._timers?.[j.fixture.id];
+      if (!timer) return true;
+      return timer.base <= 5;
+    });
+    if (temJogoNovo) {
+      carregarJogos(true);
+      return;
+    }
+    if (todosJogos.some(j => ['1H','2H','ET'].includes(j.fixture.status.short))) {
+      const temJogoMuitoLongo = todosJogos.some(j => {
+        const timer = window._timers?.[j.fixture.id];
+        if (!timer) return false;
+        const minutos = Math.floor((Date.now() - timer.inicio) / 60000);
+        if (j.fixture.status.short === '2H') return (timer.base + minutos) > 95;
+        if (j.fixture.status.short === 'ET') return (timer.base + minutos) > 125;
+        return false;
+      });
+      if (temJogoMuitoLongo) {
+        if (!window._reloadTentativas) window._reloadTentativas = 0;
+        window._reloadTentativas++;
+        if (window._reloadTentativas <= 10) {
+          carregarJogos(true);
+        }
+      } else {
+        renderizar();
+      }
+    }
+  }, 30 * 1000);
   </script>
 
 </body>
