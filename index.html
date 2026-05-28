@@ -689,7 +689,7 @@
       : `<span class="placar-numeros">${golHome} × ${golAway}</span>`;
 
     return `
-      <div class="jogo-card" onclick="abrirJogo(${j.fixture.id})">
+      <div class="jogo-card" id="card-${j.fixture.id}" onclick="abrirJogo(${j.fixture.id})">
         <div class="jogo-linha">
           <div class="time-esquerda">
             <img class="escudo" src="${j.teams.home.logo}" alt="${j.teams.home.name}"
