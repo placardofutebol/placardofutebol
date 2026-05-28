@@ -468,7 +468,50 @@ function verificarJogosAtrasados() {
     statusAtivo = status;
     renderizar();
   }
+   function atualizarCardsSuave() {
+  let algumNovo = false;
+  todosJogos.forEach(j => {
+    const el = document.getElementById('card-' + j.fixture.id);
+    if (!el) { algumNovo = true; return; }
+    const placarEl = el.querySelector('.placar-numeros');
+    const statusEl = el.querySelector('.placar-status');
+    if (!placarEl || !statusEl) return;
+    if (j.goals.home !== null && j.goals.away !== null) {
+      placarEl.textContent = `${j.goals.home} × ${j.goals.away}`;
+    }
+    const st = j.fixture.status.short;
+    const timer = window._timers?.[j.fixture.id];
+    let statusTexto = '';
+    if (st === 'HT') {
+      statusTexto = 'Intervalo';
+    } else if (['1H','2H','ET','P'].includes(st) && timer) {
+      const minutos = Math.floor((Date.now() - timer.inicio) / 60000);
+      const tempoReal = Math.max(j.fixture.status.elapsed || 0, timer.base + minutos);
+      if (tempoReal > 90 && st === '2H') {
+        const ac = Math.min(tempoReal - 90, 5);
+        statusTexto = ac >= 5 ? `90+5' ⏳` : `90+${ac}'`;
+      } else if (tempoReal >= 45 && st === '1H') {
+        const ac = Math.min(tempoReal - 45, 5);
+        statusTexto = ac >= 5 ? `45+5' ⏳` : `45+${ac}'`;
+      } else {
+        statusTexto = `${tempoReal}'`;
+      }
+    } else if (['FT','AET','PEN','BT'].includes(st)) {
+      statusTexto = 'Encerrado';
+      statusEl.className = 'placar-status encerrado';
+    } else if (st === '2H' && timer) {
+      const minutos = Math.floor((Date.now() - timer.inicio) / 60000);
+      if ((timer.base + minutos) > 100) {
+        statusTexto = 'Encerrado*';
+        statusEl.className = 'placar-status encerrado';
+      }
+    }
+    if (statusTexto) statusEl.textContent = statusTexto;
+  });
+  if (algumNovo) renderizar();
+}
 
+function renderizar() {
   function renderizar() {
     const container = document.getElementById('jogos-container');
     let jogos = [...todosJogos];
