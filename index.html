@@ -349,7 +349,7 @@ function mostrarSkeleton() {
   salvarCache(todosJogos);
 }
 detectarGols(Object.values(jogosAtualizados));
-atualizarCardsSuave();
+renderizar();
     } catch(err) { console.error('Erro ao atualizar ao vivo:', err); }
   }
 function verificarJogosAtrasados() {
