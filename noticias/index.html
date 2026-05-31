@@ -1,1 +1,611 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notícias · Placar do Futebol</title>
+  <meta name="description" content="Últimas notícias do futebol brasileiro — Flamengo, Corinthians, Palmeiras e mais." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* --- VARIÁVEIS --- */
+    :root {
+      --verde:        #1a7a30;
+      --verde-escuro: #145e25;
+      --verde-claro:  #e8f5ec;
+      --amarelo:      #f5c800;
+      --vermelho:     #d32f2f;
+      --cinza-bg:     #f2f4f3;
+      --cinza-card:   #ffffff;
+      --cinza-borda:  #e4e8e6;
+      --cinza-texto:  #5a6672;
+      --preto:        #111314;
+      --dark-pef:     #12151e;
+      --radius-card:  12px;
+      --radius-sm:    8px;
+      --sombra:       0 2px 8px rgba(0,0,0,0.07);
+      --font-titulo:  'Barlow Condensed', sans-serif;
+      --font-corpo:   'Barlow', sans-serif;
+    }
 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-corpo);
+      background: var(--cinza-bg);
+      color: var(--preto);
+      min-height: 100vh;
+      padding-bottom: 70px;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* HEADER */
+    header {
+      background: var(--verde);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .logo { display: flex; flex-direction: column; line-height: 1; }
+    .logo-principal {
+      font-family: var(--font-titulo);
+      font-size: 22px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .logo-principal span { color: var(--amarelo); }
+    .logo-sub {
+      font-family: var(--font-corpo);
+      font-size: 10px;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+    .header-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-corpo);
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.12);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    /* MAIN */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px 12px;
+    }
+
+    /* TÍTULO DA SEÇÃO */
+    .secao-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .secao-titulo {
+      font-family: var(--font-titulo);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--preto);
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+    .secao-titulo span { color: var(--verde); }
+    .secao-atualizado {
+      font-family: var(--font-corpo);
+      font-size: 11px;
+      color: var(--cinza-texto);
+    }
+
+    /* FILTRO CLUBES */
+    .filtro-clubes {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+      margin-bottom: 18px;
+    }
+    .filtro-clubes::-webkit-scrollbar { display: none; }
+    .clube-btn {
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-family: var(--font-corpo);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1.5px solid var(--cinza-borda);
+      background: white;
+      color: var(--cinza-texto);
+      white-space: nowrap;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .clube-btn.ativo {
+      background: var(--verde);
+      color: white;
+      border-color: var(--verde);
+    }
+    .clube-btn:hover:not(.ativo) {
+      border-color: var(--verde);
+      color: var(--verde);
+    }
+
+    /* DESTAQUE — 1ª notícia */
+    .noticia-destaque {
+      background: var(--cinza-card);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: var(--sombra);
+      margin-bottom: 16px;
+      cursor: pointer;
+      transition: box-shadow 0.2s;
+      display: block;
+      color: inherit;
+    }
+    .noticia-destaque:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .destaque-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: var(--verde-claro);
+    }
+    .destaque-img-placeholder {
+      width: 100%;
+      height: 180px;
+      background: var(--verde-claro);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+    }
+    .destaque-corpo {
+      padding: 14px 16px 16px;
+    }
+    .noticia-fonte-linha {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .noticia-fonte {
+      font-family: var(--font-corpo);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--verde);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .noticia-tempo {
+      font-family: var(--font-corpo);
+      font-size: 11px;
+      color: var(--cinza-texto);
+    }
+    .destaque-titulo {
+      font-family: var(--font-titulo);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--preto);
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .destaque-desc {
+      font-family: var(--font-corpo);
+      font-size: 13px;
+      color: var(--cinza-texto);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .destaque-ler {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 12px;
+      font-family: var(--font-corpo);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--verde);
+    }
+    .destaque-ler svg { width: 14px; height: 14px; }
+
+    /* LISTA DE NOTÍCIAS */
+    .noticias-lista {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      background: var(--cinza-card);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: var(--sombra);
+    }
+    .noticia-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 14px;
+      border-bottom: 1px solid var(--cinza-borda);
+      cursor: pointer;
+      transition: background 0.15s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .noticia-item:last-child { border-bottom: none; }
+    .noticia-item:hover { background: #f8faf9; }
+    .noticia-thumb {
+      width: 72px;
+      height: 56px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      flex-shrink: 0;
+      background: var(--verde-claro);
+    }
+    .noticia-thumb-placeholder {
+      width: 72px;
+      height: 56px;
+      border-radius: var(--radius-sm);
+      background: var(--verde-claro);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .noticia-info { flex: 1; min-width: 0; }
+    .noticia-titulo {
+      font-family: var(--font-titulo);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--preto);
+      line-height: 1.25;
+      margin-bottom: 4px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .noticia-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tag-clube {
+      font-family: var(--font-corpo);
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--verde);
+      background: var(--verde-claro);
+      padding: 2px 8px;
+      border-radius: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    /* ESTADOS */
+    .estado-loading, .estado-erro, .estado-vazio {
+      text-align: center;
+      padding: 48px 20px;
+      color: var(--cinza-texto);
+      font-family: var(--font-corpo);
+    }
+    .estado-loading .spinner {
+      width: 32px; height: 32px;
+      border: 3px solid var(--cinza-borda);
+      border-top-color: var(--verde);
+      border-radius: 50%;
+      animation: girar 0.8s linear infinite;
+      margin: 0 auto 12px;
+    }
+    .estado-loading p, .estado-vazio p { font-size: 14px; }
+    .estado-erro p { font-size: 14px; color: var(--vermelho); }
+
+    /* NAV BOTTOM */
+    .nav-bottom {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: white;
+      border-top: 1px solid var(--cinza-borda);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 6px 0 8px;
+      z-index: 200;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.06);
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 4px 10px;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--cinza-texto);
+      transition: color 0.2s;
+    }
+    .nav-item.ativo { color: var(--verde); }
+    .nav-icon { font-size: 20px; line-height: 1; }
+    .nav-label {
+      font-family: var(--font-corpo);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--verde-escuro);
+      color: white;
+      text-align: center;
+      padding: 28px 20px;
+      margin-top: 20px;
+    }
+    .footer-logo {
+      font-family: var(--font-titulo);
+      font-size: 18px;
+      font-weight: 800;
+      color: white;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .footer-logo span { color: var(--amarelo); }
+    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.4); }
+
+    /* ANIMAÇÕES */
+    @keyframes girar { to { transform: rotate(360deg); } }
+    @keyframes entrar {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .anim-entrar { animation: entrar 0.3s ease forwards; }
+
+    /* DESKTOP */
+    @media (min-width: 640px) {
+      .header-inner { padding: 14px 24px; }
+      .logo-principal { font-size: 26px; }
+      .container { padding: 20px 24px; }
+      body { padding-bottom: 0; }
+      .nav-bottom { display: none; }
+      .destaque-img, .destaque-img-placeholder { height: 240px; }
+      .destaque-titulo { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-principal">Placar <span>do Futebol</span></span>
+        <span class="logo-sub">Notícias</span>
+      </a>
+      <div class="header-badge">📰 Futebol BR</div>
+    </div>
+  </header>
+
+  <!-- CONTEÚDO -->
+  <main class="container">
+
+    <div class="secao-header">
+      <h1 class="secao-titulo">Últimas <span>Notícias</span></h1>
+      <span class="secao-atualizado" id="txt-atualizado">Atualizando...</span>
+    </div>
+
+    <!-- FILTRO CLUBES -->
+    <div class="filtro-clubes" id="filtro-clubes">
+      <button class="clube-btn ativo" data-clube="todos">Todos</button>
+      <button class="clube-btn" data-clube="Flamengo">Flamengo</button>
+      <button class="clube-btn" data-clube="Corinthians">Corinthians</button>
+      <button class="clube-btn" data-clube="Palmeiras">Palmeiras</button>
+      <button class="clube-btn" data-clube="São Paulo">São Paulo</button>
+      <button class="clube-btn" data-clube="Grêmio">Grêmio</button>
+      <button class="clube-btn" data-clube="Internacional">Internacional</button>
+      <button class="clube-btn" data-clube="Atlético">Atlético</button>
+      <button class="clube-btn" data-clube="Cruzeiro">Cruzeiro</button>
+      <button class="clube-btn" data-clube="Botafogo">Botafogo</button>
+      <button class="clube-btn" data-clube="Vasco">Vasco</button>
+    </div>
+
+    <!-- ÁREA DE NOTÍCIAS -->
+    <div id="area-noticias">
+      <div class="estado-loading">
+        <div class="spinner"></div>
+        <p>Carregando notícias...</p>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="footer-logo">Placar <span>do Futebol</span></div>
+    <p class="footer-copy">© 2025 · Notícias via GNews · Futebol Brasileiro</p>
+  </footer>
+
+  <!-- NAV BOTTOM -->
+  <nav class="nav-bottom">
+    <a href="index.html" class="nav-item">
+      <span class="nav-icon">⚽</span>
+      <span class="nav-label">Jogos</span>
+    </a>
+    <a href="noticias.html" class="nav-item ativo">
+      <span class="nav-icon">📰</span>
+      <span class="nav-label">Notícias</span>
+    </a>
+    <a href="videos.html" class="nav-item">
+      <span class="nav-icon">▶️</span>
+      <span class="nav-label">Vídeos</span>
+    </a>
+    <a href="#" class="nav-item" id="btn-pefinho">
+      <span class="nav-icon">🤖</span>
+      <span class="nav-label">Pefinho</span>
+    </a>
+  </nav>
+
+  <script>
+    const PROXY = 'https://futebol-proxy.placardofutebol-com.workers.dev';
+    const CLUBES = ['Flamengo','Corinthians','Palmeiras','São Paulo','Grêmio','Internacional','Atlético','Cruzeiro','Botafogo','Vasco'];
+
+    let todasNoticias = [];
+    let filtroAtivo   = 'todos';
+
+    // ── Detecta clube na notícia ──
+    function detectaClube(titulo, desc) {
+      const texto = (titulo + ' ' + desc).toLowerCase();
+      return CLUBES.find(c => texto.includes(c.toLowerCase())) || null;
+    }
+
+    // ── Formata tempo relativo ──
+    function tempoRelativo(iso) {
+      const diff = Date.now() - new Date(iso).getTime();
+      const min  = Math.floor(diff / 60000);
+      if (min < 1)  return 'agora';
+      if (min < 60) return `${min}min atrás`;
+      const h = Math.floor(min / 60);
+      if (h < 24)   return `${h}h atrás`;
+      return `${Math.floor(h / 24)}d atrás`;
+    }
+
+    // ── Renderiza notícias ──
+    function renderNoticias(lista) {
+      const area = document.getElementById('area-noticias');
+
+      if (!lista || lista.length === 0) {
+        area.innerHTML = `
+          <div class="estado-vazio">
+            <p style="font-size:32px;margin-bottom:8px">📰</p>
+            <p>Nenhuma notícia encontrada</p>
+          </div>`;
+        return;
+      }
+
+      const [destaque, ...resto] = lista;
+      const clube0 = detectaClube(destaque.title, destaque.description || '');
+
+      let html = `<a href="${destaque.url}" target="_blank" rel="noopener" class="noticia-destaque anim-entrar">`;
+      if (destaque.image) {
+        html += `<img class="destaque-img" src="${destaque.image}" alt="${destaque.title}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+                 <div class="destaque-img-placeholder" style="display:none">⚽</div>`;
+      } else {
+        html += `<div class="destaque-img-placeholder">⚽</div>`;
+      }
+      html += `<div class="destaque-corpo">
+        <div class="noticia-fonte-linha">
+          <span class="noticia-fonte">${destaque.source?.name || 'Notícia'}</span>
+          <span class="noticia-tempo">${tempoRelativo(destaque.publishedAt)}</span>
+          ${clube0 ? `<span class="tag-clube">${clube0}</span>` : ''}
+        </div>
+        <h2 class="destaque-titulo">${destaque.title}</h2>
+        ${destaque.description ? `<p class="destaque-desc">${destaque.description}</p>` : ''}
+        <span class="destaque-ler">Ler notícia completa
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </div></a>`;
+
+      if (resto.length > 0) {
+        html += `<div class="noticias-lista">`;
+        for (const n of resto) {
+          const clube = detectaClube(n.title, n.description || '');
+          html += `<a href="${n.url}" target="_blank" rel="noopener" class="noticia-item anim-entrar">`;
+          if (n.image) {
+            html += `<img class="noticia-thumb" src="${n.image}" alt="" loading="lazy" onerror="this.style.display='none'" />`;
+          } else {
+            html += `<div class="noticia-thumb-placeholder">⚽</div>`;
+          }
+          html += `<div class="noticia-info">
+            <p class="noticia-titulo">${n.title}</p>
+            <div class="noticia-meta">
+              <span class="noticia-fonte">${n.source?.name || ''}</span>
+              <span class="noticia-tempo">${tempoRelativo(n.publishedAt)}</span>
+              ${clube ? `<span class="tag-clube">${clube}</span>` : ''}
+            </div>
+          </div></a>`;
+        }
+        html += `</div>`;
+      }
+
+      area.innerHTML = html;
+    }
+
+    // ── Aplica filtro por clube ──
+    function aplicaFiltro(clube) {
+      filtroAtivo = clube;
+      document.querySelectorAll('.clube-btn').forEach(b => {
+        b.classList.toggle('ativo', b.dataset.clube === clube);
+      });
+      if (clube === 'todos') {
+        renderNoticias(todasNoticias);
+      } else {
+        const filtradas = todasNoticias.filter(n => {
+          const texto = (n.title + ' ' + (n.description || '')).toLowerCase();
+          return texto.includes(clube.toLowerCase());
+        });
+        renderNoticias(filtradas);
+      }
+    }
+
+    // ── Busca notícias no proxy ──
+    async function carregaNoticias() {
+      try {
+        const res  = await fetch(`${PROXY}/api/noticias`);
+        const data = await res.json();
+
+        if (!data.articles || data.articles.length === 0) {
+          throw new Error('Sem artigos');
+        }
+
+        todasNoticias = data.articles;
+
+        const agora = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        document.getElementById('txt-atualizado').textContent = `Atualizado às ${agora}`;
+
+        aplicaFiltro(filtroAtivo);
+
+      } catch(err) {
+        document.getElementById('area-noticias').innerHTML = `
+          <div class="estado-erro">
+            <p style="font-size:32px;margin-bottom:8px">📡</p>
+            <p>Erro ao carregar notícias</p>
+            <p style="font-size:12px;margin-top:6px;color:#999">${err.message}</p>
+          </div>`;
+      }
+    }
+
+    // ── Filtro clubes ──
+    document.getElementById('filtro-clubes').addEventListener('click', e => {
+      const btn = e.target.closest('.clube-btn');
+      if (btn) aplicaFiltro(btn.dataset.clube);
+    });
+
+    // ── Init ──
+    carregaNoticias();
+    // Atualiza a cada 20 minutos
+    setInterval(carregaNoticias, 20 * 60 * 1000);
+  </script>
+</body>
+</html>
