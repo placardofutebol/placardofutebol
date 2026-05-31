@@ -763,7 +763,7 @@ function atualizarCardsSuave() {
   function abrirJogo(id) {
     const jogo = todosJogos.find(j => j.fixture.id === id);
     if (!jogo) return;
-    if (!['71','72','13','11'].includes(String(jogo.league.id))) return;
+    if (!['71','72','13','11','2','39','140'].includes(String(jogo.league.id))) return;
     const liga = String(jogo.league.id);
     const base = liga === '72' ? '/brasileirao-serie-b/' :
                  liga === '13' ? '/libertadores/' :
