@@ -804,6 +804,9 @@ function atualizarCardsSuave() {
 
   window.addEventListener('appinstalled', () => {
     document.getElementById('banner-instalar').style.display = 'none';
+    navigator.sendBeacon('https://futebol-proxy.placardofutebol-com.workers.dev/pwa-event',
+      JSON.stringify({ evento: 'instalado' })
+    );
   });
 
   if ('serviceWorker' in navigator) {
