@@ -816,8 +816,12 @@ function atualizarCardsSuave() {
   
 
   if (window.matchMedia('(display-mode: standalone)').matches) {
+    if (!localStorage.getItem('pf_uid')) {
+      localStorage.setItem('pf_uid', crypto.randomUUID());
+    }
+    const uid = localStorage.getItem('pf_uid');
     navigator.sendBeacon('https://futebol-proxy.placardofutebol-com.workers.dev/pwa-event',
-      JSON.stringify({ evento: 'sessao_standalone' })
+      JSON.stringify({ evento: 'sessao_standalone', uid })
     );
   }
 
