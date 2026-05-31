@@ -122,7 +122,9 @@ header {
   overflow-x: auto;
 }
 .liga-tab-quebra {
-  display: none;
+  display: block;
+  flex-basis: 100%;
+  height: 0;
 }
 
 @media (min-width: 640px) {
