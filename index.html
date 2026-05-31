@@ -496,7 +496,13 @@ function atualizarCardsSuave() {
       placarEl.textContent = `${j.goals.home} × ${j.goals.away}`;
     }
     const st = j.fixture.status.short;
-    const timer = window._timers?.[j.fixture.id];
+const elapsed = j.fixture.status.elapsed || 0;
+let timer = window._timers?.[j.fixture.id];
+if (timer && (elapsed > timer.base || st !== timer.periodo)) {
+  window._timers[j.fixture.id] = { base: elapsed, inicio: Date.now(), periodo: st };
+  localStorage.setItem('pf_timers', JSON.stringify(window._timers));
+  timer = window._timers[j.fixture.id];
+}
     let statusTexto = '';
     if (st === 'HT') {
       statusTexto = 'Intervalo';
