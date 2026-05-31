@@ -810,6 +810,19 @@ function atualizarCardsSuave() {
     navigator.serviceWorker.register('/sw.js');
   }
 
+  // ── PWA Analytics ──
+  window.addEventListener('appinstalled', () => {
+    navigator.sendBeacon('https://futebol-proxy.placardofutebol-com.workers.dev/pwa-event',
+      JSON.stringify({ evento: 'instalado' })
+    );
+  });
+
+  if (window.matchMedia('(display-mode: standalone)').matches) {
+    navigator.sendBeacon('https://futebol-proxy.placardofutebol-com.workers.dev/pwa-event',
+      JSON.stringify({ evento: 'sessao_standalone' })
+    );
+  }
+
   exibirData();
   carregarJogos();
 
