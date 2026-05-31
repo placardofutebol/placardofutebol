@@ -332,7 +332,7 @@
     try {
       const resultados = await Promise.all(
         ligas.map(liga =>
-          fetch(`${API_URL}/fixtures?date=${hoje}&league=${liga}&season=2026`)
+         fetch(`${API_URL}/fixtures?date=${hoje}&league=${liga}`)
           .then(r => r.json()).catch(() => ({ response: [] }))
         )
       );
