@@ -113,17 +113,28 @@ header {
   top: 52px;
   z-index: 90;
 }
-.nav-ligas::-webkit-scrollbar { display: none; }
 .nav-ligas-inner {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   padding: 0 12px;
   max-width: 900px;
   margin: 0 auto;
+  overflow-x: auto;
 }
 .liga-tab-quebra {
-  flex-basis: 100%;
-  height: 0;
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .nav-ligas-inner {
+    flex-wrap: wrap;
+    overflow-x: unset;
+  }
+  .liga-tab-quebra {
+    display: block;
+    flex-basis: 100%;
+    height: 0;
+  }
 }
 .liga-tab {
   display: flex;
