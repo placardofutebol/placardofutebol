@@ -393,6 +393,22 @@ atualizarCardsSuave();
   function detectarGols(jogos) {
     jogos.forEach(j => {
       const id = j.fixture.id;
+
+      // Detecta jogo encerrado → invalida cache da tabela
+      if (['FT','AET','PEN','BT'].includes(j.fixture.status.short)) {
+        const chaveEnc = `enc_${id}`;
+        if (!sessionStorage.getItem(chaveEnc)) {
+          sessionStorage.setItem(chaveEnc, '1');
+          navigator.sendBeacon(
+            'https://futebol-proxy.placardofutebol-com.workers.dev/jogo-encerrado',
+            JSON.stringify({
+              league: String(j.league.id),
+              season: String(j.league.season)
+            })
+          );
+        }
+      }
+
       if (j.goals.home === null || j.goals.away === null) {
         placaresPrev[id] = placaresPrev[id] || 'pendente';
         return;
