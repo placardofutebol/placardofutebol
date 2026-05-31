@@ -132,12 +132,24 @@
     </div>
   </div>
 
+  <!-- NAV BOTTOM — 4 itens -->
   <nav class="nav-bottom" role="navigation" aria-label="Navegação principal">
-    <a href="/" class="nav-item ativo"><span class="nav-icon">⚽</span><span class="nav-label">Jogos</span></a>
-    <a href="tabela/" class="nav-item"><span class="nav-icon">📊</span><span class="nav-label">Tabela</span></a>
-    <a href="noticias/" class="nav-item"><span class="nav-icon">📰</span><span class="nav-label">Notícias</span></a>
-    <a href="videos/" class="nav-item"><span class="nav-icon">▶️</span><span class="nav-label">Vídeos</span></a>
-    <a href="artilharia/" class="nav-item"><span class="nav-icon">👟</span><span class="nav-label">Artilharia</span></a>
+    <a href="/" class="nav-item ativo">
+      <span class="nav-icon">⚽</span>
+      <span class="nav-label">Jogos</span>
+    </a>
+    <a href="/noticias/" class="nav-item">
+      <span class="nav-icon">📰</span>
+      <span class="nav-label">Notícias</span>
+    </a>
+    <a href="/videos/" class="nav-item">
+      <span class="nav-icon">▶️</span>
+      <span class="nav-label">Vídeos</span>
+    </a>
+    <a href="#" class="nav-item" id="btn-pefinho">
+      <span class="nav-icon">🤖</span>
+      <span class="nav-label">Pefinho</span>
+    </a>
   </nav>
 
   <footer>
@@ -234,10 +246,10 @@
       const jogosMap = {};
 
       const promises = [
-  fetchComTimeout(`${API_URL}/fixtures?date=${ontem}`),
-  fetchComTimeout(`${API_URL}/fixtures?date=${hoje}`),
-  fetchComTimeout(`${API_URL}/fixtures?date=${amanha}`)
-];
+        fetchComTimeout(`${API_URL}/fixtures?date=${ontem}`),
+        fetchComTimeout(`${API_URL}/fixtures?date=${hoje}`),
+        fetchComTimeout(`${API_URL}/fixtures?date=${amanha}`)
+      ];
 
       promises.forEach(p => {
         p.then(json => {
@@ -348,7 +360,7 @@
         salvarCache(todosJogos);
       }
       detectarGols(Object.values(jogosAtualizados));
-atualizarCardsSuave();
+      atualizarCardsSuave();
     } catch(err) { console.error('Erro ao atualizar ao vivo:', err); }
   }
 
@@ -394,7 +406,6 @@ atualizarCardsSuave();
     jogos.forEach(j => {
       const id = j.fixture.id;
 
-      // Detecta jogo encerrado → invalida cache da tabela
       if (['FT','AET','PEN','BT'].includes(j.fixture.status.short)) {
         const chaveEnc = `enc_${id}`;
         if (!sessionStorage.getItem(chaveEnc)) {
@@ -484,54 +495,56 @@ atualizarCardsSuave();
     statusAtivo = status;
     renderizar();
   }
-function atualizarCardsSuave() {
-  let algumNovo = false;
-  todosJogos.forEach(j => {
-    const el = document.getElementById('card-' + j.fixture.id);
-    if (!el) { algumNovo = true; return; }
-    const placarEl = el.querySelector('.placar-numeros');
-    const statusEl = el.querySelector('.placar-status');
-    if (!placarEl || !statusEl) return;
-    if (j.goals.home !== null && j.goals.away !== null) {
-      placarEl.textContent = `${j.goals.home} × ${j.goals.away}`;
-    }
-    const st = j.fixture.status.short;
-const elapsed = j.fixture.status.elapsed || 0;
-let timer = window._timers?.[j.fixture.id];
-if (timer && (elapsed > timer.base || st !== timer.periodo)) {
-  window._timers[j.fixture.id] = { base: elapsed, inicio: Date.now(), periodo: st };
-  localStorage.setItem('pf_timers', JSON.stringify(window._timers));
-  timer = window._timers[j.fixture.id];
-}
-    let statusTexto = '';
-    if (st === 'HT') {
-      statusTexto = 'Intervalo';
-    } else if (['1H','2H','ET','P'].includes(st) && timer) {
-      const minutos = Math.floor((Date.now() - timer.inicio) / 60000);
-      const tempoReal = Math.max(j.fixture.status.elapsed || 0, timer.base + minutos);
-      if (tempoReal > 90 && st === '2H') {
-        const ac = Math.min(tempoReal - 90, 5);
-        statusTexto = ac >= 5 ? `90+5' ⏳` : `90+${ac}'`;
-      } else if (tempoReal >= 45 && st === '1H') {
-        const ac = Math.min(tempoReal - 45, 5);
-        statusTexto = ac >= 5 ? `45+5' ⏳` : `45+${ac}'`;
-      } else {
-        statusTexto = `${tempoReal}'`;
+
+  function atualizarCardsSuave() {
+    let algumNovo = false;
+    todosJogos.forEach(j => {
+      const el = document.getElementById('card-' + j.fixture.id);
+      if (!el) { algumNovo = true; return; }
+      const placarEl = el.querySelector('.placar-numeros');
+      const statusEl = el.querySelector('.placar-status');
+      if (!placarEl || !statusEl) return;
+      if (j.goals.home !== null && j.goals.away !== null) {
+        placarEl.textContent = `${j.goals.home} × ${j.goals.away}`;
       }
-    } else if (['FT','AET','PEN','BT'].includes(st)) {
-      statusTexto = 'Encerrado';
-      statusEl.className = 'placar-status encerrado';
-    } else if (st === '2H' && timer) {
-      const minutos = Math.floor((Date.now() - timer.inicio) / 60000);
-      if ((timer.base + minutos) > 100) {
-        statusTexto = 'Encerrado*';
+      const st = j.fixture.status.short;
+      const elapsed = j.fixture.status.elapsed || 0;
+      let timer = window._timers?.[j.fixture.id];
+      if (timer && (elapsed > timer.base || st !== timer.periodo)) {
+        window._timers[j.fixture.id] = { base: elapsed, inicio: Date.now(), periodo: st };
+        localStorage.setItem('pf_timers', JSON.stringify(window._timers));
+        timer = window._timers[j.fixture.id];
+      }
+      let statusTexto = '';
+      if (st === 'HT') {
+        statusTexto = 'Intervalo';
+      } else if (['1H','2H','ET','P'].includes(st) && timer) {
+        const minutos = Math.floor((Date.now() - timer.inicio) / 60000);
+        const tempoReal = Math.max(j.fixture.status.elapsed || 0, timer.base + minutos);
+        if (tempoReal > 90 && st === '2H') {
+          const ac = Math.min(tempoReal - 90, 5);
+          statusTexto = ac >= 5 ? `90+5' ⏳` : `90+${ac}'`;
+        } else if (tempoReal >= 45 && st === '1H') {
+          const ac = Math.min(tempoReal - 45, 5);
+          statusTexto = ac >= 5 ? `45+5' ⏳` : `45+${ac}'`;
+        } else {
+          statusTexto = `${tempoReal}'`;
+        }
+      } else if (['FT','AET','PEN','BT'].includes(st)) {
+        statusTexto = 'Encerrado';
         statusEl.className = 'placar-status encerrado';
+      } else if (st === '2H' && timer) {
+        const minutos = Math.floor((Date.now() - timer.inicio) / 60000);
+        if ((timer.base + minutos) > 100) {
+          statusTexto = 'Encerrado*';
+          statusEl.className = 'placar-status encerrado';
+        }
       }
-    }
-    if (statusTexto) statusEl.textContent = statusTexto;
-  });
-  if (algumNovo) renderizar();
-}
+      if (statusTexto) statusEl.textContent = statusTexto;
+    });
+    if (algumNovo) renderizar();
+  }
+
   function renderizar() {
     const container = document.getElementById('jogos-container');
     let jogos = [...todosJogos];
@@ -570,7 +583,7 @@ if (timer && (elapsed > timer.base || st !== timer.periodo)) {
       });
     });
 
-    const hoje  = new Date().toISOString().split('T')[0];
+    const hoje   = new Date().toISOString().split('T')[0];
     const amanha = new Date(Date.now() + 86400000).toISOString().split('T')[0];
     const ontem  = new Date(Date.now() - 86400000).toISOString().split('T')[0];
 
@@ -694,12 +707,12 @@ if (timer && (elapsed > timer.base || st !== timer.periodo)) {
         }
       }
       if (!window._timers[fixtureId]) {
-  window._timers[fixtureId] = { base: elapsed, inicio: agora, periodo: status };
-  localStorage.setItem('pf_timers', JSON.stringify(window._timers));
-} else if (elapsed > window._timers[fixtureId].base || status !== window._timers[fixtureId].periodo) {
-  window._timers[fixtureId] = { base: elapsed, inicio: agora, periodo: status };
-  localStorage.setItem('pf_timers', JSON.stringify(window._timers));
-}
+        window._timers[fixtureId] = { base: elapsed, inicio: agora, periodo: status };
+        localStorage.setItem('pf_timers', JSON.stringify(window._timers));
+      } else if (elapsed > window._timers[fixtureId].base || status !== window._timers[fixtureId].periodo) {
+        window._timers[fixtureId] = { base: elapsed, inicio: agora, periodo: status };
+        localStorage.setItem('pf_timers', JSON.stringify(window._timers));
+      }
 
       const timer    = window._timers[fixtureId];
       const minutos  = Math.floor((agora - timer.inicio) / 60000);
@@ -718,16 +731,16 @@ if (timer && (elapsed > timer.base || st !== timer.periodo)) {
       }
 
     } else if (['FT','AET','PEN','BT'].includes(status)) {
-  statusClass = 'encerrado';
-  statusTexto = 'Encerrado';
-} else if (status === '2H' && (() => {
-    const timer = window._timers?.[j.fixture.id];
-    if (!timer) return false;
-    const minutos = Math.floor((Date.now() - timer.inicio) / 60000);
-    return (timer.base + minutos) > 100;
-  })()) {
-  statusClass = 'encerrado';
-  statusTexto = 'Encerrado*';
+      statusClass = 'encerrado';
+      statusTexto = 'Encerrado';
+    } else if (status === '2H' && (() => {
+        const timer = window._timers?.[j.fixture.id];
+        if (!timer) return false;
+        const minutos = Math.floor((Date.now() - timer.inicio) / 60000);
+        return (timer.base + minutos) > 100;
+      })()) {
+      statusClass = 'encerrado';
+      statusTexto = 'Encerrado*';
     } else {
       statusClass = 'agendado';
       const dataJogo = new Date(j.fixture.date);
@@ -835,8 +848,6 @@ if (timer && (elapsed > timer.base || st !== timer.periodo)) {
     navigator.serviceWorker.register('/sw.js');
   }
 
-  
-
   if (window.matchMedia('(display-mode: standalone)').matches) {
     if (!localStorage.getItem('pf_uid')) {
       localStorage.setItem('pf_uid', crypto.randomUUID());
@@ -882,6 +893,9 @@ if (timer && (elapsed > timer.base || st !== timer.periodo)) {
     }
   }, 30 * 1000);
   </script>
+
+</body>
+</html>
 
 </body>
 </html>
