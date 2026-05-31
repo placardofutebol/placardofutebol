@@ -234,10 +234,10 @@
       const jogosMap = {};
 
       const promises = [
-        fetchComTimeout(`${API_URL}/fixtures?date=${ontem}&season=2026`),
-        fetchComTimeout(`${API_URL}/fixtures?date=${hoje}&season=2026`),
-        fetchComTimeout(`${API_URL}/fixtures?date=${amanha}&season=2026`)
-      ];
+  fetchComTimeout(`${API_URL}/fixtures?date=${ontem}`),
+  fetchComTimeout(`${API_URL}/fixtures?date=${hoje}`),
+  fetchComTimeout(`${API_URL}/fixtures?date=${amanha}`)
+];
 
       promises.forEach(p => {
         p.then(json => {
