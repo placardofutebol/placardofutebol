@@ -688,12 +688,12 @@ function atualizarCardsSuave() {
         }
       }
       if (!window._timers[fixtureId]) {
-        window._timers[fixtureId] = { base: elapsed, inicio: agora };
-        localStorage.setItem('pf_timers', JSON.stringify(window._timers));
-      } else if (elapsed > window._timers[fixtureId].base) {
-        window._timers[fixtureId] = { base: elapsed, inicio: agora };
-        localStorage.setItem('pf_timers', JSON.stringify(window._timers));
-      }
+  window._timers[fixtureId] = { base: elapsed, inicio: agora, periodo: status };
+  localStorage.setItem('pf_timers', JSON.stringify(window._timers));
+} else if (elapsed > window._timers[fixtureId].base || status !== window._timers[fixtureId].periodo) {
+  window._timers[fixtureId] = { base: elapsed, inicio: agora, periodo: status };
+  localStorage.setItem('pf_timers', JSON.stringify(window._timers));
+}
 
       const timer    = window._timers[fixtureId];
       const minutos  = Math.floor((agora - timer.inicio) / 60000);
