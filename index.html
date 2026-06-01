@@ -227,18 +227,25 @@
     const cache = lerCache();
     const agora = Date.now();
 
+    // Cache com mais de 2 minutos e tem jogo ao vivo → joga fora
+    const temVivoNoCahe = cache?.dados?.some(j =>
+      ['1H','2H','HT','ET','P'].includes(j.fixture.status.short)
+    );
+    if (cache && temVivoNoCahe && (agora - cache.ts) > 2 * 60 * 1000) {
+      localStorage.removeItem('pf_jogos');
+      forcar = true;
+    }
+
     const cacheTemHoje = cache?.dados?.some(j =>
       j.fixture.date.startsWith(new Date().toISOString().split('T')[0])
     );
     if (cache && !cacheTemHoje && !forcar) forcar = true;
-
     const cacheValido = cache && (agora - cache.ts) < cacheTTL();
-
-    if (cache) {
+    if (cache && !forcar) {
       todosJogos = cache.dados;
       renderizar();
       agendarProxima();
-      if (!forcar && cacheValido) return;
+      if (cacheValido) return;
       buscarEmBackground();
       return;
     }
