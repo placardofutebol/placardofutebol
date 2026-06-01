@@ -244,9 +244,8 @@
     if (cache && !forcar) {
       todosJogos = cache.dados;
       renderizar();
-      agendarProxima();
-      if (cacheValido) return;
       buscarEmBackground();
+      agendarProxima();
       return;
     }
 
