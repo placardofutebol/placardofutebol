@@ -513,7 +513,11 @@
           j.teams.away.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').includes(t)
         );
       }
-      renderLista(res);
+     res.sort((a,b)=>{
+  const o={'ao-vivo':0,'agendado':1,'encerrado':2};
+  return o[classStatus(a.fixture.status.short)]-o[classStatus(b.fixture.status.short)];
+});
+renderLista(res);
     }
 
     document.getElementById('busca').addEventListener('input', e=>{
