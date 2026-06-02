@@ -760,7 +760,7 @@
     return siglas[nome] || nome.substring(0, 3).toUpperCase();
   }
 
-  function cardJogo(j) {
+  function cardJogo(j, ligaLabel) {
     const status  = j.fixture.status.short;
     const golHome = j.goals.home ?? '—';
     const golAway = j.goals.away ?? '—';
