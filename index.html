@@ -858,14 +858,15 @@
   function abrirJogo(id) {
     const jogo = todosJogos.find(j => j.fixture.id === id);
     if (!jogo) return;
-    if (!['71','72','13','11','2','39','140'].includes(String(jogo.league.id))) return;
+    if (!['71','72','13','11','2','39','140','10'].includes(String(jogo.league.id))) return;
     const liga = String(jogo.league.id);
     const base = liga === '72' ? '/brasileirao-serie-b/' :
-                 liga === '13' ? '/libertadores/'        :
-                 liga === '11' ? '/sulamericana/'        :
-                 liga === '2'  ? '/champions/'           :
-                 liga === '39' ? '/premier-league/'      :
-                 liga === '140'? '/la-liga/'             : '/brasileirao/';
+             liga === '13' ? '/libertadores/'        :
+             liga === '11' ? '/sulamericana/'        :
+             liga === '2'  ? '/champions/'           :
+             liga === '39' ? '/premier-league/'      :
+             liga === '140'? '/la-liga/'             :
+             liga === '10' ? '/amistosos-internacionais/' : '/brasileirao/';
     const home = slugNome(jogo.teams.home.name);
     const away = slugNome(jogo.teams.away.name);
     window.location.href = base + home + '-vs-' + away + '/';
