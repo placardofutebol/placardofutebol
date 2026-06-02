@@ -12,17 +12,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    /* ── VARIÁVEIS INTERNACIONAIS (sobre o verde do site) ── */
     :root {
-      --int-azul:    #0a1628;
-      --int-azul2:   #122040;
-      --int-ouro:    #c9a84c;
-      --int-ouro2:   #e8c56a;
-      --int-borda:   #1e3050;
-      --int-cinza:   #7a90b0;
+      --int-azul:  #0a1628;
+      --int-azul2: #122040;
+      --int-ouro:  #c9a84c;
+      --int-ouro2: #e8c56a;
+      --int-borda: #1e3050;
+      --int-cinza: #7a90b0;
     }
 
-    /* ── HERO BANNER ── */
+    /* ── HERO ── */
     .int-hero-banner {
       background: linear-gradient(135deg, #0a1e1a 0%, #0d2b12 40%, #122040 100%);
       padding: 24px 16px 20px;
@@ -32,16 +31,14 @@
       border-bottom: 3px solid var(--int-ouro);
     }
     .int-hero-banner::before {
-      content: '';
-      position: absolute; inset: 0;
+      content: ''; position: absolute; inset: 0;
       background:
         radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.1) 0%, transparent 55%),
         radial-gradient(ellipse at 80% 30%, rgba(26,122,48,0.2) 0%, transparent 50%);
       pointer-events: none;
     }
     .int-hero-banner::after {
-      content: '';
-      position: absolute;
+      content: ''; position: absolute;
       top: 0; left: 0; right: 0; height: 2px;
       background: linear-gradient(90deg, transparent, var(--int-ouro), var(--int-ouro2), var(--int-ouro), transparent);
       pointer-events: none;
@@ -55,266 +52,162 @@
       text-shadow: 0 0 24px rgba(201,168,76,0.3);
       margin-bottom: 4px;
     }
-    .int-hero-sub {
-      font-size: 12px; color: rgba(255,255,255,0.55);
-      letter-spacing: 1.5px; text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-    .int-hero-badges {
-      display: flex; justify-content: center;
-      flex-wrap: wrap; gap: 6px;
-    }
+    .int-hero-sub { font-size: 12px; color: rgba(255,255,255,0.55); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px; }
+    .int-hero-badges { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; }
     .int-hero-badge {
-      background: rgba(201,168,76,0.1);
-      border: 1px solid rgba(201,168,76,0.3);
-      color: var(--int-ouro2);
-      font-size: 10px; font-weight: 700;
-      letter-spacing: 1px; text-transform: uppercase;
-      padding: 4px 12px; border-radius: 20px;
+      background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3);
+      color: var(--int-ouro2); font-size: 10px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase; padding: 4px 12px; border-radius: 20px;
     }
     .int-hero-badge.verde {
-      background: rgba(26,122,48,0.2);
-      border-color: rgba(26,122,48,0.4);
-      color: #7fff00;
+      background: rgba(26,122,48,0.2); border-color: rgba(26,122,48,0.4); color: #7fff00;
     }
 
-    /* ── FILTROS ── */
-    .filtros-wrap {
+    /* ── CARROSSEL DE DATAS ── */
+    .carrossel-wrap {
       background: white;
-      border-bottom: 1px solid var(--cinza-borda);
-      padding: 10px 12px;
-      position: sticky;
-      top: 52px;
-      z-index: 89;
+      border-bottom: 2px solid var(--cinza-borda);
+      position: sticky; top: 52px; z-index: 89;
     }
-    .filtros-row {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      padding-bottom: 2px;
-      max-width: 900px;
-      margin: 0 auto;
+    .carrossel-inner {
+      display: flex; align-items: stretch;
+      max-width: 900px; margin: 0 auto;
     }
-    .filtros-row::-webkit-scrollbar { display: none; }
-
-    .filtro-btn {
-      padding: 5px 14px;
-      border-radius: 20px;
-      font-family: var(--font-corpo);
-      font-size: 12px; font-weight: 600;
-      cursor: pointer;
-      border: 1.5px solid var(--cinza-borda);
-      background: white;
-      color: var(--cinza-texto);
-      white-space: nowrap;
-      transition: all 0.2s;
-      flex-shrink: 0;
+    .carr-arrow {
+      background: none; border: none; cursor: pointer;
+      padding: 0 14px; color: var(--cinza-texto);
+      font-size: 20px; flex-shrink: 0;
+      transition: color .2s;
+      display: flex; align-items: center;
     }
-    .filtro-btn.ativo {
-      background: var(--int-azul2);
-      color: var(--int-ouro2);
-      border-color: var(--int-azul2);
+    .carr-arrow:hover { color: var(--int-azul2); }
+    .carr-arrow:disabled { opacity: .2; cursor: default; }
+    .carrossel-datas {
+      display: flex; overflow: hidden; flex: 1;
     }
-    .filtro-btn:hover:not(.ativo) {
-      border-color: var(--int-azul2);
+    .data-pill {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 10px 6px; cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all .2s; flex: 1;
+      min-width: 0; text-align: center;
+      border-right: 1px solid var(--cinza-borda);
+      position: relative;
+    }
+    .data-pill:last-child { border-right: none; }
+    .data-pill:hover { background: #f5f8f5; }
+    .data-pill.ativa {
+      border-bottom-color: var(--verde);
+      background: #f0faf2;
+    }
+    .data-pill.tem-vivo { border-bottom-color: var(--vermelho) !important; }
+    .data-pill .pill-dia-sem {
+      font-size: 9px; font-weight: 700; text-transform: uppercase;
+      color: var(--cinza-texto); letter-spacing: .5px;
+    }
+    .data-pill .pill-dia-num {
+      font-family: var(--font-titulo);
+      font-size: 20px; font-weight: 900; line-height: 1.1;
       color: var(--int-azul2);
     }
-    .filtro-btn.verde-btn.ativo {
-      background: var(--verde);
-      color: white;
-      border-color: var(--verde);
+    .data-pill.ativa .pill-dia-num { color: var(--verde); }
+    .data-pill .pill-mes {
+      font-size: 9px; color: var(--cinza-texto); text-transform: uppercase; letter-spacing: .5px;
     }
+    .data-pill .pill-badge {
+      position: absolute; top: 6px; right: 6px;
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--vermelho);
+      animation: piscando 1.2s infinite;
+    }
+    .data-pill .pill-count {
+      font-size: 9px; font-weight: 700;
+      color: var(--cinza-texto); margin-top: 2px;
+    }
+    .data-pill.ativa .pill-count { color: var(--verde); }
 
     /* ── BUSCA ── */
     .busca-wrap {
       max-width: 900px; margin: 0 auto;
-      padding: 0 12px 10px;
+      padding: 8px 12px;
       background: white;
       border-bottom: 1px solid var(--cinza-borda);
     }
     .busca-input {
-      width: 100%;
-      background: var(--cinza-bg);
-      border: 1.5px solid var(--cinza-borda);
-      border-radius: 8px;
-      font-family: var(--font-corpo);
-      font-size: 13px;
-      color: var(--preto);
-      padding: 8px 14px 8px 36px;
-      outline: none;
-      transition: border-color .2s;
+      width: 100%; background: var(--cinza-bg);
+      border: 1.5px solid var(--cinza-borda); border-radius: 8px;
+      font-family: var(--font-corpo); font-size: 13px; color: var(--preto);
+      padding: 8px 14px 8px 36px; outline: none; transition: border-color .2s;
     }
     .busca-input:focus { border-color: var(--verde); }
     .busca-wrap-inner { position: relative; }
-    .busca-icon {
-      position: absolute; left: 10px; top: 50%;
-      transform: translateY(-50%);
-      font-size: 14px; pointer-events: none;
-    }
+    .busca-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 14px; pointer-events: none; }
 
-    /* ── CONTADOR RESULTADOS ── */
-    .resultado-count {
-      font-size: 11px; color: var(--cinza-texto);
-      text-align: center; padding: 8px;
-    }
+    /* ── CONTADOR ── */
+    .resultado-count { font-size: 11px; color: var(--cinza-texto); text-align: center; padding: 8px; }
 
     /* ── GRUPO DATA ── */
-    .grupo-data {
-      margin-bottom: 20px;
-    }
+    .grupo-data { margin-bottom: 20px; }
     .data-header {
-      font-family: var(--font-titulo);
-      font-size: 14px; font-weight: 800;
-      color: var(--int-azul2);
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      font-family: var(--font-titulo); font-size: 14px; font-weight: 800;
+      color: var(--int-azul2); text-transform: uppercase; letter-spacing: 1px;
       padding: 10px 12px 8px;
       background: linear-gradient(90deg, rgba(201,168,76,0.08), transparent);
-      border-left: 3px solid var(--int-ouro);
-      border-bottom: 1px solid var(--cinza-borda);
-      border-radius: 8px 8px 0 0;
-      display: flex; align-items: center; gap: 8px;
+      border-left: 3px solid var(--int-ouro); border-bottom: 1px solid var(--cinza-borda);
+      border-radius: 8px 8px 0 0; display: flex; align-items: center; gap: 8px;
     }
     .data-header-tag {
-      font-size: 9px; font-weight: 700;
-      padding: 2px 8px; border-radius: 10px;
+      font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 10px;
       letter-spacing: 1px; text-transform: uppercase;
     }
     .data-header-tag.hoje { background: #d32f2f; color: white; }
     .data-header-tag.amanha { background: var(--verde); color: white; }
-    .data-header-tag.vivo { background: #d32f2f; color: white; animation: piscando 1.2s infinite; }
 
-    /* ── JOGO CARD AMISTOSO ── */
+    /* ── JOGO CARD ── */
     .jogo-card {
-      background: var(--cinza-card);
-      padding: 12px 14px;
+      background: var(--cinza-card); padding: 12px 14px;
       border-bottom: 1px solid var(--cinza-borda);
-      cursor: pointer;
-      transition: background 0.15s;
-      position: relative;
-      display: block;
-      text-decoration: none;
-      color: inherit;
+      cursor: pointer; transition: background 0.15s;
+      position: relative; display: block; text-decoration: none; color: inherit;
     }
-    .jogo-card:last-child {
-      border-bottom: none;
-      border-radius: 0 0 var(--radius-card) var(--radius-card);
-    }
+    .jogo-card:last-child { border-bottom: none; border-radius: 0 0 var(--radius-card) var(--radius-card); }
     .jogo-card:hover { background: #f5f8f7; }
-
-    /* faixa lateral ao vivo */
     .jogo-card.ao-vivo::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0; width: 3px;
-      background: var(--vermelho);
-      border-radius: 2px 0 0 2px;
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+      background: var(--vermelho); border-radius: 2px 0 0 2px;
     }
-
     .jogo-linha {
-      display: grid;
-      grid-template-columns: 52px 1fr auto 1fr 52px;
-      align-items: center;
-      gap: 8px;
+      display: grid; grid-template-columns: 52px 1fr auto 1fr 52px;
+      align-items: center; gap: 8px;
     }
-
-    .escudo {
-      width: 28px; height: 28px;
-      object-fit: contain; display: block;
-    }
-    .time-esquerda, .time-direita {
-      display: flex; flex-direction: column;
-      align-items: center; gap: 4px; overflow: hidden;
-    }
+    .escudo { width: 28px; height: 28px; object-fit: contain; display: block; }
+    .time-esquerda, .time-direita { display: flex; flex-direction: column; align-items: center; gap: 4px; overflow: hidden; }
     .time-nome {
-      font-family: var(--font-corpo);
-      font-size: 12px; font-weight: 700;
-      color: var(--preto);
-      white-space: nowrap; overflow: hidden;
-      text-overflow: ellipsis; text-align: center;
+      font-family: var(--font-corpo); font-size: 12px; font-weight: 700; color: var(--preto);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center;
       width: 100%; max-width: 110px;
     }
-
-    .placar-centro {
-      display: flex; flex-direction: column;
-      align-items: center; gap: 3px;
-      min-width: 80px; text-align: center;
-    }
-    .placar-numeros {
-      font-family: var(--font-titulo);
-      font-size: 22px; font-weight: 800;
-      color: var(--preto); letter-spacing: 2px;
-      line-height: 1;
-    }
-    .placar-status {
-      font-family: var(--font-corpo);
-      font-size: 10px; font-weight: 600;
-      color: var(--cinza-texto); letter-spacing: .5px;
-    }
+    .placar-centro { display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 80px; text-align: center; }
+    .placar-numeros { font-family: var(--font-titulo); font-size: 22px; font-weight: 800; color: var(--preto); letter-spacing: 2px; line-height: 1; }
+    .placar-status { font-family: var(--font-corpo); font-size: 10px; font-weight: 600; color: var(--cinza-texto); letter-spacing: .5px; }
     .placar-status.ao-vivo { color: var(--vermelho); animation: piscando 1.2s infinite; }
     .placar-status.encerrado { color: #aaa; }
-
-    /* countdown inline */
-    .placar-countdown {
-      font-family: var(--font-titulo);
-      font-size: 13px; font-weight: 700;
-      color: var(--int-azul2); letter-spacing: 1px;
-      line-height: 1;
-    }
-    .placar-hora {
-      font-family: var(--font-corpo);
-      font-size: 13px; font-weight: 700;
-      color: var(--int-azul2);
-    }
-
-    /* bandeiras */
-    .bandeira {
-      width: 20px; height: 14px;
-      object-fit: cover; border-radius: 2px;
-      box-shadow: 0 1px 3px rgba(0,0,0,.15);
-    }
-
-    /* ── ESTADO VAZIO/LOADING/ERRO ── */
-    .estado-loading, .estado-erro, .estado-vazio {
-      text-align: center; padding: 48px 20px;
-      color: var(--cinza-texto);
-    }
-    .estado-loading .spinner {
-      width: 32px; height: 32px;
-      border: 3px solid var(--cinza-borda);
-      border-top-color: var(--verde);
-      border-radius: 50%;
-      animation: girar 0.8s linear infinite;
-      margin: 0 auto 12px;
-    }
-    .estado-loading p, .estado-vazio p { font-size: 14px; }
-
-    /* ── PAGINAÇÃO ── */
-    .paginacao {
-      display: flex; justify-content: center;
-      align-items: center; gap: 8px;
-      padding: 20px 0;
-    }
-    .pag-btn {
-      padding: 6px 16px; border-radius: 20px;
-      border: 1.5px solid var(--cinza-borda);
-      background: white; color: var(--cinza-texto);
-      font-size: 12px; font-weight: 600; cursor: pointer;
-      transition: all .2s;
-    }
-    .pag-btn:hover:not(:disabled) { border-color: var(--verde); color: var(--verde); }
-    .pag-btn:disabled { opacity: .35; cursor: not-allowed; }
-    .pag-info { font-size: 12px; color: var(--cinza-texto); }
-
-    /* ── BADGE AO VIVO ── */
+    .placar-countdown { font-family: var(--font-titulo); font-size: 13px; font-weight: 700; color: var(--int-azul2); letter-spacing: 1px; line-height: 1; }
+    .placar-hora { font-family: var(--font-corpo); font-size: 13px; font-weight: 700; color: var(--int-azul2); }
     .badge-ao-vivo {
       display: inline-flex; align-items: center; gap: 4px;
-      background: var(--vermelho); color: white;
-      font-size: 9px; font-weight: 800;
-      padding: 2px 7px; border-radius: 10px;
-      letter-spacing: .5px; animation: piscando 1.2s infinite;
+      background: var(--vermelho); color: white; font-size: 9px; font-weight: 800;
+      padding: 2px 7px; border-radius: 10px; letter-spacing: .5px; animation: piscando 1.2s infinite;
     }
+
+    /* ── ESTADO ── */
+    .estado-loading, .estado-erro, .estado-vazio { text-align: center; padding: 48px 20px; color: var(--cinza-texto); }
+    .estado-loading .spinner {
+      width: 32px; height: 32px; border: 3px solid var(--cinza-borda);
+      border-top-color: var(--verde); border-radius: 50%;
+      animation: girar 0.8s linear infinite; margin: 0 auto 12px;
+    }
+    .estado-loading p, .estado-vazio p { font-size: 14px; }
 
     /* ── DESKTOP ── */
     @media (min-width: 640px) {
@@ -330,7 +223,7 @@
 </head>
 <body>
 
-  <!-- ══ HEADER ══ -->
+  <!-- HEADER -->
   <header>
     <div class="header-inner">
       <a href="/" class="logo">
@@ -341,19 +234,19 @@
     </div>
   </header>
 
-  <!-- ══ NAV LIGAS ══ -->
+  <!-- NAV LIGAS -->
   <nav class="nav-ligas">
     <div class="nav-ligas-inner">
       <a href="/" class="liga-tab">🏠 Home</a>
       <a href="/premier-league/" class="liga-tab">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier</a>
       <a href="/copa-do-mundo/" class="liga-tab">🏆 Copa 2026</a>
-      <a href="/amistosos/" class="liga-tab ativa">🌍 Amistosos</a>
+      <a href="/amistosos-internacionais/" class="liga-tab ativa">🌍 Amistosos</a>
       <a href="/champions/" class="liga-tab">⭐ Champions</a>
       <a href="/brasileirao/" class="liga-tab">🇧🇷 Brasileirão</a>
     </div>
   </nav>
 
-  <!-- ══ HERO ══ -->
+  <!-- HERO -->
   <div class="int-hero-banner">
     <span class="int-hero-emoji">🌍</span>
     <div class="int-hero-titulo">Amistosos Internacionais</div>
@@ -365,17 +258,16 @@
     </div>
   </div>
 
-  <!-- ══ FILTROS ══ -->
-  <div class="filtros-wrap">
-    <div class="filtros-row" id="filtros-status">
-      <button class="filtro-btn verde-btn ativo" data-status="todos" onclick="filtrarStatus(this)">Todos</button>
-      <button class="filtro-btn verde-btn"        data-status="ao-vivo" onclick="filtrarStatus(this)">🔴 Ao Vivo</button>
-      <button class="filtro-btn"                  data-status="agendado" onclick="filtrarStatus(this)">📅 Agendados</button>
-      <button class="filtro-btn"                  data-status="encerrado" onclick="filtrarStatus(this)">✅ Encerrados</button>
+  <!-- CARROSSEL DATAS -->
+  <div class="carrossel-wrap">
+    <div class="carrossel-inner">
+      <button class="carr-arrow" id="carr-prev" onclick="moverCarrossel(-1)">&#8249;</button>
+      <div class="carrossel-datas" id="carrossel-datas"></div>
+      <button class="carr-arrow" id="carr-next" onclick="moverCarrossel(1)">&#8250;</button>
     </div>
   </div>
 
-  <!-- ══ BUSCA ══ -->
+  <!-- BUSCA -->
   <div class="busca-wrap">
     <div class="busca-wrap-inner">
       <span class="busca-icon">🔍</span>
@@ -383,7 +275,7 @@
     </div>
   </div>
 
-  <!-- ══ CONTEÚDO ══ -->
+  <!-- CONTEÚDO -->
   <div class="container">
     <div id="resultado-count" class="resultado-count"></div>
     <div id="lista-jogos">
@@ -392,14 +284,9 @@
         <p>Buscando amistosos internacionais…</p>
       </div>
     </div>
-    <div class="paginacao" id="paginacao" style="display:none">
-      <button class="pag-btn" id="btn-ant" onclick="mudarPag(-1)">← Anterior</button>
-      <span class="pag-info" id="pag-info"></span>
-      <button class="pag-btn" id="btn-prox" onclick="mudarPag(1)">Próxima →</button>
-    </div>
   </div>
 
-  <!-- ══ FOOTER ══ -->
+  <!-- FOOTER -->
   <footer>
     <div class="footer-logo">Placar <span>do Futebol</span></div>
     <div class="footer-links">
@@ -410,166 +297,182 @@
     <p class="footer-copy">© 2026 placardofutebol.com — Resultados ao vivo</p>
   </footer>
 
-  <!-- ══ NAV BOTTOM ══ -->
+  <!-- NAV BOTTOM -->
   <nav class="nav-bottom">
-    <a href="/"              class="nav-item"><span class="nav-icon">⚽</span><span class="nav-label">Jogos</span></a>
-    <a href="/tabela/"       class="nav-item"><span class="nav-icon">📊</span><span class="nav-label">Tabela</span></a>
-    <a href="/amistosos/"    class="nav-item ativo"><span class="nav-icon">🌍</span><span class="nav-label">Amistosos</span></a>
-    <a href="/noticias/"     class="nav-item"><span class="nav-icon">📰</span><span class="nav-label">Notícias</span></a>
-    <a href="/copa-do-mundo/" class="nav-item"><span class="nav-icon">🏆</span><span class="nav-label">Copa</span></a>
+    <a href="/"                          class="nav-item"><span class="nav-icon">⚽</span><span class="nav-label">Jogos</span></a>
+    <a href="/tabela/"                   class="nav-item"><span class="nav-icon">📊</span><span class="nav-label">Tabela</span></a>
+    <a href="/amistosos-internacionais/" class="nav-item ativo"><span class="nav-icon">🌍</span><span class="nav-label">Amistosos</span></a>
+    <a href="/noticias/"                 class="nav-item"><span class="nav-icon">📰</span><span class="nav-label">Notícias</span></a>
+    <a href="/copa-do-mundo/"            class="nav-item"><span class="nav-icon">🏆</span><span class="nav-label">Copa</span></a>
   </nav>
 
   <script>
-    const API_KEY  = '5b6f884a4ce7c11a2c67cf54de3f4a73';
-    const LIGA_ID  = 10;
-    const SEASON   = 2026;
-    const POR_PAG  = 40;
+    const API_KEY = '5b6f884a4ce7c11a2c67cf54de3f4a73';
+    const LIGA_ID = 10;
+    const SEASON  = 2026;
+    const PILLS   = 5; // pills visíveis no carrossel
 
-    let todosJogos   = [];
-    let jogosFiltrados = [];
-    let paginaAtual  = 1;
-    let filtroStatus = 'todos';
-    let termoBusca   = '';
+    let todosJogos       = [];
+    let datasUnicas      = []; // chaves ordenadas
+    let dataAtiva        = '';
+    let termoBusca       = '';
     let countdownsAtivos = [];
+    let offset           = 0;
 
-    /* ── SLUG (mesmo do gerador) ── */
+    /* helpers */
     function slug(nome) {
       return nome.toLowerCase()
-        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-    }
-
-    /* ── FORMATA DATA ── */
-    function fmtData(iso) {
-      return new Date(iso).toLocaleDateString('pt-BR',
-        { weekday:'short', day:'2-digit', month:'short', year:'numeric' });
+        .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+        .replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
     }
     function fmtHora(iso) {
-      return new Date(iso).toLocaleTimeString('pt-BR',
-        { hour:'2-digit', minute:'2-digit' });
+      return new Date(iso).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
     }
     function chaveData(iso) {
       const d = new Date(iso);
-      return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+      return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
     }
-
-    /* ── LABEL DATA BONITA ── */
-    function labelData(chave) {
-      const hoje   = chaveData(new Date().toISOString());
-      const amanha = chaveData(new Date(Date.now() + 86400000).toISOString());
-      const [, mes, dia] = chave.split('-');
-      const meses  = ['','Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
-      const base   = `${dia} ${meses[+mes]}`;
-      if (chave === hoje)   return { txt: `📅 Hoje · ${base}`,   tag: 'hoje' };
-      if (chave === amanha) return { txt: `📅 Amanhã · ${base}`, tag: 'amanha' };
-      return { txt: `📅 ${base}`, tag: '' };
-    }
-
-    /* ── STATUS DO JOGO ── */
+    function hojeChave()   { return chaveData(new Date().toISOString()); }
+    function amanhaChave() { return chaveData(new Date(Date.now()+86400000).toISOString()); }
     function classStatus(s) {
       if (['1H','2H','HT','ET','P','LIVE'].includes(s)) return 'ao-vivo';
       if (['FT','AET','PEN','AWD','WO'].includes(s))    return 'encerrado';
       return 'agendado';
     }
 
-    /* ── PLACAR / COUNTDOWN HTML ── */
-    function placarHTML(jogo, idx) {
-      const s      = jogo.fixture.status.short;
-      const cls    = classStatus(s);
-      const gH     = jogo.goals.home;
-      const gA     = jogo.goals.away;
-      const dataISO = jogo.fixture.date;
-      const hora   = fmtHora(dataISO);
+    /* ── CARROSSEL ── */
+    function renderCarrossel() {
+      const el     = document.getElementById('carrossel-datas');
+      const hoje   = hojeChave();
+      const amanha = amanhaChave();
+      const MESES  = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+      const DIAS   = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
 
-      if (cls === 'ao-vivo') {
-        const min = jogo.fixture.status.elapsed;
-        return `
-          <div class="placar-numeros">${gH} <span style="color:var(--cinza-texto);font-size:16px">×</span> ${gA}</div>
-          <span class="placar-status ao-vivo"><span class="badge-ao-vivo">● AO VIVO</span> ${min ? min+"'" : ''}</span>`;
-      }
-      if (cls === 'encerrado') {
-        return `
-          <div class="placar-numeros">${gH} <span style="color:var(--cinza-texto);font-size:16px">×</span> ${gA}</div>
-          <span class="placar-status encerrado">Encerrado</span>`;
-      }
-      // agendado — countdown
+      const contPorData = {};
+      const vivoPorData = {};
+      todosJogos.forEach(j => {
+        const ch = chaveData(j.fixture.date);
+        contPorData[ch] = (contPorData[ch]||0)+1;
+        if (classStatus(j.fixture.status.short)==='ao-vivo') vivoPorData[ch]=true;
+      });
+
+      const fatia = datasUnicas.slice(offset, offset + PILLS);
+
+      el.innerHTML = fatia.map(ch => {
+        const [,mes,dia] = ch.split('-');
+        const d = new Date(ch+'T12:00:00');
+        const semLabel = ch===hoje ? 'Hoje' : (ch===amanha ? 'Amanhã' : DIAS[d.getDay()]);
+        const temVivo  = vivoPorData[ch];
+        const count    = contPorData[ch]||0;
+        return `<div class="data-pill ${ch===dataAtiva?'ativa':''} ${temVivo?'tem-vivo':''}"
+                     onclick="selecionarData('${ch}')">
+          ${temVivo ? '<span class="pill-badge"></span>' : ''}
+          <span class="pill-dia-sem">${semLabel}</span>
+          <span class="pill-dia-num">${dia}</span>
+          <span class="pill-mes">${MESES[+mes-1]}</span>
+          <span class="pill-count">${count} jogo${count!==1?'s':''}</span>
+        </div>`;
+      }).join('');
+
+      document.getElementById('carr-prev').disabled = offset === 0;
+      document.getElementById('carr-next').disabled = offset + PILLS >= datasUnicas.length;
+    }
+
+    function moverCarrossel(dir) {
+      offset = Math.max(0, Math.min(offset + dir, datasUnicas.length - PILLS));
+      renderCarrossel();
+    }
+
+    function selecionarData(ch) {
+      dataAtiva = ch;
+      renderCarrossel();
+      aplicarFiltros();
+    }
+
+    /* ── PLACAR HTML ── */
+    function placarHTML(jogo, idx) {
+      const cls  = classStatus(jogo.fixture.status.short);
+      const gH   = jogo.goals.home;
+      const gA   = jogo.goals.away;
+      const hora = fmtHora(jogo.fixture.date);
+      const min  = jogo.fixture.status.elapsed;
+
+      if (cls==='ao-vivo') return `
+        <div class="placar-numeros">${gH} <span style="color:var(--cinza-texto);font-size:16px">x</span> ${gA}</div>
+        <span class="placar-status ao-vivo"><span class="badge-ao-vivo">AO VIVO</span> ${min?min+"'":''}  </span>`;
+      if (cls==='encerrado') return `
+        <div class="placar-numeros">${gH} <span style="color:var(--cinza-texto);font-size:16px">x</span> ${gA}</div>
+        <span class="placar-status encerrado">Encerrado</span>`;
       return `
         <div class="placar-hora">${hora}</div>
         <div class="placar-countdown" id="cd-${idx}">--:--:--</div>`;
     }
 
     /* ── RENDER LISTA ── */
-    function renderLista() {
+    function renderLista(jogos) {
       countdownsAtivos = [];
-      const lista   = document.getElementById('lista-jogos');
-      const contEl  = document.getElementById('resultado-count');
-      const pagEl   = document.getElementById('paginacao');
+      const lista  = document.getElementById('lista-jogos');
+      const contEl = document.getElementById('resultado-count');
 
-      if (!jogosFiltrados.length) {
-        lista.innerHTML = `<div class="estado-vazio"><p>Nenhum jogo encontrado.<br>Tente outro filtro ou busca.</p></div>`;
-        pagEl.style.display = 'none';
-        contEl.textContent  = '';
+      if (!jogos.length) {
+        lista.innerHTML = '<div class="estado-vazio"><p>Nenhum jogo nesta data.</p></div>';
+        contEl.textContent = '';
         return;
       }
 
-      // paginação
-      const total   = jogosFiltrados.length;
-      const totalPag = Math.ceil(total / POR_PAG);
-      if (paginaAtual > totalPag) paginaAtual = 1;
-      const inicio  = (paginaAtual - 1) * POR_PAG;
-      const fim     = Math.min(inicio + POR_PAG, total);
-      const pagina  = jogosFiltrados.slice(inicio, fim);
+      contEl.textContent = `${jogos.length} jogo${jogos.length!==1?'s':''}`;
 
-      contEl.textContent = `${total} jogo${total !== 1 ? 's' : ''} encontrado${total !== 1 ? 's' : ''}`;
+      const hoje   = hojeChave();
+      const amanha = amanhaChave();
+      const MESES  = ['','Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 
       // agrupa por data
       const grupos = {};
-      pagina.forEach((j, idx) => {
-        const chave = chaveData(j.fixture.date);
-        if (!grupos[chave]) grupos[chave] = [];
-        grupos[chave].push({ j, idx: inicio + idx });
+      jogos.forEach((j,idx) => {
+        const ch = chaveData(j.fixture.date);
+        if (!grupos[ch]) grupos[ch] = [];
+        grupos[ch].push({j,idx});
       });
 
       let html = '';
-      Object.keys(grupos).sort().forEach(chave => {
-        const { txt, tag } = labelData(chave);
-        const tagHTML = tag ? `<span class="data-header-tag ${tag}">${tag === 'vivo' ? '🔴 AO VIVO' : tag.toUpperCase()}</span>` : '';
+      Object.keys(grupos).sort().forEach(ch => {
+        const [,mes,dia] = ch.split('-');
+        let txt = `📅 ${dia} ${MESES[+mes]}`;
+        let tag = '';
+        if (ch===hoje)   { txt=`📅 Hoje · ${dia} ${MESES[+mes]}`;   tag='<span class="data-header-tag hoje">HOJE</span>'; }
+        if (ch===amanha) { txt=`📅 Amanhã · ${dia} ${MESES[+mes]}`; tag='<span class="data-header-tag amanha">AMANHÃ</span>'; }
+
         html += `<div class="grupo-data">
-          <div class="data-header">${txt} ${tagHTML}</div>
+          <div class="data-header">${txt} ${tag}</div>
           <div style="border-radius:0 0 var(--radius-card) var(--radius-card);overflow:hidden;border:1px solid var(--cinza-borda);border-top:none;">`;
 
-        grupos[chave].forEach(({ j, idx }) => {
+        grupos[ch].forEach(({j,idx}) => {
           const home     = j.teams.home.name;
           const away     = j.teams.away.name;
           const homeLogo = j.teams.home.logo;
           const awayLogo = j.teams.away.logo;
-          const href = `/amistosos-internacionais/${slug(home)}-vs-${slug(away)}/`;
+          const href     = `/amistosos-internacionais/${slug(home)}-vs-${slug(away)}/`;
           const cls      = classStatus(j.fixture.status.short);
-          const estadio  = j.fixture.venue?.name || '';
-          const cidade   = j.fixture.venue?.city || '';
-          const vivo     = cls === 'ao-vivo' ? 'ao-vivo' : '';
+          const estadio  = j.fixture.venue?.name||'';
+          const cidade   = j.fixture.venue?.city||'';
 
-          if (cls === 'agendado') {
-            countdownsAtivos.push({ idx, iso: j.fixture.date });
-          }
+          if (cls==='agendado') countdownsAtivos.push({idx, iso: j.fixture.date});
 
-          html += `<a href="${href}" class="jogo-card ${vivo}">
+          html += `<a href="${href}" class="jogo-card ${cls==='ao-vivo'?'ao-vivo':''}">
             <div class="jogo-linha">
               <div class="time-esquerda">
                 <img class="escudo" src="${homeLogo}" alt="${home}" onerror="this.style.display='none'">
                 <span class="time-nome">${home}</span>
               </div>
               <div></div>
-              <div class="placar-centro">
-                ${placarHTML(j, idx)}
-              </div>
+              <div class="placar-centro">${placarHTML(j,idx)}</div>
               <div></div>
               <div class="time-direita">
                 <img class="escudo" src="${awayLogo}" alt="${away}" onerror="this.style.display='none'">
                 <span class="time-nome">${away}</span>
               </div>
             </div>
-            ${estadio || cidade ? `<div style="font-size:10px;color:var(--cinza-texto);text-align:center;margin-top:5px;">📍 ${[estadio,cidade].filter(Boolean).join(' · ')}</div>` : ''}
+            ${estadio||cidade?`<div style="font-size:10px;color:var(--cinza-texto);text-align:center;margin-top:5px;">📍 ${[estadio,cidade].filter(Boolean).join(' · ')}</div>`:''}
           </a>`;
         });
 
@@ -577,112 +480,91 @@
       });
 
       lista.innerHTML = html;
-
-      // paginação
-      if (totalPag > 1) {
-        pagEl.style.display = 'flex';
-        document.getElementById('pag-info').textContent = `Página ${paginaAtual} de ${totalPag}`;
-        document.getElementById('btn-ant').disabled  = paginaAtual === 1;
-        document.getElementById('btn-prox').disabled = paginaAtual === totalPag;
-      } else {
-        pagEl.style.display = 'none';
-      }
-
-      // iniciar countdowns
       iniciarCountdowns();
     }
 
     /* ── COUNTDOWNS ── */
     function iniciarCountdowns() {
-      function pad(n) { return String(n).padStart(2,'0'); }
-      function tick() {
-        const agora = Date.now();
-        countdownsAtivos.forEach(({ idx, iso }) => {
-          const el   = document.getElementById(`cd-${idx}`);
-          if (!el) return;
-          const diff = new Date(iso) - agora;
-          if (diff <= 0) { el.textContent = 'Em breve'; return; }
-          const d = Math.floor(diff / 86400000);
-          const h = Math.floor((diff % 86400000) / 3600000);
-          const m = Math.floor((diff % 3600000)  / 60000);
-          const s = Math.floor((diff % 60000)    / 1000);
-          el.textContent = d > 0 ? `${d}d ${pad(h)}:${pad(m)}:${pad(s)}` : `${pad(h)}:${pad(m)}:${pad(s)}`;
-        });
-      }
-      tick();
+      function pad(n){return String(n).padStart(2,'0');}
       clearInterval(window._cdTimer);
-      window._cdTimer = setInterval(tick, 1000);
+      window._cdTimer = setInterval(()=>{
+        const agora = Date.now();
+        countdownsAtivos.forEach(({idx,iso})=>{
+          const el = document.getElementById(`cd-${idx}`);
+          if (!el) return;
+          const diff = new Date(iso)-agora;
+          if (diff<=0){el.textContent='Em breve';return;}
+          const d=Math.floor(diff/86400000);
+          const h=Math.floor((diff%86400000)/3600000);
+          const m=Math.floor((diff%3600000)/60000);
+          const s=Math.floor((diff%60000)/1000);
+          el.textContent = d>0?`${d}d ${pad(h)}:${pad(m)}:${pad(s)}`:`${pad(h)}:${pad(m)}:${pad(s)}`;
+        });
+      },1000);
     }
 
     /* ── APLICA FILTROS ── */
     function aplicarFiltros() {
-      paginaAtual = 1;
-      let res = [...todosJogos];
-
-      if (filtroStatus !== 'todos') {
-        res = res.filter(j => classStatus(j.fixture.status.short) === filtroStatus);
-      }
-
+      let res = todosJogos.filter(j => chaveData(j.fixture.date) === dataAtiva);
       if (termoBusca) {
         const t = termoBusca.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
         res = res.filter(j =>
-          j.teams.home.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').includes(t) ||
+          j.teams.home.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').includes(t)||
           j.teams.away.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').includes(t)
         );
       }
-
-      jogosFiltrados = res;
-      renderLista();
+      renderLista(res);
     }
 
-    function filtrarStatus(btn) {
-      document.querySelectorAll('#filtros-status .filtro-btn').forEach(b => b.classList.remove('ativo'));
-      btn.classList.add('ativo');
-      filtroStatus = btn.dataset.status;
-      aplicarFiltros();
-    }
-
-    document.getElementById('busca').addEventListener('input', e => {
+    document.getElementById('busca').addEventListener('input', e=>{
       termoBusca = e.target.value.trim();
       aplicarFiltros();
     });
 
-    function mudarPag(dir) {
-      paginaAtual += dir;
-      renderLista();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
     /* ── BUSCA API ── */
     async function buscarJogos() {
       try {
-        const url = `https://v3.football.api-sports.io/fixtures?league=${LIGA_ID}&season=${SEASON}`;
-        const res = await fetch(url, { headers: { 'x-apisports-key': API_KEY } });
+        const url  = `https://v3.football.api-sports.io/fixtures?league=${LIGA_ID}&season=${SEASON}`;
+        const res  = await fetch(url,{headers:{'x-apisports-key':API_KEY}});
         const data = await res.json();
 
         if (data.errors && Object.keys(data.errors).length) {
           document.getElementById('lista-jogos').innerHTML =
-            `<div class="estado-erro"><p>❌ Erro da API: ${JSON.stringify(data.errors)}</p></div>`;
+            `<div class="estado-erro"><p>Erro da API: ${JSON.stringify(data.errors)}</p></div>`;
           return;
         }
 
-        todosJogos = (data.response || []).sort(
-          (a,b) => new Date(a.fixture.date) - new Date(b.fixture.date)
-        );
-
-        // badge total
+        todosJogos = (data.response||[]).sort((a,b)=>new Date(a.fixture.date)-new Date(b.fixture.date));
         document.getElementById('badge-total').textContent = `${todosJogos.length} jogos`;
 
-        jogosFiltrados = [...todosJogos];
-        renderLista();
+        // datas únicas
+        const set = new Set();
+        todosJogos.forEach(j=>set.add(chaveData(j.fixture.date)));
+        datasUnicas = Array.from(set).sort();
 
-        // atualiza ao vivo a cada 30s
-        const temVivo = todosJogos.some(j => classStatus(j.fixture.status.short) === 'ao-vivo');
-        if (temVivo) setTimeout(buscarJogos, 30000);
+        // data ativa: hoje se tiver jogos, senão próxima data com jogos a partir de hoje
+        const hoje = hojeChave();
+        if (datasUnicas.includes(hoje)) {
+          dataAtiva = hoje;
+        } else {
+          dataAtiva = datasUnicas.find(d=>d>=hoje) || datasUnicas[datasUnicas.length-1];
+        }
+
+        // centraliza carrossel na data ativa
+        const idx = datasUnicas.indexOf(dataAtiva);
+        offset = Math.max(0, idx - Math.floor(PILLS/2));
+
+        renderCarrossel();
+        aplicarFiltros();
+
+        // atualiza se tiver ao vivo
+        if (todosJogos.some(j=>classStatus(j.fixture.status.short)==='ao-vivo')) {
+          setTimeout(buscarJogos,30000);
+        }
 
       } catch(err) {
         document.getElementById('lista-jogos').innerHTML =
-          `<div class="estado-erro"><p>❌ ${err.message}</p></div>`;
+          `<div class="estado-erro"><p>Erro: ${err.message}</p></div>`;
       }
     }
 
