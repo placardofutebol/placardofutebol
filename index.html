@@ -662,17 +662,35 @@
       return;
     }
 
+    const aoVivo = jogos.filter(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
+    const demais = jogos.filter(j => !['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
+
+    let html = '';
+
+    if (aoVivo.length && statusAtivo === 'todos') {
+      html += `<div class="grupo-liga anim-entrar">
+        <div class="grupo-liga-header">
+          <span class="grupo-liga-nome">🔴 Ao Vivo</span>
+        </div>
+        ${aoVivo.map(j => {
+          const liga = LIGAS_PERMITIDAS[String(j.league.id)] || { nome: j.league.name, emoji: '🏆' };
+          return cardJogo(j, `${liga.emoji} ${liga.nome}`);
+        }).join('')}
+      </div>`;
+    }
+
+    const jogosParaGrupar = statusAtivo === 'todos' ? demais : jogos;
+
     const grupos = {};
-    jogos.forEach(j => {
+    jogosParaGrupar.forEach(j => {
       const lid = String(j.league.id);
       if (!grupos[lid]) grupos[lid] = [];
       grupos[lid].push(j);
     });
 
     const ordemStatus = s => {
-      if (['1H','2H','HT','ET','P'].includes(s)) return 0;
-      if (['NS','TBD'].includes(s)) return 1;
-      return 2;
+      if (['NS','TBD'].includes(s)) return 0;
+      return 1;
     };
     Object.values(grupos).forEach(lista => {
       lista.sort((a, b) => {
@@ -695,22 +713,20 @@
     });
 
     const prioridadeGrupo = lista => {
-      if (lista.some(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short))) return 0;
       const agora = Date.now();
       if (lista.some(j => {
         if (!['NS','TBD'].includes(j.fixture.status.short)) return false;
         const diffMin = (new Date(j.fixture.date) - agora) / 60000;
         return diffMin >= 0 && diffMin <= 30;
-      })) return 1;
-      if (lista.some(j => ['NS','TBD'].includes(j.fixture.status.short))) return 2;
-      return 3;
+      })) return 0;
+      if (lista.some(j => ['NS','TBD'].includes(j.fixture.status.short))) return 1;
+      return 2;
     };
 
     const ordenarGrupos = g => Object.fromEntries(
       Object.entries(g).sort(([, a], [, b]) => prioridadeGrupo(a) - prioridadeGrupo(b))
     );
 
-    let html = '';
     if (Object.keys(gruposHoje).length)   html += renderGrupos(ordenarGrupos(gruposHoje));
     if (Object.keys(gruposAmanha).length) html += renderGrupos(ordenarGrupos(gruposAmanha));
     if (Object.keys(gruposOntem).length)  html += renderGrupos(ordenarGrupos(gruposOntem));
