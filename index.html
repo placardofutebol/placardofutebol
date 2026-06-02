@@ -800,6 +800,7 @@
 
     return `
       <div class="jogo-card" id="card-${j.fixture.id}" onclick="abrirJogo(${j.fixture.id})">
+        ${ligaLabel ? `<div style="font-size:10px;color:var(--cinza-texto);margin-bottom:6px;font-weight:600;">${ligaLabel}</div>` : ''}
         <div class="jogo-linha">
           <div class="time-esquerda">
             <img class="escudo" src="${j.teams.home.logo}" alt="${j.teams.home.name}"
