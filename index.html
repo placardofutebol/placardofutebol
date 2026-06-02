@@ -301,6 +301,11 @@
     }
 
     if (status === '1H') {
+      if (tempoReal >= 60) {
+        // API presa — força reload
+        setTimeout(() => carregarJogos(true), 0);
+        return { texto: `45+5' ⏳`, classe: 'ao-vivo' };
+      }
       if (tempoReal >= 45) {
         const ac = Math.min(tempoReal - 45, 5);
         return { texto: ac >= 5 ? `45+5' ⏳` : `45+${ac}'`, classe: 'ao-vivo' };
