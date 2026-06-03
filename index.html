@@ -585,6 +585,7 @@
     if (Object.keys(gH).length) html += renderGrupos(ordenar(removerVivos(gH)));
     if (Object.keys(gA).length) html += renderGrupos(ordenar(removerVivos(gA)));
     if (Object.keys(gO).length) html += renderGrupos(ordenar(removerVivos(gO)));
+    container.innerHTML = html;
 
     // Após renderizar, registra jogos vivos no Map global
     todosJogos.forEach(j => {
