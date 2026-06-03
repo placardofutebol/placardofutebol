@@ -194,6 +194,7 @@
   // Um único setInterval de 1s atualiza APENAS tempo/placar nos cards existentes
   // NUNCA reconstrói o HTML
   const jogosVivos = new Map(); // fixtureId → { base, inicio, periodo, travado }
+const jogosEmBreve = new Map(); // fixtureId → timestamp de início
 
   setInterval(() => {
     jogosVivos.forEach((timer, id) => {
