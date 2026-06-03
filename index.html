@@ -568,7 +568,20 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
     );
 
     // Seção AO VIVO global no topo
-    const jogosVivosLista = jogos.filter(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
+    const agora = Date.now();
+    const jogosVivosLista = jogos.filter(j => {
+      if (['1H','2H','HT','ET','P'].includes(j.fixture.status.short)) return true;
+      if (['NS','TBD'].includes(j.fixture.status.short)) {
+        const diff = (new Date(j.fixture.date) - agora) / 60000;
+        return diff <= 30 && diff > -15;
+      }
+      return false;
+    });
+    jogosVivosLista.forEach(j => {
+      if (['NS','TBD'].includes(j.fixture.status.short)) {
+        jogosEmBreve.set(j.fixture.id, new Date(j.fixture.date).getTime());
+      }
+    });
     let html = '';
     if (jogosVivosLista.length) {
       html += `<div class="grupo-liga anim-entrar">
