@@ -670,7 +670,7 @@
         const r = await fetch(`${PROXY}/fixtures/rounds?league=${LEAGUE}&season=${SEASON}&current=true`);
         const d = await r.json();
         if (d.response && d.response.length) {
-          const str = d.response[0]; // ex: "Regular Season - 12"
+          const str = d.response[0];
           const match = str.match(/(\d+)$/);
           if (match) {
             rodadaAtual = parseInt(match[1]);
@@ -679,6 +679,12 @@
         }
       } catch(e) {
         console.log('Rodada atual não detectada, usando 1');
+      }
+      // Se ainda é rodada 1 (falhou), tenta calcular pela data
+      if (rodadaAtual === 1) {
+        const semanas = Math.floor((Date.now() - new Date('2025-04-01')) / (7 * 86400000));
+        rodadaAtual = Math.min(Math.max(semanas, 1), TOTAL_RODADAS);
+        rodadaVendo = rodadaAtual;
       }
       document.getElementById('badge-rodada-atual').textContent = `🏆 Rodada ${rodadaAtual}`;
       atualizarBotoesRodada();
