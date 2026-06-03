@@ -465,8 +465,13 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
     verificarJogosAtrasados();
     const hora = new Date().getHours();
     const temVivo = ligasAoVivo().length > 0;
+    const temEmBreve = todosJogos.some(j => {
+      if (!['NS','TBD'].includes(j.fixture.status.short)) return false;
+      const diff = (new Date(j.fixture.date) - Date.now()) / 60000;
+      return diff <= 30 && diff > -15;
+    });
 
-    if (temVivo) {
+    if (temVivo || temEmBreve) {
       timerAtualizacao = setTimeout(async () => {
         await atualizarAoVivo();
         if (ligasAoVivo().length === 0) setTimeout(() => carregarJogos(true), 60 * 1000);
