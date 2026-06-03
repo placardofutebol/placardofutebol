@@ -562,7 +562,17 @@
       Object.entries(g).sort(([, a], [, b]) => prioridadeGrupo(a) - prioridadeGrupo(b))
     );
 
+    // Seção AO VIVO global no topo
+    const jogosVivosLista = jogos.filter(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
     let html = '';
+    if (jogosVivosLista.length) {
+      html += `<div class="grupo-liga anim-entrar">
+        <div class="grupo-liga-header" style="background:#fff0f0;border-left:3px solid var(--vermelho);">
+          <span class="grupo-liga-nome" style="color:var(--vermelho);">🔴 Ao Vivo Agora</span>
+        </div>
+        ${jogosVivosLista.map(j => cardJogo(j)).join('')}
+      </div>`;
+    }
     if (Object.keys(gH).length) html += renderGrupos(ordenar(gH));
     if (Object.keys(gA).length) html += renderGrupos(ordenar(gA));
     if (Object.keys(gO).length) html += renderGrupos(ordenar(gO));
