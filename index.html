@@ -199,13 +199,17 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
   setInterval(() => {
     jogosVivos.forEach((timer, id) => {
       const elStatus = document.getElementById(`status-${id}`);
-      const elPlacar = document.getElementById(`placar-${id}`);
       if (!elStatus) return;
-
       const texto = calcularTextoTempo(timer);
-      if (elStatus.textContent !== texto) {
-        elStatus.textContent = texto;
-      }
+      if (elStatus.textContent !== texto) elStatus.textContent = texto;
+    });
+
+    jogosEmBreve.forEach((dataJogo, id) => {
+      const elStatus = document.getElementById(`status-${id}`);
+      if (!elStatus) return;
+      const diffMin = Math.floor((dataJogo - Date.now()) / 60000);
+      const texto = diffMin <= 0 ? '⚽ Iniciando...' : `⏱️ ${diffMin} min`;
+      if (elStatus.textContent !== texto) elStatus.textContent = texto;
     });
   }, 1000);
 
