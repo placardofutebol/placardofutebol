@@ -595,7 +595,7 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
     const removerVivos = grupos => {
       const copia = {};
       Object.entries(grupos).forEach(([lid, lista]) => {
-        const semVivos = lista.filter(j => !['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
+        const semVivos = lista.filter(j => !jogosVivosLista.includes(j));
         if (semVivos.length) copia[lid] = semVivos;
       });
       return copia;
