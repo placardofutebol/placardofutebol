@@ -573,10 +573,18 @@
         ${jogosVivosLista.map(j => cardJogo(j)).join('')}
       </div>`;
     }
-    if (Object.keys(gH).length) html += renderGrupos(ordenar(gH));
-    if (Object.keys(gA).length) html += renderGrupos(ordenar(gA));
-    if (Object.keys(gO).length) html += renderGrupos(ordenar(gO));
-    container.innerHTML = html;
+    // Remove jogos ao vivo dos grupos (já aparecem no topo)
+    const removerVivos = grupos => {
+      const copia = {};
+      Object.entries(grupos).forEach(([lid, lista]) => {
+        const semVivos = lista.filter(j => !['1H','2H','HT','ET','P'].includes(j.fixture.status.short));
+        if (semVivos.length) copia[lid] = semVivos;
+      });
+      return copia;
+    };
+    if (Object.keys(gH).length) html += renderGrupos(ordenar(removerVivos(gH)));
+    if (Object.keys(gA).length) html += renderGrupos(ordenar(removerVivos(gA)));
+    if (Object.keys(gO).length) html += renderGrupos(ordenar(removerVivos(gO)));
 
     // Após renderizar, registra jogos vivos no Map global
     todosJogos.forEach(j => {
