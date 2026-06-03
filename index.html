@@ -700,7 +700,7 @@
     if (!jogo) return;
     if (!['71','72','13','11','2','39','140','10'].includes(String(jogo.league.id))) return;
     const liga = String(jogo.league.id);
-    const base = liga==='72'?'/brasileirao-serie-b/':liga==='13'?'/libertadores/':liga==='11'?'/sulamericana/':liga==='2'?'/champions/':liga==='39'?'/premier-league/':liga==='140'?'/la-liga/':'/brasileirao/';
+    const base = liga==='72'?'/brasileirao-serie-b/':liga==='13'?'/libertadores/':liga==='11'?'/sulamericana/':liga==='2'?'/champions/':liga==='39'?'/premier-league/':liga==='140'?'/la-liga/':liga==='10'?'/amistosos-internacionais/':'/brasileirao/';
     window.location.href = base + slugNome(jogo.teams.home.name) + '-vs-' + slugNome(jogo.teams.away.name) + '/';
   }
 
