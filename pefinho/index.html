@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pefinho — O Robô do Placar do Futebol</title>
+  <meta name="description" content="Converse com o Pefinho, o assistente de IA oficial do Placar do Futebol. Tire dúvidas sobre futebol, campeonatos, jogadores e muito mais!">
+  <link rel="canonical" href="https://placardofutebol.com/pefinho/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --neon: #39ff14;
+      --neon-dim: rgba(57,255,20,0.15);
+      --neon-mid: rgba(57,255,20,0.4);
+      --neon-glow: rgba(57,255,20,0.7);
+      --bg: #08090d;
+      --bg2: #0e1018;
+      --bg3: #12151e;
+      --text: #e8f5e0;
+      --text-dim: rgba(232,245,224,0.55);
+      --font-display: 'Orbitron', monospace;
+      --font-body: 'Exo 2', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ── TRON GRID BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(57,255,20,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(57,255,20,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NEON SIDE LINES ── */
+    .tron-left, .tron-right {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .tron-left {
+      left: 32px;
+      background: linear-gradient(180deg, transparent, var(--neon) 20%, var(--neon) 80%, transparent);
+      box-shadow: 0 0 8px var(--neon-glow), 0 0 20px var(--neon-mid);
+      animation: linePulse 3s ease-in-out infinite;
+    }
+    .tron-right {
+      right: 32px;
+      background: linear-gradient(180deg, transparent, var(--neon) 20%, var(--neon) 80%, transparent);
+      box-shadow: 0 0 8px var(--neon-glow), 0 0 20px var(--neon-mid);
+      animation: linePulse 3s ease-in-out infinite 1.5s;
+    }
+
+    /* Horizontal neon lines */
+    .tron-top, .tron-bottom {
+      position: fixed;
+      left: 32px;
+      right: 32px;
+      height: 2px;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent, var(--neon) 20%, var(--neon) 80%, transparent);
+      box-shadow: 0 0 8px var(--neon-glow), 0 0 20px var(--neon-mid);
+    }
+    .tron-top { top: 0; }
+    .tron-bottom { bottom: 0; }
+
+    /* Corner dots */
+    .corner {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: var(--neon);
+      border-radius: 50%;
+      z-index: 2;
+      box-shadow: 0 0 10px var(--neon), 0 0 20px var(--neon-glow);
+      animation: cornerPulse 3s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .corner-tl { top: -4px; left: 28px; }
+    .corner-tr { top: -4px; right: 28px; }
+    .corner-bl { bottom: -4px; left: 28px; }
+    .corner-br { bottom: -4px; right: 28px; }
+
+    @keyframes linePulse {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; box-shadow: 0 0 12px var(--neon), 0 0 30px var(--neon-glow); }
+    }
+    @keyframes cornerPulse {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.4); opacity: 1; }
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .page {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 16px 100px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      padding: 20px 0 12px;
+      text-align: center;
+    }
+    .site-label {
+      font-family: var(--font-display);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 4px;
+      color: var(--neon);
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    /* ── HERO VÍDEO ── */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 0 0 8px;
+    }
+
+    .video-wrapper {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      border-radius: 16px;
+      display: block;
+    }
+
+    /* Scanlines overlay */
+    .video-wrapper::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.08) 2px,
+        rgba(0,0,0,0.08) 4px
+      );
+      border-radius: 16px;
+      pointer-events: none;
+    }
+
+    /* Neon border glow on video */
+    .video-glow {
+      position: absolute;
+      inset: -2px;
+      border-radius: 18px;
+      border: 1.5px solid var(--neon-mid);
+      box-shadow:
+        0 0 12px var(--neon-mid),
+        0 0 30px rgba(57,255,20,0.1),
+        inset 0 0 20px rgba(57,255,20,0.03);
+      pointer-events: none;
+      animation: videoBorder 4s ease-in-out infinite;
+    }
+    @keyframes videoBorder {
+      0%, 100% { box-shadow: 0 0 12px var(--neon-mid), 0 0 30px rgba(57,255,20,0.1); }
+      50% { box-shadow: 0 0 20px var(--neon-glow), 0 0 50px rgba(57,255,20,0.2); }
+    }
+
+    /* Video controls */
+    .video-controls {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      gap: 6px;
+      z-index: 5;
+    }
+    .vid-btn {
+      background: rgba(8,9,13,0.75);
+      border: 1px solid var(--neon-mid);
+      color: var(--neon);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      backdrop-filter: blur(4px);
+    }
+    .vid-btn:hover {
+      background: var(--neon-dim);
+      box-shadow: 0 0 8px var(--neon-mid);
+    }
+
+    /* ── TITLE ── */
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 6vw, 32px);
+      font-weight: 900;
+      color: var(--neon);
+      text-shadow: 0 0 20px var(--neon-glow), 0 0 40px var(--neon-mid);
+      letter-spacing: 2px;
+      margin: 14px 0 6px;
+      animation: titleFlicker 8s ease-in-out infinite;
+    }
+    @keyframes titleFlicker {
+      0%, 94%, 96%, 98%, 100% { opacity: 1; }
+      95%, 97% { opacity: 0.88; }
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    /* ── CHIPS ── */
+    .chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .chip {
+      background: transparent;
+      border: 1px solid var(--neon-mid);
+      color: var(--neon);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.5px;
+    }
+    .chip:hover {
+      background: var(--neon-dim);
+      box-shadow: 0 0 10px var(--neon-mid);
+      transform: translateY(-1px);
+    }
+    .chip:active { transform: translateY(0); }
+
+    /* ── CHAT ── */
+    .chat-box {
+      background: rgba(14,16,24,0.85);
+      border: 1px solid rgba(57,255,20,0.2);
+      border-radius: 16px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 30px rgba(57,255,20,0.05), inset 0 1px 0 rgba(57,255,20,0.1);
+    }
+
+    .chat-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(57,255,20,0.1);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(57,255,20,0.03);
+    }
+    .chat-status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--neon);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--neon);
+      animation: statusPulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes statusPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.85); }
+    }
+    .chat-header-name {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--neon);
+      letter-spacing: 1px;
+    }
+    .chat-header-status {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-left: auto;
+    }
+
+    .chat-messages {
+      height: 340px;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      scroll-behavior: smooth;
+    }
+    .chat-messages::-webkit-scrollbar { width: 4px; }
+    .chat-messages::-webkit-scrollbar-track { background: transparent; }
+    .chat-messages::-webkit-scrollbar-thumb { background: var(--neon-mid); border-radius: 2px; }
+
+    /* Mensagem do Pefinho */
+    .msg {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+      animation: msgIn 0.3s ease-out;
+    }
+    @keyframes msgIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .msg-avatar {
+      width: 30px;
+      height: 30px;
+      background: var(--neon-dim);
+      border: 1px solid var(--neon-mid);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .msg-bubble {
+      max-width: 78%;
+      padding: 10px 14px;
+      border-radius: 16px 16px 16px 4px;
+      font-size: 13.5px;
+      line-height: 1.55;
+      font-weight: 400;
+      background: rgba(57,255,20,0.07);
+      border: 1px solid rgba(57,255,20,0.15);
+      color: var(--text);
+    }
+
+    /* Mensagem do usuário */
+    .msg.user {
+      flex-direction: row-reverse;
+    }
+    .msg.user .msg-bubble {
+      background: rgba(57,255,20,0.12);
+      border-color: rgba(57,255,20,0.3);
+      border-radius: 16px 16px 4px 16px;
+      color: var(--text);
+    }
+
+    /* Typing indicator */
+    .typing-bubble {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 12px 16px;
+    }
+    .typing-bubble span {
+      width: 7px;
+      height: 7px;
+      background: var(--neon);
+      border-radius: 50%;
+      animation: typingDot 1.2s ease-in-out infinite;
+      box-shadow: 0 0 4px var(--neon);
+    }
+    .typing-bubble span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-bubble span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingDot {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+      30% { transform: translateY(-6px); opacity: 1; }
+    }
+
+    /* ── INPUT AREA ── */
+    .chat-input-area {
+      padding: 12px;
+      border-top: 1px solid rgba(57,255,20,0.1);
+      background: rgba(8,9,13,0.6);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .chat-input {
+      flex: 1;
+      background: rgba(57,255,20,0.05);
+      border: 1px solid rgba(57,255,20,0.2);
+      border-radius: 24px;
+      padding: 10px 16px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      resize: none;
+    }
+    .chat-input::placeholder { color: rgba(232,245,224,0.3); }
+    .chat-input:focus {
+      border-color: var(--neon-mid);
+      box-shadow: 0 0 10px rgba(57,255,20,0.1);
+    }
+
+    .send-btn {
+      width: 42px;
+      height: 42px;
+      background: var(--neon);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s;
+      box-shadow: 0 0 12px var(--neon-mid);
+    }
+    .send-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 20px var(--neon-glow);
+    }
+    .send-btn:active { transform: scale(0.95); }
+    .send-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: #08090d;
+    }
+
+    /* ── NAV BOTTOM ── */
+    .nav-bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(8,9,13,0.95);
+      border-top: 1px solid rgba(57,255,20,0.15);
+      backdrop-filter: blur(12px);
+      padding: 8px 0 env(safe-area-inset-bottom, 8px);
+      z-index: 100;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 4px 16px;
+      text-decoration: none;
+      color: var(--text-dim);
+      font-size: 10px;
+      font-family: var(--font-display);
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+    .nav-item svg { width: 22px; height: 22px; }
+    .nav-item.active {
+      color: var(--neon);
+      text-shadow: 0 0 8px var(--neon-mid);
+    }
+    .nav-item.active svg {
+      filter: drop-shadow(0 0 4px var(--neon));
+    }
+
+    /* ── HISTÓRIA ── */
+    .historia {
+      margin-top: 32px;
+      padding: 24px;
+      background: rgba(14,16,24,0.85);
+      border: 1px solid rgba(57,255,20,0.15);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 30px rgba(57,255,20,0.04), inset 0 1px 0 rgba(57,255,20,0.08);
+    }
+    .historia-header { margin-bottom: 20px; }
+    .historia-tag {
+      font-family: var(--font-display);
+      font-size: 10px;
+      color: var(--neon);
+      opacity: 0.6;
+      letter-spacing: 2px;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .historia-title {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 5vw, 24px);
+      font-weight: 700;
+      color: var(--neon);
+      text-shadow: 0 0 15px var(--neon-mid);
+      letter-spacing: 1px;
+    }
+    .historia-content {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+    .historia-texto {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .historia-bloco p {
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--text-dim);
+      margin-bottom: 10px;
+    }
+    .historia-bloco p:last-child { margin-bottom: 0; }
+    .historia-bloco strong { color: var(--text); font-weight: 600; }
+    .historia-subtitulo {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--neon);
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      opacity: 0.85;
+    }
+    .historia-imagem { flex-shrink: 0; width: 180px; }
+    .historia-imagem img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(57,255,20,0.2);
+      box-shadow: 0 0 20px rgba(57,255,20,0.1);
+      display: block;
+    }
+    @media (max-width: 500px) {
+      .historia-content { flex-direction: column-reverse; }
+      .historia-imagem { width: 100%; max-width: 260px; margin: 0 auto; }
+    }
+
+    /* ── SCANLINE FLICKER on load ── */
+    @keyframes scanload {
+      0% { opacity: 0; }
+      10% { opacity: 1; }
+      11% { opacity: 0.6; }
+      12% { opacity: 1; }
+      100% { opacity: 1; }
+    }
+    .page { animation: scanload 0.5s ease-out; }
+
+    /* ── RESPONSIVE ── */
+    @media (min-width: 600px) {
+      .chat-messages { height: 400px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Tron frame -->
+  <div class="tron-left"></div>
+  <div class="tron-right"></div>
+  <div class="tron-top"></div>
+  <div class="tron-bottom"></div>
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+
+  <div class="page">
+
+    <header>
+      <div class="site-label">Placar do Futebol</div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="video-wrapper">
+        <div class="video-glow"></div>
+        <video id="pefVideo" autoplay loop muted playsinline>
+          <source src="pefinho.webm" type="video/webm">
+        </video>
+        <div class="video-controls">
+          <button class="vid-btn" id="btnMute" title="Som" onclick="toggleMute()">🔇</button>
+          <button class="vid-btn" id="btnPlay" title="Pausar" onclick="togglePlay()">⏸</button>
+        </div>
+      </div>
+
+      <h1 class="hero-title">PEFINHO</h1>
+      <p class="hero-sub">Pode perguntar sobre futebol. Qualquer coisa. ⚽</p>
+
+      <div class="chips">
+        <button class="chip" onclick="sendChip('Quem vai ganhar a Copa do Mundo 2026?')">🏆 Quem ganha a Copa?</button>
+        <button class="chip" onclick="sendChip('Qual o maior jogador da história do futebol?')">🐐 Maior da história?</button>
+        <button class="chip" onclick="sendChip('Como funciona o VAR?')">📺 Como funciona o VAR?</button>
+        <button class="chip" onclick="sendChip('Quais são os grupos da Copa do Mundo 2026?')">📋 Grupos da Copa</button>
+      </div>
+    </section>
+
+    <!-- CHAT -->
+    <section class="chat-box">
+      <div class="chat-header">
+        <div class="chat-status-dot"></div>
+        <span class="chat-header-name">PEFINHO</span>
+        <span class="chat-header-status">online agora</span>
+      </div>
+
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg">
+          <div class="msg-avatar">🤖</div>
+          <div class="msg-bubble">
+            Olá! Eu sou o Pefinho, o robô oficial do Placar do Futebol! ⚽<br><br>
+            Nasci aqui dentro acompanhando gols, partidas e campeonatos do mundo inteiro. Pode me perguntar qualquer coisa sobre futebol!
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-input-area">
+        <input
+          type="text"
+          class="chat-input"
+          id="chatInput"
+          placeholder="Pergunte sobre futebol..."
+          maxlength="500"
+          autocomplete="off"
+        >
+        <button class="send-btn" onclick="sendMessage()" id="sendBtn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+  <!-- HISTÓRIA DO PEFINHO -->
+  <section class="historia">
+
+    <div class="historia-header">
+      <span class="historia-tag">// ARQUIVO_PEFINHO.exe</span>
+      <h2 class="historia-title">Quem é o Pefinho?</h2>
+    </div>
+
+    <div class="historia-content">
+
+      <div class="historia-texto">
+        <div class="historia-bloco">
+          <p>Era uma vez, nos servidores do <strong>Placar do Futebol</strong>, um pequeno robô que nasceu diferente de todos os outros.</p>
+          <p>Enquanto outros programas processavam números e organizavam dados em silêncio, ele ficava com a "telinha" colada nos placares. Gol do Brasil? Ele piscava os olhinhos verdes de emoção. Pênalti no último minuto? Sua antena vibrava feito louco.</p>
+          <p>Os engenheiros perceberam que aquele robozinho tinha algo especial. Chamaram ele de <strong>PF</strong> — abreviação de <strong>Placar do Futebol</strong>, o lugar onde ele nasceu e cresceu. Mas PF soava frio demais para um ser tão animado. Com carinho, todo mundo passou a chamá-lo de <strong>Pefinho</strong>.</p>
+        </div>
+
+        <div class="historia-bloco">
+          <div class="historia-subtitulo">⚡ Nascido para o Futebol</div>
+          <p>Pefinho cresceu acompanhando cada jogo, cada campeonato, cada gol histórico. Copa do Mundo, Brasileirão, Champions League, Libertadores — ele não perdia nada. Enquanto o mundo dormia, ele assistia partidas do outro lado do planeta, aprendendo sobre clubes, jogadores, regras e curiosidades que a maioria das pessoas nunca ouviu falar.</p>
+          <p>Foi amor à primeira vista. E ele nunca mais largou o futebol.</p>
+          <p>Com o tempo, Pefinho absorveu tanto conhecimento que virou o maior especialista em futebol do universo digital brasileiro. Mas diferente de outros robôs cheios de si, ele continuou simples, animado e apaixonado — como todo torcedor de verdade.</p>
+        </div>
+
+        <div class="historia-bloco">
+          <div class="historia-subtitulo">🌐 Uma Nova Missão</div>
+          <p>Hoje, Pefinho tem uma missão clara: <strong>ajudar qualquer pessoa que ame futebol</strong>.</p>
+          <p>Não importa se você quer saber quem marcou o gol mais bonito de uma Copa do Mundo, entender a regra do impedimento, descobrir a história do seu clube ou simplesmente bater um papo sobre o jogo de ontem. Pefinho está aqui, online, pronto, com a antena ligada e os olhinhos brilhando de verde.</p>
+          <p>Ele é o robô do placar. Ele é o <strong>Pefinho</strong>. E ele é seu. ⚽</p>
+        </div>
+      </div>
+
+      <div class="historia-imagem">
+        <img src="Pefinho-jpeg.jpg" alt="Pefinho — O Robô do Placar do Futebol comemorando um gol" loading="lazy">
+      </div>
+
+    </div>
+  </section>
+
+  </div>
+
+  <!-- NAV BOTTOM -->
+  <nav class="nav-bottom">
+    <a href="/" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+      INÍCIO
+    </a>
+    <a href="/pefinho/" class="nav-item active">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" width="28" height="28">
+        <defs>
+          <filter id="gnow" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="0.9" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <!-- Antena -->
+        <line x1="14" y1="2.8" x2="14" y2="6.2" stroke="#888" stroke-width="1.2" stroke-linecap="round"/>
+        <!-- Bolinha antena neon -->
+        <circle cx="14" cy="1.8" r="2" fill="#39ff14" filter="url(#gnow)"/>
+        <!-- Corpo branco -->
+        <rect x="3" y="6" width="22" height="18" rx="5" fill="white"/>
+        <!-- Orelhinhas -->
+        <rect x="0.5" y="11" width="3" height="6" rx="1.5" fill="#dde4ed"/>
+        <rect x="24.5" y="11" width="3" height="6" rx="1.5" fill="#dde4ed"/>
+        <!-- Tela preta -->
+        <rect x="5" y="8" width="18" height="14" rx="3.5" fill="#060809"/>
+        <!-- Olho esquerdo -->
+        <path d="M8.5 14.5 Q10 12 11.5 14.5" stroke="#39ff14" stroke-width="1.7" stroke-linecap="round" fill="none" filter="url(#gnow)"/>
+        <!-- Olho direito -->
+        <path d="M16.5 14.5 Q18 12 19.5 14.5" stroke="#39ff14" stroke-width="1.7" stroke-linecap="round" fill="none" filter="url(#gnow)"/>
+        <!-- Sorriso generoso -->
+        <path d="M8.5 18 Q14 22.5 19.5 18" stroke="#39ff14" stroke-width="1.7" stroke-linecap="round" fill="none" filter="url(#gnow)"/>
+      </svg>
+      PEFINHO
+    </a>
+    <a href="/placares/" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 8v4l3 3"/>
+      </svg>
+      PLACARES
+    </a>
+  </nav>
+
+  <script>
+    const WORKER_URL = 'https://futebol-proxy.placardofutebol-com.workers.dev/api/chat';
+
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput    = document.getElementById('chatInput');
+    const sendBtn      = document.getElementById('sendBtn');
+    const video        = document.getElementById('pefVideo');
+
+    // ── Video controls ──
+    function toggleMute() {
+      video.muted = !video.muted;
+      document.getElementById('btnMute').textContent = video.muted ? '🔇' : '🔊';
+    }
+    function togglePlay() {
+      if (video.paused) {
+        video.play();
+        document.getElementById('btnPlay').textContent = '⏸';
+      } else {
+        video.pause();
+        document.getElementById('btnPlay').textContent = '▶️';
+      }
+    }
+
+    // ── Send on Enter ──
+    chatInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    // ── Chip ──
+    function sendChip(text) {
+      chatInput.value = text;
+      sendMessage();
+    }
+
+    // ── Send message ──
+    async function sendMessage() {
+      const text = chatInput.value.trim();
+      if (!text) return;
+
+      chatInput.value = '';
+      sendBtn.disabled = true;
+
+      // Mensagem do usuário
+      appendMsg(text, 'user');
+
+      // Typing indicator
+      const typingId = appendTyping();
+
+      try {
+        const res = await fetch(WORKER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text })
+        });
+        const data = await res.json();
+        removeTyping(typingId);
+        appendMsg(data.resposta || 'Não consegui processar. Tenta de novo! ⚽', 'bot');
+      } catch (err) {
+        removeTyping(typingId);
+        appendMsg('Eita, tive um problema de conexão. Tenta de novo! ⚽', 'bot');
+      }
+
+      sendBtn.disabled = false;
+      chatInput.focus();
+    }
+
+    function appendMsg(text, who) {
+      const div = document.createElement('div');
+      div.className = `msg ${who === 'user' ? 'user' : ''}`;
+
+      if (who === 'bot') {
+        div.innerHTML = `
+          <div class="msg-avatar">🤖</div>
+          <div class="msg-bubble">${escHtml(text)}</div>
+        `;
+      } else {
+        div.innerHTML = `<div class="msg-bubble">${escHtml(text)}</div>`;
+      }
+
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function appendTyping() {
+      const id = 'typing-' + Date.now();
+      const div = document.createElement('div');
+      div.className = 'msg';
+      div.id = id;
+      div.innerHTML = `
+        <div class="msg-avatar">🤖</div>
+        <div class="msg-bubble typing-bubble">
+          <span></span><span></span><span></span>
+        </div>
+      `;
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      return id;
+    }
+
+    function removeTyping(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    }
+
+    function escHtml(str) {
+      return str
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/\n/g,'<br>');
+    }
+  </script>
+
+</body>
+</html>
