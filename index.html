@@ -340,7 +340,7 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
       return;
     }
 
-    mostrarSkeleton();
+    if (todosJogos.length === 0) mostrarSkeleton();
     await buscarEmBackground();
   }
 
