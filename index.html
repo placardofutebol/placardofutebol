@@ -297,6 +297,7 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
     if (!r) return null;
     const parsed = JSON.parse(r);
     if (!parsed?.dados?.length) return null;
+    if (Date.now() - parsed.ts > 60 * 1000) buscarEmBackground();
     return parsed;
   } catch(e) { return null; }
 }
