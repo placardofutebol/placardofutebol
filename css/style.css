@@ -574,7 +574,7 @@ footer {
 
 .pulsando { animation: pulseRing 1.8s ease infinite; }
 .anim-pular { animation: pular 0.65s ease infinite; }
-.anim-entrar { animation: entrar 0.3s ease forwards; }
+.anim-entrar { animation: entrar 1.5s ease forwards; }
 
 /* ============================================
    RESPONSIVO DESKTOP
