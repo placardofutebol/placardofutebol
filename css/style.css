@@ -568,8 +568,8 @@ footer {
   100% { box-shadow: 0 0 0 0 rgba(57,255,20,0); }
 }
 @keyframes entrar {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .pulsando { animation: pulseRing 1.8s ease infinite; }
