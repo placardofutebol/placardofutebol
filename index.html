@@ -383,9 +383,10 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
       agendarProxima();
 
     } catch(err) {
-      console.error('Erro:', err);
-      if (!lerCache()) mostrarErro();
-    }
+    console.error('Erro:', err);
+    if (!lerCache()) mostrarErro();
+    else renderizar();
+  }
   }
 
   // ── ATUALIZAR AO VIVO ──────────────────────────────────────────────────────
