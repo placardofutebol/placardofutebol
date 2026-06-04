@@ -296,9 +296,9 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
     const r = localStorage.getItem('pf_jogos');
     if (!r) return null;
     const parsed = JSON.parse(r);
-    if (!parsed?.dados?.length) { localStorage.removeItem('pf_jogos'); return null; }
+    if (!parsed?.dados?.length) return null;
     return parsed;
-  } catch(e) { localStorage.removeItem('pf_jogos'); return null; }
+  } catch(e) { return null; }
 }
 
   function cacheTTL() {
