@@ -291,9 +291,15 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
   function salvarCache(dados) {
     try { localStorage.setItem('pf_jogos', JSON.stringify({ ts: Date.now(), dados })); } catch(e) {}
   }
-  function lerCache() {
-    try { const r = localStorage.getItem('pf_jogos'); return r ? JSON.parse(r) : null; } catch(e) { return null; }
-  }
+ function lerCache() {
+  try {
+    const r = localStorage.getItem('pf_jogos');
+    if (!r) return null;
+    const parsed = JSON.parse(r);
+    if (!parsed?.dados?.length) { localStorage.removeItem('pf_jogos'); return null; }
+    return parsed;
+  } catch(e) { localStorage.removeItem('pf_jogos'); return null; }
+}
 
   function cacheTTL() {
     const hora = new Date().getHours();
