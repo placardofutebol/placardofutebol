@@ -760,8 +760,16 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
   }
 
   function mostrarErro() {
+    const isPC = !/Mobi|Android/i.test(navigator.userAgent);
     document.getElementById('jogos-container').innerHTML =
-      `<div class="estado-erro"><p>🔄 Conectando jogos ao vivo...</p><p style="font-size:12px;margin-top:8px;color:#999">No celular, arraste a tela para baixo para atualizar</p></div>`;
+      `<div class="estado-erro">
+        <p>🔄 Carregando jogos ao vivo...</p>
+        <p style="font-size:12px;margin-top:8px;color:#999">
+          ${isPC 
+            ? '<button onclick="location.reload(true)" style="margin-top:8px;padding:6px 16px;background:#1a7a30;color:white;border:none;border-radius:8px;cursor:pointer;font-size:13px;">🔄 Atualizar</button>'
+            : 'Arraste a tela para baixo para atualizar'}
+        </p>
+      </div>`;
   }
 
   function abrirJogo(id) {
