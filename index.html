@@ -371,7 +371,7 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
       const novosJogos = Object.values(jogosMap);
       const cacheAtual = lerCache();
 
-      if (novosJogos.length >= (cacheAtual?.dados?.length || 0) || !cacheAtual) {
+      if (novosJogos.length > 0 && (novosJogos.length >= (cacheAtual?.dados?.length || 0) || !cacheAtual)) {
         todosJogos = novosJogos;
         salvarCache(todosJogos);
       } else {
