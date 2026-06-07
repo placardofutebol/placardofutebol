@@ -318,6 +318,33 @@
       .historia-imagem { width: 100%; max-width: 260px; margin: 0 auto; }
     }
 
+
+    /* ── PRODUTO CARD ── */
+    .msg-col {
+      display: flex; flex-direction: column;
+      gap: 8px; max-width: 78%;
+    }
+    .produto-card {
+      background: rgba(57,255,20,0.05);
+      border: 1px solid rgba(57,255,20,0.25);
+      border-radius: 12px; padding: 10px 12px;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 10px;
+      animation: msgIn 0.3s ease-out;
+    }
+    .produto-info { display: flex; flex-direction: column; gap: 3px; }
+    .produto-nome { font-size: 13px; font-weight: 600; color: var(--text); }
+    .produto-loja { font-size: 11px; color: var(--text-dim); }
+    .produto-btn {
+      background: var(--neon); color: #08090d;
+      font-family: var(--font-body); font-size: 12px;
+      font-weight: 700; padding: 7px 12px;
+      border-radius: 8px; text-decoration: none;
+      white-space: nowrap; flex-shrink: 0;
+      transition: all 0.2s; box-shadow: 0 0 8px var(--neon-mid);
+    }
+    .produto-btn:hover { transform: scale(1.05); box-shadow: 0 0 14px var(--neon-glow); }
+
     /* ── NAV BOTTOM ── */
     .nav-bottom {
       position: fixed; bottom: 0; left: 0; right: 0;
@@ -371,7 +398,7 @@
     <section class="hero">
       <div class="yt-wrapper">
         <iframe
-          src="https://www.youtube.com/embed/i8WLprdv7hU?autoplay=1&loop=1&playlist=i8WLprdv7hU&mute=1&controls=1&rel=0&modestbranding=1"
+          src="https://www.youtube.com/embed/i8WLprdv7hU?autoplay=1&loop=1&playlist=i8WLprdv7hU&mute=0&controls=1&rel=0&modestbranding=1"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
         </iframe>
@@ -498,7 +525,13 @@
       </svg>
       PEFINHO
     </a>
-    
+    <a href="/placares/" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 8v4l3 3"/>
+      </svg>
+      PLACARES
+    </a>
   </nav>
 
   <script>
@@ -542,8 +575,18 @@
     function appendMsg(text, who) {
       const div = document.createElement('div');
       div.className = `msg ${who === 'user' ? 'user' : ''}`;
+
       if (who === 'bot') {
-        div.innerHTML = `
+        // Extrai cards de produto do texto
+        const cardRegex = /\[PRODUTO:({.*?})\]/g;
+        const cards = [];
+        let match;
+        while ((match = cardRegex.exec(text)) !== null) {
+          try { cards.push(JSON.parse(match[1])); } catch(e) {}
+        }
+        const textoLimpo = text.replace(/\[PRODUTO:({.*?})\]/g, '').trim();
+
+        let html = `
           <div class="msg-avatar">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" width="28" height="28">
               <rect width="28" height="28" rx="7" fill="#12151e"/>
@@ -558,12 +601,33 @@
               <path d="M8.5 18 Q14 22.5 19.5 18" stroke="#39ff14" stroke-width="1.7" stroke-linecap="round" fill="none"/>
             </svg>
           </div>
-          <div class="msg-bubble">${escHtml(text)}</div>`;
+          <div class="msg-col">
+            <div class="msg-bubble">${escHtml(textoLimpo)}</div>
+            ${cards.map(c => `
+              <div class="produto-card">
+                <div class="produto-info">
+                  <span class="produto-nome">${escHtml(c.nome)}</span>
+                  <span class="produto-loja">${lojaIcon(c.loja)} ${escHtml(c.loja)}</span>
+                </div>
+                <a href="${escHtml(c.link)}" target="_blank" rel="noopener" class="produto-btn">
+                  🛒 Ver produto
+                </a>
+              </div>`).join('')}
+          </div>`;
+        div.innerHTML = html;
       } else {
         div.innerHTML = `<div class="msg-bubble">${escHtml(text)}</div>`;
       }
+
       chatMessages.appendChild(div);
       chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function lojaIcon(loja) {
+      if (loja === 'Shopee') return '🟠';
+      if (loja === 'Amazon') return '🟡';
+      if (loja === 'Netshoes') return '🔵';
+      return '🛒';
     }
 
     function appendTyping() {
