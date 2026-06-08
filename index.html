@@ -967,11 +967,9 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
 
   <script>
   (function() {
-    const CARROSSEIS = [
-      { trackId: 'afl-track-1', dotsId: 'afl-dots-1' },
-      { trackId: 'afl-track-2', dotsId: 'afl-dots-2' },
-      { trackId: 'afl-track-3', dotsId: 'afl-dots-3' },
-    ];
+   const CARROSSEIS = [
+  { trackId: 'afl-track-1', dotsId: 'afl-dots-1' },
+];
     CARROSSEIS.forEach(({ trackId, dotsId }) => {
       const track = document.getElementById(trackId);
       const dotsEl = document.getElementById(dotsId);
