@@ -990,7 +990,7 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
         track.style.transform = `translateX(-${atual * cardW}px)`;
         dots.forEach((d, i) => d.classList.toggle('ativo', i === atual));
       }
-      function proximoAuto() { autoTimer = setInterval(() => irPara(atual + 1), 3000); }
+      function proximoAuto() { autoTimer = setInterval(() => irPara(atual + 1), 10000); }
       function pararAuto() { clearInterval(autoTimer); }
       track.addEventListener('touchstart', e => { pararAuto(); startX = e.touches[0].clientX; }, { passive: true });
       track.addEventListener('touchend', e => {
