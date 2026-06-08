@@ -996,7 +996,8 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
       track.addEventListener('touchend', e => {
         const diff = startX - e.changedTouches[0].clientX;
         if (Math.abs(diff) > 40) irPara(atual + (diff > 0 ? 1 : -1));
-        proximoAuto();
+       irPara(6);
+proximoAuto();
       }, { passive: true });
       track.addEventListener('mousedown', e => { pararAuto(); startX = e.clientX; });
       window.addEventListener('mouseup', e => {
