@@ -796,7 +796,7 @@ const jogosVivosListaUniq = jogosVivosLista.filter(j => {
   idsVistos.add(j.fixture.id);
   return true;
 });
-    jogosVivosLista.forEach(j => {
+    jogosVivosListaUniq.forEach(j => {
       if (['NS','TBD'].includes(j.fixture.status.short)) {
         jogosEmBreve.set(j.fixture.id, new Date(j.fixture.date).getTime());
       }
