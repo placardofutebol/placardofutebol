@@ -1003,10 +1003,33 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
       JSON.stringify({ evento: 'sessao_standalone', uid: localStorage.getItem('pf_uid') }));
   }
 
-  function forcarAtualizacao() {
+  async function forcarAtualizacao() {
+    const btn = document.getElementById('btn-atualizar');
+    if (btn) { btn.textContent = '⏳ Atualizando...'; btn.disabled = true; }
+
+    // 1. Service Workers
+    if ('serviceWorker' in navigator) {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map(r => r.unregister()));
+    }
+    // 2. Cache API
+    if ('caches' in window) {
+      const keys = await caches.keys();
+      await Promise.all(keys.map(k => caches.delete(k)));
+    }
+    // 3. Storage
     localStorage.clear();
     sessionStorage.clear();
-    carregarJogos(true);
+    // 4. IndexedDB
+    if (indexedDB.databases) {
+      const dbs = await indexedDB.databases();
+      await Promise.all(dbs.map(db => indexedDB.deleteDatabase(db.name)));
+    }
+
+    // 5. Hard reload quebrando cache HTTP
+    const url = new URL(location.href);
+    url.searchParams.set('_r', Date.now());
+    location.replace(url.toString());
   }
 
   exibirData();
