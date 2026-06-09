@@ -933,14 +933,24 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
       ${grupo()}${grupo()}${grupo()}`;;
   }
 
+  let _tentativasErro = 0;
   function mostrarErro() {
+    _tentativasErro++;
     document.getElementById('jogos-container').innerHTML =
       `<div class="estado-erro">
         <p>🔄 Carregando jogos ao vivo...</p>
         <p style="font-size:12px;margin-top:8px;color:#999">Tentando novamente...</p>
       </div>`;
-    // Tenta novamente automaticamente após 3s
-    setTimeout(() => carregarJogos(true), 3000);
+    if (_tentativasErro <= 3) {
+      setTimeout(() => carregarJogos(true), 3000 * _tentativasErro);
+    } else {
+      _tentativasErro = 0;
+      document.getElementById('jogos-container').innerHTML =
+        `<div class="estado-erro">
+          <p>😕 Não foi possível carregar os jogos.</p>
+          <button onclick="_tentativasErro=0;carregarJogos(true)" style="margin-top:12px;padding:8px 20px;background:#1a7a30;color:white;border:none;border-radius:8px;cursor:pointer;font-size:13px;">🔄 Tentar novamente</button>
+        </div>`;
+    }
   }
 
   function abrirJogo(id) {
