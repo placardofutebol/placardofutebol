@@ -774,13 +774,28 @@ detectarGols(todosJogos);
     // Seção AO VIVO global no topo
     const agora = Date.now();
     const jogosVivosLista = [
-      ...jogos.filter(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short)),
-      ...jogos.filter(j => {
-        if (!['NS','TBD'].includes(j.fixture.status.short)) return false;
-        const diff = (new Date(j.fixture.date) - agora) / 60000;
-        return diff <= 30 && diff > -15;
-      })
-    ];
+  ...jogos.filter(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short)),
+  ...jogos.filter(j => {
+    if (!['NS','TBD'].includes(j.fixture.status.short)) return false;
+    const diff = (new Date(j.fixture.date) - agora) / 60000;
+    return diff <= 30 && diff > -15;
+  }),
+  ...todosJogos.filter(j => {
+    if (!jogosVivosIds.has(j.fixture.id)) return false;
+    if (['FT','AET','PEN','BT','AWD','WO'].includes(j.fixture.status.short)) return false;
+    return !jogos.find(g =>
+      g.fixture.id === j.fixture.id &&
+      ['1H','2H','HT','ET','P'].includes(g.fixture.status.short)
+    );
+  })
+];
+
+const idsVistos = new Set();
+const jogosVivosListaUniq = jogosVivosLista.filter(j => {
+  if (idsVistos.has(j.fixture.id)) return false;
+  idsVistos.add(j.fixture.id);
+  return true;
+});
     jogosVivosLista.forEach(j => {
       if (['NS','TBD'].includes(j.fixture.status.short)) {
         jogosEmBreve.set(j.fixture.id, new Date(j.fixture.date).getTime());
