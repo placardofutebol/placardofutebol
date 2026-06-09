@@ -814,7 +814,7 @@ const jogosVivosListaUniq = jogosVivosLista.filter(j => {
     const removerVivos = grupos => {
       const copia = {};
       Object.entries(grupos).forEach(([lid, lista]) => {
-        const semVivos = lista.filter(j => !jogosVivosLista.includes(j));
+        const semVivos = lista.filter(j => !jogosVivosListaUniq.includes(j));
         if (semVivos.length) copia[lid] = semVivos;
       });
       return copia;
