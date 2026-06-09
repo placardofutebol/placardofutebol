@@ -1031,6 +1031,19 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
     location.replace(url.toString());
   }
 
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      const cache = lerCache();
+      const desatualizado = !cache || (Date.now() - cache.ts) > 60 * 1000;
+      if (desatualizado) {
+        localStorage.removeItem('pf_jogos');
+        carregarJogos(true);
+      } else {
+        renderizar();
+      }
+    }
+  });
+
   exibirData();
   carregarJogos();
   </script>
