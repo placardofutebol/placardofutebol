@@ -663,7 +663,7 @@
     const temEmBreve = todosJogos.some(j => {
       if (!['NS','TBD'].includes(j.fixture.status.short)) return false;
       const diff = (new Date(j.fixture.date) - Date.now()) / 60000;
-      return diff <= 30 && diff > -15;
+      return diff <= 60 && diff > -15;
     });
 
     if (temVivo || temEmBreve) {
