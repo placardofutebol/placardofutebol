@@ -785,7 +785,7 @@
       ...jogos.filter(j => {
         if (!['NS','TBD'].includes(j.fixture.status.short)) return false;
         const diff = (new Date(j.fixture.date) - agora) / 60000;
-        return diff <= 30 && diff > -15;
+        return diff <= 60 && diff > -15;
       }),
       // 3. ESCUDO: jogos que a API regrediu para NS mas que já começaram
       ...todosJogos.filter(j => {
