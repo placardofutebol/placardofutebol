@@ -903,7 +903,7 @@
       const dataJogo = new Date(j.fixture.date);
       const diffMin  = Math.floor((dataJogo - new Date()) / 60000);
       if (diffMin <= 0 && diffMin > -15)     { statusClass = 'em-breve'; statusTexto = '⚽ Iniciando...'; }
-      else if (diffMin <= 30 && diffMin > 0) { statusClass = 'em-breve'; statusTexto = `⏱️ ${diffMin} min`; }
+      else if (diffMin <= 60 && diffMin > 0) { statusClass = 'em-breve'; statusTexto = `⏱️ ${diffMin} min`; }
       else {
         const dStr = dataJogo.toLocaleDateString('pt-BR', { day:'2-digit', month:'2-digit', year:'numeric' });
         const hStr = dataJogo.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
