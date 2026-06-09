@@ -644,10 +644,9 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
 
     if (temVivo || temEmBreve) {
       timerAtualizacao = setTimeout(async () => {
-        await atualizarAoVivo();
-        if (ligasAoVivo().length === 0) setTimeout(() => carregarJogos(true), 60 * 1000);
-        agendarProxima();
-      }, CACHE_TTL_VIVO);
+  await atualizarAoVivo();
+  agendarProxima();
+}, CACHE_TTL_VIVO);
     } else if (hora >= 1 && hora < 7) {
       timerAtualizacao = setTimeout(() => carregarJogos(true), CACHE_TTL_MADRUGADA);
     } else {
