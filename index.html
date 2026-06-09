@@ -868,8 +868,27 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
     </div>`;
   }
 
+  // ── PULL TO REFRESH ────────────────────────────────────────────────────────
+  let _ptrStartY = 0, _ptrAtivado = false;
+  document.addEventListener('touchstart', e => { _ptrStartY = e.touches[0].clientY; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const diff = e.changedTouches[0].clientY - _ptrStartY;
+    if (diff > 80 && window.scrollY === 0 && !_ptrAtivado) {
+      _ptrAtivado = true;
+      localStorage.clear();
+      sessionStorage.clear();
+      carregarJogos(true).finally(() => { _ptrAtivado = false; });
+    }
+  }, { passive: true });
+
+  function forcarAtualizacao() {
+    localStorage.clear();
+    sessionStorage.clear();
+    carregarJogos(true);
+  }
+
   function mostrarSkeleton() {
-    const card = () => `<div style="background:white;border-radius:10px;padding:14px 16px;margin-bottom:8px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+    const card = () => `<div style="background:white;border-radius:10px;padding:14px 16px;margin-bottom:8px;
       <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;">
         <div style="display:flex;align-items:center;gap:8px;">
           <div style="width:32px;height:32px;border-radius:50%;background:#e8e8e8;animation:sk 1.2s infinite alternate;flex-shrink:0"></div>
