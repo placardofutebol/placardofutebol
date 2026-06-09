@@ -520,16 +520,34 @@ const jogosVivosIds = new Set();
       });
 
       const novosJogos = Object.values(jogosMap);
-      const cacheAtual = lerCache();
+const cacheAtual = lerCache();
 
-      if (novosJogos.length > 0 && (novosJogos.length >= (cacheAtual?.dados?.length || 0) || !cacheAtual)) {
-        todosJogos = novosJogos;
-        salvarCache(todosJogos);
-      } else {
-        todosJogos = cacheAtual.dados;
+if (novosJogos.length > 0 && (novosJogos.length >= (cacheAtual?.dados?.length || 0) || !cacheAtual)) {
+  if (cacheAtual?.dados) {
+    cacheAtual.dados.forEach(jAnterior => {
+      const vivo = ['1H','2H','HT','ET','P'].includes(jAnterior.fixture.status.short);
+      const novoJogo = novosJogos.find(n => n.fixture.id === jAnterior.fixture.id);
+      if (vivo && novoJogo && ['NS','TBD'].includes(novoJogo.fixture.status.short)) {
+        Object.assign(novoJogo.fixture.status, jAnterior.fixture.status);
+        novoJogo.goals = jAnterior.goals;
       }
+    });
+  }
+  todosJogos = novosJogos;
+  salvarCache(todosJogos);
+} else {
+  todosJogos = cacheAtual?.dados ?? novosJogos;
+}
 
-      detectarGols(todosJogos);
+todosJogos.forEach(j => {
+  if (['1H','2H','HT','ET','P'].includes(j.fixture.status.short)) {
+    jogosVivosIds.add(j.fixture.id);
+  } else if (['FT','AET','PEN','BT','AWD','WO'].includes(j.fixture.status.short)) {
+    jogosVivosIds.delete(j.fixture.id);
+  }
+});
+
+detectarGols(todosJogos);
       renderizar(); // UMA única renderização
       agendarProxima();
 
