@@ -594,13 +594,19 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
   }
 
   // ── AGENDAMENTO ─────────────────────────────────────────────────────────────
+  let _verificandoAtrasados = false;
   function verificarJogosAtrasados() {
+    if (_verificandoAtrasados) return;
     const agora = Date.now();
     const temAtrasado = todosJogos.some(j => {
       if (!['NS','TBD'].includes(j.fixture.status.short)) return false;
       return agora > new Date(j.fixture.date).getTime() + 60 * 1000;
     });
-    if (temAtrasado) { localStorage.removeItem('pf_jogos'); carregarJogos(true); }
+    if (temAtrasado) {
+      _verificandoAtrasados = true;
+      localStorage.removeItem('pf_jogos');
+      carregarJogos(true).finally(() => { _verificandoAtrasados = false; });
+    }
   }
 
   function agendarProxima() {
