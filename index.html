@@ -352,7 +352,7 @@
   // NUNCA reconstrói o HTML
   const jogosVivos = new Map(); // fixtureId → { base, inicio, periodo, travado }
 const jogosEmBreve = new Map(); // fixtureId → timestamp de início
-
+const jogosVivosIds = new Set();
   setInterval(() => {
     jogosVivos.forEach((timer, id) => {
       const elStatus = document.getElementById(`status-${id}`);
