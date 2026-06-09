@@ -1082,7 +1082,7 @@
       const desatualizado = !cache || (Date.now() - cache.ts) > 60 * 1000;
       if (desatualizado) {
         setTimeout(() => {
-          localStorage.removeItem('pf_jogos');
+          
           carregarJogos(true);
         }, 1500);
       } else {
