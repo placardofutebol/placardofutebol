@@ -906,7 +906,7 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
   function forcarAtualizacao() {
     localStorage.clear();
     sessionStorage.clear();
-    location.reload(true);
+    window.location.href = window.location.pathname + '?v=' + Date.now();
   }
 
   function mostrarSkeleton() {
