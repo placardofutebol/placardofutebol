@@ -1036,8 +1036,11 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
       const cache = lerCache();
       const desatualizado = !cache || (Date.now() - cache.ts) > 60 * 1000;
       if (desatualizado) {
-        localStorage.removeItem('pf_jogos');
-        carregarJogos(true);
+        // Espera 1.5s para conexão acordar antes de buscar
+        setTimeout(() => {
+          localStorage.removeItem('pf_jogos');
+          carregarJogos(true);
+        }, 1500);
       } else {
         renderizar();
       }
