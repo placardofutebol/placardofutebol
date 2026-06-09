@@ -903,11 +903,7 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
     }
   }, { passive: true });
 
-  function forcarAtualizacao() {
-    localStorage.clear();
-    sessionStorage.clear();
-    window.location.href = window.location.pathname + '?v=' + Date.now();
-  }
+  
 
   function mostrarSkeleton() {
     const card = () => `<div style="background:white;border-radius:10px;padding:14px 16px;margin-bottom:8px;
