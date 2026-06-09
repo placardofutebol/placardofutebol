@@ -988,6 +988,12 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
       JSON.stringify({ evento: 'sessao_standalone', uid: localStorage.getItem('pf_uid') }));
   }
 
+  function forcarAtualizacao() {
+    localStorage.clear();
+    sessionStorage.clear();
+    carregarJogos(true);
+  }
+
   exibirData();
   carregarJogos();
   </script>
