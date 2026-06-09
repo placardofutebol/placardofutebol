@@ -807,7 +807,7 @@ const jogosVivosListaUniq = jogosVivosLista.filter(j => {
         <div class="grupo-liga-header" style="background:#fff0f0;border-left:3px solid var(--vermelho);">
           <span class="grupo-liga-nome" style="color:var(--vermelho);">🔴 Ao Vivo Agora</span>
         </div>
-        ${jogosVivosLista.map(j => cardJogo(j)).join('')}
+       ${jogosVivosListaUniq.map(j => cardJogo(j)).join('')}
       </div>`;
     }
     // Remove jogos ao vivo dos grupos (já aparecem no topo)
