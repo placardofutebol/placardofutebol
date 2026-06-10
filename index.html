@@ -907,11 +907,8 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
   }
 
   async function limparCacheTotal() {
-    localStorage.clear();
-    sessionStorage.clear();
-    const url = new URL(location.href);
-    url.searchParams.set('_r', Date.now());
-    location.replace(url.toString());
+    localStorage.removeItem('pf_jogos');
+    await buscarEmBackground();
   }
     function mostrarErro() {
     document.getElementById('jogos-container').innerHTML =
