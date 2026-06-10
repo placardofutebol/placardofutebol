@@ -541,7 +541,12 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
 
     } catch(err) {
       console.error('Erro:', err);
-      if (!lerCache()) mostrarErro();
+      if (dadosAntes.length > 0) {
+        todosJogos = dadosAntes;
+        renderizar();
+      } else if (!lerCache()) {
+        mostrarErro();
+      }
     }
   }
 
