@@ -655,7 +655,15 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
       timerAtualizacao = setTimeout(() => carregarJogos(true), 60 * 1000);
     }
   }
-
+function alertarGol(times, detalhe) {
+    clearTimeout(timerPefinho);
+    document.getElementById('pef-times').textContent   = times;
+    document.getElementById('pef-detalhe').textContent = detalhe;
+    document.getElementById('pef-grande').classList.add('visivel');
+    timerPefinho = setTimeout(() => {
+      document.getElementById('pef-grande').classList.remove('visivel');
+    }, 5000);
+  }
   // ── DETECTAR GOLS ───────────────────────────────────────────────────────────
   function detectarGols(jogos) {
     jogos.forEach(j => {
