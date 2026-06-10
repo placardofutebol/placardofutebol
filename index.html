@@ -5,13 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Placar do Futebol - Resultados ao vivo, placares e classificação das principais ligas do futebol mundial.">
   <meta name="theme-color" content="#1a7a30">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2W09KW3MLV"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-2W09KW3MLV');
-</script>
   <title>Placar do Futebol - Resultados ao Vivo</title>
   <link rel="canonical" href="https://placardofutebol.com/">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2312151e'/><line x1='50' y1='4' x2='50' y2='14' stroke='%23666' stroke-width='4' stroke-linecap='round'/><circle cx='50' cy='3' r='5' fill='%237fff00'/><rect x='12' y='14' width='76' height='62' rx='14' fill='white'/><rect x='18' y='20' width='64' height='50' rx='10' fill='%230a0a0a'/><path d='M30 42 Q40 32 50 42' stroke='%2339ff14' stroke-width='6' stroke-linecap='round' fill='none'/><path d='M50 42 Q60 32 70 42' stroke='%2339ff14' stroke-width='6' stroke-linecap='round' fill='none'/><path d='M34 56 Q50 66 66 56' stroke='%2339ff14' stroke-width='5' stroke-linecap='round' fill='none'/><rect x='2' y='26' width='10' height='20' rx='5' fill='%23e2e8f0'/><rect x='88' y='26' width='10' height='20' rx='5' fill='%23e2e8f0'/></svg>">
@@ -29,11 +22,9 @@
         <span class="logo-principal">Placar <span>do Futebol</span></span>
         <span class="logo-sub">Resultados ao vivo</span>
       </a>
-      <div style="display:flex;align-items:center;gap:10px;">
-        <div class="header-ao-vivo">
-          <span class="dot-vivo"></span>
-          AO VIVO
-        </div>
+      <div class="header-ao-vivo">
+        <span class="dot-vivo"></span>
+        AO VIVO
       </div>
     </div>
   </header>
@@ -73,80 +64,6 @@
       <button class="filtro-btn" onclick="filtrarStatus(this, 'encerrado')">Encerrados</button>
       <a id="btn-completo-liga" href="/brasileirao/" class="filtro-btn filtro-completo" style="display:none">🏆 Completo →</a>
     </div>
-
-    <!-- CARROSSEL UNIFICADO — Loja do Torcedor -->
-    <div class="afl-carrossel-wrap" id="afl-1">
-      <div class="afl-label">🛒 Loja do Torcedor</div>
-      <div class="afl-track" id="afl-track-1">
-        <a class="afl-card" href="https://s.shopee.com.br/6py8U5CNme" target="_blank" rel="noopener sponsored">
-          <div class="afl-img-wrap"><img src="afl/camisa-corinthians-retro.webp" alt="Camisa Corinthians Retrô" loading="lazy"></div>
-          <div class="afl-info"><span class="afl-nome">Camisa Corinthians Retrô Polo</span><span class="afl-loja">🟠 Shopee</span></div>
-          <div class="afl-btn">Ver produto</div>
-        </a>
-        <a class="afl-card" href="https://s.shopee.com.br/1qZSXNsUpH" target="_blank" rel="noopener sponsored">
-          <div class="afl-img-wrap"><img src="afl/camisa-palmeiras-puma.webp" alt="Camisa Palmeiras Puma II" loading="lazy"></div>
-          <div class="afl-info"><span class="afl-nome">Camisa Palmeiras Puma II 2026</span><span class="afl-loja">🟠 Shopee</span></div>
-          <div class="afl-btn">Ver produto</div>
-        </a>
-        <a class="afl-card" href="https://s.shopee.com.br/6AiRhILTWq" target="_blank" rel="noopener sponsored">
-          <div class="afl-img-wrap"><img src="afl/camisa-palmeiras-branca.webp" alt="Camisa Palmeiras Branca" loading="lazy"></div>
-          <div class="afl-info"><span class="afl-nome">Camisa Palmeiras Branca 2026</span><span class="afl-loja">🟠 Shopee</span></div>
-          <div class="afl-btn">Ver produto</div>
-        </a>
-        <a class="afl-card" href="https://s.shopee.com.br/2LVjbTgJ18" target="_blank" rel="noopener sponsored">
-          <div class="afl-img-wrap"><img src="afl/camisa-brasil-economica.webp" alt="Camisa Brasil Econômica" loading="lazy"></div>
-          <div class="afl-info"><span class="afl-nome">Camisa Brasil Econômica Dry Fit</span><span class="afl-loja">🟠 Shopee</span></div>
-          <div class="afl-btn">Ver produto</div>
-        </a>
-        <a class="afl-card" href="https://s.shopee.com.br/50WUHgEPsL" target="_blank" rel="noopener sponsored">
-          <div class="afl-img-wrap"><img src="afl/chuteira-marra.webp" alt="Chuteira Society Marra" loading="lazy"></div>
-          <div class="afl-info"><span class="afl-nome">Chuteira Society Marra</span><span class="afl-loja">🟠 Shopee</span></div>
-          <div class="afl-btn">Ver produto</div>
-        </a>
-        <a class="afl-card" href="https://amzn.to/3Q14x8y" target="_blank" rel="noopener sponsored">
-          <div class="afl-img-wrap"><img src="afl/camisa-brasil-jordan-azul.jpg" alt="Camisa Brasil Jordan Azul" loading="lazy"></div>
-          <div class="afl-info"><span class="afl-nome">Camisa Brasil Jordan II Azul</span><span class="afl-loja">🟡 Amazon</span></div>
-          <div class="afl-btn">Ver produto</div>
-        </a>
-        <a class="afl-card" href="https://amzn.to/4aeNpCY" target="_blank" rel="noopener sponsored">
-          <div class="afl-img-wrap"><img src="afl/camisa-brasil-amarela-nike.jpg" alt="Camisa Brasil Amarela Nike" loading="lazy"></div>
-          <div class="afl-info"><span class="afl-nome">Camisa Brasil Amarela Nike</span><span class="afl-loja">🟡 Amazon</span></div>
-          <div class="afl-btn">Ver produto</div>
-        </a>
-        <a class="afl-card" href="https://s.shopee.com.br/LkejpV7cl" target="_blank" rel="noopener sponsored">
-          <div class="afl-img-wrap"><img src="afl/manto-flamengo-adidas.webp" alt="Manto Flamengo Adidas 2026" loading="lazy"></div>
-          <div class="afl-info"><span class="afl-nome">Manto Flamengo Adidas 2026</span><span class="afl-loja">🟠 Shopee</span></div>
-          <div class="afl-btn">Ver produto</div>
-        </a>
-        <a class="afl-card" href="https://s.shopee.com.br/60P1ThZreL" target="_blank" rel="noopener sponsored">
-          <div class="afl-img-wrap"><img src="afl/bola-penalty-furia.webp" alt="Bola Penalty Fúria XXI" loading="lazy"></div>
-          <div class="afl-info"><span class="afl-nome">Bola de Campo Penalty Fúria XXI</span><span class="afl-loja">🟠 Shopee</span></div>
-          <div class="afl-btn">Ver produto</div>
-        </a>
-        <a class="afl-card" href="https://s.shopee.com.br/110LWmCplD" target="_blank" rel="noopener sponsored">
-          <div class="afl-img-wrap"><img src="afl/luva-goleiro-poker.webp" alt="Luva Goleiro Poker" loading="lazy"></div>
-          <div class="afl-info"><span class="afl-nome">Luva de Goleiro Poker</span><span class="afl-loja">🟠 Shopee</span></div>
-          <div class="afl-btn">Ver produto</div>
-        </a>
-        <a class="afl-card" href="https://s.shopee.com.br/8KmwHXfxgc" target="_blank" rel="noopener sponsored">
-          <div class="afl-img-wrap"><img src="afl/kit-shorts.webp" alt="Kit 2 Shorts de Futebol" loading="lazy"></div>
-          <div class="afl-info"><span class="afl-nome">Kit 2 Shorts de Futebol</span><span class="afl-loja">🟠 Shopee</span></div>
-          <div class="afl-btn">Ver produto</div>
-        </a>
-        <a class="afl-card" href="https://s.shopee.com.br/6L1ru0kDNz" target="_blank" rel="noopener sponsored">
-          <div class="afl-img-wrap"><img src="afl/caneleira-vps.webp" alt="Caneleira VPS" loading="lazy"></div>
-          <div class="afl-info"><span class="afl-nome">Caneleira VPS</span><span class="afl-loja">🟠 Shopee</span></div>
-          <div class="afl-btn">Ver produto</div>
-        </a>
-        <a class="afl-card" href="https://s.shopee.com.br/AUrQrni6LA" target="_blank" rel="noopener sponsored">
-          <div class="afl-img-wrap"><img src="afl/meiao-futebol.webp" alt="Meião de Futebol" loading="lazy"></div>
-          <div class="afl-info"><span class="afl-nome">Meião de Futebol</span><span class="afl-loja">🟠 Shopee</span></div>
-          <div class="afl-btn">Ver produto</div>
-        </a>
-      </div>
-      <div class="afl-dots" id="afl-dots-1"></div>
-    </div>
-
     <div id="jogos-container">
       <div class="estado-loading">
         <div class="spinner"></div>
@@ -155,65 +72,7 @@
     </div>
   </main>
 
-  <!-- CARROSSEL 2 — Times e Econômico -->
-  <div class="afl-carrossel-wrap" id="afl-2" style="margin: 16px 16px 0;">
-    <div class="afl-label">👕 Camisas dos Times</div>
-    <div class="afl-track" id="afl-track-2">
-      <a class="afl-card" href="https://s.shopee.com.br/6py8U5CNme" target="_blank" rel="noopener sponsored">
-        <div class="afl-img-wrap"><img src="afl/camisa-corinthians-retro.webp" alt="Camisa Corinthians Retrô" loading="lazy"></div>
-        <div class="afl-info"><span class="afl-nome">Camisa Corinthians Retrô Polo</span><span class="afl-loja">🟠 Shopee</span></div>
-        <div class="afl-btn">Ver produto</div>
-      </a>
-      <a class="afl-card" href="https://s.shopee.com.br/6AiRhILTWq" target="_blank" rel="noopener sponsored">
-        <div class="afl-img-wrap"><img src="afl/camisa-palmeiras-branca.webp" alt="Camisa Palmeiras Branca" loading="lazy"></div>
-        <div class="afl-info"><span class="afl-nome">Camisa Palmeiras Branca 2026</span><span class="afl-loja">🟠 Shopee</span></div>
-        <div class="afl-btn">Ver produto</div>
-      </a>
-      <a class="afl-card" href="https://s.shopee.com.br/2LVjbTgJ18" target="_blank" rel="noopener sponsored">
-        <div class="afl-img-wrap"><img src="afl/camisa-brasil-economica.webp" alt="Camisa Brasil Econômica" loading="lazy"></div>
-        <div class="afl-info"><span class="afl-nome">Camisa Brasil Econômica Dry Fit</span><span class="afl-loja">🟠 Shopee</span></div>
-        <div class="afl-btn">Ver produto</div>
-      </a>
-      <a class="afl-card" href="https://s.shopee.com.br/50WUHgEPsL" target="_blank" rel="noopener sponsored">
-        <div class="afl-img-wrap"><img src="afl/chuteira-marra.webp" alt="Chuteira Society Marra" loading="lazy"></div>
-        <div class="afl-info"><span class="afl-nome">Chuteira Society Marra</span><span class="afl-loja">🟠 Shopee</span></div>
-        <div class="afl-btn">Ver produto</div>
-      </a>
-    </div>
-    <div class="afl-dots" id="afl-dots-2"></div>
-  </div>
-
-  <!-- CARROSSEL 3 — Equipamentos -->
-  <div class="afl-carrossel-wrap" id="afl-3" style="margin: 16px 16px 0;">
-    <div class="afl-label">⚽ Equipamentos</div>
-    <div class="afl-track" id="afl-track-3">
-      <a class="afl-card" href="https://s.shopee.com.br/110LWmCplD" target="_blank" rel="noopener sponsored">
-        <div class="afl-img-wrap"><img src="afl/luva-goleiro-poker.webp" alt="Luva Goleiro Poker" loading="lazy"></div>
-        <div class="afl-info"><span class="afl-nome">Luva de Goleiro Poker</span><span class="afl-loja">🟠 Shopee</span></div>
-        <div class="afl-btn">Ver produto</div>
-      </a>
-      <a class="afl-card" href="https://s.shopee.com.br/60P1ThZreL" target="_blank" rel="noopener sponsored">
-        <div class="afl-img-wrap"><img src="afl/bola-penalty-furia.webp" alt="Bola Penalty Fúria XXI" loading="lazy"></div>
-        <div class="afl-info"><span class="afl-nome">Bola de Campo Penalty Fúria XXI</span><span class="afl-loja">🟠 Shopee</span></div>
-        <div class="afl-btn">Ver produto</div>
-      </a>
-      <a class="afl-card" href="https://s.shopee.com.br/6L1ru0kDNz" target="_blank" rel="noopener sponsored">
-        <div class="afl-img-wrap"><img src="afl/caneleira-vps.webp" alt="Caneleira VPS" loading="lazy"></div>
-        <div class="afl-info"><span class="afl-nome">Caneleira VPS</span><span class="afl-loja">🟠 Shopee</span></div>
-        <div class="afl-btn">Ver produto</div>
-      </a>
-      <a class="afl-card" href="https://s.shopee.com.br/AUrQrni6LA" target="_blank" rel="noopener sponsored">
-        <div class="afl-img-wrap"><img src="afl/meiao-futebol.webp" alt="Meião de Futebol" loading="lazy"></div>
-        <div class="afl-info"><span class="afl-nome">Meião de Futebol</span><span class="afl-loja">🟠 Shopee</span></div>
-        <div class="afl-btn">Ver produto</div>
-      </a>
-    </div>
-    <div class="afl-dots" id="afl-dots-3"></div>
-  </div>
-
-  
-
-  <div id="pef-mini" class="pulsando" title="Pefinho monitorando" onclick="window.location.href='/pefinho/'">
+  <div id="pef-mini" class="pulsando" title="Pefinho monitorando" onclick="fecharPefinho()">
     <svg width="28" height="38" viewBox="0 0 90 130" fill="none" xmlns="http://www.w3.org/2000/svg">
       <line x1="45" y1="6" x2="45" y2="16" stroke="#888" stroke-width="3" stroke-linecap="round"/>
       <circle cx="45" cy="5" r="5" fill="#7fff00"/>
@@ -329,25 +188,14 @@
   let placaresPrev     = {};
   let timerAtualizacao = null;
   let timerPefinho     = null;
-  let _renderizando    = false;
-
-  const jogosVivos    = new Map(); // fixtureId → { base, inicio, periodo, travado }
-  const jogosEmBreve  = new Map(); // fixtureId → timestamp de início
-  const jogosVivosIds = new Set(); // escudo: IDs que já foram ao vivo nesta sessão
-
-  // ── HELPER: atualiza o escudo com base em um array de jogos ─────────────────
-  function atualizarEscudo(jogos) {
-    jogos.forEach(j => {
-      const st = j.fixture.status.short;
-      if (['1H','2H','HT','ET','P'].includes(st)) {
-        jogosVivosIds.add(j.fixture.id);
-      } else if (['FT','AET','PEN','BT','AWD','WO'].includes(st)) {
-        jogosVivosIds.delete(j.fixture.id);
-      }
-    });
-  }
+  let _renderizando    = false; // lock para evitar renders simultâneos
 
   // ── TIMER GLOBAL ÚNICO ──────────────────────────────────────────────────────
+  // Um único setInterval de 1s atualiza APENAS tempo/placar nos cards existentes
+  // NUNCA reconstrói o HTML
+  const jogosVivos = new Map(); // fixtureId → { base, inicio, periodo, travado }
+const jogosEmBreve = new Map(); // fixtureId → timestamp de início
+
   setInterval(() => {
     jogosVivos.forEach((timer, id) => {
       const elStatus = document.getElementById(`status-${id}`);
@@ -368,6 +216,8 @@
   function calcularTextoTempo(timer) {
     if (timer.periodo === 'HT') return 'Intervalo';
     if (timer.periodo === 'P')  return 'Pênaltis';
+
+    // Se já travado, retorna direto
     if (timer.travado) return timer.travado;
 
     const minutos   = Math.floor((Date.now() - timer.inicio) / 60000);
@@ -381,6 +231,7 @@
       }
       return `${tempoReal}'`;
     }
+
     if (timer.periodo === '2H') {
       if (tempoReal > 90) {
         const ac = tempoReal - 90;
@@ -389,6 +240,7 @@
       }
       return `${tempoReal}'`;
     }
+
     if (timer.periodo === 'ET') {
       if (tempoReal > 120) {
         const ac = tempoReal - 120;
@@ -397,6 +249,7 @@
       }
       return `${tempoReal}'`;
     }
+
     return `${tempoReal}'`;
   }
 
@@ -405,9 +258,11 @@
     const status  = j.fixture.status.short;
     const elapsed = j.fixture.status.elapsed || 0;
     const atual   = jogosVivos.get(id);
+
     if (!atual) {
       jogosVivos.set(id, { base: elapsed, inicio: Date.now(), periodo: status });
     } else if (elapsed > atual.base || status !== atual.periodo) {
+      // API avançou → reseta, inclusive flag travado
       jogosVivos.set(id, { base: elapsed, inicio: Date.now(), periodo: status });
     }
   }
@@ -429,16 +284,8 @@
   function salvarCache(dados) {
     try { localStorage.setItem('pf_jogos', JSON.stringify({ ts: Date.now(), dados })); } catch(e) {}
   }
-
   function lerCache() {
-    try {
-      const r = localStorage.getItem('pf_jogos');
-      if (!r) return null;
-      const parsed = JSON.parse(r);
-      if (!parsed?.dados?.length) return null;
-      if (Date.now() - parsed.ts > 60 * 1000) buscarEmBackground();
-      return parsed;
-    } catch(e) { return null; }
+    try { const r = localStorage.getItem('pf_jogos'); return r ? JSON.parse(r) : null; } catch(e) { return null; }
   }
 
   function cacheTTL() {
@@ -466,25 +313,25 @@
       ['1H','2H','HT','ET','P'].includes(j.fixture.status.short)
     );
     if (cache && temVivoNoCache && (agora - cache.ts) > 2 * 60 * 1000) {
-      
+      localStorage.removeItem('pf_jogos');
       forcar = true;
     }
+
     if (cache && !cache.dados?.some(j => j.fixture.date.startsWith(hoje()))) forcar = true;
 
     if (cache && !forcar) {
       todosJogos = cache.dados;
-      atualizarEscudo(todosJogos);
       renderizar();
       agendarProxima();
-      buscarEmBackground();
+      buscarEmBackground(); // silencioso, sem mostrar skeleton
       return;
     }
 
-    if (todosJogos.length === 0) mostrarSkeleton();
+    mostrarSkeleton();
     await buscarEmBackground();
   }
 
-  // ── BUSCAR EM BACKGROUND ────────────────────────────────────────────────────
+  // FIX TSUNAMI: busca tudo, SÓ renderiza quando os 3 fetches terminarem
   async function buscarEmBackground() {
     function fetchComTimeout(url, ms = 8000) {
       return Promise.race([
@@ -494,6 +341,7 @@
     }
 
     try {
+      // Aguarda os 3 simultaneamente — SEM renderização parcial
       const [resOntem, resHoje, resAmanha] = await Promise.all([
         fetchComTimeout(`${API_URL}/fixtures?date=${ontem()}`),
         fetchComTimeout(`${API_URL}/fixtures?date=${hoje()}`),
@@ -510,38 +358,25 @@
       const novosJogos = Object.values(jogosMap);
       const cacheAtual = lerCache();
 
-      if (novosJogos.length > 0 && (novosJogos.length >= (cacheAtual?.dados?.length || 0) || !cacheAtual)) {
-        // Protege contra regressão de status: se a API voltar NS para um jogo
-        // que o escudo já registrou como ao vivo, preserva o status anterior
-        if (cacheAtual?.dados) {
-          cacheAtual.dados.forEach(jAnterior => {
-            const eraVivo = ['1H','2H','HT','ET','P'].includes(jAnterior.fixture.status.short);
-            const novoJogo = novosJogos.find(n => n.fixture.id === jAnterior.fixture.id);
-            if (eraVivo && novoJogo && ['NS','TBD'].includes(novoJogo.fixture.status.short)) {
-              Object.assign(novoJogo.fixture.status, jAnterior.fixture.status);
-              novoJogo.goals = jAnterior.goals;
-            }
-          });
-        }
+      if (novosJogos.length >= (cacheAtual?.dados?.length || 0) || !cacheAtual) {
         todosJogos = novosJogos;
         salvarCache(todosJogos);
       } else {
-        todosJogos = cacheAtual?.dados ?? novosJogos;
+        todosJogos = cacheAtual.dados;
       }
 
-      atualizarEscudo(todosJogos);
       detectarGols(todosJogos);
-      renderizar();
+      renderizar(); // UMA única renderização
       agendarProxima();
 
     } catch(err) {
       console.error('Erro:', err);
       if (!lerCache()) mostrarErro();
-      else renderizar();
     }
   }
 
-  // ── ATUALIZAR AO VIVO ───────────────────────────────────────────────────────
+  // ── ATUALIZAR AO VIVO ──────────────────────────────────────────────────────
+  // Só atualiza placar e status nos cards — NUNCA reconstrói HTML
   async function atualizarAoVivo() {
     const ligas = ligasAoVivo();
     if (ligas.length === 0) return;
@@ -559,18 +394,6 @@
         (json.response || []).forEach(j => { jogosAtualizados[j.fixture.id] = j; });
       });
 
-      // Protege contra regressão de status também no ciclo ao vivo
-      Object.values(jogosAtualizados).forEach(jNovo => {
-        if (jogosVivosIds.has(jNovo.fixture.id) &&
-            ['NS','TBD'].includes(jNovo.fixture.status.short)) {
-          const jAnterior = todosJogos.find(t => t.fixture.id === jNovo.fixture.id);
-          if (jAnterior && ['1H','2H','HT','ET','P'].includes(jAnterior.fixture.status.short)) {
-            Object.assign(jNovo.fixture.status, jAnterior.fixture.status);
-            jNovo.goals = jAnterior.goals;
-          }
-        }
-      });
-
       // Atualiza dados internos
       todosJogos = todosJogos.map(j => jogosAtualizados[j.fixture.id] || j);
       Object.values(jogosAtualizados).forEach(j => {
@@ -578,35 +401,38 @@
       });
       if (todosJogos.length > 0) salvarCache(todosJogos);
 
-      // Atualiza o escudo com os dados frescos
-      atualizarEscudo(Object.values(jogosAtualizados));
-
       detectarGols(Object.values(jogosAtualizados));
 
+      // FIX: só atualiza placar e registra timers — sem toque no HTML estrutural
       let precisaRenderizar = false;
       Object.values(jogosAtualizados).forEach(j => {
         const id = j.fixture.id;
         const st = j.fixture.status.short;
 
+        // Registra/atualiza timer vivo
         if (['1H','2H','HT','ET','P'].includes(st)) {
           registrarJogoVivo(j);
         } else {
           removerJogoVivo(id);
         }
 
+        // Atualiza placar no DOM se card existir
         const elPlacar = document.getElementById(`placar-${id}`);
         const elStatus = document.getElementById(`status-${id}`);
 
         if (!elPlacar) {
+          // Card não existe ainda → precisa renderizar
           precisaRenderizar = true;
           return;
         }
 
+        // Atualiza placar
         if (j.goals.home !== null && j.goals.away !== null) {
           const novoP = `${j.goals.home} × ${j.goals.away}`;
           if (elPlacar.textContent !== novoP) elPlacar.textContent = novoP;
         }
 
+        // Se encerrado, atualiza status direto
         if (['FT','AET','PEN','BT'].includes(st) && elStatus) {
           elStatus.textContent = 'Encerrado';
           elStatus.className   = 'placar-status encerrado';
@@ -614,6 +440,8 @@
         }
       });
 
+      // Só reconstrói se aparecer jogo novo (ex: jogo que não existia antes)
+      // Usa debounce de 3s para não tremer na tela
       if (precisaRenderizar) {
         clearTimeout(window._debounceRender);
         window._debounceRender = setTimeout(() => renderizar(), 3000);
@@ -623,19 +451,13 @@
   }
 
   // ── AGENDAMENTO ─────────────────────────────────────────────────────────────
-  let _verificandoAtrasados = false;
   function verificarJogosAtrasados() {
-    if (_verificandoAtrasados) return;
     const agora = Date.now();
     const temAtrasado = todosJogos.some(j => {
       if (!['NS','TBD'].includes(j.fixture.status.short)) return false;
       return agora > new Date(j.fixture.date).getTime() + 60 * 1000;
     });
-    if (temAtrasado) {
-      _verificandoAtrasados = true;
-      localStorage.removeItem('pf_jogos');
-      carregarJogos(true).finally(() => { _verificandoAtrasados = false; });
-    }
+    if (temAtrasado) { localStorage.removeItem('pf_jogos'); carregarJogos(true); }
   }
 
   function agendarProxima() {
@@ -646,12 +468,13 @@
     const temEmBreve = todosJogos.some(j => {
       if (!['NS','TBD'].includes(j.fixture.status.short)) return false;
       const diff = (new Date(j.fixture.date) - Date.now()) / 60000;
-      return diff <= 60 && diff > -15;
+      return diff <= 30 && diff > -15;
     });
 
     if (temVivo || temEmBreve) {
       timerAtualizacao = setTimeout(async () => {
         await atualizarAoVivo();
+        if (ligasAoVivo().length === 0) setTimeout(() => carregarJogos(true), 60 * 1000);
         agendarProxima();
       }, CACHE_TTL_VIVO);
     } else if (hora >= 1 && hora < 7) {
@@ -661,18 +484,7 @@
     }
   }
 
-  // ── ALERTAR GOL ─────────────────────────────────────────────────────────────
-  function alertarGol(times, detalhe) {
-    clearTimeout(timerPefinho);
-    document.getElementById('pef-times').textContent   = times;
-    document.getElementById('pef-detalhe').textContent = detalhe;
-    document.getElementById('pef-grande').classList.add('visivel');
-    timerPefinho = setTimeout(() => {
-      document.getElementById('pef-grande').classList.remove('visivel');
-    }, 5000);
-  }
-
-  // ── DETECTAR GOLS ────────────────────────────────────────────────────────────
+  // ── DETECTAR GOLS ───────────────────────────────────────────────────────────
   function detectarGols(jogos) {
     jogos.forEach(j => {
       const id = j.fixture.id;
@@ -698,6 +510,7 @@
   }
 
   // ── RENDERIZAÇÃO ─────────────────────────────────────────────────────────────
+  // Chamada apenas em carga inicial, troca de filtro ou jogo novo aparecendo
   function renderizar() {
     if (_renderizando) return;
     _renderizando = true;
@@ -759,69 +572,45 @@
       Object.entries(g).sort(([, a], [, b]) => prioridadeGrupo(a) - prioridadeGrupo(b))
     );
 
-    // ── SEÇÃO AO VIVO: jogos reais + escudo (jogos que já foram ao vivo) ──────
+    // Seção AO VIVO global no topo
     const agora = Date.now();
-    const jogosVivosLista = [
-      // 1. Jogos genuinamente ao vivo pela API
-      ...jogos.filter(j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short)),
-      // 2. Jogos em breve (janela de 30 min)
-      ...jogos.filter(j => {
-        if (!['NS','TBD'].includes(j.fixture.status.short)) return false;
+    const jogosVivosLista = jogos.filter(j => {
+      if (['1H','2H','HT','ET','P'].includes(j.fixture.status.short)) return true;
+      if (['NS','TBD'].includes(j.fixture.status.short)) {
         const diff = (new Date(j.fixture.date) - agora) / 60000;
-        return diff <= 60 && diff > -15;
-      }),
-      // 3. ESCUDO: jogos que a API regrediu para NS mas que já começaram
-      ...todosJogos.filter(j => {
-        if (!jogosVivosIds.has(j.fixture.id)) return false;
-        if (['FT','AET','PEN','BT','AWD','WO'].includes(j.fixture.status.short)) return false;
-        // Só inclui se não está já na lista acima como vivo
-        return !jogos.find(g =>
-          g.fixture.id === j.fixture.id &&
-          ['1H','2H','HT','ET','P'].includes(g.fixture.status.short)
-        );
-      })
-    ];
-
-    // Remove duplicatas
-    const idsVistos = new Set();
-    const jogosVivosListaUniq = jogosVivosLista.filter(j => {
-      if (idsVistos.has(j.fixture.id)) return false;
-      idsVistos.add(j.fixture.id);
-      return true;
+        return diff <= 30 && diff > -15;
+      }
+      return false;
     });
-
-    jogosVivosListaUniq.forEach(j => {
+    jogosVivosLista.forEach(j => {
       if (['NS','TBD'].includes(j.fixture.status.short)) {
         jogosEmBreve.set(j.fixture.id, new Date(j.fixture.date).getTime());
       }
     });
-
     let html = '';
-    if (jogosVivosListaUniq.length) {
+    if (jogosVivosLista.length) {
       html += `<div class="grupo-liga anim-entrar">
         <div class="grupo-liga-header" style="background:#fff0f0;border-left:3px solid var(--vermelho);">
           <span class="grupo-liga-nome" style="color:var(--vermelho);">🔴 Ao Vivo Agora</span>
         </div>
-        ${jogosVivosListaUniq.map(j => cardJogo(j)).join('')}
+        ${jogosVivosLista.map(j => cardJogo(j)).join('')}
       </div>`;
     }
-
     // Remove jogos ao vivo dos grupos (já aparecem no topo)
-    const removerVivos = grps => {
+    const removerVivos = grupos => {
       const copia = {};
-      Object.entries(grps).forEach(([lid, lista]) => {
-        const semVivos = lista.filter(j => !jogosVivosListaUniq.includes(j));
+      Object.entries(grupos).forEach(([lid, lista]) => {
+        const semVivos = lista.filter(j => !jogosVivosLista.includes(j));
         if (semVivos.length) copia[lid] = semVivos;
       });
       return copia;
     };
-
     if (Object.keys(gH).length) html += renderGrupos(ordenar(removerVivos(gH)));
     if (Object.keys(gA).length) html += renderGrupos(ordenar(removerVivos(gA)));
     if (Object.keys(gO).length) html += renderGrupos(ordenar(removerVivos(gO)));
     container.innerHTML = html;
 
-    // Registra jogos vivos no Map global após renderizar
+    // Após renderizar, registra jogos vivos no Map global
     todosJogos.forEach(j => {
       if (['1H','2H','HT','ET','P'].includes(j.fixture.status.short)) {
         registrarJogoVivo(j);
@@ -885,8 +674,8 @@
     } else {
       const dataJogo = new Date(j.fixture.date);
       const diffMin  = Math.floor((dataJogo - new Date()) / 60000);
-      if (diffMin <= 0 && diffMin > -15)     { statusClass = 'em-breve'; statusTexto = '⚽ Iniciando...'; }
-      else if (diffMin <= 60 && diffMin > 0) { statusClass = 'em-breve'; statusTexto = `⏱️ ${diffMin} min`; }
+      if (diffMin <= 0 && diffMin > -15)      { statusClass = 'em-breve'; statusTexto = '⚽ Iniciando...'; }
+      else if (diffMin <= 30 && diffMin > 0)  { statusClass = 'em-breve'; statusTexto = `⏱️ ${diffMin} min`; }
       else {
         const dStr = dataJogo.toLocaleDateString('pt-BR', { day:'2-digit', month:'2-digit', year:'numeric' });
         const hStr = dataJogo.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
@@ -899,6 +688,7 @@
       : `<span class="placar-numeros" id="placar-${j.fixture.id}">${placarTexto}</span>`;
 
     return `<div class="jogo-card" id="card-${j.fixture.id}" onclick="abrirJogo(${j.fixture.id})">
+  
       <div class="jogo-linha">
         <div class="time-esquerda">
           <img class="escudo" src="${j.teams.home.logo}" alt="${j.teams.home.name}"
@@ -918,21 +708,8 @@
     </div>`;
   }
 
-  // ── PULL TO REFRESH ──────────────────────────────────────────────────────────
-  let _ptrStartY = 0, _ptrAtivado = false;
-  document.addEventListener('touchstart', e => { _ptrStartY = e.touches[0].clientY; }, { passive: true });
-  document.addEventListener('touchend', e => {
-    const diff = e.changedTouches[0].clientY - _ptrStartY;
-    if (diff > 80 && window.scrollY === 0 && !_ptrAtivado) {
-      _ptrAtivado = true;
-      localStorage.clear();
-      sessionStorage.clear();
-      carregarJogos(true).finally(() => { _ptrAtivado = false; });
-    }
-  }, { passive: true });
-
   function mostrarSkeleton() {
-    const card = () => `<div style="background:white;border-radius:10px;padding:14px 16px;margin-bottom:8px;">
+    const card = () => `<div style="background:white;border-radius:10px;padding:14px 16px;margin-bottom:8px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
       <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;">
         <div style="display:flex;align-items:center;gap:8px;">
           <div style="width:32px;height:32px;border-radius:50%;background:#e8e8e8;animation:sk 1.2s infinite alternate;flex-shrink:0"></div>
@@ -946,39 +723,19 @@
           <div style="width:60px;height:12px;border-radius:4px;background:#e8e8e8;animation:sk 1.2s infinite alternate"></div>
           <div style="width:32px;height:32px;border-radius:50%;background:#e8e8e8;animation:sk 1.2s infinite alternate;flex-shrink:0"></div>
         </div>
-      </div>
-    </div>`;
+      </div></div>`;
     const grupo = () => `<div style="background:white;border-radius:10px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);overflow:hidden;">
       <div style="background:#e8f5ec;padding:10px 14px;display:flex;align-items:center;gap:8px;">
         <div style="width:24px;height:24px;border-radius:50%;background:#d0e8d4;animation:sk 1.2s infinite alternate"></div>
         <div style="width:120px;height:13px;border-radius:4px;background:#d0e8d4;animation:sk 1.2s infinite alternate"></div>
       </div>${card()}${card()}${card()}</div>`;
     document.getElementById('jogos-container').innerHTML =
-      `<style>@keyframes sk{from{opacity:.5}to{opacity:1}}</style>
-      <div style="text-align:center;padding:12px 0 4px;">
-        <button onclick="forcarAtualizacao()" style="background:white;border:1.5px solid #e4e8e6;color:#5a6672;font-size:12px;font-weight:600;padding:6px 18px;border-radius:20px;cursor:pointer;">↺ Atualizar</button>
-      </div>
-      ${grupo()}${grupo()}${grupo()}`;
+      `<style>@keyframes sk{from{opacity:.5}to{opacity:1}}</style>${grupo()}${grupo()}${grupo()}`;
   }
 
-  let _tentativasErro = 0;
   function mostrarErro() {
-    _tentativasErro++;
     document.getElementById('jogos-container').innerHTML =
-      `<div class="estado-erro">
-        <p>🔄 Carregando jogos ao vivo...</p>
-        <p style="font-size:12px;margin-top:8px;color:#999">Tentando novamente...</p>
-      </div>`;
-    if (_tentativasErro <= 3) {
-      setTimeout(() => carregarJogos(true), 3000 * _tentativasErro);
-    } else {
-      _tentativasErro = 0;
-      document.getElementById('jogos-container').innerHTML =
-        `<div class="estado-erro">
-          <p>😕 Não foi possível carregar os jogos.</p>
-          <button onclick="_tentativasErro=0;carregarJogos(true)" style="margin-top:12px;padding:8px 20px;background:#1a7a30;color:white;border:none;border-radius:8px;cursor:pointer;font-size:13px;">🔄 Tentar novamente</button>
-        </div>`;
-    }
+      `<div class="estado-erro"><p>⚠️ Erro ao carregar os jogos. Tente novamente em instantes.</p></div>`;
   }
 
   function abrirJogo(id) {
@@ -1000,7 +757,7 @@
     ligaAtiva = liga;
     renderizar();
     const btn = document.getElementById('btn-completo-liga');
-    const PAGINAS = {'71':'/brasileirao/','72':'/brasileirao-serie-b/','13':'/libertadores/','11':'/sulamericana/','73':'/copa-do-brasil/','2':'/champions/','39':'/premier-league/','140':'/la-liga/','10':'/amistosos-internacionais/'};
+   const PAGINAS = {'71':'/brasileirao/','72':'/brasileirao-serie-b/','13':'/libertadores/','11':'/sulamericana/','73':'/copa-do-brasil/','2':'/champions/','39':'/premier-league/','140':'/la-liga/','10':'/amistosos-internacionais/'};
     if (PAGINAS[liga]) { btn.href = PAGINAS[liga]; btn.style.display = 'flex'; }
     else btn.style.display = 'none';
   }
@@ -1012,7 +769,7 @@
     renderizar();
   }
 
-  // ── PWA ───────────────────────────────────────────────────────────────────────
+  // ── PWA ──────────────────────────────────────────────────────────────────────
   let deferredPrompt;
   window.addEventListener('beforeinstallprompt', e => {
     e.preventDefault(); deferredPrompt = e;
@@ -1037,95 +794,8 @@
       JSON.stringify({ evento: 'sessao_standalone', uid: localStorage.getItem('pf_uid') }));
   }
 
-  async function forcarAtualizacao() {
-    const btn = document.getElementById('btn-atualizar');
-    if (btn) { btn.textContent = '⏳ Atualizando...'; btn.disabled = true; }
-    if ('serviceWorker' in navigator) {
-      const regs = await navigator.serviceWorker.getRegistrations();
-      await Promise.all(regs.map(r => r.unregister()));
-    }
-    if ('caches' in window) {
-      const keys = await caches.keys();
-      await Promise.all(keys.map(k => caches.delete(k)));
-    }
-    localStorage.clear();
-    sessionStorage.clear();
-    if (indexedDB.databases) {
-      const dbs = await indexedDB.databases();
-      await Promise.all(dbs.map(db => indexedDB.deleteDatabase(db.name)));
-    }
-    const url = new URL(location.href);
-    url.searchParams.set('_r', Date.now());
-    location.replace(url.toString());
-  }
-
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'visible') {
-      const cache = lerCache();
-      const desatualizado = !cache || (Date.now() - cache.ts) > 60 * 1000;
-      if (desatualizado) {
-        setTimeout(() => {
-          
-          carregarJogos(true);
-        }, 1500);
-      } else {
-        renderizar();
-      }
-    }
-  });
-
   exibirData();
   carregarJogos();
-  </script>
-
-  <style>
-    .afl-carrossel-wrap{margin:12px 0;position:relative;overflow:hidden;border-radius:12px}.afl-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#888;padding:0 4px 6px}.afl-track{display:flex;gap:10px;transition:transform .4s cubic-bezier(.25,.46,.45,.94);will-change:transform;cursor:grab;user-select:none}.afl-track:active{cursor:grabbing}.afl-card{flex:0 0 140px;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08);text-decoration:none;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;-webkit-tap-highlight-color:transparent}.afl-card:active{transform:scale(.97)}.afl-img-wrap{width:100%;height:130px;background:#f5f5f5;display:flex;align-items:center;justify-content:center;overflow:hidden}.afl-img-wrap img{width:100%;height:100%;object-fit:cover;pointer-events:none}.afl-info{padding:8px 10px;flex:1;display:flex;flex-direction:column;gap:4px}.afl-nome{font-size:11px;font-weight:600;color:#1a1a1a;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.afl-loja{font-size:10px;color:#888}.afl-btn{margin:0 8px 8px;background:#1a7a30;color:white;font-size:11px;font-weight:700;text-align:center;padding:6px;border-radius:6px;letter-spacing:.3px}.afl-dots{display:flex;justify-content:center;gap:5px;margin-top:8px}.afl-dot{width:5px;height:5px;border-radius:50%;background:#ddd;transition:background .3s,width .3s}.afl-dot.ativo{background:#1a7a30;width:14px;border-radius:3px}
-  </style>
-
-  <script>
-  (function() {
-    const CARROSSEIS = [
-      { trackId: 'afl-track-1', dotsId: 'afl-dots-1' },
-    ];
-    CARROSSEIS.forEach(({ trackId, dotsId }) => {
-      const track = document.getElementById(trackId);
-      const dotsEl = document.getElementById(dotsId);
-      if (!track) return;
-      const cards = track.querySelectorAll('.afl-card');
-      const total = cards.length;
-      const cardW = 150;
-      let atual = 0, autoTimer = null, startX = 0;
-      const dots = [];
-      cards.forEach((_, i) => {
-        const d = document.createElement('div');
-        d.className = 'afl-dot' + (i === 0 ? ' ativo' : '');
-        dotsEl.appendChild(d);
-        dots.push(d);
-      });
-      function irPara(idx) {
-        atual = (idx + total) % total;
-        track.style.transform = `translateX(-${atual * cardW}px)`;
-        dots.forEach((d, i) => d.classList.toggle('ativo', i === atual));
-      }
-      function proximoAuto() { autoTimer = setInterval(() => irPara(atual + 1), 10000); }
-      function pararAuto() { clearInterval(autoTimer); }
-      track.addEventListener('touchstart', e => { pararAuto(); startX = e.touches[0].clientX; }, { passive: true });
-      track.addEventListener('touchend', e => {
-        const diff = startX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 40) irPara(atual + (diff > 0 ? 1 : -1));
-        proximoAuto();
-      }, { passive: true });
-      track.addEventListener('mousedown', e => { pararAuto(); startX = e.clientX; });
-      window.addEventListener('mouseup', e => {
-        const diff = startX - e.clientX;
-        if (Math.abs(diff) > 40) irPara(atual + (diff > 0 ? 1 : -1));
-        proximoAuto();
-      });
-      track.addEventListener('click', e => { if (Math.abs(startX - e.clientX) > 10) e.preventDefault(); });
-      irPara(5);
-      proximoAuto();
-    });
-  })();
   </script>
 </body>
 </html>
