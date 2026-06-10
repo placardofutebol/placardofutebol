@@ -732,8 +732,9 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
   }
 
   function mostrarSkeleton() {
-    const card = () => `<div style="background:white;border-radius:10px;padding:14px 16px;margin-bottom:8px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
-      <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;">
+    const container = document.getElementById('jogos-container');
+    container.style.opacity = '0';
+    const card = () => `<div style="background:white;border-radius:10px;padding:14px 16px;margin-bottom:8px;box-shadow:0 2px 8px rgba(0,0,0,0.06);"> <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;">
         <div style="display:flex;align-items:center;gap:8px;">
           <div style="width:32px;height:32px;border-radius:50%;background:#e8e8e8;animation:sk 1.2s infinite alternate;flex-shrink:0"></div>
           <div style="width:60px;height:12px;border-radius:4px;background:#e8e8e8;animation:sk 1.2s infinite alternate"></div>
