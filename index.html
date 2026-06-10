@@ -512,6 +512,8 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
       ]);
     }
 
+    const dadosAntes = [...todosJogos];
+
     try {
       // Aguarda os 3 simultaneamente — SEM renderização parcial
       const [resOntem, resHoje, resAmanha] = await Promise.all([
