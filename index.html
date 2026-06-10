@@ -657,7 +657,7 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
     } else if (hora >= 1 && hora < 7) {
       timerAtualizacao = setTimeout(() => carregarJogos(true), CACHE_TTL_MADRUGADA);
     } else {
-      timerAtualizacao = setTimeout(() => carregarJogos(true), 60 * 1000);
+      timerAtualizacao = setTimeout(() => buscarEmBackground(), 60 * 1000);
     }
   }
 function alertarGol(times, detalhe) {
