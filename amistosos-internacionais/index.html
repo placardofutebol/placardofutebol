@@ -569,33 +569,11 @@ renderLista(res);
           return;
         }
 
-        todosJogos = (data.response||[]).sort((a,b)=>new Date(a.fixture.date)-new Date(b.fixture.date));
-        document.getElementById('badge-total').textContent = `${todosJogos.length} jogos`;
-
-        // datas únicas
-        const set = new Set();
-        todosJogos.forEach(j=>set.add(chaveData(j.fixture.date)));
-        datasUnicas = Array.from(set).sort();
-
-        // data ativa: hoje se tiver jogos, senão próxima data com jogos a partir de hoje
-        const hoje = hojeChave();
-        if (datasUnicas.includes(hoje)) {
-          dataAtiva = hoje;
-        } else {
-          dataAtiva = datasUnicas.find(d=>d>=hoje) || datasUnicas[datasUnicas.length-1];
+       if (data.response?.length) {
+          todosJogos = data.response.sort((a,b)=>new Date(a.fixture.date)-new Date(b.fixture.date));
+          localStorage.setItem(`pf_liga_${LIGA_ID}`, JSON.stringify({ ts: Date.now(), dados: todosJogos }));
         }
-
-        // centraliza carrossel na data ativa
-        const idx = datasUnicas.indexOf(dataAtiva);
-        offset = Math.max(0, idx - Math.floor(PILLS/2));
-
-        renderCarrossel();
-        aplicarFiltros();
-
-        // atualiza se tiver ao vivo
-        if (todosJogos.some(j=>classStatus(j.fixture.status.short)==='ao-vivo')) {
-          setTimeout(buscarJogos,30000);
-        }
+        processarJogos();
 
       } catch(err) {
         document.getElementById('lista-jogos').innerHTML =
