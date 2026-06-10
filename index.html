@@ -758,7 +758,7 @@ function alertarGol(times, detalhe) {
       if (['1H','2H','HT','ET','P'].includes(j.fixture.status.short)) return true;
       if (['NS','TBD'].includes(j.fixture.status.short)) {
         const diff = (new Date(j.fixture.date) - agora) / 60000;
-        return diff <= 30 && diff > -15;
+        return diff <= 60 && diff > -15;
       }
       return false;
     });
