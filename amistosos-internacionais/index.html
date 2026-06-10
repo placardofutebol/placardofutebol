@@ -545,11 +545,24 @@ renderLista(res);
 
     /* ── BUSCA API ── */
     async function buscarJogos() {
+      const CACHE_KEY = `pf_liga_${LIGA_ID}`;
+      const CACHE_TTL = 5 * 60 * 1000; // 5 minutos
+
       try {
+        const cached = localStorage.getItem(CACHE_KEY);
+        if (cached) {
+          const { ts, dados } = JSON.parse(cached);
+          if (Date.now() - ts < CACHE_TTL) {
+            todosJogos = dados;
+            processarJogos();
+            buscarJogosBackground(CACHE_KEY);
+            return;
+          }
+        }
+
         const url  = `https://futebol-proxy.placardofutebol-com.workers.dev/fixtures?league=${LIGA_ID}&season=${SEASON}`;
         const res  = await fetch(url);
         const data = await res.json();
-
         if (data.errors && Object.keys(data.errors).length) {
           document.getElementById('lista-jogos').innerHTML =
             `<div class="estado-erro"><p>Erro da API: ${JSON.stringify(data.errors)}</p></div>`;
