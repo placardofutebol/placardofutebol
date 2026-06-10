@@ -546,8 +546,8 @@ renderLista(res);
     /* ── BUSCA API ── */
     async function buscarJogos() {
       try {
-        const url  = `https://v3.football.api-sports.io/fixtures?league=${LIGA_ID}&season=${SEASON}`;
-        const res  = await fetch(url,{headers:{'x-apisports-key':API_KEY}});
+        const url  = `https://futebol-proxy.placardofutebol-com.workers.dev/fixtures?league=${LIGA_ID}&season=${SEASON}`;
+        const res  = await fetch(url);
         const data = await res.json();
 
         if (data.errors && Object.keys(data.errors).length) {
