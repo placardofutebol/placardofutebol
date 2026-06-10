@@ -555,7 +555,9 @@ renderLista(res);
           if (Date.now() - ts < CACHE_TTL) {
             todosJogos = dados;
             processarJogos();
-            buscarJogosBackground(CACHE_KEY);
+            if (Date.now() - ts > CACHE_TTL - 60000) {
+              buscarJogosBackground(CACHE_KEY);
+            }
             return;
           }
         }
