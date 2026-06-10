@@ -794,8 +794,14 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
       JSON.stringify({ evento: 'sessao_standalone', uid: localStorage.getItem('pf_uid') }));
   }
 
-  exibirData();
-  carregarJogos();
+  document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') {
+    buscarEmBackground();
+  }
+});
+
+exibirData();
+carregarJogos();
   </script>
 </body>
 </html>
