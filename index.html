@@ -987,6 +987,51 @@ const jogosEmBreve = new Map(); // fixtureId → timestamp de início
 
 exibirData();
 carregarJogos();
+
+(function() {
+    const CARROSSEIS = [
+      { trackId: 'afl-track-1', dotsId: 'afl-dots-1' },
+      { trackId: 'afl-track-2', dotsId: 'afl-dots-2' },
+    ];
+    CARROSSEIS.forEach(({ trackId, dotsId }) => {
+      const track = document.getElementById(trackId);
+      const dotsEl = document.getElementById(dotsId);
+      if (!track) return;
+      const cards = track.querySelectorAll('.afl-card');
+      const total = cards.length;
+      const cardW = 150;
+      let atual = 0, autoTimer = null, startX = 0;
+      const dots = [];
+      cards.forEach((_, i) => {
+        const d = document.createElement('div');
+        d.className = 'afl-dot' + (i === 0 ? ' ativo' : '');
+        dotsEl.appendChild(d);
+        dots.push(d);
+      });
+      function irPara(idx) {
+        atual = (idx + total) % total;
+        track.style.transform = `translateX(-${atual * cardW}px)`;
+        dots.forEach((d, i) => d.classList.toggle('ativo', i === atual));
+      }
+      function proximoAuto() { autoTimer = setInterval(() => irPara(atual + 1), 10000); }
+      function pararAuto() { clearInterval(autoTimer); }
+      track.addEventListener('touchstart', e => { pararAuto(); startX = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend', e => {
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) irPara(atual + (diff > 0 ? 1 : -1));
+        proximoAuto();
+      }, { passive: true });
+      track.addEventListener('mousedown', e => { pararAuto(); startX = e.clientX; });
+      window.addEventListener('mouseup', e => {
+        const diff = startX - e.clientX;
+        if (Math.abs(diff) > 40) irPara(atual + (diff > 0 ? 1 : -1));
+        proximoAuto();
+      });
+      track.addEventListener('click', e => { if (Math.abs(startX - e.clientX) > 10) e.preventDefault(); });
+      irPara(0);
+      proximoAuto();
+    });
+  })();
   </script>
 </body>
 </html>
