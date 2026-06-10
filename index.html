@@ -762,6 +762,13 @@ function alertarGol(times, detalhe) {
       }
       return false;
     });
+    jogosVivosLista.sort((a, b) => {
+      const vivo = j => ['1H','2H','HT','ET','P'].includes(j.fixture.status.short);
+      if (vivo(a) && !vivo(b)) return -1;
+      if (!vivo(a) && vivo(b)) return 1;
+      return new Date(a.fixture.date) - new Date(b.fixture.date);
+    });
+
     jogosVivosLista.forEach(j => {
       if (['NS','TBD'].includes(j.fixture.status.short)) {
         jogosEmBreve.set(j.fixture.id, new Date(j.fixture.date).getTime());
