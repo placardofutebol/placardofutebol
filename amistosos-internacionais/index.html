@@ -603,6 +603,39 @@ renderLista(res);
       }
     }
 
+    async function buscarJogosBackground(CACHE_KEY) {
+      try {
+        const url  = `https://futebol-proxy.placardofutebol-com.workers.dev/fixtures?league=${LIGA_ID}&season=${SEASON}`;
+        const res  = await fetch(url);
+        const data = await res.json();
+        if (data.response?.length) {
+          todosJogos = data.response.sort((a,b)=>new Date(a.fixture.date)-new Date(b.fixture.date));
+          localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), dados: todosJogos }));
+          processarJogos();
+        }
+      } catch(e) {}
+    }
+
+    function processarJogos() {
+        document.getElementById('badge-total').textContent = `${todosJogos.length} jogos`;
+        const set = new Set();
+        todosJogos.forEach(j=>set.add(chaveData(j.fixture.date)));
+        datasUnicas = Array.from(set).sort();
+        const hoje = hojeChave();
+        if (datasUnicas.includes(hoje)) {
+          dataAtiva = hoje;
+        } else {
+          dataAtiva = datasUnicas.find(d=>d>=hoje) || datasUnicas[datasUnicas.length-1];
+        }
+        const idx = datasUnicas.indexOf(dataAtiva);
+        offset = Math.max(0, idx - Math.floor(PILLS/2));
+        renderCarrossel();
+        aplicarFiltros();
+        if (todosJogos.some(j=>classStatus(j.fixture.status.short)==='ao-vivo')) {
+          setTimeout(buscarJogos, 30000);
+        }
+    }
+
     buscarJogos();
   </script>
 </body>
