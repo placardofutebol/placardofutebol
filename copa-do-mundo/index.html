@@ -1434,10 +1434,9 @@
 (function() {
   const hash = location.hash.replace('#', '');
   const validas = ['grupos','jogos','classificacao','artilharia'];
-  if (validas.includes(hash)) {
-    const tab = document.querySelector(`[onclick*="${hash}"]`);
-    if (tab) mudarAba(tab, hash);
-  }
+  const secaoInicial = validas.includes(hash) ? hash : 'jogos';
+  const tab = document.querySelector(`[onclick*="${secaoInicial}"]`);
+  if (tab) mudarAba(tab, secaoInicial);
 })();
 
     // ── Filtro de fase ──
