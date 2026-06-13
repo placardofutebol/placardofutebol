@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -20,7 +20,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- Gerado em: 12/06/2026, 22:24:21 | 72 jogos fase de grupos -->
+  <!-- Gerado em: 13/06/2026, 13:25:40 | 72 jogos fase de grupos -->
   <style>
     .copa-hero {
       background: linear-gradient(135deg, var(--verde-escuro) 0%, var(--verde) 60%, #2d9e4e 100%);
@@ -54,12 +54,7 @@
     .copa-secao { display: none; }
     .copa-secao.ativa { display: block; }
 
-    /* AO VIVO */
-    #copa-ao-vivo { display: none; background: #fff8f8; border: 2px solid #d32f2f; border-radius: 14px; margin: 16px 12px 0; overflow: hidden; }
-    .copa-ao-vivo-header { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: #d32f2f; color: white; font-family: var(--font-titulo); font-weight: 700; font-size: 13px; letter-spacing: .5px; text-transform: uppercase; }
-    .dot-ao-vivo { width: 10px; height: 10px; border-radius: 50%; background: #fff; animation: pisca-vivo .8s infinite; }
     @keyframes pisca-vivo { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.85)} }
-
     /* GRUPOS */
     .grupos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 16px 12px; max-width: 900px; margin: 0 auto; }
     @media (max-width: 480px) { .grupos-grid { grid-template-columns: 1fr; } }
@@ -174,12 +169,6 @@
 
   <main style="padding-bottom: 20px;">
 
-    <!-- AO VIVO — aparece dinamicamente -->
-    <div id="copa-ao-vivo">
-      <div class="copa-ao-vivo-header"><span class="dot-ao-vivo"></span><span>AO VIVO AGORA</span></div>
-      <div id="copa-ao-vivo-cards" style="padding: 8px 12px;"></div>
-    </div>
-
     <!-- ===== GRUPOS ===== -->
     <div id="secao-grupos" class="copa-secao">
       <div class="grupos-grid">
@@ -273,18 +262,18 @@
 <a href="/copa-do-mundo/usa-vs-paraguay/" class="jogo-copa" id="card-1489370"
   data-id="1489370"
   data-date="2026-06-12"
-  data-status="1H"
+  data-status="FT"
   data-kickoff="2026-06-13T01:00:00+00:00"
   data-home="USA"
   data-away="Paraguay"
-  data-fase="r1">
+  data-fase="r1" data-placar-fixo="4 × 1">
   <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489370">22:00</span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/2384.png" alt="USA" onerror="this.style.display='none'"><span class="jogo-copa-nome">USA</span></div>
     <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489370">1 × 0</span>
-      <div class="jogo-copa-horario jogo-status-1489370 ao-vivo" id="status-1489370">22'</div>
-      <div class="jogo-copa-estadio">Los Angeles</div>
+      <span class="jogo-copa-placar" id="placar-1489370">4 × 1</span>
+      <div class="jogo-copa-horario jogo-status-1489370 encerrado" id="status-1489370">Encerrado</div>
+      <div class="jogo-copa-estadio">Inglewood</div>
     </div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/2380.png" alt="Paraguay" onerror="this.style.display='none'"><span class="jogo-copa-nome">Paraguay</span></div>
   </div>
@@ -1660,10 +1649,10 @@
       <table class="classificacao-table">
         <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
         <tbody>
-          <tr data-time="USA"><td class="cl-pos classificado" id="cl-pos-D-0">1</td><td><div class="cl-time"><span class="cl-flag">🇺🇸</span>USA</div></td><td id="cl-j-D-0">0</td><td id="cl-v-D-0">0</td><td id="cl-e-D-0">0</td><td id="cl-d-D-0">0</td><td id="cl-gp-D-0">0</td><td id="cl-gc-D-0">0</td><td id="cl-sg-D-0">0</td><td class="cl-pts" id="cl-pts-D-0">0</td></tr>
-          <tr data-time="Paraguay"><td class="cl-pos classificado" id="cl-pos-D-1">2</td><td><div class="cl-time"><span class="cl-flag">🇵🇾</span>Paraguay</div></td><td id="cl-j-D-1">0</td><td id="cl-v-D-1">0</td><td id="cl-e-D-1">0</td><td id="cl-d-D-1">0</td><td id="cl-gp-D-1">0</td><td id="cl-gc-D-1">0</td><td id="cl-sg-D-1">0</td><td class="cl-pts" id="cl-pts-D-1">0</td></tr>
-          <tr data-time="Australia"><td class="cl-pos" id="cl-pos-D-2">3</td><td><div class="cl-time"><span class="cl-flag">🇦🇺</span>Australia</div></td><td id="cl-j-D-2">0</td><td id="cl-v-D-2">0</td><td id="cl-e-D-2">0</td><td id="cl-d-D-2">0</td><td id="cl-gp-D-2">0</td><td id="cl-gc-D-2">0</td><td id="cl-sg-D-2">0</td><td class="cl-pts" id="cl-pts-D-2">0</td></tr>
-          <tr data-time="Türkiye"><td class="cl-pos" id="cl-pos-D-3">4</td><td><div class="cl-time"><span class="cl-flag">🇹🇷</span>Türkiye</div></td><td id="cl-j-D-3">0</td><td id="cl-v-D-3">0</td><td id="cl-e-D-3">0</td><td id="cl-d-D-3">0</td><td id="cl-gp-D-3">0</td><td id="cl-gc-D-3">0</td><td id="cl-sg-D-3">0</td><td class="cl-pts" id="cl-pts-D-3">0</td></tr>
+          <tr data-time="USA"><td class="cl-pos classificado" id="cl-pos-D-0">1</td><td><div class="cl-time"><span class="cl-flag">🇺🇸</span>USA</div></td><td id="cl-j-D-0">1</td><td id="cl-v-D-0">1</td><td id="cl-e-D-0">0</td><td id="cl-d-D-0">0</td><td id="cl-gp-D-0">4</td><td id="cl-gc-D-0">1</td><td id="cl-sg-D-0">3</td><td class="cl-pts" id="cl-pts-D-0">3</td></tr>
+          <tr data-time="Australia"><td class="cl-pos classificado" id="cl-pos-D-1">2</td><td><div class="cl-time"><span class="cl-flag">🇦🇺</span>Australia</div></td><td id="cl-j-D-1">0</td><td id="cl-v-D-1">0</td><td id="cl-e-D-1">0</td><td id="cl-d-D-1">0</td><td id="cl-gp-D-1">0</td><td id="cl-gc-D-1">0</td><td id="cl-sg-D-1">0</td><td class="cl-pts" id="cl-pts-D-1">0</td></tr>
+          <tr data-time="Türkiye"><td class="cl-pos" id="cl-pos-D-2">3</td><td><div class="cl-time"><span class="cl-flag">🇹🇷</span>Türkiye</div></td><td id="cl-j-D-2">0</td><td id="cl-v-D-2">0</td><td id="cl-e-D-2">0</td><td id="cl-d-D-2">0</td><td id="cl-gp-D-2">0</td><td id="cl-gc-D-2">0</td><td id="cl-sg-D-2">0</td><td class="cl-pts" id="cl-pts-D-2">0</td></tr>
+          <tr data-time="Paraguay"><td class="cl-pos" id="cl-pos-D-3">4</td><td><div class="cl-time"><span class="cl-flag">🇵🇾</span>Paraguay</div></td><td id="cl-j-D-3">1</td><td id="cl-v-D-3">0</td><td id="cl-e-D-3">0</td><td id="cl-d-D-3">1</td><td id="cl-gp-D-3">1</td><td id="cl-gc-D-3">4</td><td id="cl-sg-D-3">-3</td><td class="cl-pts" id="cl-pts-D-3">0</td></tr>
         </tbody>
       </table>
     </div>
@@ -1821,7 +1810,6 @@
     let timerAtualizacao = null;
     const jogosVivos   = new Map();
     const jogosEmBreve = new Map();
-    const jogosNoAoVivo = new Set();
     const placaresPrev = {};
 
     // ── ABAS ──
@@ -1853,8 +1841,6 @@
 
     function aplicarFiltroFase() {
       document.querySelectorAll('#jogos-copa .jogo-copa').forEach(j => {
-        // Cards que estão ao vivo ficam ocultos na lista (clone está no painel ao vivo)
-        if (j.dataset.aoVivoOriginal) return;
         const f = j.dataset.fase || '';
         j.style.display = (faseAtiva === 'todos' || f.includes(faseAtiva)) ? '' : 'none';
       });
@@ -1862,52 +1848,12 @@
         const dataKey = sep.dataset.date;
         if (!dataKey) { sep.style.display = ''; return; }
         const algumVisivel = [...document.querySelectorAll('#jogos-copa .jogo-copa[data-date="' + dataKey + '"]')]
-          .some(c => c.style.display !== 'none' && !c.dataset.aoVivoOriginal);
+          .some(c => c.style.display !== 'none');
         sep.style.display = algumVisivel ? '' : 'none';
       });
     }
 
-    // ── AO VIVO: mover card para topo ──
-    function garantirSecaoAoVivo() {
-      const sec = document.getElementById('copa-ao-vivo');
-      sec.style.display = '';
-      return sec;
-    }
-
-    function moverCardParaAoVivo(id) {
-      jogosNoAoVivo.add(id);
-      garantirSecaoAoVivo();
-      const cards = document.getElementById('copa-ao-vivo-cards');
-      const card  = document.getElementById('card-' + id);
-      if (!card || !cards) return;
-      // Se o clone já existe, apenas garante que está atualizado
-      if (document.getElementById('clone-' + id)) return;
-      // Clona o card para a seção ao vivo
-      const clone = card.cloneNode(true);
-      clone.id = 'clone-' + id;
-      clone.removeAttribute('data-ao-vivo-original');
-      cards.appendChild(clone);
-      // Oculta o card original na lista (mantém posição)
-      card.dataset.aoVivoOriginal = 'true';
-      card.style.display = 'none';
-    }
-
-    function devolverCardParaOrigem(id) {
-      jogosNoAoVivo.delete(id);
-      // Remove o clone da seção ao vivo
-      const clone = document.getElementById('clone-' + id);
-      if (clone) clone.remove();
-      // Restaura o card original na lista
-      const card = document.getElementById('card-' + id);
-      if (card) {
-        delete card.dataset.aoVivoOriginal;
-        card.style.display = '';
-      }
-      const cards = document.getElementById('copa-ao-vivo-cards');
-      const sec   = document.getElementById('copa-ao-vivo');
-      if (cards && sec && cards.children.length === 0) sec.style.display = 'none';
-      aplicarFiltroFase();
-    }
+    // ── AO VIVO: cards ficam fixos na posição, apenas atualizam placar/status ──
 
     // ── CACHE DE PLACARES ──
     function salvarPlacarCache(id, placar) {
@@ -1964,7 +1910,6 @@
         jogosVivos.set(id, { base: elapsed, inicio: Date.now(), periodo: status, travado: null });
       }
       jogosEmBreve.delete(id);
-      moverCardParaAoVivo(id);
       const card = document.getElementById('card-' + id);
       if (card) card.dataset.status = status;
     }
@@ -1972,20 +1917,10 @@
     setInterval(() => {
       const agora = Date.now();
       jogosVivos.forEach((timer, id) => {
-        // Atualiza o original (oculto mas mantém dados corretos)
         const el = document.getElementById('status-' + id);
         if (el) {
           el.textContent = calcularTextoTempo(timer);
           el.className = 'jogo-copa-horario ao-vivo';
-        }
-        // Atualiza o clone visível no painel ao vivo
-        const clone = document.getElementById('clone-' + id);
-        if (clone) {
-          const cloneS = clone.querySelector('.jogo-copa-horario');
-          if (cloneS) {
-            cloneS.textContent = calcularTextoTempo(timer);
-            cloneS.className = 'jogo-copa-horario ao-vivo';
-          }
         }
       });
       jogosEmBreve.forEach((kickoff, id) => {
@@ -2037,17 +1972,6 @@
           const card = document.getElementById('card-' + id);
           if (!card) return;
 
-          // Helper: sincroniza o clone se existir
-          function syncClone() {
-            const clone = document.getElementById('clone-' + id);
-            if (!clone) return;
-            const cloneP = clone.querySelector('[id^="placar-"]');
-            const cloneS = clone.querySelector('[id^="status-"]');
-            if (cloneP && elP) cloneP.textContent = elP.textContent;
-            if (cloneS && elS) { cloneS.textContent = elS.textContent; cloneS.className = elS.className; }
-            clone.dataset.status = st;
-          }
-
           // Placares fixos (gerados como encerrados): não sobrescreve
           if (card.dataset.placarFixo) return;
 
@@ -2060,7 +1984,6 @@
               else if (st === 'P') { elS.textContent = 'Pênaltis'; }
               elS.className = 'jogo-copa-horario ao-vivo';
             }
-            syncClone();
           } else if (['FT','AET','PEN','AWD','WO'].includes(st)) {
             jogosVivos.delete(id);
             if (elS) { elS.textContent = 'Encerrado'; elS.className = 'jogo-copa-horario encerrado'; }
@@ -2070,13 +1993,10 @@
               if (elP) elP.textContent = p;
               card.dataset.placarFixo = p;
             }
-            syncClone();
-            setTimeout(() => devolverCardParaOrigem(id), 3000);
           }
 
           if (j.goals.home !== null && elP && !card.dataset.placarFixo) {
             elP.textContent = j.goals.home + ' × ' + j.goals.away;
-            syncClone();
           }
         });
 
