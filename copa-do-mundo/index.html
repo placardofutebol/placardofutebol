@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -20,7 +20,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- Gerado em: 12/06/2026, 21:44:13 | 72 jogos fase de grupos -->
+  <!-- Gerado em: 12/06/2026, 22:24:21 | 72 jogos fase de grupos -->
   <style>
     .copa-hero {
       background: linear-gradient(135deg, var(--verde-escuro) 0%, var(--verde) 60%, #2d9e4e 100%);
@@ -273,7 +273,7 @@
 <a href="/copa-do-mundo/usa-vs-paraguay/" class="jogo-copa" id="card-1489370"
   data-id="1489370"
   data-date="2026-06-12"
-  data-status="NS"
+  data-status="1H"
   data-kickoff="2026-06-13T01:00:00+00:00"
   data-home="USA"
   data-away="Paraguay"
@@ -282,8 +282,8 @@
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/2384.png" alt="USA" onerror="this.style.display='none'"><span class="jogo-copa-nome">USA</span></div>
     <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489370">×</span>
-      <div class="jogo-copa-horario jogo-status-1489370 agendado" id="status-1489370">22:00</div>
+      <span class="jogo-copa-placar" id="placar-1489370">1 × 0</span>
+      <div class="jogo-copa-horario jogo-status-1489370 ao-vivo" id="status-1489370">22'</div>
       <div class="jogo-copa-estadio">Los Angeles</div>
     </div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/2380.png" alt="Paraguay" onerror="this.style.display='none'"><span class="jogo-copa-nome">Paraguay</span></div>
@@ -1853,15 +1853,16 @@
 
     function aplicarFiltroFase() {
       document.querySelectorAll('#jogos-copa .jogo-copa').forEach(j => {
+        // Cards que estão ao vivo ficam ocultos na lista (clone está no painel ao vivo)
+        if (j.dataset.aoVivoOriginal) return;
         const f = j.dataset.fase || '';
         j.style.display = (faseAtiva === 'todos' || f.includes(faseAtiva)) ? '' : 'none';
       });
       document.querySelectorAll('#jogos-copa .jogo-data-sep').forEach(sep => {
-        // Mostra separador se pelo menos um jogo com aquela data está visível
         const dataKey = sep.dataset.date;
         if (!dataKey) { sep.style.display = ''; return; }
         const algumVisivel = [...document.querySelectorAll('#jogos-copa .jogo-copa[data-date="' + dataKey + '"]')]
-          .some(c => c.style.display !== 'none' && !jogosNoAoVivo.has(c.dataset.id));
+          .some(c => c.style.display !== 'none' && !c.dataset.aoVivoOriginal);
         sep.style.display = algumVisivel ? '' : 'none';
       });
     }
@@ -1879,19 +1880,28 @@
       const cards = document.getElementById('copa-ao-vivo-cards');
       const card  = document.getElementById('card-' + id);
       if (!card || !cards) return;
-      if (card.parentNode === cards) return;
-      card.dataset.origemPai = card.parentNode.id || '';
-      cards.appendChild(card);
+      // Se o clone já existe, apenas garante que está atualizado
+      if (document.getElementById('clone-' + id)) return;
+      // Clona o card para a seção ao vivo
+      const clone = card.cloneNode(true);
+      clone.id = 'clone-' + id;
+      clone.removeAttribute('data-ao-vivo-original');
+      cards.appendChild(clone);
+      // Oculta o card original na lista (mantém posição)
+      card.dataset.aoVivoOriginal = 'true';
+      card.style.display = 'none';
     }
 
     function devolverCardParaOrigem(id) {
       jogosNoAoVivo.delete(id);
+      // Remove o clone da seção ao vivo
+      const clone = document.getElementById('clone-' + id);
+      if (clone) clone.remove();
+      // Restaura o card original na lista
       const card = document.getElementById('card-' + id);
-      if (!card) return;
-      const origemId = card.dataset.origemPai;
-      if (origemId) {
-        const origem = document.getElementById(origemId);
-        if (origem) origem.appendChild(card);
+      if (card) {
+        delete card.dataset.aoVivoOriginal;
+        card.style.display = '';
       }
       const cards = document.getElementById('copa-ao-vivo-cards');
       const sec   = document.getElementById('copa-ao-vivo');
@@ -1962,10 +1972,21 @@
     setInterval(() => {
       const agora = Date.now();
       jogosVivos.forEach((timer, id) => {
+        // Atualiza o original (oculto mas mantém dados corretos)
         const el = document.getElementById('status-' + id);
-        if (!el) return;
-        el.textContent = calcularTextoTempo(timer);
-        el.className = 'jogo-copa-horario ao-vivo';
+        if (el) {
+          el.textContent = calcularTextoTempo(timer);
+          el.className = 'jogo-copa-horario ao-vivo';
+        }
+        // Atualiza o clone visível no painel ao vivo
+        const clone = document.getElementById('clone-' + id);
+        if (clone) {
+          const cloneS = clone.querySelector('.jogo-copa-horario');
+          if (cloneS) {
+            cloneS.textContent = calcularTextoTempo(timer);
+            cloneS.className = 'jogo-copa-horario ao-vivo';
+          }
+        }
       });
       jogosEmBreve.forEach((kickoff, id) => {
         const el = document.getElementById('status-' + id);
@@ -2016,6 +2037,17 @@
           const card = document.getElementById('card-' + id);
           if (!card) return;
 
+          // Helper: sincroniza o clone se existir
+          function syncClone() {
+            const clone = document.getElementById('clone-' + id);
+            if (!clone) return;
+            const cloneP = clone.querySelector('[id^="placar-"]');
+            const cloneS = clone.querySelector('[id^="status-"]');
+            if (cloneP && elP) cloneP.textContent = elP.textContent;
+            if (cloneS && elS) { cloneS.textContent = elS.textContent; cloneS.className = elS.className; }
+            clone.dataset.status = st;
+          }
+
           // Placares fixos (gerados como encerrados): não sobrescreve
           if (card.dataset.placarFixo) return;
 
@@ -2028,6 +2060,7 @@
               else if (st === 'P') { elS.textContent = 'Pênaltis'; }
               elS.className = 'jogo-copa-horario ao-vivo';
             }
+            syncClone();
           } else if (['FT','AET','PEN','AWD','WO'].includes(st)) {
             jogosVivos.delete(id);
             if (elS) { elS.textContent = 'Encerrado'; elS.className = 'jogo-copa-horario encerrado'; }
@@ -2037,11 +2070,13 @@
               if (elP) elP.textContent = p;
               card.dataset.placarFixo = p;
             }
+            syncClone();
             setTimeout(() => devolverCardParaOrigem(id), 3000);
           }
 
           if (j.goals.home !== null && elP && !card.dataset.placarFixo) {
             elP.textContent = j.goals.home + ' × ' + j.goals.away;
+            syncClone();
           }
         });
 
