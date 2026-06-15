@@ -20,7 +20,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- Gerado em: 15/06/2026, 19:57:38 | 72 jogos -->
+  <!-- Gerado em: 15/06/2026, 20:19:15 | 72 jogos -->
   <style>
     .copa-hero {
       background: linear-gradient(135deg, var(--verde-escuro) 0%, var(--verde) 60%, #2d9e4e 100%);
@@ -476,7 +476,7 @@
 <a href="/copa-do-mundo/saudi-arabia-vs-uruguay/" class="jogo-copa" id="card-1489379"
   data-id="1489379"
   data-date="2026-06-15"
-  data-status="HT"
+  data-status="2H"
   data-kickoff="2026-06-15T22:00:00+00:00"
   data-home="Saudi Arabia"
   data-away="Uruguay"
@@ -486,7 +486,7 @@
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/23.png" alt="Saudi Arabia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Saudi Arabia</span></div>
     <div class="jogo-copa-centro">
       <span class="jogo-copa-placar" id="placar-1489379">1 × 0</span>
-      <div class="jogo-copa-horario jogo-status-1489379 ao-vivo" id="status-1489379">45'</div>
+      <div class="jogo-copa-horario jogo-status-1489379 ao-vivo" id="status-1489379">53'</div>
       <div class="jogo-copa-estadio">Miami Gardens</div>
     </div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/7.png" alt="Uruguay" onerror="this.style.display='none'"><span class="jogo-copa-nome">Uruguay</span></div>
@@ -1886,7 +1886,7 @@
       if (timer.periodo === 'HT') return 'Intervalo';
       if (timer.periodo === 'BT') return 'Int. Prorr.';
       if (timer.periodo === 'P')  return 'Pênaltis';
-      if (timer.travado) return timer.travado;
+      if (timer.travado && !['HT','BT','P'].includes(timer.travado)) return timer.travado;
       const minutos   = Math.floor((Date.now() - timer.inicio) / 60000);
       const tempoReal = timer.base + minutos;
       if (timer.periodo === '1H') {
@@ -1908,8 +1908,13 @@
     function registrarJogoVivo(id, elapsed, status) {
       const sid  = String(id);
       const atual = jogosVivos.get(sid);
-      if (!atual || elapsed > (atual.base||0) || status !== atual.periodo) {
-        jogosVivos.set(sid, { base: elapsed, inicio: Date.now(), periodo: status, travado: null });
+      // Atualiza se: primeiro registro, período mudou, ou elapsed avançou
+      const periodoMudou = !atual || status !== atual.periodo;
+      const elapsedAvancou = !atual || elapsed > (atual.base||0);
+      if (periodoMudou || elapsedAvancou) {
+        // Em períodos "parados" (HT, BT, P), travado=true para o tick não sobrescrever
+        const travadoPeriodo = ['HT','BT','P'].includes(status) ? status : null;
+        jogosVivos.set(sid, { base: elapsed, inicio: Date.now(), periodo: status, travado: travadoPeriodo });
       }
       jogosEmBreve.delete(sid);
       const card = document.getElementById('card-' + id);
@@ -1924,7 +1929,7 @@
         if (!el) return;
         const txt = calcularTextoTempo(timer);
         if (el.textContent !== txt) el.textContent = txt;
-        if (timer.travado) {
+        if (timer.travado && !['HT','BT','P'].includes(timer.periodo)) {
           if (!el.classList.contains('travado')) el.className = 'jogo-copa-horario travado';
         } else {
           if (el.classList.contains('travado')) el.className = 'jogo-copa-horario ao-vivo';
