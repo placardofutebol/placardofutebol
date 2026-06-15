@@ -55,6 +55,8 @@
     .copa-secao.ativa { display: block; }
 
     @keyframes pisca-vivo { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.85)} }
+    @keyframes pisca-vermelho { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
     /* GRUPOS */
     .grupos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 16px 12px; max-width: 900px; margin: 0 auto; }
     @media (max-width: 480px) { .grupos-grid { grid-template-columns: 1fr; } }
@@ -91,6 +93,8 @@
     .jogo-copa-horario { font-family: var(--font-corpo); font-size: 11px; font-weight: 600; color: var(--verde); }
     .jogo-copa-horario.ao-vivo { color: #d32f2f; animation: pisca-vivo 1s infinite; }
     .jogo-copa-horario.encerrado { color: var(--cinza-texto); }
+    .jogo-copa-horario.em-breve-urgente { color: #d32f2f; font-weight: 700; animation: pisca-vermelho .8s infinite; }
+    .jogo-copa-horario.travado { color: #d32f2f; font-weight: 700; animation: pisca-vermelho .5s infinite; }
     .jogo-copa-estadio { font-family: var(--font-corpo); font-size: 10px; color: var(--cinza-texto); margin-top: 2px; }
     .jogo-copa-escudo { width: 32px; height: 32px; object-fit: contain; }
     @media (min-width: 640px) { .jogo-copa-escudo { width: 40px; height: 40px; } }
@@ -200,1404 +204,106 @@
       <div class="jogos-lista" id="jogos-copa">
 
         <div class="jogo-data-sep" data-date="2026-06-11">📅 Quinta-feira, 11 de junho</div>
-<a href="/copa-do-mundo/mexico-vs-south-africa/" class="jogo-copa" id="card-1489369"
-  data-id="1489369"
-  data-date="2026-06-11"
-  data-status="FT"
-  data-kickoff="2026-06-11T19:00:00+00:00"
-  data-home="Mexico"
-  data-away="South Africa"
-  data-fase="r1" data-placar-fixo="2 × 0">
+<a href="/copa-do-mundo/mexico-vs-south-africa/" class="jogo-copa" id="card-1489369" data-id="1489369" data-date="2026-06-11" data-status="FT" data-kickoff="2026-06-11T19:00:00+00:00" data-home="Mexico" data-away="South Africa" data-fase="r1" data-placar-fixo="2 × 0">
   <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489369">16:00</span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/16.png" alt="Mexico" onerror="this.style.display='none'"><span class="jogo-copa-nome">Mexico</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489369">2 × 0</span>
-      <div class="jogo-copa-horario jogo-status-1489369 encerrado" id="status-1489369">Encerrado</div>
-      <div class="jogo-copa-estadio">Mexico City</div>
-    </div>
+    <div class="jogo-copa-centro"><span class="jogo-copa-placar" id="placar-1489369">2 × 0</span><div class="jogo-copa-horario encerrado" id="status-1489369">Encerrado</div><div class="jogo-copa-estadio">Mexico City</div></div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1531.png" alt="South Africa" onerror="this.style.display='none'"><span class="jogo-copa-nome">South Africa</span></div>
   </div>
 </a>
-<a href="/copa-do-mundo/south-korea-vs-czechia/" class="jogo-copa" id="card-1538999"
-  data-id="1538999"
-  data-date="2026-06-11"
-  data-status="FT"
-  data-kickoff="2026-06-12T02:00:00+00:00"
-  data-home="South Korea"
-  data-away="Czechia"
-  data-fase="r1" data-placar-fixo="2 × 1">
+<a href="/copa-do-mundo/south-korea-vs-czechia/" class="jogo-copa" id="card-1538999" data-id="1538999" data-date="2026-06-11" data-status="FT" data-kickoff="2026-06-12T02:00:00+00:00" data-home="South Korea" data-away="Czechia" data-fase="r1" data-placar-fixo="2 × 1">
   <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1538999">23:00</span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/17.png" alt="South Korea" onerror="this.style.display='none'"><span class="jogo-copa-nome">South Korea</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1538999">2 × 1</span>
-      <div class="jogo-copa-horario jogo-status-1538999 encerrado" id="status-1538999">Encerrado</div>
-      <div class="jogo-copa-estadio">Guadalajara</div>
-    </div>
+    <div class="jogo-copa-centro"><span class="jogo-copa-placar" id="placar-1538999">2 × 1</span><div class="jogo-copa-horario encerrado" id="status-1538999">Encerrado</div><div class="jogo-copa-estadio">Guadalajara</div></div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/770.png" alt="Czechia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Czechia</span></div>
   </div>
 </a>
 
         <div class="jogo-data-sep" data-date="2026-06-12">📅 Sexta-feira, 12 de junho</div>
-<a href="/copa-do-mundo/canada-vs-bosnia-herzegovina/" class="jogo-copa" id="card-1539000"
-  data-id="1539000"
-  data-date="2026-06-12"
-  data-status="FT"
-  data-kickoff="2026-06-12T19:00:00+00:00"
-  data-home="Canada"
-  data-away="Bosnia & Herzegovina"
-  data-fase="r1" data-placar-fixo="1 × 1">
+<a href="/copa-do-mundo/canada-vs-bosnia-herzegovina/" class="jogo-copa" id="card-1539000" data-id="1539000" data-date="2026-06-12" data-status="FT" data-kickoff="2026-06-12T19:00:00+00:00" data-home="Canada" data-away="Bosnia & Herzegovina" data-fase="r1" data-placar-fixo="1 × 1">
   <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1539000">16:00</span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/5529.png" alt="Canada" onerror="this.style.display='none'"><span class="jogo-copa-nome">Canada</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1539000">1 × 1</span>
-      <div class="jogo-copa-horario jogo-status-1539000 encerrado" id="status-1539000">Encerrado</div>
-      <div class="jogo-copa-estadio">Toronto</div>
-    </div>
+    <div class="jogo-copa-centro"><span class="jogo-copa-placar" id="placar-1539000">1 × 1</span><div class="jogo-copa-horario encerrado" id="status-1539000">Encerrado</div><div class="jogo-copa-estadio">Toronto</div></div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1113.png" alt="Bosnia & Herzegovina" onerror="this.style.display='none'"><span class="jogo-copa-nome">Bosnia & Herzegovina</span></div>
   </div>
 </a>
-<a href="/copa-do-mundo/usa-vs-paraguay/" class="jogo-copa" id="card-1489370"
-  data-id="1489370"
-  data-date="2026-06-12"
-  data-status="FT"
-  data-kickoff="2026-06-13T01:00:00+00:00"
-  data-home="USA"
-  data-away="Paraguay"
-  data-fase="r1" data-placar-fixo="4 × 1">
+<a href="/copa-do-mundo/usa-vs-paraguay/" class="jogo-copa" id="card-1489370" data-id="1489370" data-date="2026-06-12" data-status="FT" data-kickoff="2026-06-13T01:00:00+00:00" data-home="USA" data-away="Paraguay" data-fase="r1" data-placar-fixo="4 × 1">
   <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489370">22:00</span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/2384.png" alt="USA" onerror="this.style.display='none'"><span class="jogo-copa-nome">USA</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489370">4 × 1</span>
-      <div class="jogo-copa-horario jogo-status-1489370 encerrado" id="status-1489370">Encerrado</div>
-      <div class="jogo-copa-estadio">Inglewood</div>
-    </div>
+    <div class="jogo-copa-centro"><span class="jogo-copa-placar" id="placar-1489370">4 × 1</span><div class="jogo-copa-horario encerrado" id="status-1489370">Encerrado</div><div class="jogo-copa-estadio">Inglewood</div></div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/2380.png" alt="Paraguay" onerror="this.style.display='none'"><span class="jogo-copa-nome">Paraguay</span></div>
   </div>
 </a>
 
         <div class="jogo-data-sep" data-date="2026-06-13">📅 Sábado, 13 de junho</div>
-<a href="/copa-do-mundo/qatar-vs-switzerland/" class="jogo-copa" id="card-1489373"
-  data-id="1489373"
-  data-date="2026-06-13"
-  data-status="NS"
-  data-kickoff="2026-06-13T19:00:00+00:00"
-  data-home="Qatar"
-  data-away="Switzerland"
-  data-fase="r1">
+<a href="/copa-do-mundo/qatar-vs-switzerland/" class="jogo-copa" id="card-1489373" data-id="1489373" data-date="2026-06-13" data-status="NS" data-kickoff="2026-06-13T19:00:00+00:00" data-home="Qatar" data-away="Switzerland" data-fase="r1">
   <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489373">16:00</span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1569.png" alt="Qatar" onerror="this.style.display='none'"><span class="jogo-copa-nome">Qatar</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489373">×</span>
-      <div class="jogo-copa-horario jogo-status-1489373 agendado" id="status-1489373">16:00</div>
-      <div class="jogo-copa-estadio">San Francisco Bay Area</div>
-    </div>
+    <div class="jogo-copa-centro"><span class="jogo-copa-placar" id="placar-1489373">×</span><div class="jogo-copa-horario agendado" id="status-1489373">16:00</div><div class="jogo-copa-estadio">San Francisco Bay Area</div></div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/15.png" alt="Switzerland" onerror="this.style.display='none'"><span class="jogo-copa-nome">Switzerland</span></div>
   </div>
 </a>
-<a href="/copa-do-mundo/brazil-vs-morocco/" class="jogo-copa destaque" id="card-1489371"
-  data-id="1489371"
-  data-date="2026-06-13"
-  data-status="NS"
-  data-kickoff="2026-06-13T22:00:00+00:00"
-  data-home="Brazil"
-  data-away="Morocco"
-  data-fase="r1 brasil">
+<a href="/copa-do-mundo/brazil-vs-morocco/" class="jogo-copa destaque" id="card-1489371" data-id="1489371" data-date="2026-06-13" data-status="NS" data-kickoff="2026-06-13T22:00:00+00:00" data-home="Brazil" data-away="Morocco" data-fase="r1 brasil">
   <div class="jogo-copa-fase"><span>🇧🇷 Fase de Grupos — Rodada 1</span><span id="hora-1489371">19:00</span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/6.png" alt="Brazil" onerror="this.style.display='none'"><span class="jogo-copa-nome">Brazil</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489371">×</span>
-      <div class="jogo-copa-horario jogo-status-1489371 agendado" id="status-1489371">19:00</div>
-      <div class="jogo-copa-estadio">New York New Jersey</div>
-    </div>
+    <div class="jogo-copa-centro"><span class="jogo-copa-placar" id="placar-1489371">×</span><div class="jogo-copa-horario agendado" id="status-1489371">19:00</div><div class="jogo-copa-estadio">New York New Jersey</div></div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/31.png" alt="Morocco" onerror="this.style.display='none'"><span class="jogo-copa-nome">Morocco</span></div>
   </div>
 </a>
-<a href="/copa-do-mundo/haiti-vs-scotland/" class="jogo-copa" id="card-1489372"
-  data-id="1489372"
-  data-date="2026-06-13"
-  data-status="NS"
-  data-kickoff="2026-06-14T01:00:00+00:00"
-  data-home="Haiti"
-  data-away="Scotland"
-  data-fase="r1">
+<a href="/copa-do-mundo/haiti-vs-scotland/" class="jogo-copa" id="card-1489372" data-id="1489372" data-date="2026-06-13" data-status="NS" data-kickoff="2026-06-14T01:00:00+00:00" data-home="Haiti" data-away="Scotland" data-fase="r1">
   <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489372">22:00</span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/2386.png" alt="Haiti" onerror="this.style.display='none'"><span class="jogo-copa-nome">Haiti</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489372">×</span>
-      <div class="jogo-copa-horario jogo-status-1489372 agendado" id="status-1489372">22:00</div>
-      <div class="jogo-copa-estadio">Boston</div>
-    </div>
+    <div class="jogo-copa-centro"><span class="jogo-copa-placar" id="placar-1489372">×</span><div class="jogo-copa-horario agendado" id="status-1489372">22:00</div><div class="jogo-copa-estadio">Boston</div></div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1108.png" alt="Scotland" onerror="this.style.display='none'"><span class="jogo-copa-nome">Scotland</span></div>
   </div>
 </a>
 
         <div class="jogo-data-sep" data-date="2026-06-14">📅 Domingo, 14 de junho</div>
-<a href="/copa-do-mundo/australia-vs-turkiye/" class="jogo-copa" id="card-1539001"
-  data-id="1539001"
-  data-date="2026-06-14"
-  data-status="NS"
-  data-kickoff="2026-06-14T04:00:00+00:00"
-  data-home="Australia"
-  data-away="Türkiye"
-  data-fase="r1">
+<a href="/copa-do-mundo/australia-vs-turkiye/" class="jogo-copa" id="card-1539001" data-id="1539001" data-date="2026-06-14" data-status="NS" data-kickoff="2026-06-14T04:00:00+00:00" data-home="Australia" data-away="Türkiye" data-fase="r1">
   <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1539001">01:00<span class="tag-madrugada">🌙 madrugada</span></span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/20.png" alt="Australia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Australia</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1539001">×</span>
-      <div class="jogo-copa-horario jogo-status-1539001 agendado" id="status-1539001">01:00</div>
-      <div class="jogo-copa-estadio">Vancouver</div>
-    </div>
+    <div class="jogo-copa-centro"><span class="jogo-copa-placar" id="placar-1539001">×</span><div class="jogo-copa-horario agendado" id="status-1539001">01:00</div><div class="jogo-copa-estadio">Vancouver</div></div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/777.png" alt="Türkiye" onerror="this.style.display='none'"><span class="jogo-copa-nome">Türkiye</span></div>
   </div>
 </a>
-<a href="/copa-do-mundo/germany-vs-curacao/" class="jogo-copa" id="card-1489374"
-  data-id="1489374"
-  data-date="2026-06-14"
-  data-status="NS"
-  data-kickoff="2026-06-14T17:00:00+00:00"
-  data-home="Germany"
-  data-away="Curaçao"
-  data-fase="r1">
+<a href="/copa-do-mundo/germany-vs-curacao/" class="jogo-copa" id="card-1489374" data-id="1489374" data-date="2026-06-14" data-status="NS" data-kickoff="2026-06-14T17:00:00+00:00" data-home="Germany" data-away="Curaçao" data-fase="r1">
   <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489374">14:00</span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/25.png" alt="Germany" onerror="this.style.display='none'"><span class="jogo-copa-nome">Germany</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489374">×</span>
-      <div class="jogo-copa-horario jogo-status-1489374 agendado" id="status-1489374">14:00</div>
-      <div class="jogo-copa-estadio">Houston</div>
-    </div>
+    <div class="jogo-copa-centro"><span class="jogo-copa-placar" id="placar-1489374">×</span><div class="jogo-copa-horario agendado" id="status-1489374">14:00</div><div class="jogo-copa-estadio">Houston</div></div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/5530.png" alt="Curaçao" onerror="this.style.display='none'"><span class="jogo-copa-nome">Curaçao</span></div>
   </div>
 </a>
-<a href="/copa-do-mundo/netherlands-vs-japan/" class="jogo-copa" id="card-1489376"
-  data-id="1489376"
-  data-date="2026-06-14"
-  data-status="NS"
-  data-kickoff="2026-06-14T20:00:00+00:00"
-  data-home="Netherlands"
-  data-away="Japan"
-  data-fase="r1">
+<a href="/copa-do-mundo/netherlands-vs-japan/" class="jogo-copa" id="card-1489376" data-id="1489376" data-date="2026-06-14" data-status="NS" data-kickoff="2026-06-14T20:00:00+00:00" data-home="Netherlands" data-away="Japan" data-fase="r1">
   <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489376">17:00</span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1118.png" alt="Netherlands" onerror="this.style.display='none'"><span class="jogo-copa-nome">Netherlands</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489376">×</span>
-      <div class="jogo-copa-horario jogo-status-1489376 agendado" id="status-1489376">17:00</div>
-      <div class="jogo-copa-estadio">Dallas</div>
-    </div>
+    <div class="jogo-copa-centro"><span class="jogo-copa-placar" id="placar-1489376">×</span><div class="jogo-copa-horario agendado" id="status-1489376">17:00</div><div class="jogo-copa-estadio">Dallas</div></div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/12.png" alt="Japan" onerror="this.style.display='none'"><span class="jogo-copa-nome">Japan</span></div>
   </div>
 </a>
-<a href="/copa-do-mundo/ivory-coast-vs-ecuador/" class="jogo-copa" id="card-1489375"
-  data-id="1489375"
-  data-date="2026-06-14"
-  data-status="NS"
-  data-kickoff="2026-06-14T23:00:00+00:00"
-  data-home="Ivory Coast"
-  data-away="Ecuador"
-  data-fase="r1">
+<a href="/copa-do-mundo/ivory-coast-vs-ecuador/" class="jogo-copa" id="card-1489375" data-id="1489375" data-date="2026-06-14" data-status="NS" data-kickoff="2026-06-14T23:00:00+00:00" data-home="Ivory Coast" data-away="Ecuador" data-fase="r1">
   <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489375">20:00</span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1501.png" alt="Ivory Coast" onerror="this.style.display='none'"><span class="jogo-copa-nome">Ivory Coast</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489375">×</span>
-      <div class="jogo-copa-horario jogo-status-1489375 agendado" id="status-1489375">20:00</div>
-      <div class="jogo-copa-estadio">Philadelphia</div>
-    </div>
+    <div class="jogo-copa-centro"><span class="jogo-copa-placar" id="placar-1489375">×</span><div class="jogo-copa-horario agendado" id="status-1489375">20:00</div><div class="jogo-copa-estadio">Philadelphia</div></div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/2382.png" alt="Ecuador" onerror="this.style.display='none'"><span class="jogo-copa-nome">Ecuador</span></div>
   </div>
 </a>
-<a href="/copa-do-mundo/sweden-vs-tunisia/" class="jogo-copa" id="card-1539002"
-  data-id="1539002"
-  data-date="2026-06-14"
-  data-status="NS"
-  data-kickoff="2026-06-15T02:00:00+00:00"
-  data-home="Sweden"
-  data-away="Tunisia"
-  data-fase="r1">
+<a href="/copa-do-mundo/sweden-vs-tunisia/" class="jogo-copa" id="card-1539002" data-id="1539002" data-date="2026-06-14" data-status="NS" data-kickoff="2026-06-15T02:00:00+00:00" data-home="Sweden" data-away="Tunisia" data-fase="r1">
   <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1539002">23:00</span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/5.png" alt="Sweden" onerror="this.style.display='none'"><span class="jogo-copa-nome">Sweden</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1539002">×</span>
-      <div class="jogo-copa-horario jogo-status-1539002 agendado" id="status-1539002">23:00</div>
-      <div class="jogo-copa-estadio">Monterrey</div>
-    </div>
+    <div class="jogo-copa-centro"><span class="jogo-copa-placar" id="placar-1539002">×</span><div class="jogo-copa-horario agendado" id="status-1539002">23:00</div><div class="jogo-copa-estadio">Monterrey</div></div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/28.png" alt="Tunisia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Tunisia</span></div>
-  </div>
-</a>
-
-        <div class="jogo-data-sep" data-date="2026-06-15">📅 Segunda-feira, 15 de junho</div>
-<a href="/copa-do-mundo/spain-vs-cape-verde-islands/" class="jogo-copa" id="card-1489380"
-  data-id="1489380"
-  data-date="2026-06-15"
-  data-status="NS"
-  data-kickoff="2026-06-15T16:00:00+00:00"
-  data-home="Spain"
-  data-away="Cape Verde Islands"
-  data-fase="r1">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489380">13:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/9.png" alt="Spain" onerror="this.style.display='none'"><span class="jogo-copa-nome">Spain</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489380">×</span>
-      <div class="jogo-copa-horario jogo-status-1489380 agendado" id="status-1489380">13:00</div>
-      <div class="jogo-copa-estadio">Atlanta</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1533.png" alt="Cape Verde Islands" onerror="this.style.display='none'"><span class="jogo-copa-nome">Cape Verde Islands</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/belgium-vs-egypt/" class="jogo-copa" id="card-1489377"
-  data-id="1489377"
-  data-date="2026-06-15"
-  data-status="NS"
-  data-kickoff="2026-06-15T19:00:00+00:00"
-  data-home="Belgium"
-  data-away="Egypt"
-  data-fase="r1">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489377">16:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1.png" alt="Belgium" onerror="this.style.display='none'"><span class="jogo-copa-nome">Belgium</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489377">×</span>
-      <div class="jogo-copa-horario jogo-status-1489377 agendado" id="status-1489377">16:00</div>
-      <div class="jogo-copa-estadio">Seattle</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/32.png" alt="Egypt" onerror="this.style.display='none'"><span class="jogo-copa-nome">Egypt</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/saudi-arabia-vs-uruguay/" class="jogo-copa" id="card-1489379"
-  data-id="1489379"
-  data-date="2026-06-15"
-  data-status="NS"
-  data-kickoff="2026-06-15T22:00:00+00:00"
-  data-home="Saudi Arabia"
-  data-away="Uruguay"
-  data-fase="r1">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489379">19:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/23.png" alt="Saudi Arabia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Saudi Arabia</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489379">×</span>
-      <div class="jogo-copa-horario jogo-status-1489379 agendado" id="status-1489379">19:00</div>
-      <div class="jogo-copa-estadio">Miami</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/7.png" alt="Uruguay" onerror="this.style.display='none'"><span class="jogo-copa-nome">Uruguay</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/iran-vs-new-zealand/" class="jogo-copa" id="card-1489378"
-  data-id="1489378"
-  data-date="2026-06-15"
-  data-status="NS"
-  data-kickoff="2026-06-16T01:00:00+00:00"
-  data-home="Iran"
-  data-away="New Zealand"
-  data-fase="r1">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489378">22:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/22.png" alt="Iran" onerror="this.style.display='none'"><span class="jogo-copa-nome">Iran</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489378">×</span>
-      <div class="jogo-copa-horario jogo-status-1489378 agendado" id="status-1489378">22:00</div>
-      <div class="jogo-copa-estadio">Los Angeles</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/4673.png" alt="New Zealand" onerror="this.style.display='none'"><span class="jogo-copa-nome">New Zealand</span></div>
-  </div>
-</a>
-
-        <div class="jogo-data-sep" data-date="2026-06-16">📅 Terça-feira, 16 de junho</div>
-<a href="/copa-do-mundo/france-vs-senegal/" class="jogo-copa" id="card-1489383"
-  data-id="1489383"
-  data-date="2026-06-16"
-  data-status="NS"
-  data-kickoff="2026-06-16T19:00:00+00:00"
-  data-home="France"
-  data-away="Senegal"
-  data-fase="r1">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489383">16:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/2.png" alt="France" onerror="this.style.display='none'"><span class="jogo-copa-nome">France</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489383">×</span>
-      <div class="jogo-copa-horario jogo-status-1489383 agendado" id="status-1489383">16:00</div>
-      <div class="jogo-copa-estadio">New York New Jersey</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/13.png" alt="Senegal" onerror="this.style.display='none'"><span class="jogo-copa-nome">Senegal</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/iraq-vs-norway/" class="jogo-copa" id="card-1539016"
-  data-id="1539016"
-  data-date="2026-06-16"
-  data-status="NS"
-  data-kickoff="2026-06-16T22:00:00+00:00"
-  data-home="Iraq"
-  data-away="Norway"
-  data-fase="r1">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1539016">19:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1567.png" alt="Iraq" onerror="this.style.display='none'"><span class="jogo-copa-nome">Iraq</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1539016">×</span>
-      <div class="jogo-copa-horario jogo-status-1539016 agendado" id="status-1539016">19:00</div>
-      <div class="jogo-copa-estadio">Boston</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1090.png" alt="Norway" onerror="this.style.display='none'"><span class="jogo-copa-nome">Norway</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/argentina-vs-algeria/" class="jogo-copa" id="card-1489381"
-  data-id="1489381"
-  data-date="2026-06-16"
-  data-status="NS"
-  data-kickoff="2026-06-17T01:00:00+00:00"
-  data-home="Argentina"
-  data-away="Algeria"
-  data-fase="r1">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489381">22:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/26.png" alt="Argentina" onerror="this.style.display='none'"><span class="jogo-copa-nome">Argentina</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489381">×</span>
-      <div class="jogo-copa-horario jogo-status-1489381 agendado" id="status-1489381">22:00</div>
-      <div class="jogo-copa-estadio">Kansas City</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1532.png" alt="Algeria" onerror="this.style.display='none'"><span class="jogo-copa-nome">Algeria</span></div>
-  </div>
-</a>
-
-        <div class="jogo-data-sep" data-date="2026-06-17">📅 Quarta-feira, 17 de junho</div>
-<a href="/copa-do-mundo/austria-vs-jordan/" class="jogo-copa" id="card-1489382"
-  data-id="1489382"
-  data-date="2026-06-17"
-  data-status="NS"
-  data-kickoff="2026-06-17T04:00:00+00:00"
-  data-home="Austria"
-  data-away="Jordan"
-  data-fase="r1">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489382">01:00<span class="tag-madrugada">🌙 madrugada</span></span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/775.png" alt="Austria" onerror="this.style.display='none'"><span class="jogo-copa-nome">Austria</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489382">×</span>
-      <div class="jogo-copa-horario jogo-status-1489382 agendado" id="status-1489382">01:00</div>
-      <div class="jogo-copa-estadio">San Francisco Bay Area</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1548.png" alt="Jordan" onerror="this.style.display='none'"><span class="jogo-copa-nome">Jordan</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/portugal-vs-congo-dr/" class="jogo-copa" id="card-1539003"
-  data-id="1539003"
-  data-date="2026-06-17"
-  data-status="NS"
-  data-kickoff="2026-06-17T17:00:00+00:00"
-  data-home="Portugal"
-  data-away="Congo DR"
-  data-fase="r1">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1539003">14:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/27.png" alt="Portugal" onerror="this.style.display='none'"><span class="jogo-copa-nome">Portugal</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1539003">×</span>
-      <div class="jogo-copa-horario jogo-status-1539003 agendado" id="status-1539003">14:00</div>
-      <div class="jogo-copa-estadio">Houston</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1508.png" alt="Congo DR" onerror="this.style.display='none'"><span class="jogo-copa-nome">Congo DR</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/england-vs-croatia/" class="jogo-copa" id="card-1489384"
-  data-id="1489384"
-  data-date="2026-06-17"
-  data-status="NS"
-  data-kickoff="2026-06-17T20:00:00+00:00"
-  data-home="England"
-  data-away="Croatia"
-  data-fase="r1">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489384">17:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/10.png" alt="England" onerror="this.style.display='none'"><span class="jogo-copa-nome">England</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489384">×</span>
-      <div class="jogo-copa-horario jogo-status-1489384 agendado" id="status-1489384">17:00</div>
-      <div class="jogo-copa-estadio">Dallas</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/3.png" alt="Croatia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Croatia</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/ghana-vs-panama/" class="jogo-copa" id="card-1489385"
-  data-id="1489385"
-  data-date="2026-06-17"
-  data-status="NS"
-  data-kickoff="2026-06-17T23:00:00+00:00"
-  data-home="Ghana"
-  data-away="Panama"
-  data-fase="r1">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489385">20:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1504.png" alt="Ghana" onerror="this.style.display='none'"><span class="jogo-copa-nome">Ghana</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489385">×</span>
-      <div class="jogo-copa-horario jogo-status-1489385 agendado" id="status-1489385">20:00</div>
-      <div class="jogo-copa-estadio">Toronto</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/11.png" alt="Panama" onerror="this.style.display='none'"><span class="jogo-copa-nome">Panama</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/uzbekistan-vs-colombia/" class="jogo-copa" id="card-1489386"
-  data-id="1489386"
-  data-date="2026-06-17"
-  data-status="NS"
-  data-kickoff="2026-06-18T02:00:00+00:00"
-  data-home="Uzbekistan"
-  data-away="Colombia"
-  data-fase="r1">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489386">23:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1568.png" alt="Uzbekistan" onerror="this.style.display='none'"><span class="jogo-copa-nome">Uzbekistan</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489386">×</span>
-      <div class="jogo-copa-horario jogo-status-1489386 agendado" id="status-1489386">23:00</div>
-      <div class="jogo-copa-estadio">Mexico City</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/8.png" alt="Colombia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Colombia</span></div>
-  </div>
-</a>
-
-        <div class="jogo-data-sep" data-date="2026-06-18">📅 Quinta-feira, 18 de junho</div>
-<a href="/copa-do-mundo/czechia-vs-south-africa/" class="jogo-copa" id="card-1539004"
-  data-id="1539004"
-  data-date="2026-06-18"
-  data-status="NS"
-  data-kickoff="2026-06-18T16:00:00+00:00"
-  data-home="Czechia"
-  data-away="South Africa"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1539004">13:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/770.png" alt="Czechia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Czechia</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1539004">×</span>
-      <div class="jogo-copa-horario jogo-status-1539004 agendado" id="status-1539004">13:00</div>
-      <div class="jogo-copa-estadio">Atlanta</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1531.png" alt="South Africa" onerror="this.style.display='none'"><span class="jogo-copa-nome">South Africa</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/switzerland-vs-bosnia-herzegovina/" class="jogo-copa" id="card-1539005"
-  data-id="1539005"
-  data-date="2026-06-18"
-  data-status="NS"
-  data-kickoff="2026-06-18T19:00:00+00:00"
-  data-home="Switzerland"
-  data-away="Bosnia & Herzegovina"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1539005">16:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/15.png" alt="Switzerland" onerror="this.style.display='none'"><span class="jogo-copa-nome">Switzerland</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1539005">×</span>
-      <div class="jogo-copa-horario jogo-status-1539005 agendado" id="status-1539005">16:00</div>
-      <div class="jogo-copa-estadio">Los Angeles</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1113.png" alt="Bosnia & Herzegovina" onerror="this.style.display='none'"><span class="jogo-copa-nome">Bosnia & Herzegovina</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/canada-vs-qatar/" class="jogo-copa" id="card-1489387"
-  data-id="1489387"
-  data-date="2026-06-18"
-  data-status="NS"
-  data-kickoff="2026-06-18T22:00:00+00:00"
-  data-home="Canada"
-  data-away="Qatar"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1489387">19:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/5529.png" alt="Canada" onerror="this.style.display='none'"><span class="jogo-copa-nome">Canada</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489387">×</span>
-      <div class="jogo-copa-horario jogo-status-1489387 agendado" id="status-1489387">19:00</div>
-      <div class="jogo-copa-estadio">Vancouver</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1569.png" alt="Qatar" onerror="this.style.display='none'"><span class="jogo-copa-nome">Qatar</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/mexico-vs-south-korea/" class="jogo-copa" id="card-1489388"
-  data-id="1489388"
-  data-date="2026-06-18"
-  data-status="NS"
-  data-kickoff="2026-06-19T01:00:00+00:00"
-  data-home="Mexico"
-  data-away="South Korea"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1489388">22:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/16.png" alt="Mexico" onerror="this.style.display='none'"><span class="jogo-copa-nome">Mexico</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489388">×</span>
-      <div class="jogo-copa-horario jogo-status-1489388 agendado" id="status-1489388">22:00</div>
-      <div class="jogo-copa-estadio">Guadalajara</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/17.png" alt="South Korea" onerror="this.style.display='none'"><span class="jogo-copa-nome">South Korea</span></div>
-  </div>
-</a>
-
-        <div class="jogo-data-sep" data-date="2026-06-19">📅 Sexta-feira, 19 de junho</div>
-<a href="/copa-do-mundo/usa-vs-australia/" class="jogo-copa" id="card-1489391"
-  data-id="1489391"
-  data-date="2026-06-19"
-  data-status="NS"
-  data-kickoff="2026-06-19T19:00:00+00:00"
-  data-home="USA"
-  data-away="Australia"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1489391">16:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/2384.png" alt="USA" onerror="this.style.display='none'"><span class="jogo-copa-nome">USA</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489391">×</span>
-      <div class="jogo-copa-horario jogo-status-1489391 agendado" id="status-1489391">16:00</div>
-      <div class="jogo-copa-estadio">Seattle</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/20.png" alt="Australia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Australia</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/scotland-vs-morocco/" class="jogo-copa" id="card-1489390"
-  data-id="1489390"
-  data-date="2026-06-19"
-  data-status="NS"
-  data-kickoff="2026-06-19T22:00:00+00:00"
-  data-home="Scotland"
-  data-away="Morocco"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1489390">19:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1108.png" alt="Scotland" onerror="this.style.display='none'"><span class="jogo-copa-nome">Scotland</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489390">×</span>
-      <div class="jogo-copa-horario jogo-status-1489390 agendado" id="status-1489390">19:00</div>
-      <div class="jogo-copa-estadio">Boston</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/31.png" alt="Morocco" onerror="this.style.display='none'"><span class="jogo-copa-nome">Morocco</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/brazil-vs-haiti/" class="jogo-copa destaque" id="card-1489389"
-  data-id="1489389"
-  data-date="2026-06-19"
-  data-status="NS"
-  data-kickoff="2026-06-20T00:30:00+00:00"
-  data-home="Brazil"
-  data-away="Haiti"
-  data-fase="r2 brasil">
-  <div class="jogo-copa-fase"><span>🇧🇷 Fase de Grupos — Rodada 2</span><span id="hora-1489389">21:30</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/6.png" alt="Brazil" onerror="this.style.display='none'"><span class="jogo-copa-nome">Brazil</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489389">×</span>
-      <div class="jogo-copa-horario jogo-status-1489389 agendado" id="status-1489389">21:30</div>
-      <div class="jogo-copa-estadio">Philadelphia</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/2386.png" alt="Haiti" onerror="this.style.display='none'"><span class="jogo-copa-nome">Haiti</span></div>
-  </div>
-</a>
-
-        <div class="jogo-data-sep" data-date="2026-06-20">📅 Sábado, 20 de junho</div>
-<a href="/copa-do-mundo/turkiye-vs-paraguay/" class="jogo-copa" id="card-1539006"
-  data-id="1539006"
-  data-date="2026-06-20"
-  data-status="NS"
-  data-kickoff="2026-06-20T03:00:00+00:00"
-  data-home="Türkiye"
-  data-away="Paraguay"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1539006">00:00<span class="tag-madrugada">🌙 madrugada</span></span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/777.png" alt="Türkiye" onerror="this.style.display='none'"><span class="jogo-copa-nome">Türkiye</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1539006">×</span>
-      <div class="jogo-copa-horario jogo-status-1539006 agendado" id="status-1539006">00:00</div>
-      <div class="jogo-copa-estadio">San Francisco Bay Area</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/2380.png" alt="Paraguay" onerror="this.style.display='none'"><span class="jogo-copa-nome">Paraguay</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/netherlands-vs-sweden/" class="jogo-copa" id="card-1539007"
-  data-id="1539007"
-  data-date="2026-06-20"
-  data-status="NS"
-  data-kickoff="2026-06-20T17:00:00+00:00"
-  data-home="Netherlands"
-  data-away="Sweden"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1539007">14:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1118.png" alt="Netherlands" onerror="this.style.display='none'"><span class="jogo-copa-nome">Netherlands</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1539007">×</span>
-      <div class="jogo-copa-horario jogo-status-1539007 agendado" id="status-1539007">14:00</div>
-      <div class="jogo-copa-estadio">Houston</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/5.png" alt="Sweden" onerror="this.style.display='none'"><span class="jogo-copa-nome">Sweden</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/germany-vs-ivory-coast/" class="jogo-copa" id="card-1489393"
-  data-id="1489393"
-  data-date="2026-06-20"
-  data-status="NS"
-  data-kickoff="2026-06-20T20:00:00+00:00"
-  data-home="Germany"
-  data-away="Ivory Coast"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1489393">17:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/25.png" alt="Germany" onerror="this.style.display='none'"><span class="jogo-copa-nome">Germany</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489393">×</span>
-      <div class="jogo-copa-horario jogo-status-1489393 agendado" id="status-1489393">17:00</div>
-      <div class="jogo-copa-estadio">Toronto</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1501.png" alt="Ivory Coast" onerror="this.style.display='none'"><span class="jogo-copa-nome">Ivory Coast</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/ecuador-vs-curacao/" class="jogo-copa" id="card-1489392"
-  data-id="1489392"
-  data-date="2026-06-20"
-  data-status="NS"
-  data-kickoff="2026-06-21T00:00:00+00:00"
-  data-home="Ecuador"
-  data-away="Curaçao"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1489392">21:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/2382.png" alt="Ecuador" onerror="this.style.display='none'"><span class="jogo-copa-nome">Ecuador</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489392">×</span>
-      <div class="jogo-copa-horario jogo-status-1489392 agendado" id="status-1489392">21:00</div>
-      <div class="jogo-copa-estadio">Kansas City</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/5530.png" alt="Curaçao" onerror="this.style.display='none'"><span class="jogo-copa-nome">Curaçao</span></div>
-  </div>
-</a>
-
-        <div class="jogo-data-sep" data-date="2026-06-21">📅 Domingo, 21 de junho</div>
-<a href="/copa-do-mundo/tunisia-vs-japan/" class="jogo-copa" id="card-1489394"
-  data-id="1489394"
-  data-date="2026-06-21"
-  data-status="NS"
-  data-kickoff="2026-06-21T04:00:00+00:00"
-  data-home="Tunisia"
-  data-away="Japan"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1489394">01:00<span class="tag-madrugada">🌙 madrugada</span></span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/28.png" alt="Tunisia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Tunisia</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489394">×</span>
-      <div class="jogo-copa-horario jogo-status-1489394 agendado" id="status-1489394">01:00</div>
-      <div class="jogo-copa-estadio">Monterrey</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/12.png" alt="Japan" onerror="this.style.display='none'"><span class="jogo-copa-nome">Japan</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/spain-vs-saudi-arabia/" class="jogo-copa" id="card-1489397"
-  data-id="1489397"
-  data-date="2026-06-21"
-  data-status="NS"
-  data-kickoff="2026-06-21T16:00:00+00:00"
-  data-home="Spain"
-  data-away="Saudi Arabia"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1489397">13:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/9.png" alt="Spain" onerror="this.style.display='none'"><span class="jogo-copa-nome">Spain</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489397">×</span>
-      <div class="jogo-copa-horario jogo-status-1489397 agendado" id="status-1489397">13:00</div>
-      <div class="jogo-copa-estadio">Atlanta</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/23.png" alt="Saudi Arabia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Saudi Arabia</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/belgium-vs-iran/" class="jogo-copa" id="card-1489395"
-  data-id="1489395"
-  data-date="2026-06-21"
-  data-status="NS"
-  data-kickoff="2026-06-21T19:00:00+00:00"
-  data-home="Belgium"
-  data-away="Iran"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1489395">16:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1.png" alt="Belgium" onerror="this.style.display='none'"><span class="jogo-copa-nome">Belgium</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489395">×</span>
-      <div class="jogo-copa-horario jogo-status-1489395 agendado" id="status-1489395">16:00</div>
-      <div class="jogo-copa-estadio">Los Angeles</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/22.png" alt="Iran" onerror="this.style.display='none'"><span class="jogo-copa-nome">Iran</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/uruguay-vs-cape-verde-islands/" class="jogo-copa" id="card-1489398"
-  data-id="1489398"
-  data-date="2026-06-21"
-  data-status="NS"
-  data-kickoff="2026-06-21T22:00:00+00:00"
-  data-home="Uruguay"
-  data-away="Cape Verde Islands"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1489398">19:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/7.png" alt="Uruguay" onerror="this.style.display='none'"><span class="jogo-copa-nome">Uruguay</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489398">×</span>
-      <div class="jogo-copa-horario jogo-status-1489398 agendado" id="status-1489398">19:00</div>
-      <div class="jogo-copa-estadio">Miami</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1533.png" alt="Cape Verde Islands" onerror="this.style.display='none'"><span class="jogo-copa-nome">Cape Verde Islands</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/new-zealand-vs-egypt/" class="jogo-copa" id="card-1489396"
-  data-id="1489396"
-  data-date="2026-06-21"
-  data-status="NS"
-  data-kickoff="2026-06-22T01:00:00+00:00"
-  data-home="New Zealand"
-  data-away="Egypt"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1489396">22:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/4673.png" alt="New Zealand" onerror="this.style.display='none'"><span class="jogo-copa-nome">New Zealand</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489396">×</span>
-      <div class="jogo-copa-horario jogo-status-1489396 agendado" id="status-1489396">22:00</div>
-      <div class="jogo-copa-estadio">Vancouver</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/32.png" alt="Egypt" onerror="this.style.display='none'"><span class="jogo-copa-nome">Egypt</span></div>
-  </div>
-</a>
-
-        <div class="jogo-data-sep" data-date="2026-06-22">📅 Segunda-feira, 22 de junho</div>
-<a href="/copa-do-mundo/argentina-vs-austria/" class="jogo-copa" id="card-1489399"
-  data-id="1489399"
-  data-date="2026-06-22"
-  data-status="NS"
-  data-kickoff="2026-06-22T17:00:00+00:00"
-  data-home="Argentina"
-  data-away="Austria"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1489399">14:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/26.png" alt="Argentina" onerror="this.style.display='none'"><span class="jogo-copa-nome">Argentina</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489399">×</span>
-      <div class="jogo-copa-horario jogo-status-1489399 agendado" id="status-1489399">14:00</div>
-      <div class="jogo-copa-estadio">Dallas</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/775.png" alt="Austria" onerror="this.style.display='none'"><span class="jogo-copa-nome">Austria</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/france-vs-iraq/" class="jogo-copa" id="card-1539017"
-  data-id="1539017"
-  data-date="2026-06-22"
-  data-status="NS"
-  data-kickoff="2026-06-22T21:00:00+00:00"
-  data-home="France"
-  data-away="Iraq"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1539017">18:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/2.png" alt="France" onerror="this.style.display='none'"><span class="jogo-copa-nome">France</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1539017">×</span>
-      <div class="jogo-copa-horario jogo-status-1539017 agendado" id="status-1539017">18:00</div>
-      <div class="jogo-copa-estadio">Philadelphia</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1567.png" alt="Iraq" onerror="this.style.display='none'"><span class="jogo-copa-nome">Iraq</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/norway-vs-senegal/" class="jogo-copa" id="card-1489401"
-  data-id="1489401"
-  data-date="2026-06-22"
-  data-status="NS"
-  data-kickoff="2026-06-23T00:00:00+00:00"
-  data-home="Norway"
-  data-away="Senegal"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1489401">21:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1090.png" alt="Norway" onerror="this.style.display='none'"><span class="jogo-copa-nome">Norway</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489401">×</span>
-      <div class="jogo-copa-horario jogo-status-1489401 agendado" id="status-1489401">21:00</div>
-      <div class="jogo-copa-estadio">New York New Jersey</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/13.png" alt="Senegal" onerror="this.style.display='none'"><span class="jogo-copa-nome">Senegal</span></div>
-  </div>
-</a>
-
-        <div class="jogo-data-sep" data-date="2026-06-23">📅 Terça-feira, 23 de junho</div>
-<a href="/copa-do-mundo/jordan-vs-algeria/" class="jogo-copa" id="card-1489400"
-  data-id="1489400"
-  data-date="2026-06-23"
-  data-status="NS"
-  data-kickoff="2026-06-23T03:00:00+00:00"
-  data-home="Jordan"
-  data-away="Algeria"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1489400">00:00<span class="tag-madrugada">🌙 madrugada</span></span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1548.png" alt="Jordan" onerror="this.style.display='none'"><span class="jogo-copa-nome">Jordan</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489400">×</span>
-      <div class="jogo-copa-horario jogo-status-1489400 agendado" id="status-1489400">00:00</div>
-      <div class="jogo-copa-estadio">San Francisco Bay Area</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1532.png" alt="Algeria" onerror="this.style.display='none'"><span class="jogo-copa-nome">Algeria</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/portugal-vs-uzbekistan/" class="jogo-copa" id="card-1489404"
-  data-id="1489404"
-  data-date="2026-06-23"
-  data-status="NS"
-  data-kickoff="2026-06-23T17:00:00+00:00"
-  data-home="Portugal"
-  data-away="Uzbekistan"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1489404">14:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/27.png" alt="Portugal" onerror="this.style.display='none'"><span class="jogo-copa-nome">Portugal</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489404">×</span>
-      <div class="jogo-copa-horario jogo-status-1489404 agendado" id="status-1489404">14:00</div>
-      <div class="jogo-copa-estadio">Houston</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1568.png" alt="Uzbekistan" onerror="this.style.display='none'"><span class="jogo-copa-nome">Uzbekistan</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/england-vs-ghana/" class="jogo-copa" id="card-1489402"
-  data-id="1489402"
-  data-date="2026-06-23"
-  data-status="NS"
-  data-kickoff="2026-06-23T20:00:00+00:00"
-  data-home="England"
-  data-away="Ghana"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1489402">17:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/10.png" alt="England" onerror="this.style.display='none'"><span class="jogo-copa-nome">England</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489402">×</span>
-      <div class="jogo-copa-horario jogo-status-1489402 agendado" id="status-1489402">17:00</div>
-      <div class="jogo-copa-estadio">Boston</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1504.png" alt="Ghana" onerror="this.style.display='none'"><span class="jogo-copa-nome">Ghana</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/panama-vs-croatia/" class="jogo-copa" id="card-1489403"
-  data-id="1489403"
-  data-date="2026-06-23"
-  data-status="NS"
-  data-kickoff="2026-06-23T23:00:00+00:00"
-  data-home="Panama"
-  data-away="Croatia"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1489403">20:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/11.png" alt="Panama" onerror="this.style.display='none'"><span class="jogo-copa-nome">Panama</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489403">×</span>
-      <div class="jogo-copa-horario jogo-status-1489403 agendado" id="status-1489403">20:00</div>
-      <div class="jogo-copa-estadio">Toronto</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/3.png" alt="Croatia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Croatia</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/colombia-vs-congo-dr/" class="jogo-copa" id="card-1539008"
-  data-id="1539008"
-  data-date="2026-06-23"
-  data-status="NS"
-  data-kickoff="2026-06-24T02:00:00+00:00"
-  data-home="Colombia"
-  data-away="Congo DR"
-  data-fase="r2">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 2</span><span id="hora-1539008">23:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/8.png" alt="Colombia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Colombia</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1539008">×</span>
-      <div class="jogo-copa-horario jogo-status-1539008 agendado" id="status-1539008">23:00</div>
-      <div class="jogo-copa-estadio">Guadalajara</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1508.png" alt="Congo DR" onerror="this.style.display='none'"><span class="jogo-copa-nome">Congo DR</span></div>
-  </div>
-</a>
-
-        <div class="jogo-data-sep" data-date="2026-06-24">📅 Quarta-feira, 24 de junho</div>
-<a href="/copa-do-mundo/switzerland-vs-canada/" class="jogo-copa" id="card-1489408"
-  data-id="1489408"
-  data-date="2026-06-24"
-  data-status="NS"
-  data-kickoff="2026-06-24T19:00:00+00:00"
-  data-home="Switzerland"
-  data-away="Canada"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1489408">16:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/15.png" alt="Switzerland" onerror="this.style.display='none'"><span class="jogo-copa-nome">Switzerland</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489408">×</span>
-      <div class="jogo-copa-horario jogo-status-1489408 agendado" id="status-1489408">16:00</div>
-      <div class="jogo-copa-estadio">Vancouver</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/5529.png" alt="Canada" onerror="this.style.display='none'"><span class="jogo-copa-nome">Canada</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/bosnia-herzegovina-vs-qatar/" class="jogo-copa" id="card-1539009"
-  data-id="1539009"
-  data-date="2026-06-24"
-  data-status="NS"
-  data-kickoff="2026-06-24T19:00:00+00:00"
-  data-home="Bosnia & Herzegovina"
-  data-away="Qatar"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1539009">16:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1113.png" alt="Bosnia & Herzegovina" onerror="this.style.display='none'"><span class="jogo-copa-nome">Bosnia & Herzegovina</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1539009">×</span>
-      <div class="jogo-copa-horario jogo-status-1539009 agendado" id="status-1539009">16:00</div>
-      <div class="jogo-copa-estadio">Seattle</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1569.png" alt="Qatar" onerror="this.style.display='none'"><span class="jogo-copa-nome">Qatar</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/morocco-vs-haiti/" class="jogo-copa" id="card-1489405"
-  data-id="1489405"
-  data-date="2026-06-24"
-  data-status="NS"
-  data-kickoff="2026-06-24T22:00:00+00:00"
-  data-home="Morocco"
-  data-away="Haiti"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1489405">19:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/31.png" alt="Morocco" onerror="this.style.display='none'"><span class="jogo-copa-nome">Morocco</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489405">×</span>
-      <div class="jogo-copa-horario jogo-status-1489405 agendado" id="status-1489405">19:00</div>
-      <div class="jogo-copa-estadio">Atlanta</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/2386.png" alt="Haiti" onerror="this.style.display='none'"><span class="jogo-copa-nome">Haiti</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/scotland-vs-brazil/" class="jogo-copa destaque" id="card-1489406"
-  data-id="1489406"
-  data-date="2026-06-24"
-  data-status="NS"
-  data-kickoff="2026-06-24T22:00:00+00:00"
-  data-home="Scotland"
-  data-away="Brazil"
-  data-fase="r3 brasil">
-  <div class="jogo-copa-fase"><span>🇧🇷 Fase de Grupos — Rodada 3</span><span id="hora-1489406">19:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1108.png" alt="Scotland" onerror="this.style.display='none'"><span class="jogo-copa-nome">Scotland</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489406">×</span>
-      <div class="jogo-copa-horario jogo-status-1489406 agendado" id="status-1489406">19:00</div>
-      <div class="jogo-copa-estadio">Miami</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/6.png" alt="Brazil" onerror="this.style.display='none'"><span class="jogo-copa-nome">Brazil</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/czechia-vs-mexico/" class="jogo-copa" id="card-1539010"
-  data-id="1539010"
-  data-date="2026-06-24"
-  data-status="NS"
-  data-kickoff="2026-06-25T01:00:00+00:00"
-  data-home="Czechia"
-  data-away="Mexico"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1539010">22:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/770.png" alt="Czechia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Czechia</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1539010">×</span>
-      <div class="jogo-copa-horario jogo-status-1539010 agendado" id="status-1539010">22:00</div>
-      <div class="jogo-copa-estadio">Mexico City</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/16.png" alt="Mexico" onerror="this.style.display='none'"><span class="jogo-copa-nome">Mexico</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/south-africa-vs-south-korea/" class="jogo-copa" id="card-1489407"
-  data-id="1489407"
-  data-date="2026-06-24"
-  data-status="NS"
-  data-kickoff="2026-06-25T01:00:00+00:00"
-  data-home="South Africa"
-  data-away="South Korea"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1489407">22:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1531.png" alt="South Africa" onerror="this.style.display='none'"><span class="jogo-copa-nome">South Africa</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489407">×</span>
-      <div class="jogo-copa-horario jogo-status-1489407 agendado" id="status-1489407">22:00</div>
-      <div class="jogo-copa-estadio">Monterrey</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/17.png" alt="South Korea" onerror="this.style.display='none'"><span class="jogo-copa-nome">South Korea</span></div>
-  </div>
-</a>
-
-        <div class="jogo-data-sep" data-date="2026-06-25">📅 Quinta-feira, 25 de junho</div>
-<a href="/copa-do-mundo/ecuador-vs-germany/" class="jogo-copa" id="card-1489410"
-  data-id="1489410"
-  data-date="2026-06-25"
-  data-status="NS"
-  data-kickoff="2026-06-25T20:00:00+00:00"
-  data-home="Ecuador"
-  data-away="Germany"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1489410">17:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/2382.png" alt="Ecuador" onerror="this.style.display='none'"><span class="jogo-copa-nome">Ecuador</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489410">×</span>
-      <div class="jogo-copa-horario jogo-status-1489410 agendado" id="status-1489410">17:00</div>
-      <div class="jogo-copa-estadio">New York New Jersey</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/25.png" alt="Germany" onerror="this.style.display='none'"><span class="jogo-copa-nome">Germany</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/curacao-vs-ivory-coast/" class="jogo-copa" id="card-1489409"
-  data-id="1489409"
-  data-date="2026-06-25"
-  data-status="NS"
-  data-kickoff="2026-06-25T20:00:00+00:00"
-  data-home="Curaçao"
-  data-away="Ivory Coast"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1489409">17:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/5530.png" alt="Curaçao" onerror="this.style.display='none'"><span class="jogo-copa-nome">Curaçao</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489409">×</span>
-      <div class="jogo-copa-horario jogo-status-1489409 agendado" id="status-1489409">17:00</div>
-      <div class="jogo-copa-estadio">Philadelphia</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1501.png" alt="Ivory Coast" onerror="this.style.display='none'"><span class="jogo-copa-nome">Ivory Coast</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/japan-vs-sweden/" class="jogo-copa" id="card-1539011"
-  data-id="1539011"
-  data-date="2026-06-25"
-  data-status="NS"
-  data-kickoff="2026-06-25T23:00:00+00:00"
-  data-home="Japan"
-  data-away="Sweden"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1539011">20:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/12.png" alt="Japan" onerror="this.style.display='none'"><span class="jogo-copa-nome">Japan</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1539011">×</span>
-      <div class="jogo-copa-horario jogo-status-1539011 agendado" id="status-1539011">20:00</div>
-      <div class="jogo-copa-estadio">Dallas</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/5.png" alt="Sweden" onerror="this.style.display='none'"><span class="jogo-copa-nome">Sweden</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/tunisia-vs-netherlands/" class="jogo-copa" id="card-1489412"
-  data-id="1489412"
-  data-date="2026-06-25"
-  data-status="NS"
-  data-kickoff="2026-06-25T23:00:00+00:00"
-  data-home="Tunisia"
-  data-away="Netherlands"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1489412">20:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/28.png" alt="Tunisia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Tunisia</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489412">×</span>
-      <div class="jogo-copa-horario jogo-status-1489412 agendado" id="status-1489412">20:00</div>
-      <div class="jogo-copa-estadio">Kansas City</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1118.png" alt="Netherlands" onerror="this.style.display='none'"><span class="jogo-copa-nome">Netherlands</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/turkiye-vs-usa/" class="jogo-copa" id="card-1539012"
-  data-id="1539012"
-  data-date="2026-06-25"
-  data-status="NS"
-  data-kickoff="2026-06-26T02:00:00+00:00"
-  data-home="Türkiye"
-  data-away="USA"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1539012">23:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/777.png" alt="Türkiye" onerror="this.style.display='none'"><span class="jogo-copa-nome">Türkiye</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1539012">×</span>
-      <div class="jogo-copa-horario jogo-status-1539012 agendado" id="status-1539012">23:00</div>
-      <div class="jogo-copa-estadio">Los Angeles</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/2384.png" alt="USA" onerror="this.style.display='none'"><span class="jogo-copa-nome">USA</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/paraguay-vs-australia/" class="jogo-copa" id="card-1489411"
-  data-id="1489411"
-  data-date="2026-06-25"
-  data-status="NS"
-  data-kickoff="2026-06-26T02:00:00+00:00"
-  data-home="Paraguay"
-  data-away="Australia"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1489411">23:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/2380.png" alt="Paraguay" onerror="this.style.display='none'"><span class="jogo-copa-nome">Paraguay</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489411">×</span>
-      <div class="jogo-copa-horario jogo-status-1489411 agendado" id="status-1489411">23:00</div>
-      <div class="jogo-copa-estadio">San Francisco Bay Area</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/20.png" alt="Australia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Australia</span></div>
-  </div>
-</a>
-
-        <div class="jogo-data-sep" data-date="2026-06-26">📅 Sexta-feira, 26 de junho</div>
-<a href="/copa-do-mundo/senegal-vs-iraq/" class="jogo-copa" id="card-1539074"
-  data-id="1539074"
-  data-date="2026-06-26"
-  data-status="NS"
-  data-kickoff="2026-06-26T19:00:00+00:00"
-  data-home="Senegal"
-  data-away="Iraq"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1539074">16:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/13.png" alt="Senegal" onerror="this.style.display='none'"><span class="jogo-copa-nome">Senegal</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1539074">×</span>
-      <div class="jogo-copa-horario jogo-status-1539074 agendado" id="status-1539074">16:00</div>
-      <div class="jogo-copa-estadio">Toronto</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1567.png" alt="Iraq" onerror="this.style.display='none'"><span class="jogo-copa-nome">Iraq</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/norway-vs-france/" class="jogo-copa" id="card-1489416"
-  data-id="1489416"
-  data-date="2026-06-26"
-  data-status="NS"
-  data-kickoff="2026-06-26T19:00:00+00:00"
-  data-home="Norway"
-  data-away="France"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1489416">16:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1090.png" alt="Norway" onerror="this.style.display='none'"><span class="jogo-copa-nome">Norway</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489416">×</span>
-      <div class="jogo-copa-horario jogo-status-1489416 agendado" id="status-1489416">16:00</div>
-      <div class="jogo-copa-estadio">Boston</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/2.png" alt="France" onerror="this.style.display='none'"><span class="jogo-copa-nome">France</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/uruguay-vs-spain/" class="jogo-copa" id="card-1489417"
-  data-id="1489417"
-  data-date="2026-06-26"
-  data-status="NS"
-  data-kickoff="2026-06-27T00:00:00+00:00"
-  data-home="Uruguay"
-  data-away="Spain"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1489417">21:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/7.png" alt="Uruguay" onerror="this.style.display='none'"><span class="jogo-copa-nome">Uruguay</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489417">×</span>
-      <div class="jogo-copa-horario jogo-status-1489417 agendado" id="status-1489417">21:00</div>
-      <div class="jogo-copa-estadio">Guadalajara</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/9.png" alt="Spain" onerror="this.style.display='none'"><span class="jogo-copa-nome">Spain</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/cape-verde-islands-vs-saudi-arabia/" class="jogo-copa" id="card-1489413"
-  data-id="1489413"
-  data-date="2026-06-26"
-  data-status="NS"
-  data-kickoff="2026-06-27T00:00:00+00:00"
-  data-home="Cape Verde Islands"
-  data-away="Saudi Arabia"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1489413">21:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1533.png" alt="Cape Verde Islands" onerror="this.style.display='none'"><span class="jogo-copa-nome">Cape Verde Islands</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489413">×</span>
-      <div class="jogo-copa-horario jogo-status-1489413 agendado" id="status-1489413">21:00</div>
-      <div class="jogo-copa-estadio">Houston</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/23.png" alt="Saudi Arabia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Saudi Arabia</span></div>
-  </div>
-</a>
-
-        <div class="jogo-data-sep" data-date="2026-06-27">📅 Sábado, 27 de junho</div>
-<a href="/copa-do-mundo/egypt-vs-iran/" class="jogo-copa" id="card-1489414"
-  data-id="1489414"
-  data-date="2026-06-27"
-  data-status="NS"
-  data-kickoff="2026-06-27T03:00:00+00:00"
-  data-home="Egypt"
-  data-away="Iran"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1489414">00:00<span class="tag-madrugada">🌙 madrugada</span></span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/32.png" alt="Egypt" onerror="this.style.display='none'"><span class="jogo-copa-nome">Egypt</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489414">×</span>
-      <div class="jogo-copa-horario jogo-status-1489414 agendado" id="status-1489414">00:00</div>
-      <div class="jogo-copa-estadio">Seattle</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/22.png" alt="Iran" onerror="this.style.display='none'"><span class="jogo-copa-nome">Iran</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/new-zealand-vs-belgium/" class="jogo-copa" id="card-1489415"
-  data-id="1489415"
-  data-date="2026-06-27"
-  data-status="NS"
-  data-kickoff="2026-06-27T03:00:00+00:00"
-  data-home="New Zealand"
-  data-away="Belgium"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1489415">00:00<span class="tag-madrugada">🌙 madrugada</span></span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/4673.png" alt="New Zealand" onerror="this.style.display='none'"><span class="jogo-copa-nome">New Zealand</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489415">×</span>
-      <div class="jogo-copa-horario jogo-status-1489415 agendado" id="status-1489415">00:00</div>
-      <div class="jogo-copa-estadio">Vancouver</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1.png" alt="Belgium" onerror="this.style.display='none'"><span class="jogo-copa-nome">Belgium</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/croatia-vs-ghana/" class="jogo-copa" id="card-1489420"
-  data-id="1489420"
-  data-date="2026-06-27"
-  data-status="NS"
-  data-kickoff="2026-06-27T21:00:00+00:00"
-  data-home="Croatia"
-  data-away="Ghana"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1489420">18:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/3.png" alt="Croatia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Croatia</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489420">×</span>
-      <div class="jogo-copa-horario jogo-status-1489420 agendado" id="status-1489420">18:00</div>
-      <div class="jogo-copa-estadio">Philadelphia</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1504.png" alt="Ghana" onerror="this.style.display='none'"><span class="jogo-copa-nome">Ghana</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/panama-vs-england/" class="jogo-copa" id="card-1489422"
-  data-id="1489422"
-  data-date="2026-06-27"
-  data-status="NS"
-  data-kickoff="2026-06-27T21:00:00+00:00"
-  data-home="Panama"
-  data-away="England"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1489422">18:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/11.png" alt="Panama" onerror="this.style.display='none'"><span class="jogo-copa-nome">Panama</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489422">×</span>
-      <div class="jogo-copa-horario jogo-status-1489422 agendado" id="status-1489422">18:00</div>
-      <div class="jogo-copa-estadio">New York New Jersey</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/10.png" alt="England" onerror="this.style.display='none'"><span class="jogo-copa-nome">England</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/colombia-vs-portugal/" class="jogo-copa" id="card-1489419"
-  data-id="1489419"
-  data-date="2026-06-27"
-  data-status="NS"
-  data-kickoff="2026-06-27T23:30:00+00:00"
-  data-home="Colombia"
-  data-away="Portugal"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1489419">20:30</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/8.png" alt="Colombia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Colombia</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489419">×</span>
-      <div class="jogo-copa-horario jogo-status-1489419 agendado" id="status-1489419">20:30</div>
-      <div class="jogo-copa-estadio">Miami</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/27.png" alt="Portugal" onerror="this.style.display='none'"><span class="jogo-copa-nome">Portugal</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/congo-dr-vs-uzbekistan/" class="jogo-copa" id="card-1539013"
-  data-id="1539013"
-  data-date="2026-06-27"
-  data-status="NS"
-  data-kickoff="2026-06-27T23:30:00+00:00"
-  data-home="Congo DR"
-  data-away="Uzbekistan"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1539013">20:30</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1508.png" alt="Congo DR" onerror="this.style.display='none'"><span class="jogo-copa-nome">Congo DR</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1539013">×</span>
-      <div class="jogo-copa-horario jogo-status-1539013 agendado" id="status-1539013">20:30</div>
-      <div class="jogo-copa-estadio">Atlanta</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1568.png" alt="Uzbekistan" onerror="this.style.display='none'"><span class="jogo-copa-nome">Uzbekistan</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/algeria-vs-austria/" class="jogo-copa" id="card-1489418"
-  data-id="1489418"
-  data-date="2026-06-27"
-  data-status="NS"
-  data-kickoff="2026-06-28T02:00:00+00:00"
-  data-home="Algeria"
-  data-away="Austria"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1489418">23:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1532.png" alt="Algeria" onerror="this.style.display='none'"><span class="jogo-copa-nome">Algeria</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489418">×</span>
-      <div class="jogo-copa-horario jogo-status-1489418 agendado" id="status-1489418">23:00</div>
-      <div class="jogo-copa-estadio">Kansas City</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/775.png" alt="Austria" onerror="this.style.display='none'"><span class="jogo-copa-nome">Austria</span></div>
-  </div>
-</a>
-<a href="/copa-do-mundo/jordan-vs-argentina/" class="jogo-copa" id="card-1489421"
-  data-id="1489421"
-  data-date="2026-06-27"
-  data-status="NS"
-  data-kickoff="2026-06-28T02:00:00+00:00"
-  data-home="Jordan"
-  data-away="Argentina"
-  data-fase="r3">
-  <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 3</span><span id="hora-1489421">23:00</span></div>
-  <div class="jogo-copa-body">
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1548.png" alt="Jordan" onerror="this.style.display='none'"><span class="jogo-copa-nome">Jordan</span></div>
-    <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489421">×</span>
-      <div class="jogo-copa-horario jogo-status-1489421 agendado" id="status-1489421">23:00</div>
-      <div class="jogo-copa-estadio">Dallas</div>
-    </div>
-    <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/26.png" alt="Argentina" onerror="this.style.display='none'"><span class="jogo-copa-nome">Argentina</span></div>
   </div>
 </a>
 
@@ -1607,158 +313,24 @@
     <!-- ===== CLASSIFICAÇÃO ===== -->
     <div id="secao-classificacao" class="copa-secao">
       <div class="classificacao-wrap">
-
-    <div class="classificacao-grupo">
-      <div class="classificacao-grupo-header">Grupo A</div>
-      <table class="classificacao-table">
-        <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
-        <tbody>
-          <tr data-time="Mexico"><td class="cl-pos classificado" id="cl-pos-A-0">1</td><td><div class="cl-time"><span class="cl-flag">🇲🇽</span>Mexico</div></td><td id="cl-j-A-0">1</td><td id="cl-v-A-0">1</td><td id="cl-e-A-0">0</td><td id="cl-d-A-0">0</td><td id="cl-gp-A-0">2</td><td id="cl-gc-A-0">0</td><td id="cl-sg-A-0">2</td><td class="cl-pts" id="cl-pts-A-0">3</td></tr>
-          <tr data-time="South Korea"><td class="cl-pos classificado" id="cl-pos-A-1">2</td><td><div class="cl-time"><span class="cl-flag">🇰🇷</span>South Korea</div></td><td id="cl-j-A-1">1</td><td id="cl-v-A-1">1</td><td id="cl-e-A-1">0</td><td id="cl-d-A-1">0</td><td id="cl-gp-A-1">2</td><td id="cl-gc-A-1">1</td><td id="cl-sg-A-1">1</td><td class="cl-pts" id="cl-pts-A-1">3</td></tr>
-          <tr data-time="Czech Republic"><td class="cl-pos" id="cl-pos-A-2">3</td><td><div class="cl-time"><span class="cl-flag">🇨🇿</span>Czech Republic</div></td><td id="cl-j-A-2">0</td><td id="cl-v-A-2">0</td><td id="cl-e-A-2">0</td><td id="cl-d-A-2">0</td><td id="cl-gp-A-2">0</td><td id="cl-gc-A-2">0</td><td id="cl-sg-A-2">0</td><td class="cl-pts" id="cl-pts-A-2">0</td></tr>
-          <tr data-time="South Africa"><td class="cl-pos" id="cl-pos-A-3">4</td><td><div class="cl-time"><span class="cl-flag">🇿🇦</span>South Africa</div></td><td id="cl-j-A-3">1</td><td id="cl-v-A-3">0</td><td id="cl-e-A-3">0</td><td id="cl-d-A-3">1</td><td id="cl-gp-A-3">0</td><td id="cl-gc-A-3">2</td><td id="cl-sg-A-3">-2</td><td class="cl-pts" id="cl-pts-A-3">0</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="classificacao-grupo">
-      <div class="classificacao-grupo-header">Grupo B</div>
-      <table class="classificacao-table">
-        <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
-        <tbody>
-          <tr data-time="Canada"><td class="cl-pos classificado" id="cl-pos-B-0">1</td><td><div class="cl-time"><span class="cl-flag">🇨🇦</span>Canada</div></td><td id="cl-j-B-0">1</td><td id="cl-v-B-0">0</td><td id="cl-e-B-0">1</td><td id="cl-d-B-0">0</td><td id="cl-gp-B-0">1</td><td id="cl-gc-B-0">1</td><td id="cl-sg-B-0">0</td><td class="cl-pts" id="cl-pts-B-0">1</td></tr>
-          <tr data-time="Bosnia & Herzegovina"><td class="cl-pos classificado" id="cl-pos-B-1">2</td><td><div class="cl-time"><span class="cl-flag">🇧🇦</span>Bosnia & Herzegovina</div></td><td id="cl-j-B-1">1</td><td id="cl-v-B-1">0</td><td id="cl-e-B-1">1</td><td id="cl-d-B-1">0</td><td id="cl-gp-B-1">1</td><td id="cl-gc-B-1">1</td><td id="cl-sg-B-1">0</td><td class="cl-pts" id="cl-pts-B-1">1</td></tr>
-          <tr data-time="Qatar"><td class="cl-pos" id="cl-pos-B-2">3</td><td><div class="cl-time"><span class="cl-flag">🇶🇦</span>Qatar</div></td><td id="cl-j-B-2">0</td><td id="cl-v-B-2">0</td><td id="cl-e-B-2">0</td><td id="cl-d-B-2">0</td><td id="cl-gp-B-2">0</td><td id="cl-gc-B-2">0</td><td id="cl-sg-B-2">0</td><td class="cl-pts" id="cl-pts-B-2">0</td></tr>
-          <tr data-time="Switzerland"><td class="cl-pos" id="cl-pos-B-3">4</td><td><div class="cl-time"><span class="cl-flag">🇨🇭</span>Switzerland</div></td><td id="cl-j-B-3">0</td><td id="cl-v-B-3">0</td><td id="cl-e-B-3">0</td><td id="cl-d-B-3">0</td><td id="cl-gp-B-3">0</td><td id="cl-gc-B-3">0</td><td id="cl-sg-B-3">0</td><td class="cl-pts" id="cl-pts-B-3">0</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="classificacao-grupo">
-      <div class="classificacao-grupo-header">🇧🇷 Grupo C — Brasil</div>
-      <table class="classificacao-table">
-        <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
-        <tbody>
-          <tr data-time="Brazil"><td class="cl-pos classificado" id="cl-pos-C-0">1</td><td><div class="cl-time"><span class="cl-flag">🇧🇷</span>Brazil</div></td><td id="cl-j-C-0">0</td><td id="cl-v-C-0">0</td><td id="cl-e-C-0">0</td><td id="cl-d-C-0">0</td><td id="cl-gp-C-0">0</td><td id="cl-gc-C-0">0</td><td id="cl-sg-C-0">0</td><td class="cl-pts" id="cl-pts-C-0">0</td></tr>
-          <tr data-time="Morocco"><td class="cl-pos classificado" id="cl-pos-C-1">2</td><td><div class="cl-time"><span class="cl-flag">🇲🇦</span>Morocco</div></td><td id="cl-j-C-1">0</td><td id="cl-v-C-1">0</td><td id="cl-e-C-1">0</td><td id="cl-d-C-1">0</td><td id="cl-gp-C-1">0</td><td id="cl-gc-C-1">0</td><td id="cl-sg-C-1">0</td><td class="cl-pts" id="cl-pts-C-1">0</td></tr>
-          <tr data-time="Scotland"><td class="cl-pos" id="cl-pos-C-2">3</td><td><div class="cl-time"><span class="cl-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span>Scotland</div></td><td id="cl-j-C-2">0</td><td id="cl-v-C-2">0</td><td id="cl-e-C-2">0</td><td id="cl-d-C-2">0</td><td id="cl-gp-C-2">0</td><td id="cl-gc-C-2">0</td><td id="cl-sg-C-2">0</td><td class="cl-pts" id="cl-pts-C-2">0</td></tr>
-          <tr data-time="Haiti"><td class="cl-pos" id="cl-pos-C-3">4</td><td><div class="cl-time"><span class="cl-flag">🇭🇹</span>Haiti</div></td><td id="cl-j-C-3">0</td><td id="cl-v-C-3">0</td><td id="cl-e-C-3">0</td><td id="cl-d-C-3">0</td><td id="cl-gp-C-3">0</td><td id="cl-gc-C-3">0</td><td id="cl-sg-C-3">0</td><td class="cl-pts" id="cl-pts-C-3">0</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="classificacao-grupo">
-      <div class="classificacao-grupo-header">Grupo D — Estados Unidos</div>
-      <table class="classificacao-table">
-        <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
-        <tbody>
-          <tr data-time="USA"><td class="cl-pos classificado" id="cl-pos-D-0">1</td><td><div class="cl-time"><span class="cl-flag">🇺🇸</span>USA</div></td><td id="cl-j-D-0">1</td><td id="cl-v-D-0">1</td><td id="cl-e-D-0">0</td><td id="cl-d-D-0">0</td><td id="cl-gp-D-0">4</td><td id="cl-gc-D-0">1</td><td id="cl-sg-D-0">3</td><td class="cl-pts" id="cl-pts-D-0">3</td></tr>
-          <tr data-time="Australia"><td class="cl-pos classificado" id="cl-pos-D-1">2</td><td><div class="cl-time"><span class="cl-flag">🇦🇺</span>Australia</div></td><td id="cl-j-D-1">0</td><td id="cl-v-D-1">0</td><td id="cl-e-D-1">0</td><td id="cl-d-D-1">0</td><td id="cl-gp-D-1">0</td><td id="cl-gc-D-1">0</td><td id="cl-sg-D-1">0</td><td class="cl-pts" id="cl-pts-D-1">0</td></tr>
-          <tr data-time="Türkiye"><td class="cl-pos" id="cl-pos-D-2">3</td><td><div class="cl-time"><span class="cl-flag">🇹🇷</span>Türkiye</div></td><td id="cl-j-D-2">0</td><td id="cl-v-D-2">0</td><td id="cl-e-D-2">0</td><td id="cl-d-D-2">0</td><td id="cl-gp-D-2">0</td><td id="cl-gc-D-2">0</td><td id="cl-sg-D-2">0</td><td class="cl-pts" id="cl-pts-D-2">0</td></tr>
-          <tr data-time="Paraguay"><td class="cl-pos" id="cl-pos-D-3">4</td><td><div class="cl-time"><span class="cl-flag">🇵🇾</span>Paraguay</div></td><td id="cl-j-D-3">1</td><td id="cl-v-D-3">0</td><td id="cl-e-D-3">0</td><td id="cl-d-D-3">1</td><td id="cl-gp-D-3">1</td><td id="cl-gc-D-3">4</td><td id="cl-sg-D-3">-3</td><td class="cl-pts" id="cl-pts-D-3">0</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="classificacao-grupo">
-      <div class="classificacao-grupo-header">Grupo E — Alemanha</div>
-      <table class="classificacao-table">
-        <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
-        <tbody>
-          <tr data-time="Germany"><td class="cl-pos classificado" id="cl-pos-E-0">1</td><td><div class="cl-time"><span class="cl-flag">🇩🇪</span>Germany</div></td><td id="cl-j-E-0">0</td><td id="cl-v-E-0">0</td><td id="cl-e-E-0">0</td><td id="cl-d-E-0">0</td><td id="cl-gp-E-0">0</td><td id="cl-gc-E-0">0</td><td id="cl-sg-E-0">0</td><td class="cl-pts" id="cl-pts-E-0">0</td></tr>
-          <tr data-time="Ivory Coast"><td class="cl-pos classificado" id="cl-pos-E-1">2</td><td><div class="cl-time"><span class="cl-flag">🇨🇮</span>Ivory Coast</div></td><td id="cl-j-E-1">0</td><td id="cl-v-E-1">0</td><td id="cl-e-E-1">0</td><td id="cl-d-E-1">0</td><td id="cl-gp-E-1">0</td><td id="cl-gc-E-1">0</td><td id="cl-sg-E-1">0</td><td class="cl-pts" id="cl-pts-E-1">0</td></tr>
-          <tr data-time="Ecuador"><td class="cl-pos" id="cl-pos-E-2">3</td><td><div class="cl-time"><span class="cl-flag">🇪🇨</span>Ecuador</div></td><td id="cl-j-E-2">0</td><td id="cl-v-E-2">0</td><td id="cl-e-E-2">0</td><td id="cl-d-E-2">0</td><td id="cl-gp-E-2">0</td><td id="cl-gc-E-2">0</td><td id="cl-sg-E-2">0</td><td class="cl-pts" id="cl-pts-E-2">0</td></tr>
-          <tr data-time="Curaçao"><td class="cl-pos" id="cl-pos-E-3">4</td><td><div class="cl-time"><span class="cl-flag">🇨🇼</span>Curaçao</div></td><td id="cl-j-E-3">0</td><td id="cl-v-E-3">0</td><td id="cl-e-E-3">0</td><td id="cl-d-E-3">0</td><td id="cl-gp-E-3">0</td><td id="cl-gc-E-3">0</td><td id="cl-sg-E-3">0</td><td class="cl-pts" id="cl-pts-E-3">0</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="classificacao-grupo">
-      <div class="classificacao-grupo-header">Grupo F — Holanda</div>
-      <table class="classificacao-table">
-        <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
-        <tbody>
-          <tr data-time="Netherlands"><td class="cl-pos classificado" id="cl-pos-F-0">1</td><td><div class="cl-time"><span class="cl-flag">🇳🇱</span>Netherlands</div></td><td id="cl-j-F-0">0</td><td id="cl-v-F-0">0</td><td id="cl-e-F-0">0</td><td id="cl-d-F-0">0</td><td id="cl-gp-F-0">0</td><td id="cl-gc-F-0">0</td><td id="cl-sg-F-0">0</td><td class="cl-pts" id="cl-pts-F-0">0</td></tr>
-          <tr data-time="Japan"><td class="cl-pos classificado" id="cl-pos-F-1">2</td><td><div class="cl-time"><span class="cl-flag">🇯🇵</span>Japan</div></td><td id="cl-j-F-1">0</td><td id="cl-v-F-1">0</td><td id="cl-e-F-1">0</td><td id="cl-d-F-1">0</td><td id="cl-gp-F-1">0</td><td id="cl-gc-F-1">0</td><td id="cl-sg-F-1">0</td><td class="cl-pts" id="cl-pts-F-1">0</td></tr>
-          <tr data-time="Tunisia"><td class="cl-pos" id="cl-pos-F-2">3</td><td><div class="cl-time"><span class="cl-flag">🇹🇳</span>Tunisia</div></td><td id="cl-j-F-2">0</td><td id="cl-v-F-2">0</td><td id="cl-e-F-2">0</td><td id="cl-d-F-2">0</td><td id="cl-gp-F-2">0</td><td id="cl-gc-F-2">0</td><td id="cl-sg-F-2">0</td><td class="cl-pts" id="cl-pts-F-2">0</td></tr>
-          <tr data-time="Sweden"><td class="cl-pos" id="cl-pos-F-3">4</td><td><div class="cl-time"><span class="cl-flag">🇸🇪</span>Sweden</div></td><td id="cl-j-F-3">0</td><td id="cl-v-F-3">0</td><td id="cl-e-F-3">0</td><td id="cl-d-F-3">0</td><td id="cl-gp-F-3">0</td><td id="cl-gc-F-3">0</td><td id="cl-sg-F-3">0</td><td class="cl-pts" id="cl-pts-F-3">0</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="classificacao-grupo">
-      <div class="classificacao-grupo-header">Grupo G — Bélgica</div>
-      <table class="classificacao-table">
-        <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
-        <tbody>
-          <tr data-time="Belgium"><td class="cl-pos classificado" id="cl-pos-G-0">1</td><td><div class="cl-time"><span class="cl-flag">🇧🇪</span>Belgium</div></td><td id="cl-j-G-0">0</td><td id="cl-v-G-0">0</td><td id="cl-e-G-0">0</td><td id="cl-d-G-0">0</td><td id="cl-gp-G-0">0</td><td id="cl-gc-G-0">0</td><td id="cl-sg-G-0">0</td><td class="cl-pts" id="cl-pts-G-0">0</td></tr>
-          <tr data-time="Egypt"><td class="cl-pos classificado" id="cl-pos-G-1">2</td><td><div class="cl-time"><span class="cl-flag">🇪🇬</span>Egypt</div></td><td id="cl-j-G-1">0</td><td id="cl-v-G-1">0</td><td id="cl-e-G-1">0</td><td id="cl-d-G-1">0</td><td id="cl-gp-G-1">0</td><td id="cl-gc-G-1">0</td><td id="cl-sg-G-1">0</td><td class="cl-pts" id="cl-pts-G-1">0</td></tr>
-          <tr data-time="Iran"><td class="cl-pos" id="cl-pos-G-2">3</td><td><div class="cl-time"><span class="cl-flag">🇮🇷</span>Iran</div></td><td id="cl-j-G-2">0</td><td id="cl-v-G-2">0</td><td id="cl-e-G-2">0</td><td id="cl-d-G-2">0</td><td id="cl-gp-G-2">0</td><td id="cl-gc-G-2">0</td><td id="cl-sg-G-2">0</td><td class="cl-pts" id="cl-pts-G-2">0</td></tr>
-          <tr data-time="New Zealand"><td class="cl-pos" id="cl-pos-G-3">4</td><td><div class="cl-time"><span class="cl-flag">🇳🇿</span>New Zealand</div></td><td id="cl-j-G-3">0</td><td id="cl-v-G-3">0</td><td id="cl-e-G-3">0</td><td id="cl-d-G-3">0</td><td id="cl-gp-G-3">0</td><td id="cl-gc-G-3">0</td><td id="cl-sg-G-3">0</td><td class="cl-pts" id="cl-pts-G-3">0</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="classificacao-grupo">
-      <div class="classificacao-grupo-header">Grupo H — Espanha</div>
-      <table class="classificacao-table">
-        <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
-        <tbody>
-          <tr data-time="Spain"><td class="cl-pos classificado" id="cl-pos-H-0">1</td><td><div class="cl-time"><span class="cl-flag">🇪🇸</span>Spain</div></td><td id="cl-j-H-0">0</td><td id="cl-v-H-0">0</td><td id="cl-e-H-0">0</td><td id="cl-d-H-0">0</td><td id="cl-gp-H-0">0</td><td id="cl-gc-H-0">0</td><td id="cl-sg-H-0">0</td><td class="cl-pts" id="cl-pts-H-0">0</td></tr>
-          <tr data-time="Uruguay"><td class="cl-pos classificado" id="cl-pos-H-1">2</td><td><div class="cl-time"><span class="cl-flag">🇺🇾</span>Uruguay</div></td><td id="cl-j-H-1">0</td><td id="cl-v-H-1">0</td><td id="cl-e-H-1">0</td><td id="cl-d-H-1">0</td><td id="cl-gp-H-1">0</td><td id="cl-gc-H-1">0</td><td id="cl-sg-H-1">0</td><td class="cl-pts" id="cl-pts-H-1">0</td></tr>
-          <tr data-time="Saudi Arabia"><td class="cl-pos" id="cl-pos-H-2">3</td><td><div class="cl-time"><span class="cl-flag">🇸🇦</span>Saudi Arabia</div></td><td id="cl-j-H-2">0</td><td id="cl-v-H-2">0</td><td id="cl-e-H-2">0</td><td id="cl-d-H-2">0</td><td id="cl-gp-H-2">0</td><td id="cl-gc-H-2">0</td><td id="cl-sg-H-2">0</td><td class="cl-pts" id="cl-pts-H-2">0</td></tr>
-          <tr data-time="Cape Verde Islands"><td class="cl-pos" id="cl-pos-H-3">4</td><td><div class="cl-time"><span class="cl-flag">🇨🇻</span>Cape Verde Islands</div></td><td id="cl-j-H-3">0</td><td id="cl-v-H-3">0</td><td id="cl-e-H-3">0</td><td id="cl-d-H-3">0</td><td id="cl-gp-H-3">0</td><td id="cl-gc-H-3">0</td><td id="cl-sg-H-3">0</td><td class="cl-pts" id="cl-pts-H-3">0</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="classificacao-grupo">
-      <div class="classificacao-grupo-header">Grupo I — França</div>
-      <table class="classificacao-table">
-        <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
-        <tbody>
-          <tr data-time="France"><td class="cl-pos classificado" id="cl-pos-I-0">1</td><td><div class="cl-time"><span class="cl-flag">🇫🇷</span>France</div></td><td id="cl-j-I-0">0</td><td id="cl-v-I-0">0</td><td id="cl-e-I-0">0</td><td id="cl-d-I-0">0</td><td id="cl-gp-I-0">0</td><td id="cl-gc-I-0">0</td><td id="cl-sg-I-0">0</td><td class="cl-pts" id="cl-pts-I-0">0</td></tr>
-          <tr data-time="Senegal"><td class="cl-pos classificado" id="cl-pos-I-1">2</td><td><div class="cl-time"><span class="cl-flag">🇸🇳</span>Senegal</div></td><td id="cl-j-I-1">0</td><td id="cl-v-I-1">0</td><td id="cl-e-I-1">0</td><td id="cl-d-I-1">0</td><td id="cl-gp-I-1">0</td><td id="cl-gc-I-1">0</td><td id="cl-sg-I-1">0</td><td class="cl-pts" id="cl-pts-I-1">0</td></tr>
-          <tr data-time="Norway"><td class="cl-pos" id="cl-pos-I-2">3</td><td><div class="cl-time"><span class="cl-flag">🇳🇴</span>Norway</div></td><td id="cl-j-I-2">0</td><td id="cl-v-I-2">0</td><td id="cl-e-I-2">0</td><td id="cl-d-I-2">0</td><td id="cl-gp-I-2">0</td><td id="cl-gc-I-2">0</td><td id="cl-sg-I-2">0</td><td class="cl-pts" id="cl-pts-I-2">0</td></tr>
-          <tr data-time="Iraq"><td class="cl-pos" id="cl-pos-I-3">4</td><td><div class="cl-time"><span class="cl-flag">🇮🇶</span>Iraq</div></td><td id="cl-j-I-3">0</td><td id="cl-v-I-3">0</td><td id="cl-e-I-3">0</td><td id="cl-d-I-3">0</td><td id="cl-gp-I-3">0</td><td id="cl-gc-I-3">0</td><td id="cl-sg-I-3">0</td><td class="cl-pts" id="cl-pts-I-3">0</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="classificacao-grupo">
-      <div class="classificacao-grupo-header">Grupo J — Argentina</div>
-      <table class="classificacao-table">
-        <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
-        <tbody>
-          <tr data-time="Argentina"><td class="cl-pos classificado" id="cl-pos-J-0">1</td><td><div class="cl-time"><span class="cl-flag">🇦🇷</span>Argentina</div></td><td id="cl-j-J-0">0</td><td id="cl-v-J-0">0</td><td id="cl-e-J-0">0</td><td id="cl-d-J-0">0</td><td id="cl-gp-J-0">0</td><td id="cl-gc-J-0">0</td><td id="cl-sg-J-0">0</td><td class="cl-pts" id="cl-pts-J-0">0</td></tr>
-          <tr data-time="Algeria"><td class="cl-pos classificado" id="cl-pos-J-1">2</td><td><div class="cl-time"><span class="cl-flag">🇩🇿</span>Algeria</div></td><td id="cl-j-J-1">0</td><td id="cl-v-J-1">0</td><td id="cl-e-J-1">0</td><td id="cl-d-J-1">0</td><td id="cl-gp-J-1">0</td><td id="cl-gc-J-1">0</td><td id="cl-sg-J-1">0</td><td class="cl-pts" id="cl-pts-J-1">0</td></tr>
-          <tr data-time="Austria"><td class="cl-pos" id="cl-pos-J-2">3</td><td><div class="cl-time"><span class="cl-flag">🇦🇹</span>Austria</div></td><td id="cl-j-J-2">0</td><td id="cl-v-J-2">0</td><td id="cl-e-J-2">0</td><td id="cl-d-J-2">0</td><td id="cl-gp-J-2">0</td><td id="cl-gc-J-2">0</td><td id="cl-sg-J-2">0</td><td class="cl-pts" id="cl-pts-J-2">0</td></tr>
-          <tr data-time="Jordan"><td class="cl-pos" id="cl-pos-J-3">4</td><td><div class="cl-time"><span class="cl-flag">🇯🇴</span>Jordan</div></td><td id="cl-j-J-3">0</td><td id="cl-v-J-3">0</td><td id="cl-e-J-3">0</td><td id="cl-d-J-3">0</td><td id="cl-gp-J-3">0</td><td id="cl-gc-J-3">0</td><td id="cl-sg-J-3">0</td><td class="cl-pts" id="cl-pts-J-3">0</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="classificacao-grupo">
-      <div class="classificacao-grupo-header">Grupo K — Portugal</div>
-      <table class="classificacao-table">
-        <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
-        <tbody>
-          <tr data-time="Portugal"><td class="cl-pos classificado" id="cl-pos-K-0">1</td><td><div class="cl-time"><span class="cl-flag">🇵🇹</span>Portugal</div></td><td id="cl-j-K-0">0</td><td id="cl-v-K-0">0</td><td id="cl-e-K-0">0</td><td id="cl-d-K-0">0</td><td id="cl-gp-K-0">0</td><td id="cl-gc-K-0">0</td><td id="cl-sg-K-0">0</td><td class="cl-pts" id="cl-pts-K-0">0</td></tr>
-          <tr data-time="Colombia"><td class="cl-pos classificado" id="cl-pos-K-1">2</td><td><div class="cl-time"><span class="cl-flag">🇨🇴</span>Colombia</div></td><td id="cl-j-K-1">0</td><td id="cl-v-K-1">0</td><td id="cl-e-K-1">0</td><td id="cl-d-K-1">0</td><td id="cl-gp-K-1">0</td><td id="cl-gc-K-1">0</td><td id="cl-sg-K-1">0</td><td class="cl-pts" id="cl-pts-K-1">0</td></tr>
-          <tr data-time="Uzbekistan"><td class="cl-pos" id="cl-pos-K-2">3</td><td><div class="cl-time"><span class="cl-flag">🇺🇿</span>Uzbekistan</div></td><td id="cl-j-K-2">0</td><td id="cl-v-K-2">0</td><td id="cl-e-K-2">0</td><td id="cl-d-K-2">0</td><td id="cl-gp-K-2">0</td><td id="cl-gc-K-2">0</td><td id="cl-sg-K-2">0</td><td class="cl-pts" id="cl-pts-K-2">0</td></tr>
-          <tr data-time="Congo DR"><td class="cl-pos" id="cl-pos-K-3">4</td><td><div class="cl-time"><span class="cl-flag">🇨🇩</span>Congo DR</div></td><td id="cl-j-K-3">0</td><td id="cl-v-K-3">0</td><td id="cl-e-K-3">0</td><td id="cl-d-K-3">0</td><td id="cl-gp-K-3">0</td><td id="cl-gc-K-3">0</td><td id="cl-sg-K-3">0</td><td class="cl-pts" id="cl-pts-K-3">0</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="classificacao-grupo">
-      <div class="classificacao-grupo-header">Grupo L — Inglaterra</div>
-      <table class="classificacao-table">
-        <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
-        <tbody>
-          <tr data-time="England"><td class="cl-pos classificado" id="cl-pos-L-0">1</td><td><div class="cl-time"><span class="cl-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>England</div></td><td id="cl-j-L-0">0</td><td id="cl-v-L-0">0</td><td id="cl-e-L-0">0</td><td id="cl-d-L-0">0</td><td id="cl-gp-L-0">0</td><td id="cl-gc-L-0">0</td><td id="cl-sg-L-0">0</td><td class="cl-pts" id="cl-pts-L-0">0</td></tr>
-          <tr data-time="Croatia"><td class="cl-pos classificado" id="cl-pos-L-1">2</td><td><div class="cl-time"><span class="cl-flag">🇭🇷</span>Croatia</div></td><td id="cl-j-L-1">0</td><td id="cl-v-L-1">0</td><td id="cl-e-L-1">0</td><td id="cl-d-L-1">0</td><td id="cl-gp-L-1">0</td><td id="cl-gc-L-1">0</td><td id="cl-sg-L-1">0</td><td class="cl-pts" id="cl-pts-L-1">0</td></tr>
-          <tr data-time="Ghana"><td class="cl-pos" id="cl-pos-L-2">3</td><td><div class="cl-time"><span class="cl-flag">🇬🇭</span>Ghana</div></td><td id="cl-j-L-2">0</td><td id="cl-v-L-2">0</td><td id="cl-e-L-2">0</td><td id="cl-d-L-2">0</td><td id="cl-gp-L-2">0</td><td id="cl-gc-L-2">0</td><td id="cl-sg-L-2">0</td><td class="cl-pts" id="cl-pts-L-2">0</td></tr>
-          <tr data-time="Panama"><td class="cl-pos" id="cl-pos-L-3">4</td><td><div class="cl-time"><span class="cl-flag">🇵🇦</span>Panama</div></td><td id="cl-j-L-3">0</td><td id="cl-v-L-3">0</td><td id="cl-e-L-3">0</td><td id="cl-d-L-3">0</td><td id="cl-gp-L-3">0</td><td id="cl-gc-L-3">0</td><td id="cl-sg-L-3">0</td><td class="cl-pts" id="cl-pts-L-3">0</td></tr>
-        </tbody>
-      </table>
-    </div>
+    <div class="classificacao-grupo"><div class="classificacao-grupo-header">Grupo A</div><table class="classificacao-table"><thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead><tbody><tr data-time="Mexico"><td class="cl-pos classificado" id="cl-pos-A-0">1</td><td><div class="cl-time"><span class="cl-flag">🇲🇽</span>Mexico</div></td><td id="cl-j-A-0">1</td><td id="cl-v-A-0">1</td><td id="cl-e-A-0">0</td><td id="cl-d-A-0">0</td><td id="cl-gp-A-0">2</td><td id="cl-gc-A-0">0</td><td id="cl-sg-A-0">2</td><td class="cl-pts" id="cl-pts-A-0">3</td></tr><tr data-time="South Korea"><td class="cl-pos classificado" id="cl-pos-A-1">2</td><td><div class="cl-time"><span class="cl-flag">🇰🇷</span>South Korea</div></td><td id="cl-j-A-1">1</td><td id="cl-v-A-1">1</td><td id="cl-e-A-1">0</td><td id="cl-d-A-1">0</td><td id="cl-gp-A-1">2</td><td id="cl-gc-A-1">1</td><td id="cl-sg-A-1">1</td><td class="cl-pts" id="cl-pts-A-1">3</td></tr><tr data-time="Czech Republic"><td class="cl-pos" id="cl-pos-A-2">3</td><td><div class="cl-time"><span class="cl-flag">🇨🇿</span>Czech Republic</div></td><td id="cl-j-A-2">0</td><td id="cl-v-A-2">0</td><td id="cl-e-A-2">0</td><td id="cl-d-A-2">0</td><td id="cl-gp-A-2">0</td><td id="cl-gc-A-2">0</td><td id="cl-sg-A-2">0</td><td class="cl-pts" id="cl-pts-A-2">0</td></tr><tr data-time="South Africa"><td class="cl-pos" id="cl-pos-A-3">4</td><td><div class="cl-time"><span class="cl-flag">🇿🇦</span>South Africa</div></td><td id="cl-j-A-3">1</td><td id="cl-v-A-3">0</td><td id="cl-e-A-3">0</td><td id="cl-d-A-3">1</td><td id="cl-gp-A-3">0</td><td id="cl-gc-A-3">2</td><td id="cl-sg-A-3">-2</td><td class="cl-pts" id="cl-pts-A-3">0</td></tr></tbody></table></div>
+    <div class="classificacao-grupo"><div class="classificacao-grupo-header">Grupo B</div><table class="classificacao-table"><thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead><tbody><tr data-time="Canada"><td class="cl-pos classificado" id="cl-pos-B-0">1</td><td><div class="cl-time"><span class="cl-flag">🇨🇦</span>Canada</div></td><td id="cl-j-B-0">1</td><td id="cl-v-B-0">0</td><td id="cl-e-B-0">1</td><td id="cl-d-B-0">0</td><td id="cl-gp-B-0">1</td><td id="cl-gc-B-0">1</td><td id="cl-sg-B-0">0</td><td class="cl-pts" id="cl-pts-B-0">1</td></tr><tr data-time="Bosnia & Herzegovina"><td class="cl-pos classificado" id="cl-pos-B-1">2</td><td><div class="cl-time"><span class="cl-flag">🇧🇦</span>Bosnia & Herzegovina</div></td><td id="cl-j-B-1">1</td><td id="cl-v-B-1">0</td><td id="cl-e-B-1">1</td><td id="cl-d-B-1">0</td><td id="cl-gp-B-1">1</td><td id="cl-gc-B-1">1</td><td id="cl-sg-B-1">0</td><td class="cl-pts" id="cl-pts-B-1">1</td></tr><tr data-time="Qatar"><td class="cl-pos" id="cl-pos-B-2">3</td><td><div class="cl-time"><span class="cl-flag">🇶🇦</span>Qatar</div></td><td id="cl-j-B-2">0</td><td id="cl-v-B-2">0</td><td id="cl-e-B-2">0</td><td id="cl-d-B-2">0</td><td id="cl-gp-B-2">0</td><td id="cl-gc-B-2">0</td><td id="cl-sg-B-2">0</td><td class="cl-pts" id="cl-pts-B-2">0</td></tr><tr data-time="Switzerland"><td class="cl-pos" id="cl-pos-B-3">4</td><td><div class="cl-time"><span class="cl-flag">🇨🇭</span>Switzerland</div></td><td id="cl-j-B-3">0</td><td id="cl-v-B-3">0</td><td id="cl-e-B-3">0</td><td id="cl-d-B-3">0</td><td id="cl-gp-B-3">0</td><td id="cl-gc-B-3">0</td><td id="cl-sg-B-3">0</td><td class="cl-pts" id="cl-pts-B-3">0</td></tr></tbody></table></div>
+    <div class="classificacao-grupo"><div class="classificacao-grupo-header">🇧🇷 Grupo C — Brasil</div><table class="classificacao-table"><thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead><tbody><tr data-time="Brazil"><td class="cl-pos classificado" id="cl-pos-C-0">1</td><td><div class="cl-time"><span class="cl-flag">🇧🇷</span>Brazil</div></td><td id="cl-j-C-0">0</td><td id="cl-v-C-0">0</td><td id="cl-e-C-0">0</td><td id="cl-d-C-0">0</td><td id="cl-gp-C-0">0</td><td id="cl-gc-C-0">0</td><td id="cl-sg-C-0">0</td><td class="cl-pts" id="cl-pts-C-0">0</td></tr><tr data-time="Morocco"><td class="cl-pos classificado" id="cl-pos-C-1">2</td><td><div class="cl-time"><span class="cl-flag">🇲🇦</span>Morocco</div></td><td id="cl-j-C-1">0</td><td id="cl-v-C-1">0</td><td id="cl-e-C-1">0</td><td id="cl-d-C-1">0</td><td id="cl-gp-C-1">0</td><td id="cl-gc-C-1">0</td><td id="cl-sg-C-1">0</td><td class="cl-pts" id="cl-pts-C-1">0</td></tr><tr data-time="Scotland"><td class="cl-pos" id="cl-pos-C-2">3</td><td><div class="cl-time"><span class="cl-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span>Scotland</div></td><td id="cl-j-C-2">0</td><td id="cl-v-C-2">0</td><td id="cl-e-C-2">0</td><td id="cl-d-C-2">0</td><td id="cl-gp-C-2">0</td><td id="cl-gc-C-2">0</td><td id="cl-sg-C-2">0</td><td class="cl-pts" id="cl-pts-C-2">0</td></tr><tr data-time="Haiti"><td class="cl-pos" id="cl-pos-C-3">4</td><td><div class="cl-time"><span class="cl-flag">🇭🇹</span>Haiti</div></td><td id="cl-j-C-3">0</td><td id="cl-v-C-3">0</td><td id="cl-e-C-3">0</td><td id="cl-d-C-3">0</td><td id="cl-gp-C-3">0</td><td id="cl-gc-C-3">0</td><td id="cl-sg-C-3">0</td><td class="cl-pts" id="cl-pts-C-3">0</td></tr></tbody></table></div>
+    <div class="classificacao-grupo"><div class="classificacao-grupo-header">Grupo D — Estados Unidos</div><table class="classificacao-table"><thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead><tbody><tr data-time="USA"><td class="cl-pos classificado" id="cl-pos-D-0">1</td><td><div class="cl-time"><span class="cl-flag">🇺🇸</span>USA</div></td><td id="cl-j-D-0">1</td><td id="cl-v-D-0">1</td><td id="cl-e-D-0">0</td><td id="cl-d-D-0">0</td><td id="cl-gp-D-0">4</td><td id="cl-gc-D-0">1</td><td id="cl-sg-D-0">3</td><td class="cl-pts" id="cl-pts-D-0">3</td></tr><tr data-time="Australia"><td class="cl-pos classificado" id="cl-pos-D-1">2</td><td><div class="cl-time"><span class="cl-flag">🇦🇺</span>Australia</div></td><td id="cl-j-D-1">0</td><td id="cl-v-D-1">0</td><td id="cl-e-D-1">0</td><td id="cl-d-D-1">0</td><td id="cl-gp-D-1">0</td><td id="cl-gc-D-1">0</td><td id="cl-sg-D-1">0</td><td class="cl-pts" id="cl-pts-D-1">0</td></tr><tr data-time="Türkiye"><td class="cl-pos" id="cl-pos-D-2">3</td><td><div class="cl-time"><span class="cl-flag">🇹🇷</span>Türkiye</div></td><td id="cl-j-D-2">0</td><td id="cl-v-D-2">0</td><td id="cl-e-D-2">0</td><td id="cl-d-D-2">0</td><td id="cl-gp-D-2">0</td><td id="cl-gc-D-2">0</td><td id="cl-sg-D-2">0</td><td class="cl-pts" id="cl-pts-D-2">0</td></tr><tr data-time="Paraguay"><td class="cl-pos" id="cl-pos-D-3">4</td><td><div class="cl-time"><span class="cl-flag">🇵🇾</span>Paraguay</div></td><td id="cl-j-D-3">1</td><td id="cl-v-D-3">0</td><td id="cl-e-D-3">0</td><td id="cl-d-D-3">1</td><td id="cl-gp-D-3">1</td><td id="cl-gc-D-3">4</td><td id="cl-sg-D-3">-3</td><td class="cl-pts" id="cl-pts-D-3">0</td></tr></tbody></table></div>
+    <div class="classificacao-grupo"><div class="classificacao-grupo-header">Grupo E — Alemanha</div><table class="classificacao-table"><thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead><tbody><tr data-time="Germany"><td class="cl-pos classificado" id="cl-pos-E-0">1</td><td><div class="cl-time"><span class="cl-flag">🇩🇪</span>Germany</div></td><td id="cl-j-E-0">0</td><td id="cl-v-E-0">0</td><td id="cl-e-E-0">0</td><td id="cl-d-E-0">0</td><td id="cl-gp-E-0">0</td><td id="cl-gc-E-0">0</td><td id="cl-sg-E-0">0</td><td class="cl-pts" id="cl-pts-E-0">0</td></tr><tr data-time="Ivory Coast"><td class="cl-pos classificado" id="cl-pos-E-1">2</td><td><div class="cl-time"><span class="cl-flag">🇨🇮</span>Ivory Coast</div></td><td id="cl-j-E-1">0</td><td id="cl-v-E-1">0</td><td id="cl-e-E-1">0</td><td id="cl-d-E-1">0</td><td id="cl-gp-E-1">0</td><td id="cl-gc-E-1">0</td><td id="cl-sg-E-1">0</td><td class="cl-pts" id="cl-pts-E-1">0</td></tr><tr data-time="Ecuador"><td class="cl-pos" id="cl-pos-E-2">3</td><td><div class="cl-time"><span class="cl-flag">🇪🇨</span>Ecuador</div></td><td id="cl-j-E-2">0</td><td id="cl-v-E-2">0</td><td id="cl-e-E-2">0</td><td id="cl-d-E-2">0</td><td id="cl-gp-E-2">0</td><td id="cl-gc-E-2">0</td><td id="cl-sg-E-2">0</td><td class="cl-pts" id="cl-pts-E-2">0</td></tr><tr data-time="Curaçao"><td class="cl-pos" id="cl-pos-E-3">4</td><td><div class="cl-time"><span class="cl-flag">🇨🇼</span>Curaçao</div></td><td id="cl-j-E-3">0</td><td id="cl-v-E-3">0</td><td id="cl-e-E-3">0</td><td id="cl-d-E-3">0</td><td id="cl-gp-E-3">0</td><td id="cl-gc-E-3">0</td><td id="cl-sg-E-3">0</td><td class="cl-pts" id="cl-pts-E-3">0</td></tr></tbody></table></div>
+    <div class="classificacao-grupo"><div class="classificacao-grupo-header">Grupo F — Holanda</div><table class="classificacao-table"><thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead><tbody><tr data-time="Netherlands"><td class="cl-pos classificado" id="cl-pos-F-0">1</td><td><div class="cl-time"><span class="cl-flag">🇳🇱</span>Netherlands</div></td><td id="cl-j-F-0">0</td><td id="cl-v-F-0">0</td><td id="cl-e-F-0">0</td><td id="cl-d-F-0">0</td><td id="cl-gp-F-0">0</td><td id="cl-gc-F-0">0</td><td id="cl-sg-F-0">0</td><td class="cl-pts" id="cl-pts-F-0">0</td></tr><tr data-time="Japan"><td class="cl-pos classificado" id="cl-pos-F-1">2</td><td><div class="cl-time"><span class="cl-flag">🇯🇵</span>Japan</div></td><td id="cl-j-F-1">0</td><td id="cl-v-F-1">0</td><td id="cl-e-F-1">0</td><td id="cl-d-F-1">0</td><td id="cl-gp-F-1">0</td><td id="cl-gc-F-1">0</td><td id="cl-sg-F-1">0</td><td class="cl-pts" id="cl-pts-F-1">0</td></tr><tr data-time="Tunisia"><td class="cl-pos" id="cl-pos-F-2">3</td><td><div class="cl-time"><span class="cl-flag">🇹🇳</span>Tunisia</div></td><td id="cl-j-F-2">0</td><td id="cl-v-F-2">0</td><td id="cl-e-F-2">0</td><td id="cl-d-F-2">0</td><td id="cl-gp-F-2">0</td><td id="cl-gc-F-2">0</td><td id="cl-sg-F-2">0</td><td class="cl-pts" id="cl-pts-F-2">0</td></tr><tr data-time="Sweden"><td class="cl-pos" id="cl-pos-F-3">4</td><td><div class="cl-time"><span class="cl-flag">🇸🇪</span>Sweden</div></td><td id="cl-j-F-3">0</td><td id="cl-v-F-3">0</td><td id="cl-e-F-3">0</td><td id="cl-d-F-3">0</td><td id="cl-gp-F-3">0</td><td id="cl-gc-F-3">0</td><td id="cl-sg-F-3">0</td><td class="cl-pts" id="cl-pts-F-3">0</td></tr></tbody></table></div>
+    <div class="classificacao-grupo"><div class="classificacao-grupo-header">Grupo G — Bélgica</div><table class="classificacao-table"><thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead><tbody><tr data-time="Belgium"><td class="cl-pos classificado" id="cl-pos-G-0">1</td><td><div class="cl-time"><span class="cl-flag">🇧🇪</span>Belgium</div></td><td id="cl-j-G-0">0</td><td id="cl-v-G-0">0</td><td id="cl-e-G-0">0</td><td id="cl-d-G-0">0</td><td id="cl-gp-G-0">0</td><td id="cl-gc-G-0">0</td><td id="cl-sg-G-0">0</td><td class="cl-pts" id="cl-pts-G-0">0</td></tr><tr data-time="Egypt"><td class="cl-pos classificado" id="cl-pos-G-1">2</td><td><div class="cl-time"><span class="cl-flag">🇪🇬</span>Egypt</div></td><td id="cl-j-G-1">0</td><td id="cl-v-G-1">0</td><td id="cl-e-G-1">0</td><td id="cl-d-G-1">0</td><td id="cl-gp-G-1">0</td><td id="cl-gc-G-1">0</td><td id="cl-sg-G-1">0</td><td class="cl-pts" id="cl-pts-G-1">0</td></tr><tr data-time="Iran"><td class="cl-pos" id="cl-pos-G-2">3</td><td><div class="cl-time"><span class="cl-flag">🇮🇷</span>Iran</div></td><td id="cl-j-G-2">0</td><td id="cl-v-G-2">0</td><td id="cl-e-G-2">0</td><td id="cl-d-G-2">0</td><td id="cl-gp-G-2">0</td><td id="cl-gc-G-2">0</td><td id="cl-sg-G-2">0</td><td class="cl-pts" id="cl-pts-G-2">0</td></tr><tr data-time="New Zealand"><td class="cl-pos" id="cl-pos-G-3">4</td><td><div class="cl-time"><span class="cl-flag">🇳🇿</span>New Zealand</div></td><td id="cl-j-G-3">0</td><td id="cl-v-G-3">0</td><td id="cl-e-G-3">0</td><td id="cl-d-G-3">0</td><td id="cl-gp-G-3">0</td><td id="cl-gc-G-3">0</td><td id="cl-sg-G-3">0</td><td class="cl-pts" id="cl-pts-G-3">0</td></tr></tbody></table></div>
+    <div class="classificacao-grupo"><div class="classificacao-grupo-header">Grupo H — Espanha</div><table class="classificacao-table"><thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead><tbody><tr data-time="Spain"><td class="cl-pos classificado" id="cl-pos-H-0">1</td><td><div class="cl-time"><span class="cl-flag">🇪🇸</span>Spain</div></td><td id="cl-j-H-0">0</td><td id="cl-v-H-0">0</td><td id="cl-e-H-0">0</td><td id="cl-d-H-0">0</td><td id="cl-gp-H-0">0</td><td id="cl-gc-H-0">0</td><td id="cl-sg-H-0">0</td><td class="cl-pts" id="cl-pts-H-0">0</td></tr><tr data-time="Uruguay"><td class="cl-pos classificado" id="cl-pos-H-1">2</td><td><div class="cl-time"><span class="cl-flag">🇺🇾</span>Uruguay</div></td><td id="cl-j-H-1">0</td><td id="cl-v-H-1">0</td><td id="cl-e-H-1">0</td><td id="cl-d-H-1">0</td><td id="cl-gp-H-1">0</td><td id="cl-gc-H-1">0</td><td id="cl-sg-H-1">0</td><td class="cl-pts" id="cl-pts-H-1">0</td></tr><tr data-time="Saudi Arabia"><td class="cl-pos" id="cl-pos-H-2">3</td><td><div class="cl-time"><span class="cl-flag">🇸🇦</span>Saudi Arabia</div></td><td id="cl-j-H-2">0</td><td id="cl-v-H-2">0</td><td id="cl-e-H-2">0</td><td id="cl-d-H-2">0</td><td id="cl-gp-H-2">0</td><td id="cl-gc-H-2">0</td><td id="cl-sg-H-2">0</td><td class="cl-pts" id="cl-pts-H-2">0</td></tr><tr data-time="Cape Verde Islands"><td class="cl-pos" id="cl-pos-H-3">4</td><td><div class="cl-time"><span class="cl-flag">🇨🇻</span>Cape Verde Islands</div></td><td id="cl-j-H-3">0</td><td id="cl-v-H-3">0</td><td id="cl-e-H-3">0</td><td id="cl-d-H-3">0</td><td id="cl-gp-H-3">0</td><td id="cl-gc-H-3">0</td><td id="cl-sg-H-3">0</td><td class="cl-pts" id="cl-pts-H-3">0</td></tr></tbody></table></div>
+    <div class="classificacao-grupo"><div class="classificacao-grupo-header">Grupo I — França</div><table class="classificacao-table"><thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead><tbody><tr data-time="France"><td class="cl-pos classificado" id="cl-pos-I-0">1</td><td><div class="cl-time"><span class="cl-flag">🇫🇷</span>France</div></td><td id="cl-j-I-0">0</td><td id="cl-v-I-0">0</td><td id="cl-e-I-0">0</td><td id="cl-d-I-0">0</td><td id="cl-gp-I-0">0</td><td id="cl-gc-I-0">0</td><td id="cl-sg-I-0">0</td><td class="cl-pts" id="cl-pts-I-0">0</td></tr><tr data-time="Senegal"><td class="cl-pos classificado" id="cl-pos-I-1">2</td><td><div class="cl-time"><span class="cl-flag">🇸🇳</span>Senegal</div></td><td id="cl-j-I-1">0</td><td id="cl-v-I-1">0</td><td id="cl-e-I-1">0</td><td id="cl-d-I-1">0</td><td id="cl-gp-I-1">0</td><td id="cl-gc-I-1">0</td><td id="cl-sg-I-1">0</td><td class="cl-pts" id="cl-pts-I-1">0</td></tr><tr data-time="Norway"><td class="cl-pos" id="cl-pos-I-2">3</td><td><div class="cl-time"><span class="cl-flag">🇳🇴</span>Norway</div></td><td id="cl-j-I-2">0</td><td id="cl-v-I-2">0</td><td id="cl-e-I-2">0</td><td id="cl-d-I-2">0</td><td id="cl-gp-I-2">0</td><td id="cl-gc-I-2">0</td><td id="cl-sg-I-2">0</td><td class="cl-pts" id="cl-pts-I-2">0</td></tr><tr data-time="Iraq"><td class="cl-pos" id="cl-pos-I-3">4</td><td><div class="cl-time"><span class="cl-flag">🇮🇶</span>Iraq</div></td><td id="cl-j-I-3">0</td><td id="cl-v-I-3">0</td><td id="cl-e-I-3">0</td><td id="cl-d-I-3">0</td><td id="cl-gp-I-3">0</td><td id="cl-gc-I-3">0</td><td id="cl-sg-I-3">0</td><td class="cl-pts" id="cl-pts-I-3">0</td></tr></tbody></table></div>
+    <div class="classificacao-grupo"><div class="classificacao-grupo-header">Grupo J — Argentina</div><table class="classificacao-table"><thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead><tbody><tr data-time="Argentina"><td class="cl-pos classificado" id="cl-pos-J-0">1</td><td><div class="cl-time"><span class="cl-flag">🇦🇷</span>Argentina</div></td><td id="cl-j-J-0">0</td><td id="cl-v-J-0">0</td><td id="cl-e-J-0">0</td><td id="cl-d-J-0">0</td><td id="cl-gp-J-0">0</td><td id="cl-gc-J-0">0</td><td id="cl-sg-J-0">0</td><td class="cl-pts" id="cl-pts-J-0">0</td></tr><tr data-time="Algeria"><td class="cl-pos classificado" id="cl-pos-J-1">2</td><td><div class="cl-time"><span class="cl-flag">🇩🇿</span>Algeria</div></td><td id="cl-j-J-1">0</td><td id="cl-v-J-1">0</td><td id="cl-e-J-1">0</td><td id="cl-d-J-1">0</td><td id="cl-gp-J-1">0</td><td id="cl-gc-J-1">0</td><td id="cl-sg-J-1">0</td><td class="cl-pts" id="cl-pts-J-1">0</td></tr><tr data-time="Austria"><td class="cl-pos" id="cl-pos-J-2">3</td><td><div class="cl-time"><span class="cl-flag">🇦🇹</span>Austria</div></td><td id="cl-j-J-2">0</td><td id="cl-v-J-2">0</td><td id="cl-e-J-2">0</td><td id="cl-d-J-2">0</td><td id="cl-gp-J-2">0</td><td id="cl-gc-J-2">0</td><td id="cl-sg-J-2">0</td><td class="cl-pts" id="cl-pts-J-2">0</td></tr><tr data-time="Jordan"><td class="cl-pos" id="cl-pos-J-3">4</td><td><div class="cl-time"><span class="cl-flag">🇯🇴</span>Jordan</div></td><td id="cl-j-J-3">0</td><td id="cl-v-J-3">0</td><td id="cl-e-J-3">0</td><td id="cl-d-J-3">0</td><td id="cl-gp-J-3">0</td><td id="cl-gc-J-3">0</td><td id="cl-sg-J-3">0</td><td class="cl-pts" id="cl-pts-J-3">0</td></tr></tbody></table></div>
+    <div class="classificacao-grupo"><div class="classificacao-grupo-header">Grupo K — Portugal</div><table class="classificacao-table"><thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead><tbody><tr data-time="Portugal"><td class="cl-pos classificado" id="cl-pos-K-0">1</td><td><div class="cl-time"><span class="cl-flag">🇵🇹</span>Portugal</div></td><td id="cl-j-K-0">0</td><td id="cl-v-K-0">0</td><td id="cl-e-K-0">0</td><td id="cl-d-K-0">0</td><td id="cl-gp-K-0">0</td><td id="cl-gc-K-0">0</td><td id="cl-sg-K-0">0</td><td class="cl-pts" id="cl-pts-K-0">0</td></tr><tr data-time="Colombia"><td class="cl-pos classificado" id="cl-pos-K-1">2</td><td><div class="cl-time"><span class="cl-flag">🇨🇴</span>Colombia</div></td><td id="cl-j-K-1">0</td><td id="cl-v-K-1">0</td><td id="cl-e-K-1">0</td><td id="cl-d-K-1">0</td><td id="cl-gp-K-1">0</td><td id="cl-gc-K-1">0</td><td id="cl-sg-K-1">0</td><td class="cl-pts" id="cl-pts-K-1">0</td></tr><tr data-time="Uzbekistan"><td class="cl-pos" id="cl-pos-K-2">3</td><td><div class="cl-time"><span class="cl-flag">🇺🇿</span>Uzbekistan</div></td><td id="cl-j-K-2">0</td><td id="cl-v-K-2">0</td><td id="cl-e-K-2">0</td><td id="cl-d-K-2">0</td><td id="cl-gp-K-2">0</td><td id="cl-gc-K-2">0</td><td id="cl-sg-K-2">0</td><td class="cl-pts" id="cl-pts-K-2">0</td></tr><tr data-time="Congo DR"><td class="cl-pos" id="cl-pos-K-3">4</td><td><div class="cl-time"><span class="cl-flag">🇨🇩</span>Congo DR</div></td><td id="cl-j-K-3">0</td><td id="cl-v-K-3">0</td><td id="cl-e-K-3">0</td><td id="cl-d-K-3">0</td><td id="cl-gp-K-3">0</td><td id="cl-gc-K-3">0</td><td id="cl-sg-K-3">0</td><td class="cl-pts" id="cl-pts-K-3">0</td></tr></tbody></table></div>
+    <div class="classificacao-grupo"><div class="classificacao-grupo-header">Grupo L — Inglaterra</div><table class="classificacao-table"><thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead><tbody><tr data-time="England"><td class="cl-pos classificado" id="cl-pos-L-0">1</td><td><div class="cl-time"><span class="cl-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>England</div></td><td id="cl-j-L-0">0</td><td id="cl-v-L-0">0</td><td id="cl-e-L-0">0</td><td id="cl-d-L-0">0</td><td id="cl-gp-L-0">0</td><td id="cl-gc-L-0">0</td><td id="cl-sg-L-0">0</td><td class="cl-pts" id="cl-pts-L-0">0</td></tr><tr data-time="Croatia"><td class="cl-pos classificado" id="cl-pos-L-1">2</td><td><div class="cl-time"><span class="cl-flag">🇭🇷</span>Croatia</div></td><td id="cl-j-L-1">0</td><td id="cl-v-L-1">0</td><td id="cl-e-L-1">0</td><td id="cl-d-L-1">0</td><td id="cl-gp-L-1">0</td><td id="cl-gc-L-1">0</td><td id="cl-sg-L-1">0</td><td class="cl-pts" id="cl-pts-L-1">0</td></tr><tr data-time="Ghana"><td class="cl-pos" id="cl-pos-L-2">3</td><td><div class="cl-time"><span class="cl-flag">🇬🇭</span>Ghana</div></td><td id="cl-j-L-2">0</td><td id="cl-v-L-2">0</td><td id="cl-e-L-2">0</td><td id="cl-d-L-2">0</td><td id="cl-gp-L-2">0</td><td id="cl-gc-L-2">0</td><td id="cl-sg-L-2">0</td><td class="cl-pts" id="cl-pts-L-2">0</td></tr><tr data-time="Panama"><td class="cl-pos" id="cl-pos-L-3">4</td><td><div class="cl-time"><span class="cl-flag">🇵🇦</span>Panama</div></td><td id="cl-j-L-3">0</td><td id="cl-v-L-3">0</td><td id="cl-e-L-3">0</td><td id="cl-d-L-3">0</td><td id="cl-gp-L-3">0</td><td id="cl-gc-L-3">0</td><td id="cl-sg-L-3">0</td><td class="cl-pts" id="cl-pts-L-3">0</td></tr></tbody></table></div>
       </div>
     </div>
 
     <!-- ===== ARTILHARIA ===== -->
     <div id="secao-artilharia" class="copa-secao">
       <div class="artilharia-wrap">
-
         <div class="artilheiro-card"><div class="artilheiro-pos top1">1</div><div class="artilheiro-info"><div class="artilheiro-nome" id="art-nome-0">—</div><div class="artilheiro-pais" id="art-pais-0">Aguardando jogos...</div></div><div class="artilheiro-gols" id="art-gols-0">0<span>gols</span></div></div>
         <div class="artilheiro-card"><div class="artilheiro-pos top2">2</div><div class="artilheiro-info"><div class="artilheiro-nome" id="art-nome-1">—</div><div class="artilheiro-pais" id="art-pais-1"></div></div><div class="artilheiro-gols" id="art-gols-1">0<span>gols</span></div></div>
         <div class="artilheiro-card"><div class="artilheiro-pos top3">3</div><div class="artilheiro-info"><div class="artilheiro-nome" id="art-nome-2">—</div><div class="artilheiro-pais" id="art-pais-2"></div></div><div class="artilheiro-gols" id="art-gols-2">0<span>gols</span></div></div>
@@ -1802,15 +374,16 @@
   </footer>
 
   <script>
-    const PROXY = 'https://futebol-proxy.placardofutebol-com.workers.dev';
+    const PROXY               = 'https://futebol-proxy.placardofutebol-com.workers.dev';
     const CACHE_TTL_VIVO      = 30 * 1000;
     const CACHE_TTL_NORMAL    = 60 * 1000;
     const CACHE_TTL_MADRUGADA = 5 * 60 * 1000;
+    const CONFIRMA_MS         = 5 * 60 * 1000; // 5 min para estático dinâmico
 
     let timerAtualizacao = null;
-    const jogosVivos   = new Map();
-    const jogosEmBreve = new Map();
-    const placaresPrev = {};
+    const jogosVivos   = new Map(); // id → { base, inicio, periodo, travado }
+    const jogosEmBreve = new Map(); // id → kickoff timestamp
+    const placarPendente = {};      // id → { placar, desde } — aguardando confirmação 5min
 
     // ── ABAS ──
     function mudarAba(el, secao) {
@@ -1821,7 +394,6 @@
       location.hash = secao;
       if (secao === 'artilharia') carregarArtilharia();
     }
-
     (function() {
       const hash = location.hash.replace('#','');
       const validas = ['grupos','jogos','classificacao','artilharia'];
@@ -1838,7 +410,6 @@
       faseAtiva = fase;
       aplicarFiltroFase();
     }
-
     function aplicarFiltroFase() {
       document.querySelectorAll('#jogos-copa .jogo-copa').forEach(j => {
         const f = j.dataset.fase || '';
@@ -1853,9 +424,7 @@
       });
     }
 
-    // ── AO VIVO: cards ficam fixos na posição, apenas atualizam placar/status ──
-
-    // ── CACHE DE PLACARES ──
+    // ── CACHE localStorage ──
     function salvarPlacarCache(id, placar) {
       try { localStorage.setItem('pf_copa_' + id, placar); } catch(e) {}
     }
@@ -1868,12 +437,14 @@
         const elP = document.getElementById('placar-' + id);
         const elS = document.getElementById('status-' + id);
         if (elP) elP.textContent = placar;
-        if (elS) { elS.textContent = 'Encerrado'; elS.className = 'jogo-copa-horario encerrado'; }
-        card.dataset.status = 'FT';
+        if (elS && card.dataset.status === 'FT') {
+          elS.textContent = 'Encerrado';
+          elS.className = 'jogo-copa-horario encerrado';
+        }
       });
     }
 
-    // ── CONTAGENS REGRESSIVAS ──
+    // ── CONTAGEM REGRESSIVA — 1 hora ──
     function iniciarContagensRegressivas() {
       document.querySelectorAll('.jogo-copa[data-kickoff]').forEach(card => {
         const st = card.dataset.status;
@@ -1885,7 +456,7 @@
       });
     }
 
-    // ── CRONÔMETRO AO VIVO ──
+    // ── CRONÔMETRO LOCAL ──
     function calcularTextoTempo(timer) {
       if (timer.periodo === 'HT') return 'Intervalo';
       if (timer.periodo === 'BT') return 'Int. Prorr.';
@@ -1894,11 +465,15 @@
       const minutos   = Math.floor((Date.now() - timer.inicio) / 60000);
       const tempoReal = timer.base + minutos;
       if (timer.periodo === '1H') {
-        if (tempoReal >= 45) { const ac = tempoReal-45; if(ac>=5){timer.travado="45+5' ⏳";return timer.travado;} return "45+"+ac+"'"; }
+        if (tempoReal >= 45) { const ac = tempoReal-45; if(ac>=9){timer.travado="45+9' ⏳";return timer.travado;} return "45+"+ac+"'"; }
         return tempoReal + "'";
       }
       if (timer.periodo === '2H') {
-        if (tempoReal >= 90) { const ac = tempoReal-90; if(ac>=5){timer.travado="90+5' ⏳";return timer.travado;} return "90+"+ac+"'"; }
+        if (tempoReal >= 90) { const ac = tempoReal-90; if(ac>=9){timer.travado="90+9' ⏳";return timer.travado;} return "90+"+ac+"'"; }
+        return tempoReal + "'";
+      }
+      if (timer.periodo === 'ET') {
+        if (tempoReal >= 120) { const ac = tempoReal-120; if(ac>=5){timer.travado="120+5' ⏳";return timer.travado;} return "120+"+ac+"'"; }
         return tempoReal + "'";
       }
       return tempoReal + "'";
@@ -1914,41 +489,113 @@
       if (card) card.dataset.status = status;
     }
 
+    function verificarTimeoutJogo(id, timer) {
+      const minutos   = Math.floor((Date.now() - timer.inicio) / 60000);
+      const tempoReal = timer.base + minutos;
+      if (timer.periodo === '1H' && tempoReal >= 54 && timer.travado) { forcarIntervalo(id); }
+      if (timer.periodo === '2H' && tempoReal >= 99 && timer.travado) { forcarEncerramentoProvisorio(id); }
+    }
+
+    function forcarIntervalo(id) {
+      jogosVivos.set(id, { base: 45, inicio: Date.now(), periodo: 'HT', travado: null });
+      const elS = document.getElementById('status-' + id);
+      if (elS) { elS.textContent = 'Intervalo'; elS.className = 'jogo-copa-horario ao-vivo'; }
+    }
+
+    function forcarEncerramentoProvisorio(id) {
+      const card = document.getElementById('card-' + id);
+      const elS  = document.getElementById('status-' + id);
+      jogosVivos.delete(id);
+      if (card) card.dataset.encerradoProvisorio = 'true';
+      if (elS) { elS.textContent = 'Encerrado'; elS.className = 'jogo-copa-horario encerrado'; }
+      // Não aplica placarFixo — API pode ressuscitar
+    }
+
+    function forcarEncerramentoDefinitivo(id, placarStr) {
+      const card = document.getElementById('card-' + id);
+      const elS  = document.getElementById('status-' + id);
+      const elP  = document.getElementById('placar-' + id);
+      jogosVivos.delete(id);
+      delete placarPendente[id];
+      if (card) { delete card.dataset.encerradoProvisorio; card.dataset.status = 'FT'; }
+      if (elS) { elS.textContent = 'Encerrado'; elS.className = 'jogo-copa-horario encerrado'; }
+      if (placarStr && elP) elP.textContent = placarStr;
+      if (elP) {
+        salvarPlacarCache(id, elP.textContent);
+        if (card) card.dataset.placarFixo = elP.textContent;
+      }
+    }
+
+    // ── ESTÁTICO DINÂMICO — confirma placar após 5 minutos ──
+    function registrarPlacarPendente(id, placarStr) {
+      const atual = placarPendente[id];
+      const agora = Date.now();
+      if (!atual || atual.placar !== placarStr) {
+        // Placar mudou — reinicia contagem
+        placarPendente[id] = { placar: placarStr, desde: agora };
+      } else if (agora - atual.desde >= CONFIRMA_MS) {
+        // 5 minutos com mesmo placar — tira a foto!
+        const card = document.getElementById('card-' + id);
+        if (card && !card.dataset.placarFixo) {
+          card.dataset.placarFixo = placarStr;
+          salvarPlacarCache(id, placarStr);
+        }
+      }
+    }
+
+    // ── setInterval — cronômetro + contagem regressiva ──
     setInterval(() => {
       const agora = Date.now();
+
+      // Cronômetro ao vivo
       jogosVivos.forEach((timer, id) => {
         const el = document.getElementById('status-' + id);
-        if (el) {
-          el.textContent = calcularTextoTempo(timer);
-          el.className = 'jogo-copa-horario ao-vivo';
+        if (!el) return;
+        const txt = calcularTextoTempo(timer);
+        el.textContent = txt;
+        // Piscar vermelho quando travado
+        if (timer.travado) {
+          if (!el.classList.contains('travado')) el.className = 'jogo-copa-horario travado';
+        } else {
+          if (!el.classList.contains('ao-vivo') || el.classList.contains('travado'))
+            el.className = 'jogo-copa-horario ao-vivo';
         }
+        verificarTimeoutJogo(id, timer);
       });
+
+      // Contagem regressiva — piscar vermelho na última hora
       jogosEmBreve.forEach((kickoff, id) => {
-        const el = document.getElementById('status-' + id);
+        const el   = document.getElementById('status-' + id);
         const card = document.getElementById('card-' + id);
         if (!el) return;
-        if (card && ['1H','2H','HT','ET','P'].includes(card.dataset.status)) { jogosEmBreve.delete(id); return; }
+        if (card && ['1H','2H','HT','ET','P'].includes(card.dataset.status)) {
+          jogosEmBreve.delete(id); return;
+        }
         const diffMin = Math.floor((kickoff - agora) / 60000);
-        if (diffMin > 0) { el.textContent = '⏱ ' + diffMin + ' min'; el.className = 'jogo-copa-horario agendado'; }
-        else { el.textContent = 'Iniciando...'; el.className = 'jogo-copa-horario agendado'; if(diffMin < -10) jogosEmBreve.delete(id); }
+        if (diffMin > 0) {
+          el.textContent = '⏱ ' + diffMin + ' min';
+          el.className = 'jogo-copa-horario em-breve-urgente';
+        } else {
+          el.textContent = 'Iniciando...';
+          el.className = 'jogo-copa-horario agendado';
+          if (diffMin < -10) jogosEmBreve.delete(id);
+        }
       });
     }, 1000);
 
-    // Retorna "YYYY-MM-DD" no fuso de Brasília
+    // ── Datas em fuso de Brasília ──
     function dataBR(offsetDias) {
       const dt = new Date(Date.now() + offsetDias * 86400000);
       const p = {};
       new Intl.DateTimeFormat('pt-BR', {
-        year:'numeric', month:'2-digit', day:'2-digit',
-        timeZone:'America/Sao_Paulo'
+        year:'numeric', month:'2-digit', day:'2-digit', timeZone:'America/Sao_Paulo'
       }).formatToParts(dt).forEach(x => { p[x.type] = x.value; });
       return p.year + '-' + p.month + '-' + p.day;
     }
 
-        // ── ATUALIZAÇÃO AO VIVO VIA PROXY ──
+    // ── ATUALIZAÇÃO AO VIVO ──
     async function atualizarAoVivo() {
       try {
-        // Datas em Brasília (UTC-3) — evita troca de dia por UTC
         const hoje   = dataBR(0);
         const ontem  = dataBR(-1);
         const amanha = dataBR(1);
@@ -1972,41 +619,51 @@
           const card = document.getElementById('card-' + id);
           if (!card) return;
 
-          // Placares fixos (gerados como encerrados): não sobrescreve
+          // Placar fixo definitivo — nunca mais toca
           if (card.dataset.placarFixo) return;
+
+          // Provisório: API retornou — decide destino
+          if (card.dataset.encerradoProvisorio) {
+            if (['1H','2H','HT','ET','P','BT'].includes(st)) {
+              // Ressuscita — jogo ainda rolando
+              delete card.dataset.encerradoProvisorio;
+              registrarJogoVivo(id, j.fixture.status.elapsed || 0, st);
+              if (elS) elS.className = 'jogo-copa-horario ao-vivo';
+            } else if (['FT','AET','PEN','AWD','WO'].includes(st)) {
+              const p = j.goals.home !== null ? j.goals.home + ' × ' + j.goals.away : null;
+              forcarEncerramentoDefinitivo(id, p);
+            }
+            return;
+          }
 
           card.dataset.status = st;
 
           if (['1H','2H','HT','ET','P','BT'].includes(st)) {
             registrarJogoVivo(id, j.fixture.status.elapsed || 0, st);
             if (elS) {
-              if (st === 'HT') { elS.textContent = 'Intervalo'; }
-              else if (st === 'P') { elS.textContent = 'Pênaltis'; }
-              elS.className = 'jogo-copa-horario ao-vivo';
+              if (st === 'HT') { elS.textContent = 'Intervalo'; elS.className = 'jogo-copa-horario ao-vivo'; }
+              else if (st === 'BT') { elS.textContent = 'Int. Prorr.'; elS.className = 'jogo-copa-horario ao-vivo'; }
+              else if (st === 'P') { elS.textContent = 'Pênaltis'; elS.className = 'jogo-copa-horario ao-vivo'; }
+            }
+            // Atualiza placar imediatamente na tela
+            if (j.goals.home !== null && elP) {
+              const placarStr = j.goals.home + ' × ' + j.goals.away;
+              elP.textContent = placarStr;
+              // Registra para estático dinâmico (5 min confirmando = foto tirada)
+              registrarPlacarPendente(id, placarStr);
             }
           } else if (['FT','AET','PEN','AWD','WO'].includes(st)) {
-            jogosVivos.delete(id);
-            if (elS) { elS.textContent = 'Encerrado'; elS.className = 'jogo-copa-horario encerrado'; }
-            if (j.goals.home !== null) {
-              const p = j.goals.home + ' × ' + j.goals.away;
-              salvarPlacarCache(id, p);
-              if (elP) elP.textContent = p;
-              card.dataset.placarFixo = p;
-            }
-          }
-
-          if (j.goals.home !== null && elP && !card.dataset.placarFixo) {
-            elP.textContent = j.goals.home + ' × ' + j.goals.away;
+            const p = j.goals.home !== null ? j.goals.home + ' × ' + j.goals.away : null;
+            forcarEncerramentoDefinitivo(id, p);
           }
         });
 
-        // Atualiza classificação em tempo real
         atualizarClassificacaoRuntime(Object.values(mapa));
         agendarProxima();
 
       } catch(e) {
         restaurarPlacaresCached();
-        console.error(e);
+        console.error('Erro ao vivo:', e);
         agendarProxima();
       }
     }
@@ -2016,7 +673,6 @@
         ['1H','2H','HT','ET','P'].includes(c.dataset.status)
       );
     }
-
     function agendarProxima() {
       clearTimeout(timerAtualizacao);
       const hora = new Date().getHours();
@@ -2025,8 +681,7 @@
       else timerAtualizacao = setTimeout(atualizarAoVivo, CACHE_TTL_NORMAL);
     }
 
-    // ── CLASSIFICAÇÃO EM TEMPO REAL ──
-    // Recalcula e atualiza a tabela com os fixtures recebidos ao vivo
+    // ── CLASSIFICAÇÃO RUNTIME ──
     function atualizarClassificacaoRuntime(jogos) {
       const stats = {};
       const initS = t => { if (!stats[t]) stats[t] = {j:0,v:0,e:0,d:0,gp:0,gc:0,pts:0}; };
@@ -2042,9 +697,9 @@
         stats[h].j++; stats[a].j++;
         stats[h].gp+=gh; stats[h].gc+=ga;
         stats[a].gp+=ga; stats[a].gc+=gh;
-        if (gh>ga)       { stats[h].v++; stats[h].pts+=3; stats[a].d++; }
-        else if (gh<ga)  { stats[a].v++; stats[a].pts+=3; stats[h].d++; }
-        else             { stats[h].e++; stats[h].pts++; stats[a].e++; stats[a].pts++; }
+        if (gh>ga)      { stats[h].v++; stats[h].pts+=3; stats[a].d++; }
+        else if (gh<ga) { stats[a].v++; stats[a].pts+=3; stats[h].d++; }
+        else            { stats[h].e++; stats[h].pts++; stats[a].e++; stats[a].pts++; }
       });
       if (!Object.keys(stats).length) return;
 
@@ -2066,31 +721,25 @@
         times.forEach((time, i) => {
           const s = stats[time]||{j:0,v:0,e:0,d:0,gp:0,gc:0,pts:0};
           const sg = s.gp - s.gc;
-          const elJ   = document.getElementById('cl-j-'+g+'-'+i);
-          const elV   = document.getElementById('cl-v-'+g+'-'+i);
-          const elE   = document.getElementById('cl-e-'+g+'-'+i);
-          const elD   = document.getElementById('cl-d-'+g+'-'+i);
-          const elGP  = document.getElementById('cl-gp-'+g+'-'+i);
-          const elGC  = document.getElementById('cl-gc-'+g+'-'+i);
-          const elSG  = document.getElementById('cl-sg-'+g+'-'+i);
-          const elPts = document.getElementById('cl-pts-'+g+'-'+i);
-          if (elJ)   elJ.textContent   = s.j;
-          if (elV)   elV.textContent   = s.v;
-          if (elE)   elE.textContent   = s.e;
-          if (elD)   elD.textContent   = s.d;
-          if (elGP)  elGP.textContent  = s.gp;
-          if (elGC)  elGC.textContent  = s.gc;
-          if (elSG)  elSG.textContent  = sg >= 0 ? '+'+sg : sg;
-          if (elPts) elPts.textContent = s.pts;
+          const set = (sid, val) => { const el = document.getElementById(sid); if(el) el.textContent = val; };
+          set('cl-j-'+g+'-'+i,  s.j);
+          set('cl-v-'+g+'-'+i,  s.v);
+          set('cl-e-'+g+'-'+i,  s.e);
+          set('cl-d-'+g+'-'+i,  s.d);
+          set('cl-gp-'+g+'-'+i, s.gp);
+          set('cl-gc-'+g+'-'+i, s.gc);
+          set('cl-sg-'+g+'-'+i, sg >= 0 ? '+'+sg : sg);
+          set('cl-pts-'+g+'-'+i, s.pts);
         });
       });
     }
 
-    // ── ARTILHARIA (via proxy, ao abrir aba) ──
+    // ── ARTILHARIA ──
     let artCarregada = false;
     async function carregarArtilharia() {
+      if (artCarregada) return;
       try {
-        const res = await fetch(PROXY + '/players/topscorers?league=1&season=2026');
+        const res  = await fetch(PROXY + '/players/topscorers?league=1&season=2026');
         const data = await res.json();
         if (!data.response || !data.response.length) return;
         data.response.slice(0, 8).forEach((item, i) => {
