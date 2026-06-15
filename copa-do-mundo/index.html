@@ -20,7 +20,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- Gerado em: 13/06/2026, 13:25:40 | 72 jogos fase de grupos -->
+  <!-- Gerado em: 15/06/2026, 19:57:38 | 72 jogos -->
   <style>
     .copa-hero {
       background: linear-gradient(135deg, var(--verde-escuro) 0%, var(--verde) 60%, #2d9e4e 100%);
@@ -53,7 +53,6 @@
     .copa-tab.ativa { color: var(--verde); border-bottom-color: var(--verde); }
     .copa-secao { display: none; }
     .copa-secao.ativa { display: block; }
-
     @keyframes pisca-vivo { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.85)} }
     /* GRUPOS */
     .grupos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 16px 12px; max-width: 900px; margin: 0 auto; }
@@ -67,7 +66,6 @@
     .grupo-pais:last-child { border-bottom: none; }
     .grupo-pais-flag { font-size: 18px; width: 24px; text-align: center; }
     .grupo-pais.brasil { background: #f0faf3; font-weight: 700; }
-
     /* JOGOS */
     .jogos-filtro { display: flex; gap: 8px; padding: 14px 12px 0; overflow-x: auto; scrollbar-width: none; max-width: 900px; margin: 0 auto; }
     .jogos-filtro::-webkit-scrollbar { display: none; }
@@ -95,7 +93,6 @@
     .jogo-copa-escudo { width: 32px; height: 32px; object-fit: contain; }
     @media (min-width: 640px) { .jogo-copa-escudo { width: 40px; height: 40px; } }
     .tag-madrugada { background: #1e1e2e; color: #a78bfa; font-size: 9px; font-weight: 700; padding: 1px 6px; border-radius: 4px; margin-left: 4px; vertical-align: middle; }
-
     /* CLASSIFICAÇÃO */
     .classificacao-wrap { max-width: 900px; margin: 0 auto; padding: 16px 12px; }
     @media (min-width: 640px) { .classificacao-wrap { padding: 20px 24px; } }
@@ -114,7 +111,6 @@
     .cl-time { display: flex; align-items: center; gap: 8px; font-weight: 600; }
     .cl-flag { font-size: 16px; }
     .cl-pts { font-weight: 800; color: var(--preto); font-size: 13px; }
-
     /* ARTILHARIA */
     .artilharia-wrap { max-width: 900px; margin: 0 auto; padding: 16px 12px; }
     @media (min-width: 640px) { .artilharia-wrap { padding: 20px 24px; } }
@@ -128,7 +124,10 @@
     .artilheiro-pais { font-family: var(--font-corpo); font-size: 11px; color: var(--cinza-texto); margin-top: 2px; }
     .artilheiro-gols { font-family: var(--font-titulo); font-size: 22px; font-weight: 800; color: var(--verde); }
     .artilheiro-gols span { font-family: var(--font-corpo); font-size: 10px; font-weight: 600; color: var(--cinza-texto); display: block; text-align: center; }
-    .aviso-dados { background: #fff8e1; border: 1px solid #f5c800; border-radius: var(--radius-sm); padding: 12px 16px; margin: 16px auto 0; font-family: var(--font-corpo); font-size: 12px; color: #7a6000; text-align: center; max-width: 860px; }
+    /* CRONÔMETRO */
+    .jogo-copa-horario.em-breve { color: #d32f2f; font-weight: 700; animation: pisca-vivo 0.8s infinite; }
+    .jogo-copa-horario.iniciando { color: #f57c00; animation: pisca-vivo 0.7s infinite; }
+    .jogo-copa-horario.travado { color: #d32f2f; font-weight: 700; animation: pisca-vivo 0.5s infinite; }
   </style>
 </head>
 <body>
@@ -198,7 +197,7 @@
         <button class="fase-btn" onclick="filtrarFase(this,'r3')">3ª Rodada</button>
       </div>
       <div class="jogos-lista" id="jogos-copa">
-
+        
         <div class="jogo-data-sep" data-date="2026-06-11">📅 Quinta-feira, 11 de junho</div>
 <a href="/copa-do-mundo/mexico-vs-south-africa/" class="jogo-copa" id="card-1489369"
   data-id="1489369"
@@ -283,18 +282,18 @@
 <a href="/copa-do-mundo/qatar-vs-switzerland/" class="jogo-copa" id="card-1489373"
   data-id="1489373"
   data-date="2026-06-13"
-  data-status="NS"
+  data-status="FT"
   data-kickoff="2026-06-13T19:00:00+00:00"
   data-home="Qatar"
   data-away="Switzerland"
-  data-fase="r1">
+  data-fase="r1" data-placar-fixo="1 × 1">
   <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489373">16:00</span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1569.png" alt="Qatar" onerror="this.style.display='none'"><span class="jogo-copa-nome">Qatar</span></div>
     <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489373">×</span>
-      <div class="jogo-copa-horario jogo-status-1489373 agendado" id="status-1489373">16:00</div>
-      <div class="jogo-copa-estadio">San Francisco Bay Area</div>
+      <span class="jogo-copa-placar" id="placar-1489373">1 × 1</span>
+      <div class="jogo-copa-horario jogo-status-1489373 encerrado" id="status-1489373">Encerrado</div>
+      <div class="jogo-copa-estadio">Santa Clara</div>
     </div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/15.png" alt="Switzerland" onerror="this.style.display='none'"><span class="jogo-copa-nome">Switzerland</span></div>
   </div>
@@ -302,18 +301,18 @@
 <a href="/copa-do-mundo/brazil-vs-morocco/" class="jogo-copa destaque" id="card-1489371"
   data-id="1489371"
   data-date="2026-06-13"
-  data-status="NS"
+  data-status="FT"
   data-kickoff="2026-06-13T22:00:00+00:00"
   data-home="Brazil"
   data-away="Morocco"
-  data-fase="r1 brasil">
+  data-fase="r1 brasil" data-placar-fixo="1 × 1">
   <div class="jogo-copa-fase"><span>🇧🇷 Fase de Grupos — Rodada 1</span><span id="hora-1489371">19:00</span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/6.png" alt="Brazil" onerror="this.style.display='none'"><span class="jogo-copa-nome">Brazil</span></div>
     <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489371">×</span>
-      <div class="jogo-copa-horario jogo-status-1489371 agendado" id="status-1489371">19:00</div>
-      <div class="jogo-copa-estadio">New York New Jersey</div>
+      <span class="jogo-copa-placar" id="placar-1489371">1 × 1</span>
+      <div class="jogo-copa-horario jogo-status-1489371 encerrado" id="status-1489371">Encerrado</div>
+      <div class="jogo-copa-estadio">East Rutherford</div>
     </div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/31.png" alt="Morocco" onerror="this.style.display='none'"><span class="jogo-copa-nome">Morocco</span></div>
   </div>
@@ -321,17 +320,17 @@
 <a href="/copa-do-mundo/haiti-vs-scotland/" class="jogo-copa" id="card-1489372"
   data-id="1489372"
   data-date="2026-06-13"
-  data-status="NS"
+  data-status="FT"
   data-kickoff="2026-06-14T01:00:00+00:00"
   data-home="Haiti"
   data-away="Scotland"
-  data-fase="r1">
+  data-fase="r1" data-placar-fixo="0 × 1">
   <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489372">22:00</span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/2386.png" alt="Haiti" onerror="this.style.display='none'"><span class="jogo-copa-nome">Haiti</span></div>
     <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489372">×</span>
-      <div class="jogo-copa-horario jogo-status-1489372 agendado" id="status-1489372">22:00</div>
+      <span class="jogo-copa-placar" id="placar-1489372">0 × 1</span>
+      <div class="jogo-copa-horario jogo-status-1489372 encerrado" id="status-1489372">Encerrado</div>
       <div class="jogo-copa-estadio">Boston</div>
     </div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1108.png" alt="Scotland" onerror="this.style.display='none'"><span class="jogo-copa-nome">Scotland</span></div>
@@ -342,17 +341,17 @@
 <a href="/copa-do-mundo/australia-vs-turkiye/" class="jogo-copa" id="card-1539001"
   data-id="1539001"
   data-date="2026-06-14"
-  data-status="NS"
+  data-status="FT"
   data-kickoff="2026-06-14T04:00:00+00:00"
   data-home="Australia"
   data-away="Türkiye"
-  data-fase="r1">
+  data-fase="r1" data-placar-fixo="2 × 0">
   <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1539001">01:00<span class="tag-madrugada">🌙 madrugada</span></span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/20.png" alt="Australia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Australia</span></div>
     <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1539001">×</span>
-      <div class="jogo-copa-horario jogo-status-1539001 agendado" id="status-1539001">01:00</div>
+      <span class="jogo-copa-placar" id="placar-1539001">2 × 0</span>
+      <div class="jogo-copa-horario jogo-status-1539001 encerrado" id="status-1539001">Encerrado</div>
       <div class="jogo-copa-estadio">Vancouver</div>
     </div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/777.png" alt="Türkiye" onerror="this.style.display='none'"><span class="jogo-copa-nome">Türkiye</span></div>
@@ -361,17 +360,17 @@
 <a href="/copa-do-mundo/germany-vs-curacao/" class="jogo-copa" id="card-1489374"
   data-id="1489374"
   data-date="2026-06-14"
-  data-status="NS"
+  data-status="FT"
   data-kickoff="2026-06-14T17:00:00+00:00"
   data-home="Germany"
   data-away="Curaçao"
-  data-fase="r1">
+  data-fase="r1" data-placar-fixo="7 × 1">
   <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489374">14:00</span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/25.png" alt="Germany" onerror="this.style.display='none'"><span class="jogo-copa-nome">Germany</span></div>
     <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489374">×</span>
-      <div class="jogo-copa-horario jogo-status-1489374 agendado" id="status-1489374">14:00</div>
+      <span class="jogo-copa-placar" id="placar-1489374">7 × 1</span>
+      <div class="jogo-copa-horario jogo-status-1489374 encerrado" id="status-1489374">Encerrado</div>
       <div class="jogo-copa-estadio">Houston</div>
     </div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/5530.png" alt="Curaçao" onerror="this.style.display='none'"><span class="jogo-copa-nome">Curaçao</span></div>
@@ -380,18 +379,18 @@
 <a href="/copa-do-mundo/netherlands-vs-japan/" class="jogo-copa" id="card-1489376"
   data-id="1489376"
   data-date="2026-06-14"
-  data-status="NS"
+  data-status="FT"
   data-kickoff="2026-06-14T20:00:00+00:00"
   data-home="Netherlands"
   data-away="Japan"
-  data-fase="r1">
+  data-fase="r1" data-placar-fixo="2 × 2">
   <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489376">17:00</span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1118.png" alt="Netherlands" onerror="this.style.display='none'"><span class="jogo-copa-nome">Netherlands</span></div>
     <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489376">×</span>
-      <div class="jogo-copa-horario jogo-status-1489376 agendado" id="status-1489376">17:00</div>
-      <div class="jogo-copa-estadio">Dallas</div>
+      <span class="jogo-copa-placar" id="placar-1489376">2 × 2</span>
+      <div class="jogo-copa-horario jogo-status-1489376 encerrado" id="status-1489376">Encerrado</div>
+      <div class="jogo-copa-estadio">Arlington</div>
     </div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/12.png" alt="Japan" onerror="this.style.display='none'"><span class="jogo-copa-nome">Japan</span></div>
   </div>
@@ -399,17 +398,17 @@
 <a href="/copa-do-mundo/ivory-coast-vs-ecuador/" class="jogo-copa" id="card-1489375"
   data-id="1489375"
   data-date="2026-06-14"
-  data-status="NS"
+  data-status="FT"
   data-kickoff="2026-06-14T23:00:00+00:00"
   data-home="Ivory Coast"
   data-away="Ecuador"
-  data-fase="r1">
+  data-fase="r1" data-placar-fixo="1 × 0">
   <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489375">20:00</span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1501.png" alt="Ivory Coast" onerror="this.style.display='none'"><span class="jogo-copa-nome">Ivory Coast</span></div>
     <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489375">×</span>
-      <div class="jogo-copa-horario jogo-status-1489375 agendado" id="status-1489375">20:00</div>
+      <span class="jogo-copa-placar" id="placar-1489375">1 × 0</span>
+      <div class="jogo-copa-horario jogo-status-1489375 encerrado" id="status-1489375">Encerrado</div>
       <div class="jogo-copa-estadio">Philadelphia</div>
     </div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/2382.png" alt="Ecuador" onerror="this.style.display='none'"><span class="jogo-copa-nome">Ecuador</span></div>
@@ -418,17 +417,17 @@
 <a href="/copa-do-mundo/sweden-vs-tunisia/" class="jogo-copa" id="card-1539002"
   data-id="1539002"
   data-date="2026-06-14"
-  data-status="NS"
+  data-status="FT"
   data-kickoff="2026-06-15T02:00:00+00:00"
   data-home="Sweden"
   data-away="Tunisia"
-  data-fase="r1">
+  data-fase="r1" data-placar-fixo="5 × 1">
   <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1539002">23:00</span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/5.png" alt="Sweden" onerror="this.style.display='none'"><span class="jogo-copa-nome">Sweden</span></div>
     <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1539002">×</span>
-      <div class="jogo-copa-horario jogo-status-1539002 agendado" id="status-1539002">23:00</div>
+      <span class="jogo-copa-placar" id="placar-1539002">5 × 1</span>
+      <div class="jogo-copa-horario jogo-status-1539002 encerrado" id="status-1539002">Encerrado</div>
       <div class="jogo-copa-estadio">Monterrey</div>
     </div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/28.png" alt="Tunisia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Tunisia</span></div>
@@ -439,17 +438,17 @@
 <a href="/copa-do-mundo/spain-vs-cape-verde-islands/" class="jogo-copa" id="card-1489380"
   data-id="1489380"
   data-date="2026-06-15"
-  data-status="NS"
+  data-status="FT"
   data-kickoff="2026-06-15T16:00:00+00:00"
   data-home="Spain"
   data-away="Cape Verde Islands"
-  data-fase="r1">
+  data-fase="r1" data-placar-fixo="0 × 0">
   <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489380">13:00</span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/9.png" alt="Spain" onerror="this.style.display='none'"><span class="jogo-copa-nome">Spain</span></div>
     <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489380">×</span>
-      <div class="jogo-copa-horario jogo-status-1489380 agendado" id="status-1489380">13:00</div>
+      <span class="jogo-copa-placar" id="placar-1489380">0 × 0</span>
+      <div class="jogo-copa-horario jogo-status-1489380 encerrado" id="status-1489380">Encerrado</div>
       <div class="jogo-copa-estadio">Atlanta</div>
     </div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1533.png" alt="Cape Verde Islands" onerror="this.style.display='none'"><span class="jogo-copa-nome">Cape Verde Islands</span></div>
@@ -458,17 +457,17 @@
 <a href="/copa-do-mundo/belgium-vs-egypt/" class="jogo-copa" id="card-1489377"
   data-id="1489377"
   data-date="2026-06-15"
-  data-status="NS"
+  data-status="FT"
   data-kickoff="2026-06-15T19:00:00+00:00"
   data-home="Belgium"
   data-away="Egypt"
-  data-fase="r1">
+  data-fase="r1" data-placar-fixo="1 × 1">
   <div class="jogo-copa-fase"><span>Fase de Grupos — Rodada 1</span><span id="hora-1489377">16:00</span></div>
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/1.png" alt="Belgium" onerror="this.style.display='none'"><span class="jogo-copa-nome">Belgium</span></div>
     <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489377">×</span>
-      <div class="jogo-copa-horario jogo-status-1489377 agendado" id="status-1489377">16:00</div>
+      <span class="jogo-copa-placar" id="placar-1489377">1 × 1</span>
+      <div class="jogo-copa-horario jogo-status-1489377 encerrado" id="status-1489377">Encerrado</div>
       <div class="jogo-copa-estadio">Seattle</div>
     </div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/32.png" alt="Egypt" onerror="this.style.display='none'"><span class="jogo-copa-nome">Egypt</span></div>
@@ -477,7 +476,7 @@
 <a href="/copa-do-mundo/saudi-arabia-vs-uruguay/" class="jogo-copa" id="card-1489379"
   data-id="1489379"
   data-date="2026-06-15"
-  data-status="NS"
+  data-status="HT"
   data-kickoff="2026-06-15T22:00:00+00:00"
   data-home="Saudi Arabia"
   data-away="Uruguay"
@@ -486,9 +485,9 @@
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/23.png" alt="Saudi Arabia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Saudi Arabia</span></div>
     <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489379">×</span>
-      <div class="jogo-copa-horario jogo-status-1489379 agendado" id="status-1489379">19:00</div>
-      <div class="jogo-copa-estadio">Miami</div>
+      <span class="jogo-copa-placar" id="placar-1489379">1 × 0</span>
+      <div class="jogo-copa-horario jogo-status-1489379 ao-vivo" id="status-1489379">45'</div>
+      <div class="jogo-copa-estadio">Miami Gardens</div>
     </div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/7.png" alt="Uruguay" onerror="this.style.display='none'"><span class="jogo-copa-nome">Uruguay</span></div>
   </div>
@@ -1607,16 +1606,17 @@
     <!-- ===== CLASSIFICAÇÃO ===== -->
     <div id="secao-classificacao" class="copa-secao">
       <div class="classificacao-wrap">
-
+        
     <div class="classificacao-grupo">
       <div class="classificacao-grupo-header">Grupo A</div>
       <table class="classificacao-table">
         <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
         <tbody>
-          <tr data-time="Mexico"><td class="cl-pos classificado" id="cl-pos-A-0">1</td><td><div class="cl-time"><span class="cl-flag">🇲🇽</span>Mexico</div></td><td id="cl-j-A-0">1</td><td id="cl-v-A-0">1</td><td id="cl-e-A-0">0</td><td id="cl-d-A-0">0</td><td id="cl-gp-A-0">2</td><td id="cl-gc-A-0">0</td><td id="cl-sg-A-0">2</td><td class="cl-pts" id="cl-pts-A-0">3</td></tr>
-          <tr data-time="South Korea"><td class="cl-pos classificado" id="cl-pos-A-1">2</td><td><div class="cl-time"><span class="cl-flag">🇰🇷</span>South Korea</div></td><td id="cl-j-A-1">1</td><td id="cl-v-A-1">1</td><td id="cl-e-A-1">0</td><td id="cl-d-A-1">0</td><td id="cl-gp-A-1">2</td><td id="cl-gc-A-1">1</td><td id="cl-sg-A-1">1</td><td class="cl-pts" id="cl-pts-A-1">3</td></tr>
-          <tr data-time="Czech Republic"><td class="cl-pos" id="cl-pos-A-2">3</td><td><div class="cl-time"><span class="cl-flag">🇨🇿</span>Czech Republic</div></td><td id="cl-j-A-2">0</td><td id="cl-v-A-2">0</td><td id="cl-e-A-2">0</td><td id="cl-d-A-2">0</td><td id="cl-gp-A-2">0</td><td id="cl-gc-A-2">0</td><td id="cl-sg-A-2">0</td><td class="cl-pts" id="cl-pts-A-2">0</td></tr>
-          <tr data-time="South Africa"><td class="cl-pos" id="cl-pos-A-3">4</td><td><div class="cl-time"><span class="cl-flag">🇿🇦</span>South Africa</div></td><td id="cl-j-A-3">1</td><td id="cl-v-A-3">0</td><td id="cl-e-A-3">0</td><td id="cl-d-A-3">1</td><td id="cl-gp-A-3">0</td><td id="cl-gc-A-3">2</td><td id="cl-sg-A-3">-2</td><td class="cl-pts" id="cl-pts-A-3">0</td></tr>
+          <tr data-time="Mexico"><td class="cl-pos classificado" id="cl-pos-A-0">1</td><td><div class="cl-time"><span class="cl-flag">🇲🇽</span>Mexico</div></td><td id="cl-j-A-0">1</td><td id="cl-v-A-0">1</td><td id="cl-e-A-0">0</td><td id="cl-d-A-0">0</td><td id="cl-gp-A-0">2</td><td id="cl-gc-A-0">0</td><td id="cl-sg-A-0">+2</td><td class="cl-pts" id="cl-pts-A-0">3</td></tr>
+          <tr data-time="South Korea"><td class="cl-pos classificado" id="cl-pos-A-1">2</td><td><div class="cl-time"><span class="cl-flag">🇰🇷</span>South Korea</div></td><td id="cl-j-A-1">1</td><td id="cl-v-A-1">1</td><td id="cl-e-A-1">0</td><td id="cl-d-A-1">0</td><td id="cl-gp-A-1">2</td><td id="cl-gc-A-1">1</td><td id="cl-sg-A-1">+1</td><td class="cl-pts" id="cl-pts-A-1">3</td></tr>
+          <tr data-time="Czech Republic"><td class="cl-pos" id="cl-pos-A-2">3</td><td><div class="cl-time"><span class="cl-flag">🇨🇿</span>Czech Republic</div></td><td id="cl-j-A-2">0</td><td id="cl-v-A-2">0</td><td id="cl-e-A-2">0</td><td id="cl-d-A-2">0</td><td id="cl-gp-A-2">0</td><td id="cl-gc-A-2">0</td><td id="cl-sg-A-2">+0</td><td class="cl-pts" id="cl-pts-A-2">0</td></tr>
+          <tr data-time="Czechia"><td class="cl-pos" id="cl-pos-A-3">4</td><td><div class="cl-time"><span class="cl-flag">🇨🇿</span>Czechia</div></td><td id="cl-j-A-3">1</td><td id="cl-v-A-3">0</td><td id="cl-e-A-3">0</td><td id="cl-d-A-3">1</td><td id="cl-gp-A-3">1</td><td id="cl-gc-A-3">2</td><td id="cl-sg-A-3">-1</td><td class="cl-pts" id="cl-pts-A-3">0</td></tr>
+          <tr data-time="South Africa"><td class="cl-pos" id="cl-pos-A-4">5</td><td><div class="cl-time"><span class="cl-flag">🇿🇦</span>South Africa</div></td><td id="cl-j-A-4">1</td><td id="cl-v-A-4">0</td><td id="cl-e-A-4">0</td><td id="cl-d-A-4">1</td><td id="cl-gp-A-4">0</td><td id="cl-gc-A-4">2</td><td id="cl-sg-A-4">-2</td><td class="cl-pts" id="cl-pts-A-4">0</td></tr>
         </tbody>
       </table>
     </div>
@@ -1625,10 +1625,10 @@
       <table class="classificacao-table">
         <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
         <tbody>
-          <tr data-time="Canada"><td class="cl-pos classificado" id="cl-pos-B-0">1</td><td><div class="cl-time"><span class="cl-flag">🇨🇦</span>Canada</div></td><td id="cl-j-B-0">1</td><td id="cl-v-B-0">0</td><td id="cl-e-B-0">1</td><td id="cl-d-B-0">0</td><td id="cl-gp-B-0">1</td><td id="cl-gc-B-0">1</td><td id="cl-sg-B-0">0</td><td class="cl-pts" id="cl-pts-B-0">1</td></tr>
-          <tr data-time="Bosnia & Herzegovina"><td class="cl-pos classificado" id="cl-pos-B-1">2</td><td><div class="cl-time"><span class="cl-flag">🇧🇦</span>Bosnia & Herzegovina</div></td><td id="cl-j-B-1">1</td><td id="cl-v-B-1">0</td><td id="cl-e-B-1">1</td><td id="cl-d-B-1">0</td><td id="cl-gp-B-1">1</td><td id="cl-gc-B-1">1</td><td id="cl-sg-B-1">0</td><td class="cl-pts" id="cl-pts-B-1">1</td></tr>
-          <tr data-time="Qatar"><td class="cl-pos" id="cl-pos-B-2">3</td><td><div class="cl-time"><span class="cl-flag">🇶🇦</span>Qatar</div></td><td id="cl-j-B-2">0</td><td id="cl-v-B-2">0</td><td id="cl-e-B-2">0</td><td id="cl-d-B-2">0</td><td id="cl-gp-B-2">0</td><td id="cl-gc-B-2">0</td><td id="cl-sg-B-2">0</td><td class="cl-pts" id="cl-pts-B-2">0</td></tr>
-          <tr data-time="Switzerland"><td class="cl-pos" id="cl-pos-B-3">4</td><td><div class="cl-time"><span class="cl-flag">🇨🇭</span>Switzerland</div></td><td id="cl-j-B-3">0</td><td id="cl-v-B-3">0</td><td id="cl-e-B-3">0</td><td id="cl-d-B-3">0</td><td id="cl-gp-B-3">0</td><td id="cl-gc-B-3">0</td><td id="cl-sg-B-3">0</td><td class="cl-pts" id="cl-pts-B-3">0</td></tr>
+          <tr data-time="Canada"><td class="cl-pos classificado" id="cl-pos-B-0">1</td><td><div class="cl-time"><span class="cl-flag">🇨🇦</span>Canada</div></td><td id="cl-j-B-0">1</td><td id="cl-v-B-0">0</td><td id="cl-e-B-0">1</td><td id="cl-d-B-0">0</td><td id="cl-gp-B-0">1</td><td id="cl-gc-B-0">1</td><td id="cl-sg-B-0">+0</td><td class="cl-pts" id="cl-pts-B-0">1</td></tr>
+          <tr data-time="Qatar"><td class="cl-pos classificado" id="cl-pos-B-1">2</td><td><div class="cl-time"><span class="cl-flag">🇶🇦</span>Qatar</div></td><td id="cl-j-B-1">1</td><td id="cl-v-B-1">0</td><td id="cl-e-B-1">1</td><td id="cl-d-B-1">0</td><td id="cl-gp-B-1">1</td><td id="cl-gc-B-1">1</td><td id="cl-sg-B-1">+0</td><td class="cl-pts" id="cl-pts-B-1">1</td></tr>
+          <tr data-time="Switzerland"><td class="cl-pos" id="cl-pos-B-2">3</td><td><div class="cl-time"><span class="cl-flag">🇨🇭</span>Switzerland</div></td><td id="cl-j-B-2">1</td><td id="cl-v-B-2">0</td><td id="cl-e-B-2">1</td><td id="cl-d-B-2">0</td><td id="cl-gp-B-2">1</td><td id="cl-gc-B-2">1</td><td id="cl-sg-B-2">+0</td><td class="cl-pts" id="cl-pts-B-2">1</td></tr>
+          <tr data-time="Bosnia & Herzegovina"><td class="cl-pos" id="cl-pos-B-3">4</td><td><div class="cl-time"><span class="cl-flag">🇧🇦</span>Bosnia & Herzegovina</div></td><td id="cl-j-B-3">1</td><td id="cl-v-B-3">0</td><td id="cl-e-B-3">1</td><td id="cl-d-B-3">0</td><td id="cl-gp-B-3">1</td><td id="cl-gc-B-3">1</td><td id="cl-sg-B-3">+0</td><td class="cl-pts" id="cl-pts-B-3">1</td></tr>
         </tbody>
       </table>
     </div>
@@ -1637,10 +1637,10 @@
       <table class="classificacao-table">
         <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
         <tbody>
-          <tr data-time="Brazil"><td class="cl-pos classificado" id="cl-pos-C-0">1</td><td><div class="cl-time"><span class="cl-flag">🇧🇷</span>Brazil</div></td><td id="cl-j-C-0">0</td><td id="cl-v-C-0">0</td><td id="cl-e-C-0">0</td><td id="cl-d-C-0">0</td><td id="cl-gp-C-0">0</td><td id="cl-gc-C-0">0</td><td id="cl-sg-C-0">0</td><td class="cl-pts" id="cl-pts-C-0">0</td></tr>
-          <tr data-time="Morocco"><td class="cl-pos classificado" id="cl-pos-C-1">2</td><td><div class="cl-time"><span class="cl-flag">🇲🇦</span>Morocco</div></td><td id="cl-j-C-1">0</td><td id="cl-v-C-1">0</td><td id="cl-e-C-1">0</td><td id="cl-d-C-1">0</td><td id="cl-gp-C-1">0</td><td id="cl-gc-C-1">0</td><td id="cl-sg-C-1">0</td><td class="cl-pts" id="cl-pts-C-1">0</td></tr>
-          <tr data-time="Scotland"><td class="cl-pos" id="cl-pos-C-2">3</td><td><div class="cl-time"><span class="cl-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span>Scotland</div></td><td id="cl-j-C-2">0</td><td id="cl-v-C-2">0</td><td id="cl-e-C-2">0</td><td id="cl-d-C-2">0</td><td id="cl-gp-C-2">0</td><td id="cl-gc-C-2">0</td><td id="cl-sg-C-2">0</td><td class="cl-pts" id="cl-pts-C-2">0</td></tr>
-          <tr data-time="Haiti"><td class="cl-pos" id="cl-pos-C-3">4</td><td><div class="cl-time"><span class="cl-flag">🇭🇹</span>Haiti</div></td><td id="cl-j-C-3">0</td><td id="cl-v-C-3">0</td><td id="cl-e-C-3">0</td><td id="cl-d-C-3">0</td><td id="cl-gp-C-3">0</td><td id="cl-gc-C-3">0</td><td id="cl-sg-C-3">0</td><td class="cl-pts" id="cl-pts-C-3">0</td></tr>
+          <tr data-time="Scotland"><td class="cl-pos classificado" id="cl-pos-C-0">1</td><td><div class="cl-time"><span class="cl-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span>Scotland</div></td><td id="cl-j-C-0">1</td><td id="cl-v-C-0">1</td><td id="cl-e-C-0">0</td><td id="cl-d-C-0">0</td><td id="cl-gp-C-0">1</td><td id="cl-gc-C-0">0</td><td id="cl-sg-C-0">+1</td><td class="cl-pts" id="cl-pts-C-0">3</td></tr>
+          <tr data-time="Brazil"><td class="cl-pos classificado" id="cl-pos-C-1">2</td><td><div class="cl-time"><span class="cl-flag">🇧🇷</span>Brazil</div></td><td id="cl-j-C-1">1</td><td id="cl-v-C-1">0</td><td id="cl-e-C-1">1</td><td id="cl-d-C-1">0</td><td id="cl-gp-C-1">1</td><td id="cl-gc-C-1">1</td><td id="cl-sg-C-1">+0</td><td class="cl-pts" id="cl-pts-C-1">1</td></tr>
+          <tr data-time="Morocco"><td class="cl-pos" id="cl-pos-C-2">3</td><td><div class="cl-time"><span class="cl-flag">🇲🇦</span>Morocco</div></td><td id="cl-j-C-2">1</td><td id="cl-v-C-2">0</td><td id="cl-e-C-2">1</td><td id="cl-d-C-2">0</td><td id="cl-gp-C-2">1</td><td id="cl-gc-C-2">1</td><td id="cl-sg-C-2">+0</td><td class="cl-pts" id="cl-pts-C-2">1</td></tr>
+          <tr data-time="Haiti"><td class="cl-pos" id="cl-pos-C-3">4</td><td><div class="cl-time"><span class="cl-flag">🇭🇹</span>Haiti</div></td><td id="cl-j-C-3">1</td><td id="cl-v-C-3">0</td><td id="cl-e-C-3">0</td><td id="cl-d-C-3">1</td><td id="cl-gp-C-3">0</td><td id="cl-gc-C-3">1</td><td id="cl-sg-C-3">-1</td><td class="cl-pts" id="cl-pts-C-3">0</td></tr>
         </tbody>
       </table>
     </div>
@@ -1649,9 +1649,9 @@
       <table class="classificacao-table">
         <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
         <tbody>
-          <tr data-time="USA"><td class="cl-pos classificado" id="cl-pos-D-0">1</td><td><div class="cl-time"><span class="cl-flag">🇺🇸</span>USA</div></td><td id="cl-j-D-0">1</td><td id="cl-v-D-0">1</td><td id="cl-e-D-0">0</td><td id="cl-d-D-0">0</td><td id="cl-gp-D-0">4</td><td id="cl-gc-D-0">1</td><td id="cl-sg-D-0">3</td><td class="cl-pts" id="cl-pts-D-0">3</td></tr>
-          <tr data-time="Australia"><td class="cl-pos classificado" id="cl-pos-D-1">2</td><td><div class="cl-time"><span class="cl-flag">🇦🇺</span>Australia</div></td><td id="cl-j-D-1">0</td><td id="cl-v-D-1">0</td><td id="cl-e-D-1">0</td><td id="cl-d-D-1">0</td><td id="cl-gp-D-1">0</td><td id="cl-gc-D-1">0</td><td id="cl-sg-D-1">0</td><td class="cl-pts" id="cl-pts-D-1">0</td></tr>
-          <tr data-time="Türkiye"><td class="cl-pos" id="cl-pos-D-2">3</td><td><div class="cl-time"><span class="cl-flag">🇹🇷</span>Türkiye</div></td><td id="cl-j-D-2">0</td><td id="cl-v-D-2">0</td><td id="cl-e-D-2">0</td><td id="cl-d-D-2">0</td><td id="cl-gp-D-2">0</td><td id="cl-gc-D-2">0</td><td id="cl-sg-D-2">0</td><td class="cl-pts" id="cl-pts-D-2">0</td></tr>
+          <tr data-time="USA"><td class="cl-pos classificado" id="cl-pos-D-0">1</td><td><div class="cl-time"><span class="cl-flag">🇺🇸</span>USA</div></td><td id="cl-j-D-0">1</td><td id="cl-v-D-0">1</td><td id="cl-e-D-0">0</td><td id="cl-d-D-0">0</td><td id="cl-gp-D-0">4</td><td id="cl-gc-D-0">1</td><td id="cl-sg-D-0">+3</td><td class="cl-pts" id="cl-pts-D-0">3</td></tr>
+          <tr data-time="Australia"><td class="cl-pos classificado" id="cl-pos-D-1">2</td><td><div class="cl-time"><span class="cl-flag">🇦🇺</span>Australia</div></td><td id="cl-j-D-1">1</td><td id="cl-v-D-1">1</td><td id="cl-e-D-1">0</td><td id="cl-d-D-1">0</td><td id="cl-gp-D-1">2</td><td id="cl-gc-D-1">0</td><td id="cl-sg-D-1">+2</td><td class="cl-pts" id="cl-pts-D-1">3</td></tr>
+          <tr data-time="Türkiye"><td class="cl-pos" id="cl-pos-D-2">3</td><td><div class="cl-time"><span class="cl-flag">🇹🇷</span>Türkiye</div></td><td id="cl-j-D-2">1</td><td id="cl-v-D-2">0</td><td id="cl-e-D-2">0</td><td id="cl-d-D-2">1</td><td id="cl-gp-D-2">0</td><td id="cl-gc-D-2">2</td><td id="cl-sg-D-2">-2</td><td class="cl-pts" id="cl-pts-D-2">0</td></tr>
           <tr data-time="Paraguay"><td class="cl-pos" id="cl-pos-D-3">4</td><td><div class="cl-time"><span class="cl-flag">🇵🇾</span>Paraguay</div></td><td id="cl-j-D-3">1</td><td id="cl-v-D-3">0</td><td id="cl-e-D-3">0</td><td id="cl-d-D-3">1</td><td id="cl-gp-D-3">1</td><td id="cl-gc-D-3">4</td><td id="cl-sg-D-3">-3</td><td class="cl-pts" id="cl-pts-D-3">0</td></tr>
         </tbody>
       </table>
@@ -1661,10 +1661,10 @@
       <table class="classificacao-table">
         <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
         <tbody>
-          <tr data-time="Germany"><td class="cl-pos classificado" id="cl-pos-E-0">1</td><td><div class="cl-time"><span class="cl-flag">🇩🇪</span>Germany</div></td><td id="cl-j-E-0">0</td><td id="cl-v-E-0">0</td><td id="cl-e-E-0">0</td><td id="cl-d-E-0">0</td><td id="cl-gp-E-0">0</td><td id="cl-gc-E-0">0</td><td id="cl-sg-E-0">0</td><td class="cl-pts" id="cl-pts-E-0">0</td></tr>
-          <tr data-time="Ivory Coast"><td class="cl-pos classificado" id="cl-pos-E-1">2</td><td><div class="cl-time"><span class="cl-flag">🇨🇮</span>Ivory Coast</div></td><td id="cl-j-E-1">0</td><td id="cl-v-E-1">0</td><td id="cl-e-E-1">0</td><td id="cl-d-E-1">0</td><td id="cl-gp-E-1">0</td><td id="cl-gc-E-1">0</td><td id="cl-sg-E-1">0</td><td class="cl-pts" id="cl-pts-E-1">0</td></tr>
-          <tr data-time="Ecuador"><td class="cl-pos" id="cl-pos-E-2">3</td><td><div class="cl-time"><span class="cl-flag">🇪🇨</span>Ecuador</div></td><td id="cl-j-E-2">0</td><td id="cl-v-E-2">0</td><td id="cl-e-E-2">0</td><td id="cl-d-E-2">0</td><td id="cl-gp-E-2">0</td><td id="cl-gc-E-2">0</td><td id="cl-sg-E-2">0</td><td class="cl-pts" id="cl-pts-E-2">0</td></tr>
-          <tr data-time="Curaçao"><td class="cl-pos" id="cl-pos-E-3">4</td><td><div class="cl-time"><span class="cl-flag">🇨🇼</span>Curaçao</div></td><td id="cl-j-E-3">0</td><td id="cl-v-E-3">0</td><td id="cl-e-E-3">0</td><td id="cl-d-E-3">0</td><td id="cl-gp-E-3">0</td><td id="cl-gc-E-3">0</td><td id="cl-sg-E-3">0</td><td class="cl-pts" id="cl-pts-E-3">0</td></tr>
+          <tr data-time="Germany"><td class="cl-pos classificado" id="cl-pos-E-0">1</td><td><div class="cl-time"><span class="cl-flag">🇩🇪</span>Germany</div></td><td id="cl-j-E-0">1</td><td id="cl-v-E-0">1</td><td id="cl-e-E-0">0</td><td id="cl-d-E-0">0</td><td id="cl-gp-E-0">7</td><td id="cl-gc-E-0">1</td><td id="cl-sg-E-0">+6</td><td class="cl-pts" id="cl-pts-E-0">3</td></tr>
+          <tr data-time="Ivory Coast"><td class="cl-pos classificado" id="cl-pos-E-1">2</td><td><div class="cl-time"><span class="cl-flag">🇨🇮</span>Ivory Coast</div></td><td id="cl-j-E-1">1</td><td id="cl-v-E-1">1</td><td id="cl-e-E-1">0</td><td id="cl-d-E-1">0</td><td id="cl-gp-E-1">1</td><td id="cl-gc-E-1">0</td><td id="cl-sg-E-1">+1</td><td class="cl-pts" id="cl-pts-E-1">3</td></tr>
+          <tr data-time="Ecuador"><td class="cl-pos" id="cl-pos-E-2">3</td><td><div class="cl-time"><span class="cl-flag">🇪🇨</span>Ecuador</div></td><td id="cl-j-E-2">1</td><td id="cl-v-E-2">0</td><td id="cl-e-E-2">0</td><td id="cl-d-E-2">1</td><td id="cl-gp-E-2">0</td><td id="cl-gc-E-2">1</td><td id="cl-sg-E-2">-1</td><td class="cl-pts" id="cl-pts-E-2">0</td></tr>
+          <tr data-time="Curaçao"><td class="cl-pos" id="cl-pos-E-3">4</td><td><div class="cl-time"><span class="cl-flag">🇨🇼</span>Curaçao</div></td><td id="cl-j-E-3">1</td><td id="cl-v-E-3">0</td><td id="cl-e-E-3">0</td><td id="cl-d-E-3">1</td><td id="cl-gp-E-3">1</td><td id="cl-gc-E-3">7</td><td id="cl-sg-E-3">-6</td><td class="cl-pts" id="cl-pts-E-3">0</td></tr>
         </tbody>
       </table>
     </div>
@@ -1673,10 +1673,10 @@
       <table class="classificacao-table">
         <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
         <tbody>
-          <tr data-time="Netherlands"><td class="cl-pos classificado" id="cl-pos-F-0">1</td><td><div class="cl-time"><span class="cl-flag">🇳🇱</span>Netherlands</div></td><td id="cl-j-F-0">0</td><td id="cl-v-F-0">0</td><td id="cl-e-F-0">0</td><td id="cl-d-F-0">0</td><td id="cl-gp-F-0">0</td><td id="cl-gc-F-0">0</td><td id="cl-sg-F-0">0</td><td class="cl-pts" id="cl-pts-F-0">0</td></tr>
-          <tr data-time="Japan"><td class="cl-pos classificado" id="cl-pos-F-1">2</td><td><div class="cl-time"><span class="cl-flag">🇯🇵</span>Japan</div></td><td id="cl-j-F-1">0</td><td id="cl-v-F-1">0</td><td id="cl-e-F-1">0</td><td id="cl-d-F-1">0</td><td id="cl-gp-F-1">0</td><td id="cl-gc-F-1">0</td><td id="cl-sg-F-1">0</td><td class="cl-pts" id="cl-pts-F-1">0</td></tr>
-          <tr data-time="Tunisia"><td class="cl-pos" id="cl-pos-F-2">3</td><td><div class="cl-time"><span class="cl-flag">🇹🇳</span>Tunisia</div></td><td id="cl-j-F-2">0</td><td id="cl-v-F-2">0</td><td id="cl-e-F-2">0</td><td id="cl-d-F-2">0</td><td id="cl-gp-F-2">0</td><td id="cl-gc-F-2">0</td><td id="cl-sg-F-2">0</td><td class="cl-pts" id="cl-pts-F-2">0</td></tr>
-          <tr data-time="Sweden"><td class="cl-pos" id="cl-pos-F-3">4</td><td><div class="cl-time"><span class="cl-flag">🇸🇪</span>Sweden</div></td><td id="cl-j-F-3">0</td><td id="cl-v-F-3">0</td><td id="cl-e-F-3">0</td><td id="cl-d-F-3">0</td><td id="cl-gp-F-3">0</td><td id="cl-gc-F-3">0</td><td id="cl-sg-F-3">0</td><td class="cl-pts" id="cl-pts-F-3">0</td></tr>
+          <tr data-time="Sweden"><td class="cl-pos classificado" id="cl-pos-F-0">1</td><td><div class="cl-time"><span class="cl-flag">🇸🇪</span>Sweden</div></td><td id="cl-j-F-0">1</td><td id="cl-v-F-0">1</td><td id="cl-e-F-0">0</td><td id="cl-d-F-0">0</td><td id="cl-gp-F-0">5</td><td id="cl-gc-F-0">1</td><td id="cl-sg-F-0">+4</td><td class="cl-pts" id="cl-pts-F-0">3</td></tr>
+          <tr data-time="Netherlands"><td class="cl-pos classificado" id="cl-pos-F-1">2</td><td><div class="cl-time"><span class="cl-flag">🇳🇱</span>Netherlands</div></td><td id="cl-j-F-1">1</td><td id="cl-v-F-1">0</td><td id="cl-e-F-1">1</td><td id="cl-d-F-1">0</td><td id="cl-gp-F-1">2</td><td id="cl-gc-F-1">2</td><td id="cl-sg-F-1">+0</td><td class="cl-pts" id="cl-pts-F-1">1</td></tr>
+          <tr data-time="Japan"><td class="cl-pos" id="cl-pos-F-2">3</td><td><div class="cl-time"><span class="cl-flag">🇯🇵</span>Japan</div></td><td id="cl-j-F-2">1</td><td id="cl-v-F-2">0</td><td id="cl-e-F-2">1</td><td id="cl-d-F-2">0</td><td id="cl-gp-F-2">2</td><td id="cl-gc-F-2">2</td><td id="cl-sg-F-2">+0</td><td class="cl-pts" id="cl-pts-F-2">1</td></tr>
+          <tr data-time="Tunisia"><td class="cl-pos" id="cl-pos-F-3">4</td><td><div class="cl-time"><span class="cl-flag">🇹🇳</span>Tunisia</div></td><td id="cl-j-F-3">1</td><td id="cl-v-F-3">0</td><td id="cl-e-F-3">0</td><td id="cl-d-F-3">1</td><td id="cl-gp-F-3">1</td><td id="cl-gc-F-3">5</td><td id="cl-sg-F-3">-4</td><td class="cl-pts" id="cl-pts-F-3">0</td></tr>
         </tbody>
       </table>
     </div>
@@ -1685,10 +1685,10 @@
       <table class="classificacao-table">
         <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
         <tbody>
-          <tr data-time="Belgium"><td class="cl-pos classificado" id="cl-pos-G-0">1</td><td><div class="cl-time"><span class="cl-flag">🇧🇪</span>Belgium</div></td><td id="cl-j-G-0">0</td><td id="cl-v-G-0">0</td><td id="cl-e-G-0">0</td><td id="cl-d-G-0">0</td><td id="cl-gp-G-0">0</td><td id="cl-gc-G-0">0</td><td id="cl-sg-G-0">0</td><td class="cl-pts" id="cl-pts-G-0">0</td></tr>
-          <tr data-time="Egypt"><td class="cl-pos classificado" id="cl-pos-G-1">2</td><td><div class="cl-time"><span class="cl-flag">🇪🇬</span>Egypt</div></td><td id="cl-j-G-1">0</td><td id="cl-v-G-1">0</td><td id="cl-e-G-1">0</td><td id="cl-d-G-1">0</td><td id="cl-gp-G-1">0</td><td id="cl-gc-G-1">0</td><td id="cl-sg-G-1">0</td><td class="cl-pts" id="cl-pts-G-1">0</td></tr>
-          <tr data-time="Iran"><td class="cl-pos" id="cl-pos-G-2">3</td><td><div class="cl-time"><span class="cl-flag">🇮🇷</span>Iran</div></td><td id="cl-j-G-2">0</td><td id="cl-v-G-2">0</td><td id="cl-e-G-2">0</td><td id="cl-d-G-2">0</td><td id="cl-gp-G-2">0</td><td id="cl-gc-G-2">0</td><td id="cl-sg-G-2">0</td><td class="cl-pts" id="cl-pts-G-2">0</td></tr>
-          <tr data-time="New Zealand"><td class="cl-pos" id="cl-pos-G-3">4</td><td><div class="cl-time"><span class="cl-flag">🇳🇿</span>New Zealand</div></td><td id="cl-j-G-3">0</td><td id="cl-v-G-3">0</td><td id="cl-e-G-3">0</td><td id="cl-d-G-3">0</td><td id="cl-gp-G-3">0</td><td id="cl-gc-G-3">0</td><td id="cl-sg-G-3">0</td><td class="cl-pts" id="cl-pts-G-3">0</td></tr>
+          <tr data-time="Belgium"><td class="cl-pos classificado" id="cl-pos-G-0">1</td><td><div class="cl-time"><span class="cl-flag">🇧🇪</span>Belgium</div></td><td id="cl-j-G-0">1</td><td id="cl-v-G-0">0</td><td id="cl-e-G-0">1</td><td id="cl-d-G-0">0</td><td id="cl-gp-G-0">1</td><td id="cl-gc-G-0">1</td><td id="cl-sg-G-0">+0</td><td class="cl-pts" id="cl-pts-G-0">1</td></tr>
+          <tr data-time="Egypt"><td class="cl-pos classificado" id="cl-pos-G-1">2</td><td><div class="cl-time"><span class="cl-flag">🇪🇬</span>Egypt</div></td><td id="cl-j-G-1">1</td><td id="cl-v-G-1">0</td><td id="cl-e-G-1">1</td><td id="cl-d-G-1">0</td><td id="cl-gp-G-1">1</td><td id="cl-gc-G-1">1</td><td id="cl-sg-G-1">+0</td><td class="cl-pts" id="cl-pts-G-1">1</td></tr>
+          <tr data-time="Iran"><td class="cl-pos" id="cl-pos-G-2">3</td><td><div class="cl-time"><span class="cl-flag">🇮🇷</span>Iran</div></td><td id="cl-j-G-2">0</td><td id="cl-v-G-2">0</td><td id="cl-e-G-2">0</td><td id="cl-d-G-2">0</td><td id="cl-gp-G-2">0</td><td id="cl-gc-G-2">0</td><td id="cl-sg-G-2">+0</td><td class="cl-pts" id="cl-pts-G-2">0</td></tr>
+          <tr data-time="New Zealand"><td class="cl-pos" id="cl-pos-G-3">4</td><td><div class="cl-time"><span class="cl-flag">🇳🇿</span>New Zealand</div></td><td id="cl-j-G-3">0</td><td id="cl-v-G-3">0</td><td id="cl-e-G-3">0</td><td id="cl-d-G-3">0</td><td id="cl-gp-G-3">0</td><td id="cl-gc-G-3">0</td><td id="cl-sg-G-3">+0</td><td class="cl-pts" id="cl-pts-G-3">0</td></tr>
         </tbody>
       </table>
     </div>
@@ -1697,10 +1697,10 @@
       <table class="classificacao-table">
         <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
         <tbody>
-          <tr data-time="Spain"><td class="cl-pos classificado" id="cl-pos-H-0">1</td><td><div class="cl-time"><span class="cl-flag">🇪🇸</span>Spain</div></td><td id="cl-j-H-0">0</td><td id="cl-v-H-0">0</td><td id="cl-e-H-0">0</td><td id="cl-d-H-0">0</td><td id="cl-gp-H-0">0</td><td id="cl-gc-H-0">0</td><td id="cl-sg-H-0">0</td><td class="cl-pts" id="cl-pts-H-0">0</td></tr>
-          <tr data-time="Uruguay"><td class="cl-pos classificado" id="cl-pos-H-1">2</td><td><div class="cl-time"><span class="cl-flag">🇺🇾</span>Uruguay</div></td><td id="cl-j-H-1">0</td><td id="cl-v-H-1">0</td><td id="cl-e-H-1">0</td><td id="cl-d-H-1">0</td><td id="cl-gp-H-1">0</td><td id="cl-gc-H-1">0</td><td id="cl-sg-H-1">0</td><td class="cl-pts" id="cl-pts-H-1">0</td></tr>
-          <tr data-time="Saudi Arabia"><td class="cl-pos" id="cl-pos-H-2">3</td><td><div class="cl-time"><span class="cl-flag">🇸🇦</span>Saudi Arabia</div></td><td id="cl-j-H-2">0</td><td id="cl-v-H-2">0</td><td id="cl-e-H-2">0</td><td id="cl-d-H-2">0</td><td id="cl-gp-H-2">0</td><td id="cl-gc-H-2">0</td><td id="cl-sg-H-2">0</td><td class="cl-pts" id="cl-pts-H-2">0</td></tr>
-          <tr data-time="Cape Verde Islands"><td class="cl-pos" id="cl-pos-H-3">4</td><td><div class="cl-time"><span class="cl-flag">🇨🇻</span>Cape Verde Islands</div></td><td id="cl-j-H-3">0</td><td id="cl-v-H-3">0</td><td id="cl-e-H-3">0</td><td id="cl-d-H-3">0</td><td id="cl-gp-H-3">0</td><td id="cl-gc-H-3">0</td><td id="cl-sg-H-3">0</td><td class="cl-pts" id="cl-pts-H-3">0</td></tr>
+          <tr data-time="Spain"><td class="cl-pos classificado" id="cl-pos-H-0">1</td><td><div class="cl-time"><span class="cl-flag">🇪🇸</span>Spain</div></td><td id="cl-j-H-0">1</td><td id="cl-v-H-0">0</td><td id="cl-e-H-0">1</td><td id="cl-d-H-0">0</td><td id="cl-gp-H-0">0</td><td id="cl-gc-H-0">0</td><td id="cl-sg-H-0">+0</td><td class="cl-pts" id="cl-pts-H-0">1</td></tr>
+          <tr data-time="Cape Verde Islands"><td class="cl-pos classificado" id="cl-pos-H-1">2</td><td><div class="cl-time"><span class="cl-flag">🇨🇻</span>Cape Verde Islands</div></td><td id="cl-j-H-1">1</td><td id="cl-v-H-1">0</td><td id="cl-e-H-1">1</td><td id="cl-d-H-1">0</td><td id="cl-gp-H-1">0</td><td id="cl-gc-H-1">0</td><td id="cl-sg-H-1">+0</td><td class="cl-pts" id="cl-pts-H-1">1</td></tr>
+          <tr data-time="Uruguay"><td class="cl-pos" id="cl-pos-H-2">3</td><td><div class="cl-time"><span class="cl-flag">🇺🇾</span>Uruguay</div></td><td id="cl-j-H-2">0</td><td id="cl-v-H-2">0</td><td id="cl-e-H-2">0</td><td id="cl-d-H-2">0</td><td id="cl-gp-H-2">0</td><td id="cl-gc-H-2">0</td><td id="cl-sg-H-2">+0</td><td class="cl-pts" id="cl-pts-H-2">0</td></tr>
+          <tr data-time="Saudi Arabia"><td class="cl-pos" id="cl-pos-H-3">4</td><td><div class="cl-time"><span class="cl-flag">🇸🇦</span>Saudi Arabia</div></td><td id="cl-j-H-3">0</td><td id="cl-v-H-3">0</td><td id="cl-e-H-3">0</td><td id="cl-d-H-3">0</td><td id="cl-gp-H-3">0</td><td id="cl-gc-H-3">0</td><td id="cl-sg-H-3">+0</td><td class="cl-pts" id="cl-pts-H-3">0</td></tr>
         </tbody>
       </table>
     </div>
@@ -1709,10 +1709,10 @@
       <table class="classificacao-table">
         <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
         <tbody>
-          <tr data-time="France"><td class="cl-pos classificado" id="cl-pos-I-0">1</td><td><div class="cl-time"><span class="cl-flag">🇫🇷</span>France</div></td><td id="cl-j-I-0">0</td><td id="cl-v-I-0">0</td><td id="cl-e-I-0">0</td><td id="cl-d-I-0">0</td><td id="cl-gp-I-0">0</td><td id="cl-gc-I-0">0</td><td id="cl-sg-I-0">0</td><td class="cl-pts" id="cl-pts-I-0">0</td></tr>
-          <tr data-time="Senegal"><td class="cl-pos classificado" id="cl-pos-I-1">2</td><td><div class="cl-time"><span class="cl-flag">🇸🇳</span>Senegal</div></td><td id="cl-j-I-1">0</td><td id="cl-v-I-1">0</td><td id="cl-e-I-1">0</td><td id="cl-d-I-1">0</td><td id="cl-gp-I-1">0</td><td id="cl-gc-I-1">0</td><td id="cl-sg-I-1">0</td><td class="cl-pts" id="cl-pts-I-1">0</td></tr>
-          <tr data-time="Norway"><td class="cl-pos" id="cl-pos-I-2">3</td><td><div class="cl-time"><span class="cl-flag">🇳🇴</span>Norway</div></td><td id="cl-j-I-2">0</td><td id="cl-v-I-2">0</td><td id="cl-e-I-2">0</td><td id="cl-d-I-2">0</td><td id="cl-gp-I-2">0</td><td id="cl-gc-I-2">0</td><td id="cl-sg-I-2">0</td><td class="cl-pts" id="cl-pts-I-2">0</td></tr>
-          <tr data-time="Iraq"><td class="cl-pos" id="cl-pos-I-3">4</td><td><div class="cl-time"><span class="cl-flag">🇮🇶</span>Iraq</div></td><td id="cl-j-I-3">0</td><td id="cl-v-I-3">0</td><td id="cl-e-I-3">0</td><td id="cl-d-I-3">0</td><td id="cl-gp-I-3">0</td><td id="cl-gc-I-3">0</td><td id="cl-sg-I-3">0</td><td class="cl-pts" id="cl-pts-I-3">0</td></tr>
+          <tr data-time="France"><td class="cl-pos classificado" id="cl-pos-I-0">1</td><td><div class="cl-time"><span class="cl-flag">🇫🇷</span>France</div></td><td id="cl-j-I-0">0</td><td id="cl-v-I-0">0</td><td id="cl-e-I-0">0</td><td id="cl-d-I-0">0</td><td id="cl-gp-I-0">0</td><td id="cl-gc-I-0">0</td><td id="cl-sg-I-0">+0</td><td class="cl-pts" id="cl-pts-I-0">0</td></tr>
+          <tr data-time="Senegal"><td class="cl-pos classificado" id="cl-pos-I-1">2</td><td><div class="cl-time"><span class="cl-flag">🇸🇳</span>Senegal</div></td><td id="cl-j-I-1">0</td><td id="cl-v-I-1">0</td><td id="cl-e-I-1">0</td><td id="cl-d-I-1">0</td><td id="cl-gp-I-1">0</td><td id="cl-gc-I-1">0</td><td id="cl-sg-I-1">+0</td><td class="cl-pts" id="cl-pts-I-1">0</td></tr>
+          <tr data-time="Norway"><td class="cl-pos" id="cl-pos-I-2">3</td><td><div class="cl-time"><span class="cl-flag">🇳🇴</span>Norway</div></td><td id="cl-j-I-2">0</td><td id="cl-v-I-2">0</td><td id="cl-e-I-2">0</td><td id="cl-d-I-2">0</td><td id="cl-gp-I-2">0</td><td id="cl-gc-I-2">0</td><td id="cl-sg-I-2">+0</td><td class="cl-pts" id="cl-pts-I-2">0</td></tr>
+          <tr data-time="Iraq"><td class="cl-pos" id="cl-pos-I-3">4</td><td><div class="cl-time"><span class="cl-flag">🇮🇶</span>Iraq</div></td><td id="cl-j-I-3">0</td><td id="cl-v-I-3">0</td><td id="cl-e-I-3">0</td><td id="cl-d-I-3">0</td><td id="cl-gp-I-3">0</td><td id="cl-gc-I-3">0</td><td id="cl-sg-I-3">+0</td><td class="cl-pts" id="cl-pts-I-3">0</td></tr>
         </tbody>
       </table>
     </div>
@@ -1721,10 +1721,10 @@
       <table class="classificacao-table">
         <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
         <tbody>
-          <tr data-time="Argentina"><td class="cl-pos classificado" id="cl-pos-J-0">1</td><td><div class="cl-time"><span class="cl-flag">🇦🇷</span>Argentina</div></td><td id="cl-j-J-0">0</td><td id="cl-v-J-0">0</td><td id="cl-e-J-0">0</td><td id="cl-d-J-0">0</td><td id="cl-gp-J-0">0</td><td id="cl-gc-J-0">0</td><td id="cl-sg-J-0">0</td><td class="cl-pts" id="cl-pts-J-0">0</td></tr>
-          <tr data-time="Algeria"><td class="cl-pos classificado" id="cl-pos-J-1">2</td><td><div class="cl-time"><span class="cl-flag">🇩🇿</span>Algeria</div></td><td id="cl-j-J-1">0</td><td id="cl-v-J-1">0</td><td id="cl-e-J-1">0</td><td id="cl-d-J-1">0</td><td id="cl-gp-J-1">0</td><td id="cl-gc-J-1">0</td><td id="cl-sg-J-1">0</td><td class="cl-pts" id="cl-pts-J-1">0</td></tr>
-          <tr data-time="Austria"><td class="cl-pos" id="cl-pos-J-2">3</td><td><div class="cl-time"><span class="cl-flag">🇦🇹</span>Austria</div></td><td id="cl-j-J-2">0</td><td id="cl-v-J-2">0</td><td id="cl-e-J-2">0</td><td id="cl-d-J-2">0</td><td id="cl-gp-J-2">0</td><td id="cl-gc-J-2">0</td><td id="cl-sg-J-2">0</td><td class="cl-pts" id="cl-pts-J-2">0</td></tr>
-          <tr data-time="Jordan"><td class="cl-pos" id="cl-pos-J-3">4</td><td><div class="cl-time"><span class="cl-flag">🇯🇴</span>Jordan</div></td><td id="cl-j-J-3">0</td><td id="cl-v-J-3">0</td><td id="cl-e-J-3">0</td><td id="cl-d-J-3">0</td><td id="cl-gp-J-3">0</td><td id="cl-gc-J-3">0</td><td id="cl-sg-J-3">0</td><td class="cl-pts" id="cl-pts-J-3">0</td></tr>
+          <tr data-time="Argentina"><td class="cl-pos classificado" id="cl-pos-J-0">1</td><td><div class="cl-time"><span class="cl-flag">🇦🇷</span>Argentina</div></td><td id="cl-j-J-0">0</td><td id="cl-v-J-0">0</td><td id="cl-e-J-0">0</td><td id="cl-d-J-0">0</td><td id="cl-gp-J-0">0</td><td id="cl-gc-J-0">0</td><td id="cl-sg-J-0">+0</td><td class="cl-pts" id="cl-pts-J-0">0</td></tr>
+          <tr data-time="Algeria"><td class="cl-pos classificado" id="cl-pos-J-1">2</td><td><div class="cl-time"><span class="cl-flag">🇩🇿</span>Algeria</div></td><td id="cl-j-J-1">0</td><td id="cl-v-J-1">0</td><td id="cl-e-J-1">0</td><td id="cl-d-J-1">0</td><td id="cl-gp-J-1">0</td><td id="cl-gc-J-1">0</td><td id="cl-sg-J-1">+0</td><td class="cl-pts" id="cl-pts-J-1">0</td></tr>
+          <tr data-time="Austria"><td class="cl-pos" id="cl-pos-J-2">3</td><td><div class="cl-time"><span class="cl-flag">🇦🇹</span>Austria</div></td><td id="cl-j-J-2">0</td><td id="cl-v-J-2">0</td><td id="cl-e-J-2">0</td><td id="cl-d-J-2">0</td><td id="cl-gp-J-2">0</td><td id="cl-gc-J-2">0</td><td id="cl-sg-J-2">+0</td><td class="cl-pts" id="cl-pts-J-2">0</td></tr>
+          <tr data-time="Jordan"><td class="cl-pos" id="cl-pos-J-3">4</td><td><div class="cl-time"><span class="cl-flag">🇯🇴</span>Jordan</div></td><td id="cl-j-J-3">0</td><td id="cl-v-J-3">0</td><td id="cl-e-J-3">0</td><td id="cl-d-J-3">0</td><td id="cl-gp-J-3">0</td><td id="cl-gc-J-3">0</td><td id="cl-sg-J-3">+0</td><td class="cl-pts" id="cl-pts-J-3">0</td></tr>
         </tbody>
       </table>
     </div>
@@ -1733,10 +1733,10 @@
       <table class="classificacao-table">
         <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
         <tbody>
-          <tr data-time="Portugal"><td class="cl-pos classificado" id="cl-pos-K-0">1</td><td><div class="cl-time"><span class="cl-flag">🇵🇹</span>Portugal</div></td><td id="cl-j-K-0">0</td><td id="cl-v-K-0">0</td><td id="cl-e-K-0">0</td><td id="cl-d-K-0">0</td><td id="cl-gp-K-0">0</td><td id="cl-gc-K-0">0</td><td id="cl-sg-K-0">0</td><td class="cl-pts" id="cl-pts-K-0">0</td></tr>
-          <tr data-time="Colombia"><td class="cl-pos classificado" id="cl-pos-K-1">2</td><td><div class="cl-time"><span class="cl-flag">🇨🇴</span>Colombia</div></td><td id="cl-j-K-1">0</td><td id="cl-v-K-1">0</td><td id="cl-e-K-1">0</td><td id="cl-d-K-1">0</td><td id="cl-gp-K-1">0</td><td id="cl-gc-K-1">0</td><td id="cl-sg-K-1">0</td><td class="cl-pts" id="cl-pts-K-1">0</td></tr>
-          <tr data-time="Uzbekistan"><td class="cl-pos" id="cl-pos-K-2">3</td><td><div class="cl-time"><span class="cl-flag">🇺🇿</span>Uzbekistan</div></td><td id="cl-j-K-2">0</td><td id="cl-v-K-2">0</td><td id="cl-e-K-2">0</td><td id="cl-d-K-2">0</td><td id="cl-gp-K-2">0</td><td id="cl-gc-K-2">0</td><td id="cl-sg-K-2">0</td><td class="cl-pts" id="cl-pts-K-2">0</td></tr>
-          <tr data-time="Congo DR"><td class="cl-pos" id="cl-pos-K-3">4</td><td><div class="cl-time"><span class="cl-flag">🇨🇩</span>Congo DR</div></td><td id="cl-j-K-3">0</td><td id="cl-v-K-3">0</td><td id="cl-e-K-3">0</td><td id="cl-d-K-3">0</td><td id="cl-gp-K-3">0</td><td id="cl-gc-K-3">0</td><td id="cl-sg-K-3">0</td><td class="cl-pts" id="cl-pts-K-3">0</td></tr>
+          <tr data-time="Portugal"><td class="cl-pos classificado" id="cl-pos-K-0">1</td><td><div class="cl-time"><span class="cl-flag">🇵🇹</span>Portugal</div></td><td id="cl-j-K-0">0</td><td id="cl-v-K-0">0</td><td id="cl-e-K-0">0</td><td id="cl-d-K-0">0</td><td id="cl-gp-K-0">0</td><td id="cl-gc-K-0">0</td><td id="cl-sg-K-0">+0</td><td class="cl-pts" id="cl-pts-K-0">0</td></tr>
+          <tr data-time="Colombia"><td class="cl-pos classificado" id="cl-pos-K-1">2</td><td><div class="cl-time"><span class="cl-flag">🇨🇴</span>Colombia</div></td><td id="cl-j-K-1">0</td><td id="cl-v-K-1">0</td><td id="cl-e-K-1">0</td><td id="cl-d-K-1">0</td><td id="cl-gp-K-1">0</td><td id="cl-gc-K-1">0</td><td id="cl-sg-K-1">+0</td><td class="cl-pts" id="cl-pts-K-1">0</td></tr>
+          <tr data-time="Uzbekistan"><td class="cl-pos" id="cl-pos-K-2">3</td><td><div class="cl-time"><span class="cl-flag">🇺🇿</span>Uzbekistan</div></td><td id="cl-j-K-2">0</td><td id="cl-v-K-2">0</td><td id="cl-e-K-2">0</td><td id="cl-d-K-2">0</td><td id="cl-gp-K-2">0</td><td id="cl-gc-K-2">0</td><td id="cl-sg-K-2">+0</td><td class="cl-pts" id="cl-pts-K-2">0</td></tr>
+          <tr data-time="Congo DR"><td class="cl-pos" id="cl-pos-K-3">4</td><td><div class="cl-time"><span class="cl-flag">🇨🇩</span>Congo DR</div></td><td id="cl-j-K-3">0</td><td id="cl-v-K-3">0</td><td id="cl-e-K-3">0</td><td id="cl-d-K-3">0</td><td id="cl-gp-K-3">0</td><td id="cl-gc-K-3">0</td><td id="cl-sg-K-3">+0</td><td class="cl-pts" id="cl-pts-K-3">0</td></tr>
         </tbody>
       </table>
     </div>
@@ -1745,10 +1745,10 @@
       <table class="classificacao-table">
         <thead><tr><th>#</th><th>Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead>
         <tbody>
-          <tr data-time="England"><td class="cl-pos classificado" id="cl-pos-L-0">1</td><td><div class="cl-time"><span class="cl-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>England</div></td><td id="cl-j-L-0">0</td><td id="cl-v-L-0">0</td><td id="cl-e-L-0">0</td><td id="cl-d-L-0">0</td><td id="cl-gp-L-0">0</td><td id="cl-gc-L-0">0</td><td id="cl-sg-L-0">0</td><td class="cl-pts" id="cl-pts-L-0">0</td></tr>
-          <tr data-time="Croatia"><td class="cl-pos classificado" id="cl-pos-L-1">2</td><td><div class="cl-time"><span class="cl-flag">🇭🇷</span>Croatia</div></td><td id="cl-j-L-1">0</td><td id="cl-v-L-1">0</td><td id="cl-e-L-1">0</td><td id="cl-d-L-1">0</td><td id="cl-gp-L-1">0</td><td id="cl-gc-L-1">0</td><td id="cl-sg-L-1">0</td><td class="cl-pts" id="cl-pts-L-1">0</td></tr>
-          <tr data-time="Ghana"><td class="cl-pos" id="cl-pos-L-2">3</td><td><div class="cl-time"><span class="cl-flag">🇬🇭</span>Ghana</div></td><td id="cl-j-L-2">0</td><td id="cl-v-L-2">0</td><td id="cl-e-L-2">0</td><td id="cl-d-L-2">0</td><td id="cl-gp-L-2">0</td><td id="cl-gc-L-2">0</td><td id="cl-sg-L-2">0</td><td class="cl-pts" id="cl-pts-L-2">0</td></tr>
-          <tr data-time="Panama"><td class="cl-pos" id="cl-pos-L-3">4</td><td><div class="cl-time"><span class="cl-flag">🇵🇦</span>Panama</div></td><td id="cl-j-L-3">0</td><td id="cl-v-L-3">0</td><td id="cl-e-L-3">0</td><td id="cl-d-L-3">0</td><td id="cl-gp-L-3">0</td><td id="cl-gc-L-3">0</td><td id="cl-sg-L-3">0</td><td class="cl-pts" id="cl-pts-L-3">0</td></tr>
+          <tr data-time="England"><td class="cl-pos classificado" id="cl-pos-L-0">1</td><td><div class="cl-time"><span class="cl-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>England</div></td><td id="cl-j-L-0">0</td><td id="cl-v-L-0">0</td><td id="cl-e-L-0">0</td><td id="cl-d-L-0">0</td><td id="cl-gp-L-0">0</td><td id="cl-gc-L-0">0</td><td id="cl-sg-L-0">+0</td><td class="cl-pts" id="cl-pts-L-0">0</td></tr>
+          <tr data-time="Croatia"><td class="cl-pos classificado" id="cl-pos-L-1">2</td><td><div class="cl-time"><span class="cl-flag">🇭🇷</span>Croatia</div></td><td id="cl-j-L-1">0</td><td id="cl-v-L-1">0</td><td id="cl-e-L-1">0</td><td id="cl-d-L-1">0</td><td id="cl-gp-L-1">0</td><td id="cl-gc-L-1">0</td><td id="cl-sg-L-1">+0</td><td class="cl-pts" id="cl-pts-L-1">0</td></tr>
+          <tr data-time="Ghana"><td class="cl-pos" id="cl-pos-L-2">3</td><td><div class="cl-time"><span class="cl-flag">🇬🇭</span>Ghana</div></td><td id="cl-j-L-2">0</td><td id="cl-v-L-2">0</td><td id="cl-e-L-2">0</td><td id="cl-d-L-2">0</td><td id="cl-gp-L-2">0</td><td id="cl-gc-L-2">0</td><td id="cl-sg-L-2">+0</td><td class="cl-pts" id="cl-pts-L-2">0</td></tr>
+          <tr data-time="Panama"><td class="cl-pos" id="cl-pos-L-3">4</td><td><div class="cl-time"><span class="cl-flag">🇵🇦</span>Panama</div></td><td id="cl-j-L-3">0</td><td id="cl-v-L-3">0</td><td id="cl-e-L-3">0</td><td id="cl-d-L-3">0</td><td id="cl-gp-L-3">0</td><td id="cl-gc-L-3">0</td><td id="cl-sg-L-3">+0</td><td class="cl-pts" id="cl-pts-L-3">0</td></tr>
         </tbody>
       </table>
     </div>
@@ -1758,7 +1758,6 @@
     <!-- ===== ARTILHARIA ===== -->
     <div id="secao-artilharia" class="copa-secao">
       <div class="artilharia-wrap">
-
         <div class="artilheiro-card"><div class="artilheiro-pos top1">1</div><div class="artilheiro-info"><div class="artilheiro-nome" id="art-nome-0">—</div><div class="artilheiro-pais" id="art-pais-0">Aguardando jogos...</div></div><div class="artilheiro-gols" id="art-gols-0">0<span>gols</span></div></div>
         <div class="artilheiro-card"><div class="artilheiro-pos top2">2</div><div class="artilheiro-info"><div class="artilheiro-nome" id="art-nome-1">—</div><div class="artilheiro-pais" id="art-pais-1"></div></div><div class="artilheiro-gols" id="art-gols-1">0<span>gols</span></div></div>
         <div class="artilheiro-card"><div class="artilheiro-pos top3">3</div><div class="artilheiro-info"><div class="artilheiro-nome" id="art-nome-2">—</div><div class="artilheiro-pais" id="art-pais-2"></div></div><div class="artilheiro-gols" id="art-gols-2">0<span>gols</span></div></div>
@@ -1802,15 +1801,14 @@
   </footer>
 
   <script>
-    const PROXY = 'https://futebol-proxy.placardofutebol-com.workers.dev';
-    const CACHE_TTL_VIVO      = 30 * 1000;
-    const CACHE_TTL_NORMAL    = 60 * 1000;
+    const PROXY            = 'https://futebol-proxy.placardofutebol-com.workers.dev';
+    const CACHE_TTL_VIVO   = 30 * 1000;
+    const CACHE_TTL_NORMAL = 60 * 1000;
     const CACHE_TTL_MADRUGADA = 5 * 60 * 1000;
 
     let timerAtualizacao = null;
-    const jogosVivos   = new Map();
-    const jogosEmBreve = new Map();
-    const placaresPrev = {};
+    const jogosVivos   = new Map(); // id → { base, inicio, periodo, travado }
+    const jogosEmBreve = new Map(); // id → timestamp kickoff
 
     // ── ABAS ──
     function mudarAba(el, secao) {
@@ -1823,10 +1821,10 @@
     }
 
     (function() {
-      const hash = location.hash.replace('#','');
+      const hash   = location.hash.replace('#','');
       const validas = ['grupos','jogos','classificacao','artilharia'];
-      const s = validas.includes(hash) ? hash : 'jogos';
-      const tab = document.querySelector('[onclick*="' + s + '"]');
+      const s   = validas.includes(hash) ? hash : 'jogos';
+      const tab = document.querySelector('[onclick*="\'' + s + '\'"]');
       if (tab) mudarAba(tab, s);
     })();
 
@@ -1853,8 +1851,6 @@
       });
     }
 
-    // ── AO VIVO: cards ficam fixos na posição, apenas atualizam placar/status ──
-
     // ── CACHE DE PLACARES ──
     function salvarPlacarCache(id, placar) {
       try { localStorage.setItem('pf_copa_' + id, placar); } catch(e) {}
@@ -1877,11 +1873,11 @@
     function iniciarContagensRegressivas() {
       document.querySelectorAll('.jogo-copa[data-kickoff]').forEach(card => {
         const st = card.dataset.status;
-        if (['FT','AET','PEN','BT','1H','2H','HT','ET','P'].includes(st)) return;
+        if (['FT','AET','PEN','BT','AWD','WO','1H','2H','HT','ET','P'].includes(st)) return;
         const kickoff = new Date(card.dataset.kickoff).getTime();
         const id = card.dataset.id;
         const diffMin = Math.floor((kickoff - Date.now()) / 60000);
-        if (diffMin <= 60 && diffMin > -5) jogosEmBreve.set(id, kickoff);
+        if (diffMin <= 60 && diffMin > -5) jogosEmBreve.set(String(id), kickoff);
       });
     }
 
@@ -1894,50 +1890,67 @@
       const minutos   = Math.floor((Date.now() - timer.inicio) / 60000);
       const tempoReal = timer.base + minutos;
       if (timer.periodo === '1H') {
-        if (tempoReal >= 45) { const ac = tempoReal-45; if(ac>=5){timer.travado="45+5' ⏳";return timer.travado;} return "45+"+ac+"'"; }
+        if (tempoReal >= 45) { const ac = tempoReal-45; if(ac>=9){timer.travado="45+9' ⏳";return timer.travado;} return "45+"+ac+"'"; }
         return tempoReal + "'";
       }
       if (timer.periodo === '2H') {
-        if (tempoReal >= 90) { const ac = tempoReal-90; if(ac>=5){timer.travado="90+5' ⏳";return timer.travado;} return "90+"+ac+"'"; }
+        if (tempoReal >= 90) { const ac = tempoReal-90; if(ac>=9){timer.travado="90+9' ⏳";return timer.travado;} return "90+"+ac+"'"; }
+        return tempoReal + "'";
+      }
+      if (timer.periodo === 'ET') {
+        const limite = timer.base >= 105 ? 120 : 105;
+        if (tempoReal >= limite) { timer.travado = limite + "+' ⏳"; return timer.travado; }
         return tempoReal + "'";
       }
       return tempoReal + "'";
     }
 
     function registrarJogoVivo(id, elapsed, status) {
-      const atual = jogosVivos.get(id);
+      const sid  = String(id);
+      const atual = jogosVivos.get(sid);
       if (!atual || elapsed > (atual.base||0) || status !== atual.periodo) {
-        jogosVivos.set(id, { base: elapsed, inicio: Date.now(), periodo: status, travado: null });
+        jogosVivos.set(sid, { base: elapsed, inicio: Date.now(), periodo: status, travado: null });
       }
-      jogosEmBreve.delete(id);
+      jogosEmBreve.delete(sid);
       const card = document.getElementById('card-' + id);
       if (card) card.dataset.status = status;
     }
 
+    // Tick do cronômetro + contagens regressivas
     setInterval(() => {
       const agora = Date.now();
       jogosVivos.forEach((timer, id) => {
         const el = document.getElementById('status-' + id);
-        if (el) {
-          el.textContent = calcularTextoTempo(timer);
-          el.className = 'jogo-copa-horario ao-vivo';
+        if (!el) return;
+        const txt = calcularTextoTempo(timer);
+        if (el.textContent !== txt) el.textContent = txt;
+        if (timer.travado) {
+          if (!el.classList.contains('travado')) el.className = 'jogo-copa-horario travado';
+        } else {
+          if (el.classList.contains('travado')) el.className = 'jogo-copa-horario ao-vivo';
         }
       });
       jogosEmBreve.forEach((kickoff, id) => {
-        const el = document.getElementById('status-' + id);
+        const el   = document.getElementById('status-' + id);
         const card = document.getElementById('card-' + id);
         if (!el) return;
         if (card && ['1H','2H','HT','ET','P'].includes(card.dataset.status)) { jogosEmBreve.delete(id); return; }
         const diffMin = Math.floor((kickoff - agora) / 60000);
-        if (diffMin > 0) { el.textContent = '⏱ ' + diffMin + ' min'; el.className = 'jogo-copa-horario agendado'; }
-        else { el.textContent = 'Iniciando...'; el.className = 'jogo-copa-horario agendado'; if(diffMin < -10) jogosEmBreve.delete(id); }
+        if (diffMin > 0) {
+          el.textContent = '⏱ ' + diffMin + ' min';
+          el.className   = 'jogo-copa-horario em-breve';
+        } else {
+          el.textContent = 'Iniciando...';
+          el.className   = 'jogo-copa-horario iniciando';
+          if (diffMin < -10) jogosEmBreve.delete(id);
+        }
       });
     }, 1000);
 
     // Retorna "YYYY-MM-DD" no fuso de Brasília
     function dataBR(offsetDias) {
       const dt = new Date(Date.now() + offsetDias * 86400000);
-      const p = {};
+      const p  = {};
       new Intl.DateTimeFormat('pt-BR', {
         year:'numeric', month:'2-digit', day:'2-digit',
         timeZone:'America/Sao_Paulo'
@@ -1945,10 +1958,9 @@
       return p.year + '-' + p.month + '-' + p.day;
     }
 
-        // ── ATUALIZAÇÃO AO VIVO VIA PROXY ──
+    // ── ATUALIZAÇÃO AO VIVO VIA PROXY ──
     async function atualizarAoVivo() {
       try {
-        // Datas em Brasília (UTC-3) — evita troca de dia por UTC
         const hoje   = dataBR(0);
         const ontem  = dataBR(-1);
         const amanha = dataBR(1);
@@ -1967,12 +1979,12 @@
         Object.values(mapa).forEach(j => {
           const id   = j.fixture.id;
           const st   = j.fixture.status.short;
-          const elP  = document.getElementById('placar-' + id);
-          const elS  = document.getElementById('status-' + id);
-          const card = document.getElementById('card-' + id);
+          const elP  = document.getElementById('placar-'  + id);
+          const elS  = document.getElementById('status-'  + id);
+          const card = document.getElementById('card-'    + id);
           if (!card) return;
 
-          // Placares fixos (gerados como encerrados): não sobrescreve
+          // Placares fixos (gerados como encerrados): nunca sobrescreve
           if (card.dataset.placarFixo) return;
 
           card.dataset.status = st;
@@ -1980,12 +1992,13 @@
           if (['1H','2H','HT','ET','P','BT'].includes(st)) {
             registrarJogoVivo(id, j.fixture.status.elapsed || 0, st);
             if (elS) {
-              if (st === 'HT') { elS.textContent = 'Intervalo'; }
-              else if (st === 'P') { elS.textContent = 'Pênaltis'; }
+              if      (st === 'HT') elS.textContent = 'Intervalo';
+              else if (st === 'BT') elS.textContent = 'Int. Prorr.';
+              else if (st === 'P')  elS.textContent = 'Pênaltis';
               elS.className = 'jogo-copa-horario ao-vivo';
             }
           } else if (['FT','AET','PEN','AWD','WO'].includes(st)) {
-            jogosVivos.delete(id);
+            jogosVivos.delete(String(id));
             if (elS) { elS.textContent = 'Encerrado'; elS.className = 'jogo-copa-horario encerrado'; }
             if (j.goals.home !== null) {
               const p = j.goals.home + ' × ' + j.goals.away;
@@ -1995,6 +2008,7 @@
             }
           }
 
+          // Atualiza placar em jogos ao vivo
           if (j.goals.home !== null && elP && !card.dataset.placarFixo) {
             elP.textContent = j.goals.home + ' × ' + j.goals.away;
           }
@@ -2020,13 +2034,12 @@
     function agendarProxima() {
       clearTimeout(timerAtualizacao);
       const hora = new Date().getHours();
-      if (temVivoNaTela()) timerAtualizacao = setTimeout(atualizarAoVivo, CACHE_TTL_VIVO);
+      if (temVivoNaTela())        timerAtualizacao = setTimeout(atualizarAoVivo, CACHE_TTL_VIVO);
       else if (hora >= 1 && hora < 7) timerAtualizacao = setTimeout(atualizarAoVivo, CACHE_TTL_MADRUGADA);
-      else timerAtualizacao = setTimeout(atualizarAoVivo, CACHE_TTL_NORMAL);
+      else                        timerAtualizacao = setTimeout(atualizarAoVivo, CACHE_TTL_NORMAL);
     }
 
     // ── CLASSIFICAÇÃO EM TEMPO REAL ──
-    // Recalcula e atualiza a tabela com os fixtures recebidos ao vivo
     function atualizarClassificacaoRuntime(jogos) {
       const stats = {};
       const initS = t => { if (!stats[t]) stats[t] = {j:0,v:0,e:0,d:0,gp:0,gc:0,pts:0}; };
@@ -2034,7 +2047,7 @@
         const st = j.fixture.status.short;
         if (!['FT','AET','PEN','AWD','WO','BT'].includes(st)) return;
         const r = (j.league.round||'').toLowerCase();
-        if (!r.includes('group stage')) return;
+        if (!r.includes('group')) return;
         const h = j.teams.home.name, a = j.teams.away.name;
         const gh = j.goals.home, ga = j.goals.away;
         if (gh === null || ga === null) return;
@@ -2042,17 +2055,19 @@
         stats[h].j++; stats[a].j++;
         stats[h].gp+=gh; stats[h].gc+=ga;
         stats[a].gp+=ga; stats[a].gc+=gh;
-        if (gh>ga)       { stats[h].v++; stats[h].pts+=3; stats[a].d++; }
-        else if (gh<ga)  { stats[a].v++; stats[a].pts+=3; stats[h].d++; }
-        else             { stats[h].e++; stats[h].pts++; stats[a].e++; stats[a].pts++; }
+        if (gh>ga)      { stats[h].v++; stats[h].pts+=3; stats[a].d++; }
+        else if (gh<ga) { stats[a].v++; stats[a].pts+=3; stats[h].d++; }
+        else            { stats[h].e++; stats[h].pts++; stats[a].e++; stats[a].pts++; }
       });
       if (!Object.keys(stats).length) return;
 
-      const GRUPOS_MAP = {"Mexico":"A","South Africa":"A","South Korea":"A","Czech Republic":"A","Canada":"B","Qatar":"B","Switzerland":"B","Bosnia & Herzegovina":"B","Brazil":"C","Morocco":"C","Scotland":"C","Haiti":"C","USA":"D","Paraguay":"D","Australia":"D","Türkiye":"D","Germany":"E","Ivory Coast":"E","Ecuador":"E","Curaçao":"E","Netherlands":"F","Japan":"F","Tunisia":"F","Sweden":"F","Belgium":"G","Egypt":"G","Iran":"G","New Zealand":"G","Spain":"H","Uruguay":"H","Saudi Arabia":"H","Cape Verde Islands":"H","France":"I","Senegal":"I","Norway":"I","Iraq":"I","Argentina":"J","Algeria":"J","Austria":"J","Jordan":"J","Portugal":"K","Colombia":"K","Uzbekistan":"K","Congo DR":"K","England":"L","Croatia":"L","Ghana":"L","Panama":"L"};
+      const GRUPOS_MAP_RT = {"Mexico":"A","South Africa":"A","South Korea":"A","Czech Republic":"A","Czechia":"A","Canada":"B","Qatar":"B","Switzerland":"B","Bosnia & Herzegovina":"B","Brazil":"C","Morocco":"C","Scotland":"C","Haiti":"C","USA":"D","Paraguay":"D","Australia":"D","Türkiye":"D","Germany":"E","Ivory Coast":"E","Ecuador":"E","Curaçao":"E","Netherlands":"F","Japan":"F","Tunisia":"F","Sweden":"F","Belgium":"G","Egypt":"G","Iran":"G","New Zealand":"G","Spain":"H","Uruguay":"H","Saudi Arabia":"H","Cape Verde Islands":"H","France":"I","Senegal":"I","Norway":"I","Iraq":"I","Argentina":"J","Algeria":"J","Austria":"J","Jordan":"J","Portugal":"K","Colombia":"K","Uzbekistan":"K","Congo DR":"K","England":"L","Croatia":"L","Ghana":"L","Panama":"L"};
       const grupos = ['A','B','C','D','E','F','G','H','I','J','K','L'];
       const selecoesGrupo = {};
       grupos.forEach(g => { selecoesGrupo[g] = []; });
-      Object.entries(GRUPOS_MAP).forEach(([time, g]) => selecoesGrupo[g].push(time));
+      Object.entries(GRUPOS_MAP_RT).forEach(([time, g]) => {
+        if (!selecoesGrupo[g].includes(time)) selecoesGrupo[g].push(time);
+      });
 
       grupos.forEach(g => {
         const times = [...selecoesGrupo[g]].sort((a,b) => {
@@ -2064,22 +2079,14 @@
           return sb.gp - sa.gp;
         });
         times.forEach((time, i) => {
-          const s = stats[time]||{j:0,v:0,e:0,d:0,gp:0,gc:0,pts:0};
+          const s  = stats[time]||{j:0,v:0,e:0,d:0,gp:0,gc:0,pts:0};
           const sg = s.gp - s.gc;
-          const elJ   = document.getElementById('cl-j-'+g+'-'+i);
-          const elV   = document.getElementById('cl-v-'+g+'-'+i);
-          const elE   = document.getElementById('cl-e-'+g+'-'+i);
-          const elD   = document.getElementById('cl-d-'+g+'-'+i);
-          const elGP  = document.getElementById('cl-gp-'+g+'-'+i);
-          const elGC  = document.getElementById('cl-gc-'+g+'-'+i);
+          ['j','v','e','d','gp','gc'].forEach(k => {
+            const el = document.getElementById('cl-'+k+'-'+g+'-'+i);
+            if (el) el.textContent = s[k];
+          });
           const elSG  = document.getElementById('cl-sg-'+g+'-'+i);
           const elPts = document.getElementById('cl-pts-'+g+'-'+i);
-          if (elJ)   elJ.textContent   = s.j;
-          if (elV)   elV.textContent   = s.v;
-          if (elE)   elE.textContent   = s.e;
-          if (elD)   elD.textContent   = s.d;
-          if (elGP)  elGP.textContent  = s.gp;
-          if (elGC)  elGC.textContent  = s.gc;
           if (elSG)  elSG.textContent  = sg >= 0 ? '+'+sg : sg;
           if (elPts) elPts.textContent = s.pts;
         });
@@ -2089,17 +2096,18 @@
     // ── ARTILHARIA (via proxy, ao abrir aba) ──
     let artCarregada = false;
     async function carregarArtilharia() {
+      if (artCarregada) return;
       try {
-        const res = await fetch(PROXY + '/players/topscorers?league=1&season=2026');
+        const res  = await fetch(PROXY + '/players/topscorers?league=1&season=2026');
         const data = await res.json();
         if (!data.response || !data.response.length) return;
-        data.response.slice(0, 8).forEach((item, i) => {
+        data.response.slice(0,8).forEach((item, i) => {
           const nEl = document.getElementById('art-nome-'+i);
           const pEl = document.getElementById('art-pais-'+i);
           const gEl = document.getElementById('art-gols-'+i);
           if (nEl) nEl.textContent = item.player.name;
           if (pEl) pEl.textContent = item.statistics[0].team.name;
-          if (gEl) gEl.innerHTML = (item.statistics[0].goals.total||0) + '<span>gols</span>';
+          if (gEl) gEl.innerHTML   = (item.statistics[0].goals.total||0) + '<span>gols</span>';
         });
         artCarregada = true;
       } catch(e) { console.log('Artilharia indisponível:', e); }
