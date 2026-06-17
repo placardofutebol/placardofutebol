@@ -20,7 +20,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- Gerado em: 17/06/2026, 17:19:52 | 72 jogos -->
+  <!-- Gerado em: 17/06/2026, 17:29:05 | 72 jogos -->
   <style>
     .copa-hero {
       background: linear-gradient(135deg, var(--verde-escuro) 0%, var(--verde) 60%, #2d9e4e 100%);
@@ -624,7 +624,7 @@
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/10.png" alt="England" onerror="this.style.display='none'"><span class="jogo-copa-nome">England</span></div>
     <div class="jogo-copa-centro">
       <span class="jogo-copa-placar" id="placar-1489384">1 × 0</span>
-      <div class="jogo-copa-horario jogo-status-1489384 ao-vivo" id="status-1489384">20'</div>
+      <div class="jogo-copa-horario jogo-status-1489384 ao-vivo" id="status-1489384">29'</div>
       <div class="jogo-copa-estadio">Arlington</div>
     </div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/3.png" alt="Croatia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Croatia</span></div>
@@ -2055,97 +2055,27 @@
     }
 
     // ── CLASSIFICAÇÃO EM TEMPO REAL ──
-    function atualizarClassificacaoRuntime(jogos) {
-      const stats = {};
-      const initS = t => { if (!stats[t]) stats[t] = {j:0,v:0,e:0,d:0,gp:0,gc:0,pts:0}; };
-      jogos.forEach(j => {
+    // A tabela de classificação é mantida pelo buscarHistoricoCompleto() que traz
+    // TODOS os jogos encerrados. Esta função só dispara uma nova busca completa
+    // quando detecta que algum jogo de grupo encerrou agora (ao vivo → FT).
+    let _ultimoFTDetectado = null;
+    function atualizarClassificacaoRuntime(jogosRecentes) {
+      const novoFT = jogosRecentes.some(j => {
         const st = j.fixture.status.short;
-        if (!['FT','AET','PEN','AWD','WO','BT'].includes(st)) return;
-        const r = (j.league.round||'').toLowerCase();
-        if (!r.includes('group')) return;
-        const h = j.teams.home.name, a = j.teams.away.name;
-        const gh = j.goals.home, ga = j.goals.away;
-        if (gh === null || ga === null) return;
-        initS(h); initS(a);
-        stats[h].j++; stats[a].j++;
-        stats[h].gp+=gh; stats[h].gc+=ga;
-        stats[a].gp+=ga; stats[a].gc+=gh;
-        if (gh>ga)      { stats[h].v++; stats[h].pts+=3; stats[a].d++; }
-        else if (gh<ga) { stats[a].v++; stats[a].pts+=3; stats[h].d++; }
-        else            { stats[h].e++; stats[h].pts++; stats[a].e++; stats[a].pts++; }
+        const r  = (j.league.round||'').toLowerCase();
+        return ['FT','AET','PEN','AWD','WO'].includes(st) && r.includes('group');
       });
-      if (!Object.keys(stats).length) return;
+      if (!novoFT) return;
 
-      const GRUPOS_MAP_RT = {"Mexico":"A","South Africa":"A","South Korea":"A","Czechia":"A","Canada":"B","Qatar":"B","Switzerland":"B","Bosnia & Herzegovina":"B","Brazil":"C","Morocco":"C","Scotland":"C","Haiti":"C","USA":"D","Paraguay":"D","Australia":"D","Türkiye":"D","Germany":"E","Ivory Coast":"E","Ecuador":"E","Curaçao":"E","Netherlands":"F","Japan":"F","Tunisia":"F","Sweden":"F","Belgium":"G","Egypt":"G","Iran":"G","New Zealand":"G","Spain":"H","Uruguay":"H","Saudi Arabia":"H","Cape Verde Islands":"H","France":"I","Senegal":"I","Norway":"I","Iraq":"I","Argentina":"J","Algeria":"J","Austria":"J","Jordan":"J","Portugal":"K","Colombia":"K","Uzbekistan":"K","Congo DR":"K","England":"L","Croatia":"L","Ghana":"L","Panama":"L"};
-      const grupos = ['A','B','C','D','E','F','G','H','I','J','K','L'];
-      const selecoesGrupo = {};
-      grupos.forEach(g => { selecoesGrupo[g] = []; });
-      Object.entries(GRUPOS_MAP_RT).forEach(([time, g]) => {
-        if (!selecoesGrupo[g].includes(time)) selecoesGrupo[g].push(time);
-      });
+      // Só rebusca se houver um FT diferente do último detectado
+      const chave = jogosRecentes
+        .filter(j => ['FT','AET','PEN','AWD','WO'].includes(j.fixture.status.short))
+        .map(j => j.fixture.id).sort().join(',');
+      if (chave === _ultimoFTDetectado) return;
+      _ultimoFTDetectado = chave;
 
-      grupos.forEach(g => {
-        const times = [...selecoesGrupo[g]].sort((a,b) => {
-          const sa = stats[a]||{pts:0,gp:0,gc:0};
-          const sb = stats[b]||{pts:0,gp:0,gc:0};
-          if (sb.pts !== sa.pts) return sb.pts - sa.pts;
-          const sga = sa.gp-sa.gc, sgb = sb.gp-sb.gc;
-          if (sgb !== sga) return sgb - sga;
-          return sb.gp - sa.gp;
-        });
-
-        // Atualiza cada linha pelo nome do time (data-time), não pelo índice de posição.
-        // Isso evita o bug em que o resultado de Portugal x Congo sobrescrevia a linha
-        // errada (ex: Colômbia) quando a tabela se reordenava.
-        const tbody = document.querySelector('#secao-classificacao [data-time]') &&
-                      document.querySelector('#secao-classificacao tr[data-time="' + selecoesGrupo[g][0] + '"]') &&
-                      document.querySelector('#secao-classificacao tr[data-time="' + selecoesGrupo[g][0] + '"]').closest('tbody');
-
-        selecoesGrupo[g].forEach(time => {
-          const s  = stats[time]||{j:0,v:0,e:0,d:0,gp:0,gc:0,pts:0};
-          const sg = s.gp - s.gc;
-          // Localiza a linha pelo atributo data-time (único e imutável)
-          const row = document.querySelector('#secao-classificacao tr[data-time="' + time + '"]');
-          if (!row) return;
-          const cells = {
-            j:  row.querySelector('[id^="cl-j-"]'),
-            v:  row.querySelector('[id^="cl-v-"]'),
-            e:  row.querySelector('[id^="cl-e-"]'),
-            d:  row.querySelector('[id^="cl-d-"]'),
-            gp: row.querySelector('[id^="cl-gp-"]'),
-            gc: row.querySelector('[id^="cl-gc-"]'),
-            sg: row.querySelector('[id^="cl-sg-"]'),
-            pts:row.querySelector('[id^="cl-pts-"]'),
-          };
-          if (cells.j)  cells.j.textContent  = s.j;
-          if (cells.v)  cells.v.textContent  = s.v;
-          if (cells.e)  cells.e.textContent  = s.e;
-          if (cells.d)  cells.d.textContent  = s.d;
-          if (cells.gp) cells.gp.textContent = s.gp;
-          if (cells.gc) cells.gc.textContent = s.gc;
-          if (cells.sg) cells.sg.textContent = sg >= 0 ? '+'+sg : sg;
-          if (cells.pts)cells.pts.textContent = s.pts;
-        });
-
-        // Reordena as linhas visualmente na tabela conforme o ranking atual
-        if (tbody) {
-          times.forEach((time, i) => {
-            const row = tbody.querySelector('tr[data-time="' + time + '"]');
-            if (row) {
-              tbody.appendChild(row); // move para o final em ordem
-              // Atualiza a coluna de posição (#)
-              const posCell = row.querySelector('[id^="cl-pos-"]');
-              if (posCell) {
-                posCell.textContent = i + 1;
-                posCell.className = 'cl-pos' + (i < 2 ? ' classificado' : '');
-              }
-            }
-          });
-        }
-      });
-
-      // Persiste os stats para carregamento instantâneo na próxima visita
-      salvarClassificacaoCache(stats);
+      // Rebusca o histórico completo para garantir dados corretos
+      buscarHistoricoCompleto();
     }
 
     // ── ARTILHARIA ──
