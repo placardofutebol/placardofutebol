@@ -20,7 +20,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- Gerado em: 17/06/2026, 17:29:05 | 72 jogos -->
+  <!-- Gerado em: 17/06/2026, 17:53:51 | 72 jogos -->
   <style>
     .copa-hero {
       background: linear-gradient(135deg, var(--verde-escuro) 0%, var(--verde) 60%, #2d9e4e 100%);
@@ -614,7 +614,7 @@
 <a href="/copa-do-mundo/england-vs-croatia/" class="jogo-copa" id="card-1489384"
   data-id="1489384"
   data-date="2026-06-17"
-  data-status="1H"
+  data-status="HT"
   data-kickoff="2026-06-17T20:00:00+00:00"
   data-home="England"
   data-away="Croatia"
@@ -623,8 +623,8 @@
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/10.png" alt="England" onerror="this.style.display='none'"><span class="jogo-copa-nome">England</span></div>
     <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489384">1 × 0</span>
-      <div class="jogo-copa-horario jogo-status-1489384 ao-vivo" id="status-1489384">29'</div>
+      <span class="jogo-copa-placar" id="placar-1489384">2 × 2</span>
+      <div class="jogo-copa-horario jogo-status-1489384 ao-vivo" id="status-1489384">45'</div>
       <div class="jogo-copa-estadio">Arlington</div>
     </div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/3.png" alt="Croatia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Croatia</span></div>
@@ -2083,29 +2083,64 @@
     // Em runtime, só buscamos de novo para COMPLEMENTAR durante a Copa em andamento —
     // e só sobrescrevemos um nome se o número de gols da API for MAIOR que o já exibido,
     // nunca apagando ou regredindo o que já está estático na página.
-    let artCarregada = false;
+    // ── ARTILHARIA COM CACHE ──
+    const ART_CACHE_KEY = 'pf_art_v1';
+    const ART_CACHE_TTL = 24 * 60 * 60 * 1000; // 24 horas
+
+    function salvarArtCache(artilheiros) {
+      try { localStorage.setItem(ART_CACHE_KEY, JSON.stringify({ ts: Date.now(), artilheiros })); } catch(e) {}
+    }
+
+    function carregarArtCache() {
+      try {
+        const raw = localStorage.getItem(ART_CACHE_KEY);
+        if (!raw) return null;
+        const { artilheiros } = JSON.parse(raw);
+        // Retorna mesmo expirado — melhor dado antigo do que vazio
+        return artilheiros;
+      } catch(e) { return null; }
+    }
+
+    function aplicarArtilharia(artilheiros) {
+      if (!artilheiros || !artilheiros.length) return;
+      artilheiros.slice(0, 8).forEach((item, i) => {
+        const nEl = document.getElementById('art-nome-' + i);
+        const pEl = document.getElementById('art-pais-' + i);
+        const gEl = document.getElementById('art-gols-' + i);
+        if (!nEl || !gEl) return;
+        const golsNovos = (item.statistics[0] && item.statistics[0].goals && item.statistics[0].goals.total) || 0;
+        const golsAtuais = parseInt(gEl.textContent) || 0;
+        if (golsNovos >= golsAtuais) {
+          nEl.textContent = item.player.name;
+          if (pEl) pEl.textContent = (item.statistics[0].team && item.statistics[0].team.name) || '';
+          gEl.innerHTML = golsNovos + '<span>gols</span>';
+        }
+      });
+    }
+
     async function carregarArtilharia() {
-      if (artCarregada) return;
+      // 1. Restaura do cache imediatamente (sem esperar rede)
+      const cacheArt = carregarArtCache();
+      if (cacheArt) aplicarArtilharia(cacheArt);
+
+      // 2. Verifica se precisa rebuscar (cache expirado ou ausente)
+      try {
+        const raw = localStorage.getItem(ART_CACHE_KEY);
+        if (raw) {
+          const { ts } = JSON.parse(raw);
+          if (Date.now() - ts <= ART_CACHE_TTL) return; // cache válido, não precisa buscar
+        }
+      } catch(e) {}
+
+      // 3. Busca da API e salva cache
       try {
         const res  = await fetch(PROXY + '/players/topscorers?league=1&season=2026');
         const data = await res.json();
         if (!data.response || !data.response.length) return;
-        data.response.slice(0,8).forEach((item, i) => {
-          const nEl = document.getElementById('art-nome-'+i);
-          const pEl = document.getElementById('art-pais-'+i);
-          const gEl = document.getElementById('art-gols-'+i);
-          if (!nEl || !gEl) return;
-          const golsAtuais = parseInt(gEl.textContent) || 0;
-          const golsNovos  = (item.statistics[0] && item.statistics[0].goals && item.statistics[0].goals.total) || 0;
-          // Só atualiza se houver avanço real (evita regressão por cache da API)
-          if (golsNovos >= golsAtuais) {
-            nEl.textContent = item.player.name;
-            if (pEl) pEl.textContent = (item.statistics[0].team && item.statistics[0].team.name) || '';
-            gEl.innerHTML = golsNovos + '<span>gols</span>';
-          }
-        });
-        artCarregada = true;
-      } catch(e) { console.log('Artilharia indisponível:', e); }
+        aplicarArtilharia(data.response);
+        salvarArtCache(data.response);
+        console.log('[Copa] Artilharia atualizada do cache');
+      } catch(e) { console.log('[Copa] Artilharia indisponível:', e); }
     }
 
     // ── SNAPSHOT ESTÁTICO DA CLASSIFICAÇÃO ──
