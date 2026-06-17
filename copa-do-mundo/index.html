@@ -16,12 +16,11 @@
   <link rel="canonical" href="https://placardofutebol.com/copa-do-mundo/">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2312151e'/><line x1='50' y1='4' x2='50' y2='14' stroke='%23666' stroke-width='4' stroke-linecap='round'/><circle cx='50' cy='3' r='5' fill='%237fff00'/><rect x='12' y='14' width='76' height='62' rx='14' fill='white'/><rect x='18' y='20' width='64' height='50' rx='10' fill='%230a0a0a'/><path d='M30 42 Q40 32 50 42' stroke='%2339ff14' stroke-width='6' stroke-linecap='round' fill='none'/><path d='M50 42 Q60 32 70 42' stroke='%2339ff14' stroke-width='6' stroke-linecap='round' fill='none'/><path d='M34 56 Q50 66 66 56' stroke='%2339ff14' stroke-width='5' stroke-linecap='round' fill='none'/><rect x='2' y='26' width='10' height='20' rx='5' fill='%23e2e8f0'/><rect x='88' y='26' width='10' height='20' rx='5' fill='%23e2e8f0'/></svg>">
   <link rel="stylesheet" href="../css/style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
   <link rel="manifest" href="/manifest.json">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- Gerado em: 16/06/2026, 21:23:22 | 72 jogos -->
+  <!-- Gerado em: 16/06/2026, 21:33:07 | 72 jogos -->
   <style>
     .copa-hero {
       background: linear-gradient(135deg, var(--verde-escuro) 0%, var(--verde) 60%, #2d9e4e 100%);
@@ -129,30 +128,7 @@
     .jogo-copa-horario.em-breve { color: #d32f2f; font-weight: 700; animation: pisca-vivo 0.8s infinite; }
     .jogo-copa-horario.iniciando { color: #f57c00; animation: pisca-vivo 0.7s infinite; }
     .jogo-copa-horario.travado { color: #d32f2f; font-weight: 700; animation: pisca-vivo 0.5s infinite; }
-  
-    /* ── BOTÃO FOTO ── */
-    .btn-foto-flutuante {
-      display: none;
-      position: fixed;
-      bottom: 80px;
-      right: 16px;
-      background: var(--verde);
-      color: white;
-      border: none;
-      border-radius: 50px;
-      padding: 10px 18px;
-      font-family: var(--font-corpo);
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-      z-index: 999;
-      transition: transform 0.15s, opacity 0.15s;
-    }
-    .btn-foto-flutuante.visivel { display: flex; align-items: center; gap: 6px; }
-    .btn-foto-flutuante:active { transform: scale(0.95); opacity: 0.85; }
-    .btn-foto-flutuante.gerando { opacity: 0.6; pointer-events: none; }
-</style>
+  </style>
 </head>
 <body>
 
@@ -1795,8 +1771,6 @@
 
   </main>
 
-  <button id="btn-foto" class="btn-foto-flutuante" onclick="tirarFoto()">📸 Salvar Foto</button>
-
   <nav class="nav-bottom" role="navigation" aria-label="Navegação principal">
     <a href="/" class="nav-item"><span class="nav-icon">⚽</span><span class="nav-label">Jogos</span></a>
     <a href="/noticias/" class="nav-item"><span class="nav-icon">📰</span><span class="nav-label">Notícias</span></a>
@@ -1844,16 +1818,6 @@
       document.getElementById('secao-' + secao).classList.add('ativa');
       location.hash = secao;
       if (secao === 'artilharia') carregarArtilharia();
-      // Mostrar botão foto apenas em classificação e artilharia
-      const btnFoto = document.getElementById('btn-foto');
-      if (btnFoto) {
-        if (['classificacao','artilharia'].includes(secao)) {
-          btnFoto.classList.add('visivel');
-          btnFoto.dataset.secao = secao;
-        } else {
-          btnFoto.classList.remove('visivel');
-        }
-      }
     }
 
     (function() {
@@ -2089,6 +2053,38 @@
       else                        timerAtualizacao = setTimeout(atualizarAoVivo, CACHE_TTL_NORMAL);
     }
 
+    // ── CLASSIFICAÇÃO — CACHE ESTÁTICO ──
+    // Lê o snapshot salvo e aplica imediatamente no DOM (antes da API responder)
+    function restaurarClassificacaoCache() {
+      try {
+        const raw = localStorage.getItem('pf_copa_class_snapshot');
+        if (!raw) return;
+        const snap = JSON.parse(raw); // { "A": [{time,j,v,e,d,gp,gc,pts}, ...], ... }
+        Object.entries(snap).forEach(([g, times]) => {
+          times.forEach((s, i) => {
+            const sg = s.gp - s.gc;
+            ['j','v','e','d','gp','gc'].forEach(k => {
+              const el = document.getElementById('cl-'+k+'-'+g+'-'+i);
+              if (el) el.textContent = s[k];
+            });
+            const elSG  = document.getElementById('cl-sg-'+g+'-'+i);
+            const elPts = document.getElementById('cl-pts-'+g+'-'+i);
+            if (elSG)  elSG.textContent  = sg >= 0 ? '+'+sg : sg;
+            if (elPts) elPts.textContent = s.pts;
+          });
+        });
+      } catch(e) {}
+    }
+
+    // Salva snapshot da classificação atual (só se houver mudança real)
+    function salvarClassificacaoCache(snap) {
+      try {
+        const novoJSON = JSON.stringify(snap);
+        const atualJSON = localStorage.getItem('pf_copa_class_snapshot');
+        if (novoJSON !== atualJSON) localStorage.setItem('pf_copa_class_snapshot', novoJSON);
+      } catch(e) {}
+    }
+
     // ── CLASSIFICAÇÃO EM TEMPO REAL ──
     function atualizarClassificacaoRuntime(jogos) {
       const stats = {};
@@ -2119,6 +2115,7 @@
         if (!selecoesGrupo[g].includes(time)) selecoesGrupo[g].push(time);
       });
 
+      const snapshot = {};
       grupos.forEach(g => {
         const times = [...selecoesGrupo[g]].sort((a,b) => {
           const sa = stats[a]||{pts:0,gp:0,gc:0};
@@ -2128,6 +2125,7 @@
           if (sgb !== sga) return sgb - sga;
           return sb.gp - sa.gp;
         });
+        snapshot[g] = [];
         times.forEach((time, i) => {
           const s  = stats[time]||{j:0,v:0,e:0,d:0,gp:0,gc:0,pts:0};
           const sg = s.gp - s.gc;
@@ -2139,32 +2137,83 @@
           const elPts = document.getElementById('cl-pts-'+g+'-'+i);
           if (elSG)  elSG.textContent  = sg >= 0 ? '+'+sg : sg;
           if (elPts) elPts.textContent = s.pts;
+          snapshot[g].push({time, j:s.j, v:s.v, e:s.e, d:s.d, gp:s.gp, gc:s.gc, pts:s.pts});
         });
       });
+
+      // Só salva se houve alguma partida encerrada (pontuação real)
+      const temDados = Object.values(stats).some(s => s.j > 0);
+      if (temDados) salvarClassificacaoCache(snapshot);
+    }
+
+    // ── ARTILHARIA — CACHE ESTÁTICO ──
+    // Aplica snapshot salvo imediatamente (antes da API responder)
+    function restaurarArtilhariaCache() {
+      try {
+        const raw = localStorage.getItem('pf_copa_art_snapshot');
+        if (!raw) return;
+        const artilheiros = JSON.parse(raw); // [{nome, pais, gols}, ...]
+        artilheiros.forEach((a, i) => {
+          const nEl = document.getElementById('art-nome-'+i);
+          const pEl = document.getElementById('art-pais-'+i);
+          const gEl = document.getElementById('art-gols-'+i);
+          if (nEl) nEl.textContent = a.nome;
+          if (pEl) pEl.textContent = a.pais;
+          if (gEl) gEl.innerHTML   = a.gols + '<span>gols</span>';
+        });
+      } catch(e) {}
     }
 
     // ── ARTILHARIA (via proxy, ao abrir aba) ──
     let artCarregada = false;
     async function carregarArtilharia() {
+      // Restaura cache imediatamente (aparece na tela enquanto API carrega)
+      restaurarArtilhariaCache();
       if (artCarregada) return;
       try {
         const res  = await fetch(PROXY + '/players/topscorers?league=1&season=2026');
         const data = await res.json();
         if (!data.response || !data.response.length) return;
-        data.response.slice(0,8).forEach((item, i) => {
+
+        // Compara com cache: só atualiza DOM e cache se API tiver dados >= ao salvo
+        let cacheAtual = [];
+        try { cacheAtual = JSON.parse(localStorage.getItem('pf_copa_art_snapshot') || '[]'); } catch(e) {}
+        const golsCacheTop = cacheAtual.length ? (cacheAtual[0].gols || 0) : 0;
+        const golsApiTop   = data.response[0] ? (data.response[0].statistics[0].goals.total || 0) : 0;
+
+        // API retornou dados piores que o cache (resposta desatualizada): ignora
+        if (golsApiTop < golsCacheTop) return;
+
+        const novaLista = data.response.slice(0,8).map(item => ({
+          nome: item.player.name,
+          pais: item.statistics[0].team.name,
+          gols: item.statistics[0].goals.total || 0,
+        }));
+
+        // Verifica se houve mudança real antes de salvar
+        const novoJSON  = JSON.stringify(novaLista);
+        const atualJSON = localStorage.getItem('pf_copa_art_snapshot');
+        if (novoJSON !== atualJSON) {
+          localStorage.setItem('pf_copa_art_snapshot', novoJSON);
+        }
+
+        // Atualiza DOM com dados da API (podem ser iguais ou mais atuais que o cache)
+        novaLista.forEach((a, i) => {
           const nEl = document.getElementById('art-nome-'+i);
           const pEl = document.getElementById('art-pais-'+i);
           const gEl = document.getElementById('art-gols-'+i);
-          if (nEl) nEl.textContent = item.player.name;
-          if (pEl) pEl.textContent = item.statistics[0].team.name;
-          if (gEl) gEl.innerHTML   = (item.statistics[0].goals.total||0) + '<span>gols</span>';
+          if (nEl) nEl.textContent = a.nome;
+          if (pEl) pEl.textContent = a.pais;
+          if (gEl) gEl.innerHTML   = a.gols + '<span>gols</span>';
         });
+
         artCarregada = true;
       } catch(e) { console.log('Artilharia indisponível:', e); }
     }
 
     // ── INIT ──
     restaurarPlacaresCached();
+    restaurarClassificacaoCache(); // snapshot estático da tabela (antes da API)
     iniciarContagensRegressivas();
     aplicarFiltroFase();
     atualizarAoVivo();
@@ -2172,65 +2221,6 @@
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') atualizarAoVivo();
     });
-  
-    // ── PRINT / FOTO ──
-    async function tirarFoto() {
-      const btn = document.getElementById('btn-foto');
-      const secao = btn.dataset.secao || 'classificacao';
-      const el = document.getElementById('secao-' + secao);
-      if (!el || typeof html2canvas === 'undefined') {
-        alert('Aguarde o carregamento completo e tente novamente.');
-        return;
-      }
-      btn.classList.add('gerando');
-      btn.textContent = '⏳ Gerando...';
-      try {
-        // Artilharia atualiza ~1h após o jogo; aguarda dados se ainda não carregou
-        if (secao === 'artilharia' && !artCarregada) {
-          await carregarArtilharia();
-          await new Promise(r => setTimeout(r, 800)); // aguarda render
-        }
-        const canvas = await html2canvas(el, {
-          backgroundColor: '#f0f2f5',
-          scale: 2,
-          useCORS: true,
-          logging: false,
-          windowWidth: 420
-        });
-        canvas.toBlob(async blob => {
-          const titulo = secao === 'classificacao' ? 'Classificação Copa do Mundo 2026' : 'Artilharia Copa do Mundo 2026';
-          const arquivo = secao === 'classificacao' ? 'classificacao-copa-2026.png' : 'artilharia-copa-2026.png';
-          if (navigator.share && navigator.canShare && navigator.canShare({ files: [new File([blob], arquivo, { type: 'image/png' })] })) {
-            try {
-              await navigator.share({
-                title: titulo,
-                text: titulo + ' | Placar do Futebol',
-                files: [new File([blob], arquivo, { type: 'image/png' })]
-              });
-            } catch(e) { if (e.name !== 'AbortError') baixarImagem(blob, arquivo); }
-          } else {
-            baixarImagem(blob, arquivo);
-          }
-          btn.classList.remove('gerando');
-          btn.innerHTML = '📸 Salvar Foto';
-        }, 'image/png');
-      } catch(e) {
-        console.error('Print erro:', e);
-        btn.classList.remove('gerando');
-        btn.innerHTML = '📸 Salvar Foto';
-        alert('Erro ao gerar imagem. Tente novamente.');
-      }
-    }
-
-    function baixarImagem(blob, nome) {
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = nome;
-      document.body.appendChild(a); a.click();
-      document.body.removeChild(a);
-      setTimeout(() => URL.revokeObjectURL(url), 2000);
-    }
-
   </script>
 
 </body>
