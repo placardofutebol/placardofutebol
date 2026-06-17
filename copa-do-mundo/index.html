@@ -20,7 +20,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- Gerado em: 17/06/2026, 17:06:20 | 72 jogos -->
+  <!-- Gerado em: 17/06/2026, 17:19:52 | 72 jogos -->
   <style>
     .copa-hero {
       background: linear-gradient(135deg, var(--verde-escuro) 0%, var(--verde) 60%, #2d9e4e 100%);
@@ -623,8 +623,8 @@
   <div class="jogo-copa-body">
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/10.png" alt="England" onerror="this.style.display='none'"><span class="jogo-copa-nome">England</span></div>
     <div class="jogo-copa-centro">
-      <span class="jogo-copa-placar" id="placar-1489384">0 × 0</span>
-      <div class="jogo-copa-horario jogo-status-1489384 ao-vivo" id="status-1489384">6'</div>
+      <span class="jogo-copa-placar" id="placar-1489384">1 × 0</span>
+      <div class="jogo-copa-horario jogo-status-1489384 ao-vivo" id="status-1489384">20'</div>
       <div class="jogo-copa-estadio">Arlington</div>
     </div>
     <div class="jogo-copa-time"><img class="jogo-copa-escudo" src="https://media.api-sports.io/football/teams/3.png" alt="Croatia" onerror="this.style.display='none'"><span class="jogo-copa-nome">Croatia</span></div>
@@ -2237,8 +2237,8 @@
     // Busca TODOS os jogos encerrados da Copa via API (status=FT),
     // calcula os stats completos, atualiza a tabela e salva no localStorage.
     // Na próxima visita, restaura instantaneamente do cache sem nova requisição.
-    const CLASS_CACHE_KEY = 'pf_class_v1';
-    const CLASS_CACHE_TTL = 30 * 60 * 1000; // 30 minutos
+    const CLASS_CACHE_KEY = 'pf_class_v2';
+    const CLASS_CACHE_TTL = 24 * 60 * 60 * 1000; // 24 horas
 
     function calcularStatsDeJogos(jogos) {
       const stats = {};
@@ -2271,7 +2271,8 @@
         const raw = localStorage.getItem(CLASS_CACHE_KEY);
         if (!raw) return null;
         const { ts, stats } = JSON.parse(raw);
-        if (Date.now() - ts > CLASS_CACHE_TTL) return null;
+        // Retorna os stats mesmo expirados — melhor mostrar dados antigos do que zeros.
+        // A buscarHistoricoCompleto() vai atualizar por cima logo em seguida.
         return stats;
       } catch(e) { return null; }
     }
@@ -2295,18 +2296,27 @@
     // ── INIT ──
     restaurarPlacaresCached();
 
-    // 1. Tenta restaurar do cache local (instantâneo, sem rede)
+    // 1. Restaura do cache local imediatamente (nunca mostra zeros se já houve busca antes)
     const cacheStats = carregarClassCache();
-    if (cacheStats) {
+    if (cacheStats && Object.keys(cacheStats).length) {
       aplicarStatsSnapshot(cacheStats);
       console.log('[Copa] Classificação restaurada do cache local');
     } else {
-      // 2. Cache vazio ou expirado: aplica snapshot estático do HTML como fallback inicial
+      // Só usa o snapshot estático se nunca houve cache (primeira visita)
       aplicarStatsSnapshot(STATS_SNAPSHOT);
     }
 
-    // 3. Sempre busca histórico completo na abertura (atualiza cache e tabela)
-    buscarHistoricoCompleto();
+    // 2. Verifica se o cache está expirado para decidir se busca histórico agora
+    (function() {
+      try {
+        const raw = localStorage.getItem(CLASS_CACHE_KEY);
+        if (!raw) { buscarHistoricoCompleto(); return; }
+        const { ts } = JSON.parse(raw);
+        if (Date.now() - ts > CLASS_CACHE_TTL) {
+          buscarHistoricoCompleto(); // cache expirado: atualiza em background
+        }
+      } catch(e) { buscarHistoricoCompleto(); }
+    })();
 
     iniciarContagensRegressivas();
     aplicarFiltroFase();
