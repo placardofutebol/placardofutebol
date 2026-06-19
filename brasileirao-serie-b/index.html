@@ -15,12 +15,59 @@
   <title>Brasileirao Serie B 2026 - Jogos, Tabela e Artilharia | Placar do Futebol</title>
   <link rel="canonical" href="https://placardofutebol.com/brasileirao-serie-b/">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2312151e'/><line x1='50' y1='4' x2='50' y2='14' stroke='%23666' stroke-width='4' stroke-linecap='round'/><circle cx='50' cy='3' r='5' fill='%237fff00'/><rect x='12' y='14' width='76' height='62' rx='14' fill='white'/><rect x='18' y='20' width='64' height='50' rx='10' fill='%230a0a0a'/><path d='M30 42 Q40 32 50 42' stroke='%2339ff14' stroke-width='6' stroke-linecap='round' fill='none'/><path d='M50 42 Q60 32 70 42' stroke='%2339ff14' stroke-width='6' stroke-linecap='round' fill='none'/><path d='M34 56 Q50 66 66 56' stroke='%2339ff14' stroke-width='5' stroke-linecap='round' fill='none'/><rect x='2' y='26' width='10' height='20' rx='5' fill='%23e2e8f0'/><rect x='88' y='26' width='10' height='20' rx='5' fill='%23e2e8f0'/></svg>">
-  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* ── RESET & BASE ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --verde:        #1a7a30;
+      --verde-escuro: #145e25;
+      --verde-claro:  #e8f5ec;
+      --amarelo:      #f5c800;
+      --vermelho:     #d32f2f;
+      --cinza-bg:     #f2f4f3;
+      --cinza-borda:  #e4e8e6;
+      --cinza-texto:  #5a6672;
+      --preto:        #111314;
+      --radius-card:  12px;
+      --sombra:       0 2px 8px rgba(0,0,0,0.07);
+      --sombra-hover: 0 4px 16px rgba(0,0,0,0.13);
+      --font-titulo:  "Barlow Condensed", sans-serif;
+      --font-corpo:   "Barlow", sans-serif;
+    }
+    html { font-size: 16px; }
+    body { font-family: var(--font-corpo); background: var(--cinza-bg); color: var(--preto); min-height: 100vh; padding-bottom: 70px; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; }
+    img { display: block; }
+    /* ── HEADER ── */
+    header { background: var(--verde); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.18); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; max-width: 900px; margin: 0 auto; }
+    .logo { display: flex; flex-direction: column; }
+    .logo-principal { font-family: var(--font-titulo); font-size: 20px; font-weight: 800; color: white; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1; }
+    .logo-principal span { color: var(--amarelo); }
+    .logo-sub { font-family: var(--font-corpo); font-size: 9px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 2px; margin-top: 1px; }
+    .header-ao-vivo { display: flex; align-items: center; gap: 6px; font-family: var(--font-corpo); font-size: 11px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 1px; }
+    .dot-vivo { width: 8px; height: 8px; border-radius: 50%; background: #ff4444; animation: piscando 1.2s ease infinite; flex-shrink: 0; }
+    /* ── NAV BOTTOM ── */
+    .nav-bottom { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid var(--cinza-borda); display: flex; z-index: 90; box-shadow: 0 -2px 8px rgba(0,0,0,0.07); }
+    .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8px 4px 6px; color: var(--cinza-texto); font-family: var(--font-corpo); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; gap: 2px; transition: color 0.2s; }
+    .nav-item:hover { color: var(--verde); }
+    .nav-item.ativo { color: var(--verde); }
+    .nav-icon { font-size: 20px; line-height: 1; }
+    /* ── FOOTER ── */
+    footer { background: #111314; color: rgba(255,255,255,0.5); text-align: center; padding: 24px 16px 80px; font-family: var(--font-corpo); font-size: 11px; }
+    .footer-logo { font-family: var(--font-titulo); font-size: 18px; font-weight: 800; color: white; text-transform: uppercase; margin-bottom: 8px; }
+    .footer-logo span { color: var(--amarelo); }
+    .footer-links { display: flex; justify-content: center; gap: 16px; margin-bottom: 10px; flex-wrap: wrap; }
+    .footer-links a { color: rgba(255,255,255,0.5); font-size: 11px; transition: color 0.2s; }
+    .footer-links a:hover { color: white; }
+    .footer-copy { font-size: 10px; }
+  </style>
   <link rel="manifest" href="/manifest.json">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- Gerado em: 18/06/2026, 21:55:20 | 380 jogos | Série B 2026 -->
+  <!-- Gerado em: 18/06/2026, 22:06:38 | 380 jogos | Série B 2026 -->
   <style>
     .bra-hero { background: linear-gradient(135deg, #145e25 0%, #1a7a30 60%, #2d9e4e 100%); padding: 20px 16px 16px; text-align: center; position: relative; overflow: hidden; cursor: pointer; user-select: none; }
     .bra-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(245,200,0,0.12) 0%, transparent 70%); pointer-events: none; }
@@ -82,8 +129,6 @@
     .bra-table tbody tr:hover { background: #f8faf9; }
     .tb-pos { font-weight: 700; font-size: 11px; color: var(--cinza-texto); }
     .tb-pos.promovido { color: var(--verde); }
-    .tb-pos.libertadores { color: #1565C0; }
-    .tb-pos.sulamericana { color: #e67e00; }
     .tb-pos.rebaixado { color: var(--vermelho); }
     .tb-time-cell { display: flex; align-items: center; gap: 4px; font-weight: 600; }
     .tb-escudo { width: 16px; height: 16px; object-fit: contain; flex-shrink: 0; }
@@ -1600,13 +1645,13 @@
   </div>
 </a>
 </div>
-<div class="rodada-panel" id="rodada-panel-14" data-rodada="14" style="display:none"><a href="/brasileirao-serie-b/sport-recife-vs-atletico-goianiense/" class="bra-jogo" id="card-1520738" data-id="1520738" data-rodada="14" data-status="HT" data-kickoff="2026-06-19T00:00:00+00:00">
+<div class="rodada-panel" id="rodada-panel-14" data-rodada="14" style="display:none"><a href="/brasileirao-serie-b/sport-recife-vs-atletico-goianiense/" class="bra-jogo" id="card-1520738" data-id="1520738" data-rodada="14" data-status="2H" data-kickoff="2026-06-19T00:00:00+00:00">
   <div class="bra-jogo-topo ao-vivo-topo"><span>🔴 AO VIVO</span><span>Estadio Adelmar da Costa Carvalho</span></div>
   <div class="bra-jogo-corpo">
     <div class="bra-time"><img class="bra-time-escudo" src="https://media.api-sports.io/football/teams/123.png" alt="Sport Recife" onerror="this.style.display='none'"><span class="bra-time-nome">Sport</span></div>
     <div class="bra-centro">
       <span class="bra-placar" id="placar-1520738">1 × 0</span>
-      <div class="bra-status vivo" id="status-1520738">Intervalo</div>
+      <div class="bra-status vivo" id="status-1520738">46'</div>
     </div>
     <div class="bra-time"><img class="bra-time-escudo" src="https://media.api-sports.io/football/teams/144.png" alt="Atletico Goianiense" onerror="this.style.display='none'"><span class="bra-time-nome">Atletico-GO</span></div>
   </div>
@@ -4440,7 +4485,7 @@
         <td id="tb-sg-3">+1</td>
       </tr>
 <tr data-time="Novorizontino">
-        <td class="tb-pos libertadores" id="tb-pos-4">5</td>
+        <td class="tb-pos " id="tb-pos-4">5</td>
         <td><div class="tb-time-cell"><img class="tb-escudo" src="https://media.api-sports.io/football/teams/7834.png" onerror="this.style.display='none'"><span id="tb-nome-4">Novorizontino</span></div></td>
         <td class="tb-pts" id="tb-pts-4">21</td>
         <td id="tb-j-4">13</td>
@@ -4452,7 +4497,7 @@
         <td id="tb-sg-4">+7</td>
       </tr>
 <tr data-time="Criciuma">
-        <td class="tb-pos libertadores" id="tb-pos-5">6</td>
+        <td class="tb-pos " id="tb-pos-5">6</td>
         <td><div class="tb-time-cell"><img class="tb-escudo" src="https://media.api-sports.io/football/teams/140.png" onerror="this.style.display='none'"><span id="tb-nome-5">Criciuma</span></div></td>
         <td class="tb-pts" id="tb-pts-5">21</td>
         <td id="tb-j-5">13</td>
@@ -4464,7 +4509,7 @@
         <td id="tb-sg-5">+4</td>
       </tr>
 <tr data-time="Nautico Recife">
-        <td class="tb-pos libertadores" id="tb-pos-6">7</td>
+        <td class="tb-pos " id="tb-pos-6">7</td>
         <td><div class="tb-time-cell"><img class="tb-escudo" src="https://media.api-sports.io/football/teams/755.png" onerror="this.style.display='none'"><span id="tb-nome-6">Nautico Recife</span></div></td>
         <td class="tb-pts" id="tb-pts-6">20</td>
         <td id="tb-j-6">13</td>
@@ -4476,7 +4521,7 @@
         <td id="tb-sg-6">+4</td>
       </tr>
 <tr data-time="Juventude">
-        <td class="tb-pos libertadores" id="tb-pos-7">8</td>
+        <td class="tb-pos " id="tb-pos-7">8</td>
         <td><div class="tb-time-cell"><img class="tb-escudo" src="https://media.api-sports.io/football/teams/152.png" onerror="this.style.display='none'"><span id="tb-nome-7">Juventude</span></div></td>
         <td class="tb-pts" id="tb-pts-7">19</td>
         <td id="tb-j-7">13</td>
@@ -4488,7 +4533,7 @@
         <td id="tb-sg-7">+5</td>
       </tr>
 <tr data-time="Operario-PR">
-        <td class="tb-pos sulamericana" id="tb-pos-8">9</td>
+        <td class="tb-pos " id="tb-pos-8">9</td>
         <td><div class="tb-time-cell"><img class="tb-escudo" src="https://media.api-sports.io/football/teams/1223.png" onerror="this.style.display='none'"><span id="tb-nome-8">Operario-PR</span></div></td>
         <td class="tb-pts" id="tb-pts-8">19</td>
         <td id="tb-j-8">13</td>
@@ -4500,7 +4545,7 @@
         <td id="tb-sg-8">-2</td>
       </tr>
 <tr data-time="Cuiaba">
-        <td class="tb-pos sulamericana" id="tb-pos-9">10</td>
+        <td class="tb-pos " id="tb-pos-9">10</td>
         <td><div class="tb-time-cell"><img class="tb-escudo" src="https://media.api-sports.io/football/teams/1193.png" onerror="this.style.display='none'"><span id="tb-nome-9">Cuiaba</span></div></td>
         <td class="tb-pts" id="tb-pts-9">19</td>
         <td id="tb-j-9">13</td>
@@ -4512,7 +4557,7 @@
         <td id="tb-sg-9">+3</td>
       </tr>
 <tr data-time="Athletic Club">
-        <td class="tb-pos sulamericana" id="tb-pos-10">11</td>
+        <td class="tb-pos " id="tb-pos-10">11</td>
         <td><div class="tb-time-cell"><img class="tb-escudo" src="https://media.api-sports.io/football/teams/13975.png" onerror="this.style.display='none'"><span id="tb-nome-10">Athletic Club</span></div></td>
         <td class="tb-pts" id="tb-pts-10">19</td>
         <td id="tb-j-10">13</td>
@@ -4524,7 +4569,7 @@
         <td id="tb-sg-10">+2</td>
       </tr>
 <tr data-time="Goias">
-        <td class="tb-pos sulamericana" id="tb-pos-11">12</td>
+        <td class="tb-pos " id="tb-pos-11">12</td>
         <td><div class="tb-time-cell"><img class="tb-escudo" src="https://media.api-sports.io/football/teams/151.png" onerror="this.style.display='none'"><span id="tb-nome-11">Goias</span></div></td>
         <td class="tb-pts" id="tb-pts-11">18</td>
         <td id="tb-j-11">13</td>
@@ -4635,8 +4680,6 @@
           </table>
           <div class="tb-legenda-wrap">
             <div class="tb-legenda-item"><div class="tb-legenda-dot" style="background:var(--verde)"></div>Acesso Série A (1–4)</div>
-            <div class="tb-legenda-item"><div class="tb-legenda-dot" style="background:#1565C0"></div>Libertadores (5–8)</div>
-            <div class="tb-legenda-item"><div class="tb-legenda-dot" style="background:#e67e00"></div>Sul-Americana (9–12)</div>
             <div class="tb-legenda-item"><div class="tb-legenda-dot" style="background:var(--vermelho)"></div>Rebaixamento (17–20)</div>
           </div>
         </div>
@@ -4772,7 +4815,7 @@
 
   <script>
     const PROXY          = 'https://futebol-proxy.placardofutebol-com.workers.dev';
-    const LEAGUE         = 71;
+    const LEAGUE         = 72;
     const SEASON         = 2026;
     const TOTAL_RODADAS  = 38;
 
@@ -4899,8 +4942,6 @@
         const pos = i + 1;
         let posClasse = '';
         if      (pos <= 4)  posClasse = 'promovido';
-        else if (pos <= 8)  posClasse = 'libertadores';
-        else if (pos <= 12) posClasse = 'sulamericana';
         else if (pos >= 17) posClasse = 'rebaixado';
         const sg = t.gd >= 0 ? '+' + t.gd : t.gd;
         const logo = t.logo || '';
