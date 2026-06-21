@@ -20,7 +20,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- Gerado em: 21/06/2026, 12:45:31 | 380 jogos | Série A 2026 -->
+  <!-- Gerado em: 21/06/2026, 12:56:26 | 380 jogos | Série A 2026 -->
   <style>
     .bra-hero { background: linear-gradient(135deg, #145e25 0%, #1a7a30 60%, #2d9e4e 100%); padding: 20px 16px 16px; text-align: center; position: relative; overflow: hidden; cursor: pointer; user-select: none; }
     .bra-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(245,200,0,0.12) 0%, transparent 70%); pointer-events: none; }
@@ -127,9 +127,9 @@
 
   <nav class="bra-nav">
     <div class="bra-nav-inner">
-      <div class="bra-tab ativa" onclick="mudarAba(this,'jogos')">⚽ Jogos</div>
-      <div class="bra-tab" onclick="mudarAba(this,'tabela')">📊 Tabela</div>
-      <div class="bra-tab" onclick="mudarAba(this,'artilharia')">👟 Artilharia</div>
+      <div class="bra-tab ativa" data-secao="jogos" onclick="mudarAba(this,'jogos')">⚽ Jogos</div>
+      <div class="bra-tab" data-secao="tabela" onclick="mudarAba(this,'tabela')">📊 Tabela</div>
+      <div class="bra-tab" data-secao="artilharia" onclick="mudarAba(this,'artilharia')">👟 Artilharia</div>
     </div>
   </nav>
 
@@ -4774,6 +4774,7 @@
     const TABELA_CACHE_KEY = 'pf_sera_tab_v1';
     const ART_CACHE_KEY    = 'pf_sera_art_v1';
     const PLACAR_KEY       = id => 'pf_sera_p_' + id;
+    const ABA_CACHE_KEY    = 'pf_sera_aba';
     const CACHE_TTL        = 24 * 60 * 60 * 1000; // 24h
 
     let rodadaVendo  = 19;
@@ -4791,6 +4792,7 @@
       document.querySelectorAll('.bra-secao').forEach(s => s.classList.remove('ativa'));
       el.classList.add('ativa');
       document.getElementById('secao-' + secao).classList.add('ativa');
+      try { localStorage.setItem(ABA_CACHE_KEY, secao); } catch(e) {}
     }
 
     // ── CARROSSEL DE RODADAS ──
@@ -5127,6 +5129,15 @@
 
     // ── INIT ──
     (function() {
+      // Restaura a aba ativa (Jogos/Tabela/Artilharia) da visita anterior
+      try {
+        const abaSalva = localStorage.getItem(ABA_CACHE_KEY);
+        if (abaSalva && ['jogos','tabela','artilharia'].includes(abaSalva)) {
+          const tabEl = document.querySelector('.bra-tab[data-secao="' + abaSalva + '"]');
+          if (tabEl) mudarAba(tabEl, abaSalva);
+        }
+      } catch(e) {}
+
       // Carrossel sempre inicia na rodada atual (detectada na geração)
       mostrarRodada(19);
 
