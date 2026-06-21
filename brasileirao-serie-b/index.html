@@ -20,7 +20,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- Gerado em: 21/06/2026, 13:22:06 | 380 jogos | Série B 2026 -->
+  <!-- Gerado em: 21/06/2026, 13:57:47 | 380 jogos | Série B 2026 -->
   <style>
     .bra-hero { background: linear-gradient(135deg, #145e25 0%, #1a7a30 60%, #2d9e4e 100%); padding: 20px 16px 16px; text-align: center; position: relative; overflow: hidden; cursor: pointer; user-select: none; }
     .bra-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(245,200,0,0.12) 0%, transparent 70%); pointer-events: none; }
@@ -4865,19 +4865,25 @@
     }
 
     // ── CACHE DA TABELA (nunca zera — retorna mesmo expirado) ──
-    function salvarTabelaCache(standings) {
-      try { localStorage.setItem(TABELA_CACHE_KEY, JSON.stringify({ ts: Date.now(), standings })); } catch(e) {}
+    // Agora armazena os STATS calculados localmente (não o array do /standings)
+    function salvarTabelaCache(stats) {
+      try { localStorage.setItem(TABELA_CACHE_KEY, JSON.stringify({ ts: Date.now(), stats })); } catch(e) {}
     }
     function carregarTabelaCache() {
       try {
         const raw = localStorage.getItem(TABELA_CACHE_KEY);
         if (!raw) return null;
-        const { standings } = JSON.parse(raw);
-        return standings;
+        const { stats } = JSON.parse(raw);
+        return stats;
       } catch(e) { return null; }
     }
 
-    // aplicarTabela: usa team.id do snapshot para escudo estático
+    // Mapa nome → id do time, construído a partir do snapshot estático (gerado no momento da criação da página).
+    // Usado só para resolver o escudo (../escudos/ID.png); nunca muda durante o runtime.
+    const TIME_ID_MAP = {};
+    (STANDINGS_SNAPSHOT || []).forEach(t => { TIME_ID_MAP[t.name] = t.id; });
+
+    // aplicarTabela: usa team.id do mapa para escudo estático
     function aplicarTabela(standings) {
       if (!standings || !standings.length) return;
       const tbody = document.getElementById('tabela-body');
@@ -4905,27 +4911,64 @@
         'Atualizado ' + new Date().toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
     }
 
-    // ── BUSCA TABELA COMPLETA VIA API ──
+    // ── CLASSIFICAÇÃO CALCULADA LOCALMENTE (instantânea, sem depender do /standings) ──
+    // A API atualiza o endpoint /standings só de hora em hora. Para refletir o resultado
+    // assim que o jogo termina, calculamos pontos/V/E/D/GP/GC localmente a partir de
+    // TODOS os jogos encerrados da temporada (status=FT), igual ao gerador da Copa do Mundo.
+    function calcularStatsDeJogos(jogos) {
+      const stats = {};
+      const init  = t => { if (!stats[t]) stats[t] = { j:0, v:0, e:0, d:0, gp:0, gc:0, pts:0 }; };
+      jogos.forEach(j => {
+        const st = j.fixture.status.short;
+        if (!['FT','AET','PEN','AWD','WO'].includes(st)) return;
+        const h  = j.teams.home.name, a = j.teams.away.name;
+        const gh = j.goals.home,      ga = j.goals.away;
+        if (gh === null || ga === null) return;
+        init(h); init(a);
+        stats[h].j++; stats[a].j++;
+        stats[h].gp += gh; stats[h].gc += ga;
+        stats[a].gp += ga; stats[a].gc += gh;
+        if      (gh > ga) { stats[h].v++; stats[h].pts += 3; stats[a].d++; }
+        else if (gh < ga) { stats[a].v++; stats[a].pts += 3; stats[h].d++; }
+        else              { stats[h].e++; stats[h].pts++;     stats[a].e++; stats[a].pts++; }
+      });
+      return stats;
+    }
+
+    // Converte o objeto de stats (por nome de time) no array ordenado que aplicarTabela() espera
+    function statsParaStandings(stats) {
+      return Object.entries(stats)
+        .map(([nome, s]) => ({
+          id:     TIME_ID_MAP[nome] || null,
+          name:   nome,
+          points: s.pts,
+          played: s.j,
+          win:    s.v,
+          draw:   s.e,
+          lose:   s.d,
+          gf:     s.gp,
+          ga:     s.gc,
+          gd:     s.gp - s.gc,
+        }))
+        .sort((a, b) => {
+          if (b.points !== a.points) return b.points - a.points;
+          if (b.gd     !== a.gd)     return b.gd     - a.gd;
+          return b.gf - a.gf;
+        });
+    }
+
+    // ── BUSCA HISTÓRICO COMPLETO (todos os jogos encerrados) E CALCULA A TABELA ──
     async function buscarTabelaCompleta() {
       try {
-        const res  = await fetch(PROXY + '/standings?league=' + LEAGUE + '&season=' + SEASON);
+        const res  = await fetch(PROXY + '/fixtures?league=' + LEAGUE + '&season=' + SEASON + '&status=FT');
         const data = await res.json();
-        const raw  = (data.response[0] && data.response[0].league && data.response[0].league.standings[0]) || [];
-        if (!raw.length) return;
-        const standings = raw.map(t => ({
-          id:     t.team.id,
-          name:   t.team.name,
-          points: t.points,
-          played: t.all.played,
-          win:    t.all.win,
-          draw:   t.all.draw,
-          lose:   t.all.lose,
-          gf:     t.all.goals.for,
-          ga:     t.all.goals.against,
-          gd:     t.goalsDiff,
-        }));
+        const jogos = data.response || [];
+        if (!jogos.length) return;
+        const stats     = calcularStatsDeJogos(jogos);
+        const standings = statsParaStandings(stats);
+        if (!standings.length) return;
         aplicarTabela(standings);
-        salvarTabelaCache(standings);
+        salvarTabelaCache(stats);
       } catch(e) { console.warn('[Série B] Falha ao buscar tabela:', e); }
     }
 
@@ -5134,10 +5177,10 @@
       // Restaura placares do cache local
       restaurarPlacares();
 
-      // Tabela: cache local → snapshot estático → API
-      const cacheTab = carregarTabelaCache();
-      if (cacheTab && cacheTab.length) {
-        aplicarTabela(cacheTab);
+      // Tabela: cache local (stats calculados) → snapshot estático → API
+      const cacheStats = carregarTabelaCache();
+      if (cacheStats && Object.keys(cacheStats).length) {
+        aplicarTabela(statsParaStandings(cacheStats));
       } else if (STANDINGS_SNAPSHOT && STANDINGS_SNAPSHOT.length) {
         aplicarTabela(STANDINGS_SNAPSHOT);
       }
@@ -5150,13 +5193,14 @@
         aplicarArtilharia(ART_SNAPSHOT);
       }
 
-      // Rebusca tabela se cache ausente/expirado (atualiza por cima, nunca zera)
+      // Rebusca tabela se cache ausente/expirado/formato antigo (atualiza por cima, nunca zera)
       (function() {
         try {
           const raw = localStorage.getItem(TABELA_CACHE_KEY);
           if (!raw) { buscarTabelaCompleta(); return; }
-          const { ts } = JSON.parse(raw);
-          if (Date.now() - ts > CACHE_TTL) buscarTabelaCompleta();
+          const parsed = JSON.parse(raw);
+          if (!parsed.stats) { buscarTabelaCompleta(); return; } // formato antigo (array standings) — força atualização
+          if (Date.now() - parsed.ts > CACHE_TTL) buscarTabelaCompleta();
         } catch(e) { buscarTabelaCompleta(); }
       })();
 
