@@ -20,7 +20,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- Gerado em: 21/06/2026, 11:56:51 | 380 jogos | Série A 2026 -->
+  <!-- Gerado em: 21/06/2026, 12:25:39 | 380 jogos | Série A 2026 -->
   <style>
     .bra-hero { background: linear-gradient(135deg, #145e25 0%, #1a7a30 60%, #2d9e4e 100%); padding: 20px 16px 16px; text-align: center; position: relative; overflow: hidden; cursor: pointer; user-select: none; }
     .bra-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(245,200,0,0.12) 0%, transparent 70%); pointer-events: none; }
@@ -4771,9 +4771,9 @@
     const ART_SNAPSHOT       = [{"nome":"K. Viveros","foto":"https://media.api-sports.io/football/players/13198.png","time":"Atletico Paranaense","teamId":134,"gols":11},{"nome":"Pedro","foto":"https://media.api-sports.io/football/players/10321.png","time":"Flamengo","teamId":127,"gols":10},{"nome":"John Kennedy","foto":"https://media.api-sports.io/football/players/297522.png","time":"Fluminense","teamId":124,"gols":9},{"nome":"Carlos Vinícius","foto":"https://media.api-sports.io/football/players/104.png","time":"Gremio","teamId":130,"gols":9},{"nome":"Breno Lopes","foto":"https://media.api-sports.io/football/players/53966.png","time":"Coritiba","teamId":147,"gols":8},{"nome":"Danilo Santos","foto":"https://media.api-sports.io/football/players/275170.png","time":"Botafogo","teamId":120,"gols":7},{"nome":"Arthur Cabral","foto":"https://media.api-sports.io/football/players/9938.png","time":"Botafogo","teamId":120,"gols":7},{"nome":"Gabriel Barbosa","foto":"https://media.api-sports.io/football/players/10174.png","time":"Santos","teamId":128,"gols":7},{"nome":"Luciano Juba","foto":"https://media.api-sports.io/football/players/197383.png","time":"Bahia","teamId":118,"gols":7},{"nome":"J. López","foto":"https://media.api-sports.io/football/players/295513.png","time":"Palmeiras","teamId":121,"gols":6}];
 
     // Chaves de cache
-    const TABELA_CACHE_KEY = 'pf_serb_tab_v1';
-    const ART_CACHE_KEY    = 'pf_serb_art_v1';
-    const PLACAR_KEY       = id => 'pf_serb_p_' + id;
+    const TABELA_CACHE_KEY = 'pf_sera_tab_v1';
+    const ART_CACHE_KEY    = 'pf_sera_art_v1';
+    const PLACAR_KEY       = id => 'pf_sera_p_' + id;
     const CACHE_TTL        = 24 * 60 * 60 * 1000; // 24h
 
     let rodadaVendo  = 19;
@@ -4822,7 +4822,7 @@
         document.getElementById('rodada-subtitulo').textContent = 'Sem jogos definidos';
       }
 
-      localStorage.setItem('pf_serb_rodada', r);
+      localStorage.setItem('pf_sera_rodada', r);
       iniciarContagensRegressivas();
       agendarAoVivo();
     }
@@ -5127,13 +5127,8 @@
 
     // ── INIT ──
     (function() {
-      // Restaura última rodada visitada (se diferente da detectada na geração)
-      const ultimaRodada = parseInt(localStorage.getItem('pf_serb_rodada'));
-      if (ultimaRodada && ultimaRodada >= 1 && ultimaRodada <= TOTAL_RODADAS && ultimaRodada !== 19) {
-        mostrarRodada(ultimaRodada);
-      } else {
-        mostrarRodada(19);
-      }
+      // Carrossel sempre inicia na rodada atual (detectada na geração)
+      mostrarRodada(19);
 
       // Restaura placares do cache local
       restaurarPlacares();
