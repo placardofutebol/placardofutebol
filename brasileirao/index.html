@@ -20,7 +20,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- Gerado em: 21/06/2026, 12:25:39 | 380 jogos | Série A 2026 -->
+  <!-- Gerado em: 21/06/2026, 12:37:06 | 380 jogos | Série A 2026 -->
   <style>
     .bra-hero { background: linear-gradient(135deg, #145e25 0%, #1a7a30 60%, #2d9e4e 100%); padding: 20px 16px 16px; text-align: center; position: relative; overflow: hidden; cursor: pointer; user-select: none; }
     .bra-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(245,200,0,0.12) 0%, transparent 70%); pointer-events: none; }
@@ -4781,7 +4781,7 @@
     let jogosVivos   = new Map(); // id → { base, inicio, periodo }
     let jogosEmBreve = new Map(); // id → kickoff timestamp
 
-    const SIGLAS = {"Atletico Mineiro":"Atletico-MG","Atletico Paranaense":"Athletico-PR","Atletico Goianiense":"Atletico-GO","Vasco da Gama":"Vasco","Sao Paulo":"Sao Paulo","Fluminense":"Fluminense","Flamengo":"Flamengo","Palmeiras":"Palmeiras","Cruzeiro":"Cruzeiro","Internacional":"Internacional","Corinthians":"Corinthians","Botafogo":"Botafogo","Santos":"Santos","Gremio":"Gremio","Bahia":"Bahia","Fortaleza":"Fortaleza","Sport Recife":"Sport","Ceara":"Ceara","Coritiba":"Coritiba","Goias":"Goias","Cuiaba":"Cuiaba","Mirassol":"Mirassol","Novorizontino":"Novorizontino","Vila Nova":"Vila Nova","Operario PR":"Operario","Ponte Preta":"Ponte Preta","Sao Bernardo":"Sao Bernardo","America Mineiro":"America-MG","Red Bull Bragantino":"Bragantino","Juventude":"Juventude","Vitoria":"Vitoria","Chapecoense":"Chapecoense","Ituano":"Ituano","CRB":"CRB","Guarani":"Guarani","Sport":"Sport","Amazonas":"Amazonas","Paysandu":"Paysandu","Ferroviaria":"Ferroviaria","ABC":"ABC","Botafogo SP":"Botafogo-SP","Volta Redonda":"Volta Redonda","Athletic Club":"Athletic"};
+    const SIGLAS = {"Atletico Mineiro":"Atletico-MG","Atletico-MG":"Atletico-MG","Athletico Paranaense":"Athletico-PR","Atletico Paranaense":"Athletico-PR","Athletico-PR":"Athletico-PR","Vasco da Gama":"Vasco","Vasco":"Vasco","Sao Paulo":"Sao Paulo","Fluminense":"Fluminense","Flamengo":"Flamengo","Palmeiras":"Palmeiras","Cruzeiro":"Cruzeiro","Internacional":"Internacional","Corinthians":"Corinthians","Botafogo":"Botafogo","Santos":"Santos","Gremio":"Gremio","Bahia":"Bahia","Coritiba":"Coritiba","Mirassol":"Mirassol","Red Bull Bragantino":"Bragantino","Bragantino":"Bragantino","Vitoria":"Vitoria","Chapecoense":"Chapecoense","Remo":"Remo","Clube do Remo":"Remo"};
     function nomeTime(n) { return SIGLAS[n] || n; }
     function slugNome(n) { return n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); }
 
