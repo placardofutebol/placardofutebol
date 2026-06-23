@@ -20,7 +20,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- Gerado em: 22/06/2026, 18:05:20 | 142 jogos | Copa do Brasil 2026 -->
+  <!-- Gerado em: 23/06/2026, 15:01:00 | 142 jogos | Copa do Brasil 2026 -->
   <style>
     .cop-hero { background: linear-gradient(135deg, var(--verde-escuro) 0%, var(--verde) 60%, #2d9e4e 100%); padding: 20px 16px 16px; text-align: center; position: relative; overflow: hidden; cursor: pointer; user-select: none; }
     .cop-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 60% 50%, rgba(245,200,0,0.15) 0%, transparent 70%); pointer-events: none; }
@@ -67,6 +67,8 @@
     .cop-status.encerrado { color: #999; }
     .cop-status.em-breve { color: #e67e00; animation: piscando 1.2s ease infinite; }
     .cop-agregado { background: var(--cinza-bg); border-top: 1px solid var(--cinza-borda); padding: 5px 14px; font-family: var(--font-corpo); font-size: 11px; font-weight: 700; color: var(--verde-escuro); text-align: center; letter-spacing: 0.3px; }
+    .cop-pen { font-family: var(--font-corpo); font-size: 11px; font-weight: 700; color: var(--cinza-texto); margin-top: 2px; letter-spacing: 0.5px; }
+    .cop-pen.vivo { color: var(--vermelho); animation: piscando 1.2s ease infinite; }
     .cop-loading { text-align: center; padding: 40px 20px; color: var(--cinza-texto); }
     .cop-loading .spinner { width: 28px; height: 28px; border: 3px solid var(--cinza-borda); border-top-color: var(--verde); border-radius: 50%; animation: girar 0.8s linear infinite; margin: 0 auto 12px; }
     .cop-vazio { text-align: center; padding: 40px 20px; color: var(--cinza-texto); font-family: var(--font-corpo); font-size: 14px; }
@@ -142,6 +144,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/13115.png" alt="Sampaio Corrêa RJ" onerror="this.style.display='none'"><span class="cop-time-nome">Sampaio Corrêa RJ</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515251">1 × 1</span>
+      <div class="cop-pen" id="pen-1515251">🥅 1 – 3 nos pênaltis — Desportiva ES classificado</div>
       <div class="cop-status encerrado" id="status-1515251">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7856.png" alt="Desportiva ES" onerror="this.style.display='none'"><span class="cop-time-nome">Desportiva ES</span></div>
@@ -153,6 +156,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/23591.png" alt="Porto BA" onerror="this.style.display='none'"><span class="cop-time-nome">Porto BA</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515249">2 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1515249">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/20710.png" alt="Serra Branca" onerror="this.style.display='none'"><span class="cop-time-nome">Serra Branca</span></div>
@@ -164,6 +168,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/20781.png" alt="Maguary PE" onerror="this.style.display='none'"><span class="cop-time-nome">Maguary PE</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515248">1 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1515248">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/25123.png" alt="Laguna" onerror="this.style.display='none'"><span class="cop-time-nome">Laguna</span></div>
@@ -175,6 +180,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7840.png" alt="Baré" onerror="this.style.display='none'"><span class="cop-time-nome">Baré</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515242">0 × 3</span>
+      
       <div class="cop-status encerrado" id="status-1515242">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7780.png" alt="Madureira" onerror="this.style.display='none'"><span class="cop-time-nome">Madureira</span></div>
@@ -186,6 +192,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/12290.png" alt="Araguaína" onerror="this.style.display='none'"><span class="cop-time-nome">Araguaína</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515241">0 × 3</span>
+      
       <div class="cop-status encerrado" id="status-1515241">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/10039.png" alt="Primavera SP" onerror="this.style.display='none'"><span class="cop-time-nome">Primavera SP</span></div>
@@ -197,6 +204,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/18298.png" alt="América SE" onerror="this.style.display='none'"><span class="cop-time-nome">América SE</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515240">1 × 1</span>
+      <div class="cop-pen" id="pen-1515240">🥅 3 – 5 nos pênaltis — Tirol/CEFAT classificado</div>
       <div class="cop-status encerrado" id="status-1515240">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/18799.png" alt="Tirol/CEFAT" onerror="this.style.display='none'"><span class="cop-time-nome">Tirol/CEFAT</span></div>
@@ -208,6 +216,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/13086.png" alt="Betim" onerror="this.style.display='none'"><span class="cop-time-nome">Betim</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515243">1 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1515243">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/13094.png" alt="Piauí" onerror="this.style.display='none'"><span class="cop-time-nome">Piauí</span></div>
@@ -219,6 +228,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1222.png" alt="Gama" onerror="this.style.display='none'"><span class="cop-time-nome">Gama</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515245">2 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1515245">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/23158.png" alt="Monte Roraima" onerror="this.style.display='none'"><span class="cop-time-nome">Monte Roraima</span></div>
@@ -230,6 +240,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/21207.png" alt="Santa Catarina" onerror="this.style.display='none'"><span class="cop-time-nome">Santa Catarina</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515252">2 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1515252">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/15606.png" alt="IAPE" onerror="this.style.display='none'"><span class="cop-time-nome">IAPE</span></div>
@@ -241,6 +252,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/10687.png" alt="Ivinhema" onerror="this.style.display='none'"><span class="cop-time-nome">Ivinhema</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515246">1 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1515246">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/10861.png" alt="Independente AP" onerror="this.style.display='none'"><span class="cop-time-nome">Independente AP</span></div>
@@ -252,6 +264,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/10675.png" alt="Ji-Paraná" onerror="this.style.display='none'"><span class="cop-time-nome">Ji-Paraná</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515247">2 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1515247">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/22828.png" alt="Pantanal" onerror="this.style.display='none'"><span class="cop-time-nome">Pantanal</span></div>
@@ -263,6 +276,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1228.png" alt="Galvez" onerror="this.style.display='none'"><span class="cop-time-nome">Galvez</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515244">1 × 1</span>
+      <div class="cop-pen" id="pen-1515244">🥅 2 – 3 nos pênaltis — Guaporé classificado</div>
       <div class="cop-status encerrado" id="status-1515244">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/12944.png" alt="Guaporé" onerror="this.style.display='none'"><span class="cop-time-nome">Guaporé</span></div>
@@ -274,6 +288,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/22825.png" alt="Primavera MG" onerror="this.style.display='none'"><span class="cop-time-nome">Primavera MG</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515250">2 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1515250">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/2207.png" alt="Bragantino PA" onerror="this.style.display='none'"><span class="cop-time-nome">Bragantino PA</span></div>
@@ -285,6 +300,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/6370.png" alt="Vasco da Gama AC" onerror="this.style.display='none'"><span class="cop-time-nome">Vasco da Gama AC</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515253">1 × 1</span>
+      <div class="cop-pen" id="pen-1515253">🥅 2 – 3 nos pênaltis — Velo Clube classificado</div>
       <div class="cop-status encerrado" id="status-1515253">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/10041.png" alt="Velo Clube" onerror="this.style.display='none'"><span class="cop-time-nome">Velo Clube</span></div>
@@ -298,6 +314,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/2206.png" alt="Boavista SC" onerror="this.style.display='none'"><span class="cop-time-nome">Boavista SC</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515259">2 × 3</span>
+      
       <div class="cop-status encerrado" id="status-1515259">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7833.png" alt="Maringá" onerror="this.style.display='none'"><span class="cop-time-nome">Maringá</span></div>
@@ -309,6 +326,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/795.png" alt="Joinville" onerror="this.style.display='none'"><span class="cop-time-nome">Joinville</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515265">1 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1515265">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/150.png" alt="CSA" onerror="this.style.display='none'"><span class="cop-time-nome">CSA</span></div>
@@ -320,6 +338,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/2233.png" alt="America-RN" onerror="this.style.display='none'"><span class="cop-time-nome">America-RN</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515255">3 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1515255">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/12916.png" alt="GAS" onerror="this.style.display='none'"><span class="cop-time-nome">GAS</span></div>
@@ -331,6 +350,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/154.png" alt="Fortaleza EC" onerror="this.style.display='none'"><span class="cop-time-nome">Fortaleza EC</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1525514">4 × 3</span>
+      
       <div class="cop-status encerrado" id="status-1525514">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/20781.png" alt="Maguary PE" onerror="this.style.display='none'"><span class="cop-time-nome">Maguary PE</span></div>
@@ -342,6 +362,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/13124.png" alt="Castanhal" onerror="this.style.display='none'"><span class="cop-time-nome">Castanhal</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515261">1 × 1</span>
+      <div class="cop-pen" id="pen-1515261">🥅 5 – 3 nos pênaltis — Castanhal classificado</div>
       <div class="cop-status encerrado" id="status-1515261">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/138.png" alt="Guarani Campinas" onerror="this.style.display='none'"><span class="cop-time-nome">Guarani Campinas</span></div>
@@ -353,6 +374,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1224.png" alt="Juazeirense" onerror="this.style.display='none'"><span class="cop-time-nome">Juazeirense</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515266">1 × 1</span>
+      <div class="cop-pen" id="pen-1515266">🥅 1 – 3 nos pênaltis — Capital Brasilia classificado</div>
       <div class="cop-status encerrado" id="status-1515266">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/12921.png" alt="Capital Brasilia" onerror="this.style.display='none'"><span class="cop-time-nome">Capital Brasilia</span></div>
@@ -364,6 +386,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/144.png" alt="Atletico Goianiense" onerror="this.style.display='none'"><span class="cop-time-nome">Atletico Goianiense</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1525515">1 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1525515">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/22825.png" alt="Primavera MG" onerror="this.style.display='none'"><span class="cop-time-nome">Primavera MG</span></div>
@@ -375,6 +398,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7834.png" alt="Novorizontino" onerror="this.style.display='none'"><span class="cop-time-nome">Novorizontino</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515271">4 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1515271">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7781.png" alt="Nacional AM" onerror="this.style.display='none'"><span class="cop-time-nome">Nacional AM</span></div>
@@ -386,6 +410,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7780.png" alt="Madureira" onerror="this.style.display='none'"><span class="cop-time-nome">Madureira</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1525513">1 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1525513">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/754.png" alt="ABC" onerror="this.style.display='none'"><span class="cop-time-nome">ABC</span></div>
@@ -397,6 +422,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/148.png" alt="Londrina" onerror="this.style.display='none'"><span class="cop-time-nome">Londrina</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515267">1 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1515267">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/22822.png" alt="Penedense" onerror="this.style.display='none'"><span class="cop-time-nome">Penedense</span></div>
@@ -408,6 +434,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/13098.png" alt="Retrô" onerror="this.style.display='none'"><span class="cop-time-nome">Retrô</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515275">1 × 2</span>
+      
       <div class="cop-status encerrado" id="status-1515275">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1196.png" alt="Uberlandia" onerror="this.style.display='none'"><span class="cop-time-nome">Uberlandia</span></div>
@@ -419,6 +446,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/10004.png" alt="São Luiz" onerror="this.style.display='none'"><span class="cop-time-nome">São Luiz</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515279">0 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1515279">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7832.png" alt="Maranhão" onerror="this.style.display='none'"><span class="cop-time-nome">Maranhão</span></div>
@@ -430,6 +458,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/2227.png" alt="Tombense" onerror="this.style.display='none'"><span class="cop-time-nome">Tombense</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515281">1 × 1</span>
+      <div class="cop-pen" id="pen-1515281">🥅 4 – 2 nos pênaltis — Tombense classificado</div>
       <div class="cop-status encerrado" id="status-1515281">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/10858.png" alt="Oratório" onerror="this.style.display='none'"><span class="cop-time-nome">Oratório</span></div>
@@ -441,6 +470,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7852.png" alt="Anápolis" onerror="this.style.display='none'"><span class="cop-time-nome">Anápolis</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515256">3 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1515256">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1194.png" alt="Cianorte" onerror="this.style.display='none'"><span class="cop-time-nome">Cianorte</span></div>
@@ -452,6 +482,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/2213.png" alt="Imperatriz" onerror="this.style.display='none'"><span class="cop-time-nome">Imperatriz</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515264">0 × 3</span>
+      
       <div class="cop-status encerrado" id="status-1515264">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/10862.png" alt="Amazonas" onerror="this.style.display='none'"><span class="cop-time-nome">Amazonas</span></div>
@@ -463,6 +494,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7771.png" alt="Ceilândia" onerror="this.style.display='none'"><span class="cop-time-nome">Ceilândia</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515262">1 × 1</span>
+      <div class="cop-pen" id="pen-1515262">🥅 1 – 4 nos pênaltis — Jacuipense classificado</div>
       <div class="cop-status encerrado" id="status-1515262">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7831.png" alt="Jacuipense" onerror="this.style.display='none'"><span class="cop-time-nome">Jacuipense</span></div>
@@ -474,6 +506,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7879.png" alt="Águia de Marabá" onerror="this.style.display='none'"><span class="cop-time-nome">Águia de Marabá</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515254">2 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1515254">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/10853.png" alt="Independência" onerror="this.style.display='none'"><span class="cop-time-nome">Independência</span></div>
@@ -485,6 +518,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1207.png" alt="ASA" onerror="this.style.display='none'"><span class="cop-time-nome">ASA</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515257">1 × 2</span>
+      
       <div class="cop-status encerrado" id="status-1515257">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/2217.png" alt="Operario Ferroviario" onerror="this.style.display='none'"><span class="cop-time-nome">Operario Ferroviario</span></div>
@@ -496,6 +530,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7865.png" alt="São Bernardo" onerror="this.style.display='none'"><span class="cop-time-nome">São Bernardo</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515278">2 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1515278">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/9997.png" alt="Atlético Alagoinhas" onerror="this.style.display='none'"><span class="cop-time-nome">Atlético Alagoinhas</span></div>
@@ -507,6 +542,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7770.png" alt="Caxias" onerror="this.style.display='none'"><span class="cop-time-nome">Caxias</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515280">0 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1515280">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/10049.png" alt="Guarany de Bagé" onerror="this.style.display='none'"><span class="cop-time-nome">Guarany de Bagé</span></div>
@@ -518,6 +554,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1222.png" alt="Gama" onerror="this.style.display='none'"><span class="cop-time-nome">Gama</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1525516">2 × 2</span>
+      <div class="cop-pen" id="pen-1525516">🥅 4 – 5 nos pênaltis — Goias classificado</div>
       <div class="cop-status encerrado" id="status-1525516">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/151.png" alt="Goias" onerror="this.style.display='none'"><span class="cop-time-nome">Goias</span></div>
@@ -529,6 +566,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1221.png" alt="Ypiranga-RS" onerror="this.style.display='none'"><span class="cop-time-nome">Ypiranga-RS</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1525517">2 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1525517">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/10675.png" alt="Ji-Paraná" onerror="this.style.display='none'"><span class="cop-time-nome">Ji-Paraná</span></div>
@@ -540,6 +578,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/2215.png" alt="Mixto" onerror="this.style.display='none'"><span class="cop-time-nome">Mixto</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515269">1 × 1</span>
+      <div class="cop-pen" id="pen-1515269">🥅 4 – 3 nos pênaltis — Mixto classificado</div>
       <div class="cop-status encerrado" id="status-1515269">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1197.png" alt="Botafogo PB" onerror="this.style.display='none'"><span class="cop-time-nome">Botafogo PB</span></div>
@@ -551,6 +590,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/129.png" alt="Ceara" onerror="this.style.display='none'"><span class="cop-time-nome">Ceara</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1525518">2 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1525518">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/10039.png" alt="Primavera SP" onerror="this.style.display='none'"><span class="cop-time-nome">Primavera SP</span></div>
@@ -562,6 +602,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/9999.png" alt="CEOV Operário" onerror="this.style.display='none'"><span class="cop-time-nome">CEOV Operário</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515272">1 × 1</span>
+      <div class="cop-pen" id="pen-1515272">🥅 1 – 3 nos pênaltis — Porto Velho classificado</div>
       <div class="cop-status encerrado" id="status-1515272">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/12946.png" alt="Porto Velho" onerror="this.style.display='none'"><span class="cop-time-nome">Porto Velho</span></div>
@@ -573,6 +614,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1214.png" alt="Portuguesa" onerror="this.style.display='none'"><span class="cop-time-nome">Portuguesa</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515273">5 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1515273">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1203.png" alt="Altos" onerror="this.style.display='none'"><span class="cop-time-nome">Altos</span></div>
@@ -584,6 +626,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/146.png" alt="CRB" onerror="this.style.display='none'"><span class="cop-time-nome">CRB</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1525519">6 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1525519">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/23591.png" alt="Porto BA" onerror="this.style.display='none'"><span class="cop-time-nome">Porto BA</span></div>
@@ -595,6 +638,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/137.png" alt="Figueirense" onerror="this.style.display='none'"><span class="cop-time-nome">Figueirense</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515263">1 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1515263">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/12939.png" alt="Azuriz" onerror="this.style.display='none'"><span class="cop-time-nome">Azuriz</span></div>
@@ -606,6 +650,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7782.png" alt="Nova Iguaçu" onerror="this.style.display='none'"><span class="cop-time-nome">Nova Iguaçu</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515270">1 × 1</span>
+      <div class="cop-pen" id="pen-1515270">🥅 4 – 3 nos pênaltis — Nova Iguaçu classificado</div>
       <div class="cop-status encerrado" id="status-1515270">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/10002.png" alt="Lagarto" onerror="this.style.display='none'"><span class="cop-time-nome">Lagarto</span></div>
@@ -617,6 +662,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/15611.png" alt="Tuna Luso" onerror="this.style.display='none'"><span class="cop-time-nome">Tuna Luso</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515283">4 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1515283">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7878.png" alt="Tocantinópolis" onerror="this.style.display='none'"><span class="cop-time-nome">Tocantinópolis</span></div>
@@ -628,6 +674,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/10041.png" alt="Velo Clube" onerror="this.style.display='none'"><span class="cop-time-nome">Velo Clube</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1525523">0 × 0</span>
+      <div class="cop-pen" id="pen-1525523">🥅 2 – 4 nos pênaltis — Vila Nova classificado</div>
       <div class="cop-status encerrado" id="status-1525523">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/142.png" alt="Vila Nova" onerror="this.style.display='none'"><span class="cop-time-nome">Vila Nova</span></div>
@@ -639,6 +686,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/145.png" alt="Avai" onerror="this.style.display='none'"><span class="cop-time-nome">Avai</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515258">3 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1515258">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/20717.png" alt="Porto Vitória" onerror="this.style.display='none'"><span class="cop-time-nome">Porto Vitória</span></div>
@@ -650,6 +698,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/13134.png" alt="Capital" onerror="this.style.display='none'"><span class="cop-time-nome">Capital</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515260">1 × 1</span>
+      <div class="cop-pen" id="pen-1515260">🥅 4 – 5 nos pênaltis — Manaus FC classificado</div>
       <div class="cop-status encerrado" id="status-1515260">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/2214.png" alt="Manaus FC" onerror="this.style.display='none'"><span class="cop-time-nome">Manaus FC</span></div>
@@ -661,6 +710,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/13086.png" alt="Betim" onerror="this.style.display='none'"><span class="cop-time-nome">Betim</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1525521">0 × 2</span>
+      
       <div class="cop-status encerrado" id="status-1525521">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1223.png" alt="Operario-PR" onerror="this.style.display='none'"><span class="cop-time-nome">Operario-PR</span></div>
@@ -672,6 +722,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/10690.png" alt="Rio Branco ES" onerror="this.style.display='none'"><span class="cop-time-nome">Rio Branco ES</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515276">1 × 1</span>
+      <div class="cop-pen" id="pen-1515276">🥅 5 – 6 nos pênaltis — Athletic Club classificado</div>
       <div class="cop-status encerrado" id="status-1515276">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/13975.png" alt="Athletic Club" onerror="this.style.display='none'"><span class="cop-time-nome">Athletic Club</span></div>
@@ -683,6 +734,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/21207.png" alt="Santa Catarina" onerror="this.style.display='none'"><span class="cop-time-nome">Santa Catarina</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1525520">1 × 1</span>
+      <div class="cop-pen" id="pen-1525520">🥅 5 – 4 nos pênaltis — Santa Catarina classificado</div>
       <div class="cop-status encerrado" id="status-1525520">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1193.png" alt="Cuiaba" onerror="this.style.display='none'"><span class="cop-time-nome">Cuiaba</span></div>
@@ -694,6 +746,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/10687.png" alt="Ivinhema" onerror="this.style.display='none'"><span class="cop-time-nome">Ivinhema</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1525522">2 × 4</span>
+      
       <div class="cop-status encerrado" id="status-1525522">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7814.png" alt="Volta Redonda" onerror="this.style.display='none'"><span class="cop-time-nome">Volta Redonda</span></div>
@@ -705,6 +758,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/18308.png" alt="Manauara" onerror="this.style.display='none'"><span class="cop-time-nome">Manauara</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515268">3 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1515268">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/2204.png" alt="AO Itabaiana" onerror="this.style.display='none'"><span class="cop-time-nome">AO Itabaiana</span></div>
@@ -716,6 +770,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/125.png" alt="America Mineiro" onerror="this.style.display='none'"><span class="cop-time-nome">America-MG</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1525524">1 × 1</span>
+      <div class="cop-pen" id="pen-1525524">🥅 4 – 3 nos pênaltis — America-MG classificado</div>
       <div class="cop-status encerrado" id="status-1525524">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/18799.png" alt="Tirol/CEFAT" onerror="this.style.display='none'"><span class="cop-time-nome">Tirol/CEFAT</span></div>
@@ -727,6 +782,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7868.png" alt="Trem" onerror="this.style.display='none'"><span class="cop-time-nome">Trem</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515282">0 × 0</span>
+      <div class="cop-pen" id="pen-1515282">🥅 3 – 4 nos pênaltis — Fluminense PI classificado</div>
       <div class="cop-status encerrado" id="status-1515282">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/15617.png" alt="Fluminense PI" onerror="this.style.display='none'"><span class="cop-time-nome">Fluminense PI</span></div>
@@ -738,6 +794,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7835.png" alt="Portuguesa RJ" onerror="this.style.display='none'"><span class="cop-time-nome">Portuguesa RJ</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515274">1 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1515274">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/13089.png" alt="Maracanã" onerror="this.style.display='none'"><span class="cop-time-nome">Maracanã</span></div>
@@ -749,6 +806,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7856.png" alt="Desportiva ES" onerror="this.style.display='none'"><span class="cop-time-nome">Desportiva ES</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1524405">0 × 0</span>
+      <div class="cop-pen" id="pen-1524405">🥅 3 – 4 nos pênaltis — Sport classificado</div>
       <div class="cop-status encerrado" id="status-1524405">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/123.png" alt="Sport Recife" onerror="this.style.display='none'"><span class="cop-time-nome">Sport</span></div>
@@ -760,6 +818,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/753.png" alt="Santa Cruz" onerror="this.style.display='none'"><span class="cop-time-nome">Santa Cruz</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1515277">0 × 0</span>
+      <div class="cop-pen" id="pen-1515277">🥅 2 – 4 nos pênaltis — Sousa classificado</div>
       <div class="cop-status encerrado" id="status-1515277">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7864.png" alt="Sousa" onerror="this.style.display='none'"><span class="cop-time-nome">Sousa</span></div>
@@ -771,6 +830,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/152.png" alt="Juventude" onerror="this.style.display='none'"><span class="cop-time-nome">Juventude</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1525525">5 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1525525">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/12944.png" alt="Guaporé" onerror="this.style.display='none'"><span class="cop-time-nome">Guaporé</span></div>
@@ -784,6 +844,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1214.png" alt="Portuguesa" onerror="this.style.display='none'"><span class="cop-time-nome">Portuguesa</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1529480">1 × 1</span>
+      <div class="cop-pen" id="pen-1529480">🥅 4 – 1 nos pênaltis — Portuguesa classificado</div>
       <div class="cop-status encerrado" id="status-1529480">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/145.png" alt="Avai" onerror="this.style.display='none'"><span class="cop-time-nome">Avai</span></div>
@@ -795,6 +856,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/795.png" alt="Joinville" onerror="this.style.display='none'"><span class="cop-time-nome">Joinville</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1528141">0 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1528141">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7865.png" alt="São Bernardo" onerror="this.style.display='none'"><span class="cop-time-nome">São Bernardo</span></div>
@@ -806,6 +868,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/139.png" alt="Ponte Preta" onerror="this.style.display='none'"><span class="cop-time-nome">Ponte Preta</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1528145">1 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1528145">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/10049.png" alt="Guarany de Bagé" onerror="this.style.display='none'"><span class="cop-time-nome">Guarany de Bagé</span></div>
@@ -817,6 +880,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7833.png" alt="Maringá" onerror="this.style.display='none'"><span class="cop-time-nome">Maringá</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1528143">3 × 2</span>
+      
       <div class="cop-status encerrado" id="status-1528143">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1196.png" alt="Uberlandia" onerror="this.style.display='none'"><span class="cop-time-nome">Uberlandia</span></div>
@@ -828,6 +892,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/13975.png" alt="Athletic Club" onerror="this.style.display='none'"><span class="cop-time-nome">Athletic Club</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1529474">2 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1529474">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1221.png" alt="Ypiranga-RS" onerror="this.style.display='none'"><span class="cop-time-nome">Ypiranga-RS</span></div>
@@ -839,6 +904,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/18308.png" alt="Manauara" onerror="this.style.display='none'"><span class="cop-time-nome">Manauara</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1529477">0 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1529477">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/154.png" alt="Fortaleza EC" onerror="this.style.display='none'"><span class="cop-time-nome">Fortaleza EC</span></div>
@@ -850,6 +916,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7814.png" alt="Volta Redonda" onerror="this.style.display='none'"><span class="cop-time-nome">Volta Redonda</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1529483">0 × 0</span>
+      <div class="cop-pen" id="pen-1529483">🥅 5 – 3 nos pênaltis — Volta Redonda classificado</div>
       <div class="cop-status encerrado" id="status-1529483">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/2233.png" alt="America-RN" onerror="this.style.display='none'"><span class="cop-time-nome">America-RN</span></div>
@@ -861,6 +928,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/151.png" alt="Goias" onerror="this.style.display='none'"><span class="cop-time-nome">Goias</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1530082">3 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1530082">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/15617.png" alt="Fluminense PI" onerror="this.style.display='none'"><span class="cop-time-nome">Fluminense PI</span></div>
@@ -872,6 +940,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7772.png" alt="Confiança" onerror="this.style.display='none'"><span class="cop-time-nome">Confiança</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1528140">2 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1528140">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/2227.png" alt="Tombense" onerror="this.style.display='none'"><span class="cop-time-nome">Tombense</span></div>
@@ -883,6 +952,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/13124.png" alt="Castanhal" onerror="this.style.display='none'"><span class="cop-time-nome">Castanhal</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1529476">0 × 4</span>
+      
       <div class="cop-status encerrado" id="status-1529476">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7782.png" alt="Nova Iguaçu" onerror="this.style.display='none'"><span class="cop-time-nome">Nova Iguaçu</span></div>
@@ -894,6 +964,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/21207.png" alt="Santa Catarina" onerror="this.style.display='none'"><span class="cop-time-nome">Santa Catarina</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1529481">0 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1529481">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7831.png" alt="Jacuipense" onerror="this.style.display='none'"><span class="cop-time-nome">Jacuipense</span></div>
@@ -905,6 +976,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/12946.png" alt="Porto Velho" onerror="this.style.display='none'"><span class="cop-time-nome">Porto Velho</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1528314">0 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1528314">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/144.png" alt="Atletico Goianiense" onerror="this.style.display='none'"><span class="cop-time-nome">Atletico Goianiense</span></div>
@@ -916,6 +988,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/2214.png" alt="Manaus FC" onerror="this.style.display='none'"><span class="cop-time-nome">Manaus FC</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1529478">0 × 0</span>
+      <div class="cop-pen" id="pen-1529478">🥅 4 – 5 nos pênaltis — Londrina classificado</div>
       <div class="cop-status encerrado" id="status-1529478">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/148.png" alt="Londrina" onerror="this.style.display='none'"><span class="cop-time-nome">Londrina</span></div>
@@ -927,6 +1000,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/149.png" alt="Paysandu" onerror="this.style.display='none'"><span class="cop-time-nome">Paysandu</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1530083">3 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1530083">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7835.png" alt="Portuguesa RJ" onerror="this.style.display='none'"><span class="cop-time-nome">Portuguesa RJ</span></div>
@@ -938,6 +1012,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7780.png" alt="Madureira" onerror="this.style.display='none'"><span class="cop-time-nome">Madureira</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1528142">0 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1528142">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7879.png" alt="Águia de Marabá" onerror="this.style.display='none'"><span class="cop-time-nome">Águia de Marabá</span></div>
@@ -949,6 +1024,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/142.png" alt="Vila Nova" onerror="this.style.display='none'"><span class="cop-time-nome">Vila Nova</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1529482">1 × 1</span>
+      <div class="cop-pen" id="pen-1529482">🥅 5 – 4 nos pênaltis — Vila Nova classificado</div>
       <div class="cop-status encerrado" id="status-1529482">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/2217.png" alt="Operario Ferroviario" onerror="this.style.display='none'"><span class="cop-time-nome">Operario Ferroviario</span></div>
@@ -960,6 +1036,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7832.png" alt="Maranhão" onerror="this.style.display='none'"><span class="cop-time-nome">Maranhão</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1528313">0 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1528313">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/129.png" alt="Ceara" onerror="this.style.display='none'"><span class="cop-time-nome">Ceara</span></div>
@@ -971,6 +1048,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1223.png" alt="Operario-PR" onerror="this.style.display='none'"><span class="cop-time-nome">Operario-PR</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1529479">2 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1529479">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/12921.png" alt="Capital Brasilia" onerror="this.style.display='none'"><span class="cop-time-nome">Capital Brasilia</span></div>
@@ -982,6 +1060,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7864.png" alt="Sousa" onerror="this.style.display='none'"><span class="cop-time-nome">Sousa</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1530084">0 × 2</span>
+      
       <div class="cop-status encerrado" id="status-1530084">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/146.png" alt="CRB" onerror="this.style.display='none'"><span class="cop-time-nome">CRB</span></div>
@@ -993,6 +1072,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/10862.png" alt="Amazonas" onerror="this.style.display='none'"><span class="cop-time-nome">Amazonas</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1529059">0 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1529059">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/137.png" alt="Figueirense" onerror="this.style.display='none'"><span class="cop-time-nome">Figueirense</span></div>
@@ -1004,6 +1084,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/2215.png" alt="Mixto" onerror="this.style.display='none'"><span class="cop-time-nome">Mixto</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1528144">0 × 3</span>
+      
       <div class="cop-status encerrado" id="status-1528144">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7834.png" alt="Novorizontino" onerror="this.style.display='none'"><span class="cop-time-nome">Novorizontino</span></div>
@@ -1015,6 +1096,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/18271.png" alt="Barra" onerror="this.style.display='none'"><span class="cop-time-nome">Barra</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1529475">0 × 0</span>
+      <div class="cop-pen" id="pen-1529475">🥅 4 – 3 nos pênaltis — Barra classificado</div>
       <div class="cop-status encerrado" id="status-1529475">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/125.png" alt="America Mineiro" onerror="this.style.display='none'"><span class="cop-time-nome">America-MG</span></div>
@@ -1026,6 +1108,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/123.png" alt="Sport Recife" onerror="this.style.display='none'"><span class="cop-time-nome">Sport</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1530085">1 × 1</span>
+      <div class="cop-pen" id="pen-1530085">🥅 5 – 3 nos pênaltis — Sport classificado</div>
       <div class="cop-status encerrado" id="status-1530085">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7852.png" alt="Anápolis" onerror="this.style.display='none'"><span class="cop-time-nome">Anápolis</span></div>
@@ -1037,6 +1120,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/15611.png" alt="Tuna Luso" onerror="this.style.display='none'"><span class="cop-time-nome">Tuna Luso</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1530086">1 × 1</span>
+      <div class="cop-pen" id="pen-1530086">🥅 1 – 4 nos pênaltis — Juventude classificado</div>
       <div class="cop-status encerrado" id="status-1530086">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/152.png" alt="Juventude" onerror="this.style.display='none'"><span class="cop-time-nome">Juventude</span></div>
@@ -1050,6 +1134,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7782.png" alt="Nova Iguaçu" onerror="this.style.display='none'"><span class="cop-time-nome">Nova Iguaçu</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1532917">0 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1532917">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/154.png" alt="Fortaleza EC" onerror="this.style.display='none'"><span class="cop-time-nome">Fortaleza EC</span></div>
@@ -1061,6 +1146,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7865.png" alt="São Bernardo" onerror="this.style.display='none'"><span class="cop-time-nome">São Bernardo</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1532919">0 × 0</span>
+      <div class="cop-pen" id="pen-1532919">🥅 2 – 3 nos pênaltis — Ceara classificado</div>
       <div class="cop-status encerrado" id="status-1532919">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/129.png" alt="Ceara" onerror="this.style.display='none'"><span class="cop-time-nome">Ceara</span></div>
@@ -1072,6 +1158,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/148.png" alt="Londrina" onerror="this.style.display='none'"><span class="cop-time-nome">Londrina</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1532915">0 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1532915">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1223.png" alt="Operario-PR" onerror="this.style.display='none'"><span class="cop-time-nome">Operario-PR</span></div>
@@ -1083,6 +1170,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1214.png" alt="Portuguesa" onerror="this.style.display='none'"><span class="cop-time-nome">Portuguesa</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1532918">2 × 3</span>
+      
       <div class="cop-status encerrado" id="status-1532918">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/149.png" alt="Paysandu" onerror="this.style.display='none'"><span class="cop-time-nome">Paysandu</span></div>
@@ -1094,6 +1182,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/123.png" alt="Sport Recife" onerror="this.style.display='none'"><span class="cop-time-nome">Sport</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1532920">1 × 3</span>
+      
       <div class="cop-status encerrado" id="status-1532920">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/13975.png" alt="Athletic Club" onerror="this.style.display='none'"><span class="cop-time-nome">Athletic Club</span></div>
@@ -1105,6 +1194,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/142.png" alt="Vila Nova" onerror="this.style.display='none'"><span class="cop-time-nome">Vila Nova</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1532921">0 × 0</span>
+      <div class="cop-pen" id="pen-1532921">🥅 3 – 5 nos pênaltis — Confiança classificado</div>
       <div class="cop-status encerrado" id="status-1532921">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7772.png" alt="Confiança" onerror="this.style.display='none'"><span class="cop-time-nome">Confiança</span></div>
@@ -1116,6 +1206,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/144.png" alt="Atletico Goianiense" onerror="this.style.display='none'"><span class="cop-time-nome">Atletico Goianiense</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1532911">1 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1532911">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/139.png" alt="Ponte Preta" onerror="this.style.display='none'"><span class="cop-time-nome">Ponte Preta</span></div>
@@ -1127,6 +1218,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/146.png" alt="CRB" onerror="this.style.display='none'"><span class="cop-time-nome">CRB</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1532912">1 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1532912">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/137.png" alt="Figueirense" onerror="this.style.display='none'"><span class="cop-time-nome">Figueirense</span></div>
@@ -1138,6 +1230,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7831.png" alt="Jacuipense" onerror="this.style.display='none'"><span class="cop-time-nome">Jacuipense</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1532913">0 × 0</span>
+      <div class="cop-pen" id="pen-1532913">🥅 5 – 4 nos pênaltis — Jacuipense classificado</div>
       <div class="cop-status encerrado" id="status-1532913">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7834.png" alt="Novorizontino" onerror="this.style.display='none'"><span class="cop-time-nome">Novorizontino</span></div>
@@ -1149,6 +1242,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/152.png" alt="Juventude" onerror="this.style.display='none'"><span class="cop-time-nome">Juventude</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1532914">3 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1532914">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7879.png" alt="Águia de Marabá" onerror="this.style.display='none'"><span class="cop-time-nome">Águia de Marabá</span></div>
@@ -1160,6 +1254,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7833.png" alt="Maringá" onerror="this.style.display='none'"><span class="cop-time-nome">Maringá</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1532916">0 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1532916">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/151.png" alt="Goias" onerror="this.style.display='none'"><span class="cop-time-nome">Goias</span></div>
@@ -1171,6 +1266,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7814.png" alt="Volta Redonda" onerror="this.style.display='none'"><span class="cop-time-nome">Volta Redonda</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1532922">0 × 0</span>
+      <div class="cop-pen" id="pen-1532922">🥅 1 – 3 nos pênaltis — Barra classificado</div>
       <div class="cop-status encerrado" id="status-1532922">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/18271.png" alt="Barra" onerror="this.style.display='none'"><span class="cop-time-nome">Barra</span></div>
@@ -1184,6 +1280,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/120.png" alt="Botafogo" onerror="this.style.display='none'"><span class="cop-time-nome">Botafogo</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537034">1 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1537034">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/132.png" alt="Chapecoense-sc" onerror="this.style.display='none'"><span class="cop-time-nome">Chapecoense-sc</span></div>
@@ -1195,17 +1292,19 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/132.png" alt="Chapecoense-sc" onerror="this.style.display='none'"><span class="cop-time-nome">Chapecoense-sc</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537021">2 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1537021">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/120.png" alt="Botafogo" onerror="this.style.display='none'"><span class="cop-time-nome">Botafogo</span></div>
   </div>
-  <div class="cop-agregado">Agregado: 1 × 2</div>
+  <div class="cop-agregado">Agregado: 1 × 2 — Chapecoense-sc classificado</div>
 </a><div style="margin-bottom:14px"></div><a href="/copa-do-brasil/sao-paulo-vs-juventude/" class="cop-jogo" style="border-radius:var(--radius-card) var(--radius-card) 0 0;margin-bottom:0" id="card-1537024" data-id="1537024" data-fase="4" data-status="FT" data-kickoff="2026-04-21T22:15:00+00:00" data-chave="f4_c1" data-placar-fixo="1 × 0">
   <div class="cop-jogo-topo "><span><span class="cop-jogo-rotulo">IDA</span>ter., 21/04</span><span>Estadio Do MorumBIS</span></div>
   <div class="cop-jogo-corpo">
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/126.png" alt="Sao Paulo" onerror="this.style.display='none'"><span class="cop-time-nome">Sao Paulo</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537024">1 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1537024">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/152.png" alt="Juventude" onerror="this.style.display='none'"><span class="cop-time-nome">Juventude</span></div>
@@ -1217,17 +1316,19 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/152.png" alt="Juventude" onerror="this.style.display='none'"><span class="cop-time-nome">Juventude</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537012">3 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1537012">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/126.png" alt="Sao Paulo" onerror="this.style.display='none'"><span class="cop-time-nome">Sao Paulo</span></div>
   </div>
-  <div class="cop-agregado">Agregado: 2 × 3</div>
+  <div class="cop-agregado">Agregado: 2 × 3 — Juventude classificado</div>
 </a><div style="margin-bottom:14px"></div><a href="/copa-do-brasil/gremio-vs-confianca/" class="cop-jogo" style="border-radius:var(--radius-card) var(--radius-card) 0 0;margin-bottom:0" id="card-1537029" data-id="1537029" data-fase="4" data-status="FT" data-kickoff="2026-04-21T22:30:00+00:00" data-chave="f4_c2" data-placar-fixo="2 × 0">
   <div class="cop-jogo-topo "><span><span class="cop-jogo-rotulo">IDA</span>ter., 21/04</span><span>Arena do Grêmio</span></div>
   <div class="cop-jogo-corpo">
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/130.png" alt="Gremio" onerror="this.style.display='none'"><span class="cop-time-nome">Gremio</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537029">2 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1537029">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7772.png" alt="Confiança" onerror="this.style.display='none'"><span class="cop-time-nome">Confiança</span></div>
@@ -1239,17 +1340,19 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7772.png" alt="Confiança" onerror="this.style.display='none'"><span class="cop-time-nome">Confiança</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537020">0 × 3</span>
+      
       <div class="cop-status encerrado" id="status-1537020">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/130.png" alt="Gremio" onerror="this.style.display='none'"><span class="cop-time-nome">Gremio</span></div>
   </div>
-  <div class="cop-agregado">Agregado: 5 × 0</div>
+  <div class="cop-agregado">Agregado: 5 × 0 — Gremio classificado</div>
 </a><div style="margin-bottom:14px"></div><a href="/copa-do-brasil/paysandu-vs-vasco-da-gama/" class="cop-jogo" style="border-radius:var(--radius-card) var(--radius-card) 0 0;margin-bottom:0" id="card-1537026" data-id="1537026" data-fase="4" data-status="FT" data-kickoff="2026-04-22T00:30:00+00:00" data-chave="f4_c3" data-placar-fixo="0 × 2">
   <div class="cop-jogo-topo "><span><span class="cop-jogo-rotulo">IDA</span>ter., 21/04</span><span>Mangueirão</span></div>
   <div class="cop-jogo-corpo">
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/149.png" alt="Paysandu" onerror="this.style.display='none'"><span class="cop-time-nome">Paysandu</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537026">0 × 2</span>
+      
       <div class="cop-status encerrado" id="status-1537026">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/133.png" alt="Vasco DA Gama" onerror="this.style.display='none'"><span class="cop-time-nome">Vasco DA Gama</span></div>
@@ -1261,17 +1364,19 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/133.png" alt="Vasco DA Gama" onerror="this.style.display='none'"><span class="cop-time-nome">Vasco DA Gama</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537009">2 × 2</span>
+      
       <div class="cop-status encerrado" id="status-1537009">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/149.png" alt="Paysandu" onerror="this.style.display='none'"><span class="cop-time-nome">Paysandu</span></div>
   </div>
-  <div class="cop-agregado">Agregado: 2 × 4</div>
+  <div class="cop-agregado">Agregado: 2 × 4 — Vasco DA Gama classificado</div>
 </a><div style="margin-bottom:14px"></div><a href="/copa-do-brasil/barra-vs-corinthians/" class="cop-jogo" style="border-radius:var(--radius-card) var(--radius-card) 0 0;margin-bottom:0" id="card-1537035" data-id="1537035" data-fase="4" data-status="FT" data-kickoff="2026-04-22T00:30:00+00:00" data-chave="f4_c4" data-placar-fixo="0 × 1">
   <div class="cop-jogo-topo "><span><span class="cop-jogo-rotulo">IDA</span>ter., 21/04</span><span>Estádio da Ressacada</span></div>
   <div class="cop-jogo-corpo">
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/18271.png" alt="Barra" onerror="this.style.display='none'"><span class="cop-time-nome">Barra</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537035">0 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1537035">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/131.png" alt="Corinthians" onerror="this.style.display='none'"><span class="cop-time-nome">Corinthians</span></div>
@@ -1283,17 +1388,19 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/131.png" alt="Corinthians" onerror="this.style.display='none'"><span class="cop-time-nome">Corinthians</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537019">1 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1537019">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/18271.png" alt="Barra" onerror="this.style.display='none'"><span class="cop-time-nome">Barra</span></div>
   </div>
-  <div class="cop-agregado">Agregado: 0 × 2</div>
+  <div class="cop-agregado">Agregado: 0 × 2 — Corinthians classificado</div>
 </a><div style="margin-bottom:14px"></div><a href="/copa-do-brasil/bahia-vs-remo/" class="cop-jogo" style="border-radius:var(--radius-card) var(--radius-card) 0 0;margin-bottom:0" id="card-1537036" data-id="1537036" data-fase="4" data-status="FT" data-kickoff="2026-04-22T22:00:00+00:00" data-chave="f4_c5" data-placar-fixo="1 × 3">
   <div class="cop-jogo-topo "><span><span class="cop-jogo-rotulo">IDA</span>qua., 22/04</span><span>Arena Fonte Nova</span></div>
   <div class="cop-jogo-corpo">
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/118.png" alt="Bahia" onerror="this.style.display='none'"><span class="cop-time-nome">Bahia</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537036">1 × 3</span>
+      
       <div class="cop-status encerrado" id="status-1537036">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1198.png" alt="Remo" onerror="this.style.display='none'"><span class="cop-time-nome">Remo</span></div>
@@ -1305,17 +1412,19 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1198.png" alt="Remo" onerror="this.style.display='none'"><span class="cop-time-nome">Remo</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537010">2 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1537010">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/118.png" alt="Bahia" onerror="this.style.display='none'"><span class="cop-time-nome">Bahia</span></div>
   </div>
-  <div class="cop-agregado">Agregado: 2 × 5</div>
+  <div class="cop-agregado">Agregado: 2 × 5 — Remo classificado</div>
 </a><div style="margin-bottom:14px"></div><a href="/copa-do-brasil/goias-vs-cruzeiro/" class="cop-jogo" style="border-radius:var(--radius-card) var(--radius-card) 0 0;margin-bottom:0" id="card-1537030" data-id="1537030" data-fase="4" data-status="FT" data-kickoff="2026-04-22T22:00:00+00:00" data-chave="f4_c6" data-placar-fixo="2 × 2">
   <div class="cop-jogo-topo "><span><span class="cop-jogo-rotulo">IDA</span>qua., 22/04</span><span>Estádio da Serrinha</span></div>
   <div class="cop-jogo-corpo">
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/151.png" alt="Goias" onerror="this.style.display='none'"><span class="cop-time-nome">Goias</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537030">2 × 2</span>
+      
       <div class="cop-status encerrado" id="status-1537030">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/135.png" alt="Cruzeiro" onerror="this.style.display='none'"><span class="cop-time-nome">Cruzeiro</span></div>
@@ -1327,17 +1436,19 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/135.png" alt="Cruzeiro" onerror="this.style.display='none'"><span class="cop-time-nome">Cruzeiro</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537016">1 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1537016">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/151.png" alt="Goias" onerror="this.style.display='none'"><span class="cop-time-nome">Goias</span></div>
   </div>
-  <div class="cop-agregado">Agregado: 2 × 3</div>
+  <div class="cop-agregado">Agregado: 2 × 3 — Cruzeiro classificado</div>
 </a><div style="margin-bottom:14px"></div><a href="/copa-do-brasil/santos-vs-coritiba/" class="cop-jogo" style="border-radius:var(--radius-card) var(--radius-card) 0 0;margin-bottom:0" id="card-1537025" data-id="1537025" data-fase="4" data-status="FT" data-kickoff="2026-04-22T22:30:00+00:00" data-chave="f4_c7" data-placar-fixo="0 × 0">
   <div class="cop-jogo-topo "><span><span class="cop-jogo-rotulo">IDA</span>qua., 22/04</span><span>Estadio Urbano Caldeira</span></div>
   <div class="cop-jogo-corpo">
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/128.png" alt="Santos" onerror="this.style.display='none'"><span class="cop-time-nome">Santos</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537025">0 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1537025">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/147.png" alt="Coritiba" onerror="this.style.display='none'"><span class="cop-time-nome">Coritiba</span></div>
@@ -1349,17 +1460,19 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/147.png" alt="Coritiba" onerror="this.style.display='none'"><span class="cop-time-nome">Coritiba</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537018">0 × 2</span>
+      
       <div class="cop-status encerrado" id="status-1537018">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/128.png" alt="Santos" onerror="this.style.display='none'"><span class="cop-time-nome">Santos</span></div>
   </div>
-  <div class="cop-agregado">Agregado: 2 × 0</div>
+  <div class="cop-agregado">Agregado: 2 × 0 — Santos classificado</div>
 </a><div style="margin-bottom:14px"></div><a href="/copa-do-brasil/athletic-club-vs-internacional/" class="cop-jogo" style="border-radius:var(--radius-card) var(--radius-card) 0 0;margin-bottom:0" id="card-1537039" data-id="1537039" data-fase="4" data-status="FT" data-kickoff="2026-04-22T23:30:00+00:00" data-chave="f4_c8" data-placar-fixo="1 × 2">
   <div class="cop-jogo-topo "><span><span class="cop-jogo-rotulo">IDA</span>qua., 22/04</span><span>Orlando Scarpelli</span></div>
   <div class="cop-jogo-corpo">
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/13975.png" alt="Athletic Club" onerror="this.style.display='none'"><span class="cop-time-nome">Athletic Club</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537039">1 × 2</span>
+      
       <div class="cop-status encerrado" id="status-1537039">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/119.png" alt="Internacional" onerror="this.style.display='none'"><span class="cop-time-nome">Internacional</span></div>
@@ -1371,17 +1484,19 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/119.png" alt="Internacional" onerror="this.style.display='none'"><span class="cop-time-nome">Internacional</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537014">3 × 2</span>
+      
       <div class="cop-status encerrado" id="status-1537014">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/13975.png" alt="Athletic Club" onerror="this.style.display='none'"><span class="cop-time-nome">Athletic Club</span></div>
   </div>
-  <div class="cop-agregado">Agregado: 3 × 5</div>
+  <div class="cop-agregado">Agregado: 3 × 5 — Internacional classificado</div>
 </a><div style="margin-bottom:14px"></div><a href="/copa-do-brasil/fortaleza-ec-vs-crb/" class="cop-jogo" style="border-radius:var(--radius-card) var(--radius-card) 0 0;margin-bottom:0" id="card-1537031" data-id="1537031" data-fase="4" data-status="FT" data-kickoff="2026-04-22T23:30:00+00:00" data-chave="f4_c9" data-placar-fixo="2 × 1">
   <div class="cop-jogo-topo "><span><span class="cop-jogo-rotulo">IDA</span>qua., 22/04</span><span>Estádio Governador Plácido Castelo</span></div>
   <div class="cop-jogo-corpo">
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/154.png" alt="Fortaleza EC" onerror="this.style.display='none'"><span class="cop-time-nome">Fortaleza EC</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537031">2 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1537031">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/146.png" alt="CRB" onerror="this.style.display='none'"><span class="cop-time-nome">CRB</span></div>
@@ -1393,17 +1508,19 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/146.png" alt="CRB" onerror="this.style.display='none'"><span class="cop-time-nome">CRB</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537017">0 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1537017">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/154.png" alt="Fortaleza EC" onerror="this.style.display='none'"><span class="cop-time-nome">Fortaleza EC</span></div>
   </div>
-  <div class="cop-agregado">Agregado: 2 × 1</div>
+  <div class="cop-agregado">Agregado: 2 × 1 — Fortaleza EC classificado</div>
 </a><div style="margin-bottom:14px"></div><a href="/copa-do-brasil/flamengo-vs-vitoria/" class="cop-jogo" style="border-radius:var(--radius-card) var(--radius-card) 0 0;margin-bottom:0" id="card-1537032" data-id="1537032" data-fase="4" data-status="FT" data-kickoff="2026-04-23T00:30:00+00:00" data-chave="f4_c10" data-placar-fixo="2 × 1">
   <div class="cop-jogo-topo "><span><span class="cop-jogo-rotulo">IDA</span>qua., 22/04</span><span>Estádio do Maracanã</span></div>
   <div class="cop-jogo-corpo">
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/127.png" alt="Flamengo" onerror="this.style.display='none'"><span class="cop-time-nome">Flamengo</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537032">2 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1537032">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/136.png" alt="Vitoria" onerror="this.style.display='none'"><span class="cop-time-nome">Vitoria</span></div>
@@ -1415,17 +1532,19 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/136.png" alt="Vitoria" onerror="this.style.display='none'"><span class="cop-time-nome">Vitoria</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537008">2 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1537008">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/127.png" alt="Flamengo" onerror="this.style.display='none'"><span class="cop-time-nome">Flamengo</span></div>
   </div>
-  <div class="cop-agregado">Agregado: 2 × 3</div>
+  <div class="cop-agregado">Agregado: 2 × 3 — Vitoria classificado</div>
 </a><div style="margin-bottom:14px"></div><a href="/copa-do-brasil/rb-bragantino-vs-mirassol/" class="cop-jogo" style="border-radius:var(--radius-card) var(--radius-card) 0 0;margin-bottom:0" id="card-1537033" data-id="1537033" data-fase="4" data-status="FT" data-kickoff="2026-04-23T00:30:00+00:00" data-chave="f4_c11" data-placar-fixo="1 × 1">
   <div class="cop-jogo-topo "><span><span class="cop-jogo-rotulo">IDA</span>qua., 22/04</span><span>Estádio Cícero de Souza Marques</span></div>
   <div class="cop-jogo-corpo">
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/794.png" alt="RB Bragantino" onerror="this.style.display='none'"><span class="cop-time-nome">RB Bragantino</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537033">1 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1537033">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7848.png" alt="Mirassol" onerror="this.style.display='none'"><span class="cop-time-nome">Mirassol</span></div>
@@ -1437,17 +1556,19 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7848.png" alt="Mirassol" onerror="this.style.display='none'"><span class="cop-time-nome">Mirassol</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537011">2 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1537011">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/794.png" alt="RB Bragantino" onerror="this.style.display='none'"><span class="cop-time-nome">RB Bragantino</span></div>
   </div>
-  <div class="cop-agregado">Agregado: 2 × 3</div>
+  <div class="cop-agregado">Agregado: 2 × 3 — Mirassol classificado</div>
 </a><div style="margin-bottom:14px"></div><a href="/copa-do-brasil/atletico-mg-vs-ceara/" class="cop-jogo" style="border-radius:var(--radius-card) var(--radius-card) 0 0;margin-bottom:0" id="card-1537037" data-id="1537037" data-fase="4" data-status="FT" data-kickoff="2026-04-23T22:00:00+00:00" data-chave="f4_c12" data-placar-fixo="2 × 1">
   <div class="cop-jogo-topo "><span><span class="cop-jogo-rotulo">IDA</span>qui., 23/04</span><span>MRV Arena</span></div>
   <div class="cop-jogo-corpo">
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1062.png" alt="Atletico-MG" onerror="this.style.display='none'"><span class="cop-time-nome">Atletico-MG</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537037">2 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1537037">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/129.png" alt="Ceara" onerror="this.style.display='none'"><span class="cop-time-nome">Ceara</span></div>
@@ -1459,17 +1580,19 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/129.png" alt="Ceara" onerror="this.style.display='none'"><span class="cop-time-nome">Ceara</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537022">2 × 1</span>
+      <div class="cop-pen" id="pen-1537022">🥅 2 – 4 nos pênaltis — Atletico-MG classificado</div>
       <div class="cop-status encerrado" id="status-1537022">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1062.png" alt="Atletico-MG" onerror="this.style.display='none'"><span class="cop-time-nome">Atletico-MG</span></div>
   </div>
-  <div class="cop-agregado">Agregado: 3 × 3</div>
+  <div class="cop-agregado">Agregado: 3 × 3 — Atletico-MG classificado (pên.)</div>
 </a><div style="margin-bottom:14px"></div><a href="/copa-do-brasil/palmeiras-vs-jacuipense/" class="cop-jogo" style="border-radius:var(--radius-card) var(--radius-card) 0 0;margin-bottom:0" id="card-1537027" data-id="1537027" data-fase="4" data-status="FT" data-kickoff="2026-04-23T22:30:00+00:00" data-chave="f4_c13" data-placar-fixo="3 × 0">
   <div class="cop-jogo-topo "><span><span class="cop-jogo-rotulo">IDA</span>qui., 23/04</span><span>Allianz Parque</span></div>
   <div class="cop-jogo-corpo">
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/121.png" alt="Palmeiras" onerror="this.style.display='none'"><span class="cop-time-nome">Palmeiras</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537027">3 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1537027">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7831.png" alt="Jacuipense" onerror="this.style.display='none'"><span class="cop-time-nome">Jacuipense</span></div>
@@ -1481,17 +1604,19 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7831.png" alt="Jacuipense" onerror="this.style.display='none'"><span class="cop-time-nome">Jacuipense</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537013">1 × 4</span>
+      
       <div class="cop-status encerrado" id="status-1537013">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/121.png" alt="Palmeiras" onerror="this.style.display='none'"><span class="cop-time-nome">Palmeiras</span></div>
   </div>
-  <div class="cop-agregado">Agregado: 7 × 1</div>
+  <div class="cop-agregado">Agregado: 7 × 1 — Palmeiras classificado</div>
 </a><div style="margin-bottom:14px"></div><a href="/copa-do-brasil/operario-pr-vs-fluminense/" class="cop-jogo" style="border-radius:var(--radius-card) var(--radius-card) 0 0;margin-bottom:0" id="card-1537028" data-id="1537028" data-fase="4" data-status="FT" data-kickoff="2026-04-24T00:30:00+00:00" data-chave="f4_c14" data-placar-fixo="0 × 0">
   <div class="cop-jogo-topo "><span><span class="cop-jogo-rotulo">IDA</span>qui., 23/04</span><span>Estádio Germano Krüger</span></div>
   <div class="cop-jogo-corpo">
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1223.png" alt="Operario-PR" onerror="this.style.display='none'"><span class="cop-time-nome">Operario-PR</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537028">0 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1537028">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/124.png" alt="Fluminense" onerror="this.style.display='none'"><span class="cop-time-nome">Fluminense</span></div>
@@ -1503,17 +1628,19 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/124.png" alt="Fluminense" onerror="this.style.display='none'"><span class="cop-time-nome">Fluminense</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537015">2 × 1</span>
+      
       <div class="cop-status encerrado" id="status-1537015">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1223.png" alt="Operario-PR" onerror="this.style.display='none'"><span class="cop-time-nome">Operario-PR</span></div>
   </div>
-  <div class="cop-agregado">Agregado: 1 × 2</div>
+  <div class="cop-agregado">Agregado: 1 × 2 — Fluminense classificado</div>
 </a><div style="margin-bottom:14px"></div><a href="/copa-do-brasil/atletico-paranaense-vs-atletico-goianiense/" class="cop-jogo" style="border-radius:var(--radius-card) var(--radius-card) 0 0;margin-bottom:0" id="card-1537038" data-id="1537038" data-fase="4" data-status="FT" data-kickoff="2026-04-24T00:30:00+00:00" data-chave="f4_c15" data-placar-fixo="0 × 0">
   <div class="cop-jogo-topo "><span><span class="cop-jogo-rotulo">IDA</span>qui., 23/04</span><span>Arena da Baixada</span></div>
   <div class="cop-jogo-corpo">
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/134.png" alt="Atletico Paranaense" onerror="this.style.display='none'"><span class="cop-time-nome">Athletico-PR</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537038">0 × 0</span>
+      
       <div class="cop-status encerrado" id="status-1537038">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/144.png" alt="Atletico Goianiense" onerror="this.style.display='none'"><span class="cop-time-nome">Atletico Goianiense</span></div>
@@ -1525,11 +1652,12 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/144.png" alt="Atletico Goianiense" onerror="this.style.display='none'"><span class="cop-time-nome">Atletico Goianiense</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1537023">0 × 0</span>
+      <div class="cop-pen" id="pen-1537023">🥅 1 – 4 nos pênaltis — Athletico-PR classificado</div>
       <div class="cop-status encerrado" id="status-1537023">Encerrado</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/134.png" alt="Atletico Paranaense" onerror="this.style.display='none'"><span class="cop-time-nome">Athletico-PR</span></div>
   </div>
-  <div class="cop-agregado">Agregado: 0 × 0</div>
+  <div class="cop-agregado">Agregado: 0 × 0 — Athletico-PR classificado (pên.)</div>
 </a><div style="margin-bottom:14px"></div>
 </div>
 <div class="fase-panel" id="fase-panel-5" data-fase="5" style="display:block"><a href="/copa-do-brasil/internacional-vs-corinthians/" class="cop-jogo" style="border-radius:var(--radius-card) var(--radius-card) 0 0;margin-bottom:0" id="card-1546846" data-id="1546846" data-fase="5" data-status="NS" data-kickoff="2026-08-02T20:00:00+00:00" data-chave="f5_c0">
@@ -1538,6 +1666,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/119.png" alt="Internacional" onerror="this.style.display='none'"><span class="cop-time-nome">Internacional</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1546846">×</span>
+      
       <div class="cop-status " id="status-1546846">17:00</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/131.png" alt="Corinthians" onerror="this.style.display='none'"><span class="cop-time-nome">Corinthians</span></div>
@@ -1549,6 +1678,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/131.png" alt="Corinthians" onerror="this.style.display='none'"><span class="cop-time-nome">Corinthians</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1546851">×</span>
+      
       <div class="cop-status " id="status-1546851">17:00</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/119.png" alt="Internacional" onerror="this.style.display='none'"><span class="cop-time-nome">Internacional</span></div>
@@ -1560,6 +1690,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/121.png" alt="Palmeiras" onerror="this.style.display='none'"><span class="cop-time-nome">Palmeiras</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1546848">×</span>
+      
       <div class="cop-status " id="status-1546848">17:00</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/154.png" alt="Fortaleza EC" onerror="this.style.display='none'"><span class="cop-time-nome">Fortaleza EC</span></div>
@@ -1571,6 +1702,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/154.png" alt="Fortaleza EC" onerror="this.style.display='none'"><span class="cop-time-nome">Fortaleza EC</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1546854">×</span>
+      
       <div class="cop-status " id="status-1546854">17:00</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/121.png" alt="Palmeiras" onerror="this.style.display='none'"><span class="cop-time-nome">Palmeiras</span></div>
@@ -1582,6 +1714,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/128.png" alt="Santos" onerror="this.style.display='none'"><span class="cop-time-nome">Santos</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1546849">×</span>
+      
       <div class="cop-status " id="status-1546849">17:00</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1198.png" alt="Remo" onerror="this.style.display='none'"><span class="cop-time-nome">Remo</span></div>
@@ -1593,6 +1726,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1198.png" alt="Remo" onerror="this.style.display='none'"><span class="cop-time-nome">Remo</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1546857">×</span>
+      
       <div class="cop-status " id="status-1546857">17:00</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/128.png" alt="Santos" onerror="this.style.display='none'"><span class="cop-time-nome">Santos</span></div>
@@ -1604,6 +1738,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/132.png" alt="Chapecoense-sc" onerror="this.style.display='none'"><span class="cop-time-nome">Chapecoense-sc</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1546845">×</span>
+      
       <div class="cop-status " id="status-1546845">17:00</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/135.png" alt="Cruzeiro" onerror="this.style.display='none'"><span class="cop-time-nome">Cruzeiro</span></div>
@@ -1615,6 +1750,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/135.png" alt="Cruzeiro" onerror="this.style.display='none'"><span class="cop-time-nome">Cruzeiro</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1546852">×</span>
+      
       <div class="cop-status " id="status-1546852">17:00</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/132.png" alt="Chapecoense-sc" onerror="this.style.display='none'"><span class="cop-time-nome">Chapecoense-sc</span></div>
@@ -1626,6 +1762,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/133.png" alt="Vasco DA Gama" onerror="this.style.display='none'"><span class="cop-time-nome">Vasco DA Gama</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1546850">×</span>
+      
       <div class="cop-status " id="status-1546850">17:00</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/124.png" alt="Fluminense" onerror="this.style.display='none'"><span class="cop-time-nome">Fluminense</span></div>
@@ -1637,6 +1774,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/124.png" alt="Fluminense" onerror="this.style.display='none'"><span class="cop-time-nome">Fluminense</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1546853">×</span>
+      
       <div class="cop-status " id="status-1546853">17:00</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/133.png" alt="Vasco DA Gama" onerror="this.style.display='none'"><span class="cop-time-nome">Vasco DA Gama</span></div>
@@ -1648,6 +1786,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/134.png" alt="Atletico Paranaense" onerror="this.style.display='none'"><span class="cop-time-nome">Athletico-PR</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1546843">×</span>
+      
       <div class="cop-status " id="status-1546843">17:00</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/136.png" alt="Vitoria" onerror="this.style.display='none'"><span class="cop-time-nome">Vitoria</span></div>
@@ -1659,6 +1798,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/136.png" alt="Vitoria" onerror="this.style.display='none'"><span class="cop-time-nome">Vitoria</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1546858">×</span>
+      
       <div class="cop-status " id="status-1546858">17:00</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/134.png" alt="Atletico Paranaense" onerror="this.style.display='none'"><span class="cop-time-nome">Athletico-PR</span></div>
@@ -1670,6 +1810,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1062.png" alt="Atletico-MG" onerror="this.style.display='none'"><span class="cop-time-nome">Atletico-MG</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1546844">×</span>
+      
       <div class="cop-status " id="status-1546844">17:00</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/152.png" alt="Juventude" onerror="this.style.display='none'"><span class="cop-time-nome">Juventude</span></div>
@@ -1681,6 +1822,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/152.png" alt="Juventude" onerror="this.style.display='none'"><span class="cop-time-nome">Juventude</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1546856">×</span>
+      
       <div class="cop-status " id="status-1546856">17:00</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/1062.png" alt="Atletico-MG" onerror="this.style.display='none'"><span class="cop-time-nome">Atletico-MG</span></div>
@@ -1692,6 +1834,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7848.png" alt="Mirassol" onerror="this.style.display='none'"><span class="cop-time-nome">Mirassol</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1546847">×</span>
+      
       <div class="cop-status " id="status-1546847">17:00</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/130.png" alt="Gremio" onerror="this.style.display='none'"><span class="cop-time-nome">Gremio</span></div>
@@ -1703,6 +1846,7 @@
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/130.png" alt="Gremio" onerror="this.style.display='none'"><span class="cop-time-nome">Gremio</span></div>
     <div class="cop-centro">
       <span class="cop-placar" id="placar-1546855">×</span>
+      
       <div class="cop-status " id="status-1546855">17:00</div>
     </div>
     <div class="cop-time"><img class="cop-time-escudo" src="../escudos/7848.png" alt="Mirassol" onerror="this.style.display='none'"><span class="cop-time-nome">Mirassol</span></div>
@@ -2016,8 +2160,29 @@
           // time da casa da ida jogou fora na volta — inverte o placar da volta
           golsA = gIdaH + gVoltaA; golsB = gIdaA + gVoltaH;
         }
+        // Nome do classificado no agregado (runtime)
+        const nomeHomeIdaEl = cIda.querySelector('.cop-time:first-child .cop-time-nome');
+        const nomeAwayIdaEl = cIda.querySelector('.cop-time:last-child .cop-time-nome');
+        const nomeTimeA = nomeHomeIdaEl?.textContent || '';
+        const nomeTimeB = nomeAwayIdaEl?.textContent || '';
+        const stVolta = cVolta.dataset.status;
+        // Tenta ler pênaltis do elemento já renderizado
+        const elPenVolta = cVolta.querySelector('[id^="pen-"]');
+        let sufixo = '';
+        if (golsA > golsB) {
+          sufixo = ' — ' + nomeTimeA + ' classificado';
+        } else if (golsB > golsA) {
+          sufixo = ' — ' + nomeTimeB + ' classificado';
+        } else if (stVolta === 'PEN' && elPenVolta) {
+          // extrai do texto "🥅 4 – 3 nos pênaltis — Palmeiras classificado"
+          sufixo = ' — ' + (elPenVolta.textContent.includes('classificado')
+            ? elPenVolta.textContent.replace(/.*pênaltis/, '').trim()
+            : 'Decidido nos pênaltis');
+        } else {
+          sufixo = ' — Agregado empatado';
+        }
         let agEl = cVolta.querySelector('.cop-agregado');
-        const texto = 'Agregado: ' + golsA + ' × ' + golsB;
+        const texto = 'Agregado: ' + golsA + ' × ' + golsB + sufixo;
         if (agEl) {
           agEl.textContent = texto;
         } else {
@@ -2128,6 +2293,20 @@
               const topo = card.querySelector('.cop-jogo-topo');
               if (topo) topo.className = 'cop-jogo-topo ao-vivo-topo';
             }
+            // Atualiza mini-placar de pênaltis ao vivo
+            if (st === 'P') {
+              const penH = j.score?.penalty?.home ?? 0;
+              const penA = j.score?.penalty?.away ?? 0;
+              let elPen = document.getElementById('pen-' + id);
+              if (!elPen) {
+                elPen = document.createElement('div');
+                elPen.id = 'pen-' + id;
+                elPen.className = 'cop-pen vivo';
+                if (elP) elP.after(elPen);
+              }
+              elPen.className = 'cop-pen vivo';
+              elPen.textContent = '🥅 ' + penH + ' – ' + penA + ' pênaltis';
+            }
           } else if (['FT','AET','PEN','AWD','WO'].includes(st)) {
             jogosVivos.delete(String(id));
             if (statusAnterior !== st) algumEncerrouAgora = true;
@@ -2137,6 +2316,24 @@
               salvarPlacar(id, p);
               if (elP) elP.textContent = p;
               card.dataset.placarFixo = p;
+            }
+            // Atualiza mini-placar de pênaltis ao encerrar
+            const penH = j.score?.penalty?.home;
+            const penA = j.score?.penalty?.away;
+            if (['PEN','AET'].includes(st) && penH !== null && penH !== undefined) {
+              const hNome = card.querySelector('.cop-time:first-child .cop-time-nome')?.textContent || '';
+              const aNome = card.querySelector('.cop-time:last-child .cop-time-nome')?.textContent || '';
+              let vencedorPen = '';
+              if (penH > penA) vencedorPen = ' — ' + hNome + ' classificado';
+              else if (penA > penH) vencedorPen = ' — ' + aNome + ' classificado';
+              let elPen = document.getElementById('pen-' + id);
+              if (!elPen) {
+                elPen = document.createElement('div');
+                elPen.id = 'pen-' + id;
+                if (elP) elP.after(elPen);
+              }
+              elPen.className = 'cop-pen';
+              elPen.textContent = '🥅 ' + penH + ' – ' + penA + ' nos pênaltis' + vencedorPen;
             }
           }
           if (j.goals.home !== null && elP && !card.dataset.placarFixo) {
