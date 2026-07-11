@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escalação FC — Placar do Futebol.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pitch-dark:#0d1f16;
+    --pitch:#153b26;
+    --pitch-mid:#1f5738;
+    --board-black:#0a0a0a;
+    --amber:#f2a900;
+    --amber-dim:#8a5f00;
+    --chalk:#f4f1e8;
+    --chalk-dim:#c9c4b4;
+    --cyan:#00e0b8;
+    --line:rgba(244,241,232,0.14);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--pitch-dark);
+    color:var(--chalk);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  /* background texture: pitch lines */
+  .pitch-lines{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      repeating-linear-gradient(90deg, transparent, transparent 119px, var(--line) 119px, var(--line) 120px);
+    opacity:0.5;
+  }
+  .floodlight{
+    position:fixed; top:-20%; left:50%; transform:translateX(-50%);
+    width:140vw; height:70vh; z-index:0; pointer-events:none;
+    background:radial-gradient(ellipse at center, rgba(242,169,0,0.10) 0%, rgba(242,169,0,0) 60%);
+  }
+
+  header{
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 6vw;
+    background:rgba(10,10,10,0.55);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:700; letter-spacing:0.04em;
+    color:var(--chalk); font-size:15px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--amber); box-shadow:0 0 8px var(--amber);}
+  nav a{
+    color:var(--chalk-dim); text-decoration:none; font-size:14px; font-weight:500;
+    margin-left:32px; transition:color .2s;
+  }
+  nav a:hover{color:var(--amber);}
+  .nav-cta{
+    color:var(--board-black) !important;
+    background:var(--chalk); padding:9px 18px; border-radius:3px;
+    font-weight:600;
+  }
+  .nav-cta:hover{background:var(--amber) !important; color:var(--board-black) !important;}
+
+  main{position:relative; z-index:1;}
+
+  /* HERO */
+  .hero{
+    min-height:92vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:80px 6vw 60px;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.18em;
+    color:var(--amber); text-transform:uppercase; margin-bottom:28px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before,.eyebrow::after{content:"";width:28px;height:1px;background:var(--amber-dim);}
+
+  .scoreboard{
+    display:flex; gap:10px; flex-wrap:wrap; justify-content:center;
+    margin-bottom:20px;
+  }
+  .flip{
+    font-family:'Archivo Black',sans-serif;
+    font-size:clamp(34px, 8vw, 92px);
+    line-height:1;
+    color:var(--chalk);
+    background:linear-gradient(180deg, #141414, #0a0a0a);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:6px 4px;
+    box-shadow: inset 0 -3px 0 rgba(0,0,0,0.6), 0 6px 20px rgba(0,0,0,0.5);
+    min-width:0.9em;
+    text-align:center;
+    opacity:0; transform:translateY(-14px) rotateX(40deg);
+    animation:flipIn .55s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  .flip.amber{color:var(--amber);}
+  @keyframes flipIn{ to{opacity:1; transform:translateY(0) rotateX(0);} }
+
+  .tagline{
+    font-size:clamp(16px,2.2vw,20px);
+    color:var(--chalk-dim);
+    max-width:640px; margin:22px auto 8px;
+    font-weight:400; line-height:1.55;
+  }
+  .tagline strong{color:var(--chalk); font-weight:600;}
+
+  .hero-ctas{display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; justify-content:center;}
+  .btn{
+    font-family:'Inter',sans-serif; font-weight:600; font-size:15px;
+    padding:14px 28px; border-radius:4px; text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .15s, box-shadow .15s;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--amber); color:var(--board-black); box-shadow:0 4px 24px rgba(242,169,0,0.25);}
+  .btn-primary[aria-disabled="true"]{opacity:0.55; pointer-events:none;}
+  .btn-ghost{border:1px solid var(--line); color:var(--chalk);}
+  .btn-ghost:hover{border-color:var(--amber); color:var(--amber);}
+
+  .hero-note{
+    margin-top:18px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--chalk-dim); opacity:0.7;
+  }
+
+  /* SECTION SHARED */
+  section{padding:100px 6vw; position:relative;}
+  .section-head{max-width:640px; margin:0 auto 56px; text-align:center;}
+  .section-head .eyebrow{justify-content:center;}
+  .section-head h2{
+    font-family:'Archivo Black',sans-serif; font-weight:400;
+    font-size:clamp(28px,4vw,42px); line-height:1.15; margin-bottom:16px;
+  }
+  .section-head p{color:var(--chalk-dim); font-size:16px; line-height:1.6;}
+
+  /* O QUE É */
+  .pillars{
+    max-width:1100px; margin:0 auto; display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line);
+  }
+  .pillar{
+    background:var(--pitch-dark); padding:36px 28px;
+  }
+  .pillar .num{
+    font-family:'JetBrains Mono',monospace; color:var(--amber); font-size:13px;
+    letter-spacing:0.1em; margin-bottom:18px; display:block;
+  }
+  .pillar h3{font-size:19px; margin-bottom:10px; font-weight:600;}
+  .pillar p{color:var(--chalk-dim); font-size:14.5px; line-height:1.6;}
+
+  /* ROADMAP */
+  .roadmap-wrap{max-width:760px; margin:0 auto; position:relative;}
+  .roadmap-wrap::before{
+    content:""; position:absolute; left:19px; top:8px; bottom:8px; width:2px;
+    background:linear-gradient(180deg, var(--amber) 0%, var(--amber) 32%, var(--line) 32%, var(--line) 100%);
+  }
+  .phase{position:relative; padding-left:64px; margin-bottom:44px;}
+  .phase:last-child{margin-bottom:0;}
+  .phase-dot{
+    position:absolute; left:8px; top:2px; width:24px; height:24px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    border:2px solid var(--line); background:var(--pitch-dark);
+  }
+  .phase.done .phase-dot{
+    border-color:var(--amber); background:var(--amber);
+    box-shadow:0 0 14px rgba(242,169,0,0.55);
+  }
+  .phase.done .phase-dot::after{content:"✓"; color:var(--board-black); font-size:13px; font-weight:700;}
+  .phase-status{
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--chalk-dim); margin-bottom:6px; display:block;
+  }
+  .phase.done .phase-status{color:var(--amber);}
+  .phase h3{font-size:19px; font-weight:600; margin-bottom:6px;}
+  .phase .phase-date{
+    font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--cyan); margin-bottom:10px; display:block;
+  }
+  .phase p.desc{color:var(--chalk-dim); font-size:14.5px; line-height:1.6; margin-bottom:12px;}
+  .mini-list{list-style:none; display:flex; flex-direction:column; gap:6px;}
+  .mini-list li{
+    font-size:13.5px; color:var(--chalk-dim); padding-left:18px; position:relative; line-height:1.5;
+  }
+  .phase.done .mini-list li::before{content:"—"; position:absolute; left:0; color:var(--amber);}
+  .mini-list li::before{content:"—"; position:absolute; left:0; color:var(--chalk-dim); opacity:0.5;}
+
+  /* WHITEPAPER TEASER */
+  .wp-card{
+    max-width:900px; margin:0 auto; border:1px solid var(--line); border-radius:8px;
+    padding:48px; display:flex; gap:40px; align-items:center; flex-wrap:wrap;
+    background:linear-gradient(135deg, rgba(242,169,0,0.05), transparent 60%);
+  }
+  .wp-card .wp-icon{
+    font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--board-black);
+    background:var(--amber); width:56px; height:56px; border-radius:6px;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    font-weight:700;
+  }
+  .wp-card h3{font-size:22px; margin-bottom:8px; font-weight:600;}
+  .wp-card p{color:var(--chalk-dim); font-size:14.5px; line-height:1.6; max-width:520px;}
+  .wp-tag{
+    display:inline-block; margin-top:14px; font-family:'JetBrains Mono',monospace;
+    font-size:11.5px; letter-spacing:0.06em; color:var(--chalk-dim);
+    border:1px solid var(--line); padding:5px 10px; border-radius:3px;
+  }
+
+  footer{
+    border-top:1px solid var(--line); padding:48px 6vw; text-align:center;
+    font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--chalk-dim);
+  }
+  footer .social{display:flex; gap:20px; justify-content:center; margin-bottom:20px; flex-wrap:wrap;}
+  footer .social a{color:var(--chalk-dim); text-decoration:none;}
+  footer .social a:hover{color:var(--amber);}
+
+  @media (max-width:640px){
+    .flip{font-size:9vw; padding:4px 3px;}
+    section{padding:70px 6vw;}
+    .wp-card{padding:32px 24px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="pitch-lines"></div>
+<div class="floodlight"></div>
+
+<header>
+  <div class="brand"><span class="dot"></span> PLACAR DO FUTEBOL.COM</div>
+  <nav>
+    <a href="#sobre">O jogo</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#whitepaper">Whitepaper</a>
+    <a href="#" class="nav-cta" aria-disabled="true">Jogar em breve</a>
+  </nav>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="eyebrow">Um jogo do universo Placar do Futebol.com</div>
+    <div class="scoreboard" aria-label="Escalação FC">
+      <span class="flip" style="animation-delay:.03s">E</span>
+      <span class="flip" style="animation-delay:.06s">S</span>
+      <span class="flip" style="animation-delay:.09s">C</span>
+      <span class="flip" style="animation-delay:.12s">A</span>
+      <span class="flip" style="animation-delay:.15s">L</span>
+      <span class="flip" style="animation-delay:.18s">A</span>
+      <span class="flip" style="animation-delay:.21s">Ç</span>
+      <span class="flip" style="animation-delay:.24s">Ã</span>
+      <span class="flip" style="animation-delay:.27s">O</span>
+      <span class="flip amber" style="animation-delay:.34s">F</span>
+      <span class="flip amber" style="animation-delay:.37s">C</span>
+    </div>
+    <p class="tagline">
+      Monte seu elenco, dispute o placar de verdade. <strong>Escalação FC</strong> é o fantasy de futebol
+      onde cada jogador nasce por sorteio, sobe da base pro profissional, e entra em campo no PvP —
+      tudo começando 100% de graça, sem carteira nenhuma.
+    </p>
+    <div class="hero-ctas">
+      <a href="#" class="btn btn-primary" aria-disabled="true">Jogar — em breve</a>
+      <a href="#roadmap" class="btn btn-ghost">Ver o roadmap</a>
+    </div>
+    <div class="hero-note">apito inicial em preparação — acompanhe o placar abaixo ↓</div>
+  </section>
+
+  <section id="sobre">
+    <div class="section-head">
+      <div class="eyebrow">Como funciona</div>
+      <h2>Fantasy de verdade, escassez de verdade</h2>
+      <p>Três pilares sustentam o Escalação FC — cada um construído pra fazer sentido tanto pra
+      quem só quer jogar fantasy quanto pra quem quer entender a economia por trás.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <span class="num">01 — O ELENCO</span>
+        <h3>Olheiro, base e profissional</h3>
+        <p>Você não escolhe seu jogador — o Olheiro encontra. Cada um nasce com potencial oculto,
+        sobe da base pro time profissional, e carrega uma raridade que só se revela com o tempo.</p>
+      </div>
+      <div class="pillar">
+        <span class="num">02 — O PLACAR</span>
+        <h3>Acertou o resultado, ganhou PLACAR</h3>
+        <p>Nosso token nasce do palpite, não de compra. Acompanhe jogos reais, aposte no resultado,
+        e use o PLACAR pra buscar novos jogadores ou entrar no PvP.</p>
+      </div>
+      <div class="pillar">
+        <span class="num">03 — O ESTÁDIO</span>
+        <h3>Onde a disputa acontece</h3>
+        <p>Estádios são a porta pro PvP e pro Web3 — cada um com seu dono, sua economia, e
+        um número limitado deles disponível. Quanto antes você chegar, mais raro é ter estado lá.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="roadmap">
+    <div class="section-head">
+      <div class="eyebrow">Roadmap</div>
+      <h2>Onde estamos no placar</h2>
+      <p>Sem promessa de data pro que ainda não aconteceu. Bolinha preenchida = já entrou em campo.
+      Bolinha vazia = próxima jogada, ordem a confirmar.</p>
+    </div>
+
+    <div class="roadmap-wrap">
+
+      <div class="phase done">
+        <div class="phase-dot"></div>
+        <span class="phase-status">Concluída</span>
+        <h3>Fase 1 — Placar do Futebol.com</h3>
+        <span class="phase-date">Abril de 2026 → 11 de junho de 2026</span>
+        <p class="desc">A base de tudo: o portal de resultados ao vivo que deu origem ao universo
+        onde o Escalação FC vive.</p>
+        <ul class="mini-list">
+          <li>Compra do domínio placardofutebol.com</li>
+          <li>Redes sociais no ar (Instagram, TikTok, Kwai, YouTube, X)</li>
+          <li>Hino "Placar do Futebol.com" e mascote Pefinho</li>
+          <li>Contratação da API/oráculo de resultados</li>
+          <li>Site completo no ar: Brasileirão A/B, Copa do Brasil, Champions, Libertadores,
+          Sul-Americana, Premier League, La Liga e Copa do Mundo com resultados ao vivo</li>
+        </ul>
+      </div>
+
+      <div class="phase done">
+        <div class="phase-dot"></div>
+        <span class="phase-status">Concluída</span>
+        <h3>Fase 2 — Documento Mestre do Escalação FC</h3>
+        <span class="phase-date">v37 — 11 de julho de 2026</span>
+        <p class="desc">A concepção completa do jogo: arquitetura híbrida Web2/Web3, todas as regras
+        de negócio, schema de banco de dados e contratos definidos.</p>
+        <ul class="mini-list">
+          <li>Arquitetura em camadas — Home, Estádio, PvP, Web3</li>
+          <li>Contratos Solidity escritos (JogadorNFT, PropostasNFT, EstadioAposta,
+          MarketplaceInterno)</li>
+          <li>Schema completo do banco — ~30 tabelas</li>
+        </ul>
+      </div>
+
+      <div class="phase">
+        <div class="phase-dot"></div>
+        <span class="phase-status">Próxima jogada</span>
+        <h3>Fase 3 — Home do jogo</h3>
+        <p class="desc">Cadastro, Olheiro, elenco e o primeiro palpite valendo PLACAR.</p>
+      </div>
+
+      <div class="phase">
+        <div class="phase-dot"></div>
+        <span class="phase-status">Próxima jogada</span>
+        <h3>Fase 4 — Estádio-piloto e PvP</h3>
+        <p class="desc">O primeiro estádio entra em campo — sede do primeiro PvP do jogo.</p>
+      </div>
+
+      <div class="phase">
+        <div class="phase-dot"></div>
+        <span class="phase-status">Futuro</span>
+        <h3>Fase 5 — Mint público</h3>
+        <p class="desc">Conexão de carteira e o elenco ganhando vida on-chain.</p>
+      </div>
+
+      <div class="phase">
+        <div class="phase-dot"></div>
+        <span class="phase-status">Futuro</span>
+        <h3>Fase 6 — Expansão de estádios</h3>
+        <p class="desc">Novos estádios, novas redes, mais disputa.</p>
+      </div>
+
+      <div class="phase">
+        <div class="phase-dot"></div>
+        <span class="phase-status">Futuro</span>
+        <h3>Fase 7 — Arena da Morte e Sala de Troféus</h3>
+        <p class="desc">O modo eliminatório e o legado de quem sobrevive até o fim.</p>
+      </div>
+
+      <div class="phase">
+        <div class="phase-dot"></div>
+        <span class="phase-status">Futuro</span>
+        <h3>Fase 8 — Auditoria e mainnet</h3>
+        <p class="desc">Auditoria externa, multisig, e o jogo de portas abertas de vez.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="whitepaper">
+    <div class="wp-card">
+      <div class="wp-icon">WP</div>
+      <div>
+        <h3>Whitepaper — em preparação</h3>
+        <p>Tokenomics do PLACAR, arquitetura NFT, e o mini-manual "como jogar" pra quem vem do
+        fantasy tradicional. Sem pré-venda, sem promessa de valorização — PLACAR se ganha jogando.</p>
+        <span class="wp-tag">chega antes da Home do jogo</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="social">
+    <a href="#">Instagram</a>
+    <a href="#">TikTok</a>
+    <a href="#">Kwai</a>
+    <a href="#">YouTube</a>
+    <a href="#">X</a>
+  </div>
+  © 2026 Placar do Futebol.com — Escalação FC
+</footer>
+
+</body>
+</html>
