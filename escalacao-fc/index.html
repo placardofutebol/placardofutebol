@@ -6,7 +6,7 @@
 <title>Escalação FC — o fantasy de futebol do Placar do Futebol.com</title>
 
 <!-- SEO -->
-<meta name="description" content="Escalação FC é o fantasy de futebol onde cada jogador nasce por sorteio, sobe da base pro profissional e entra em campo no PvP — tudo começando 100% de graça, sem carteira nenhuma.">
+<meta name="description" content="Escalação FC é o fantasy de futebol onde cada jogador nasce por busca, sobe da base pro profissional e entra em campo no PvP — tudo começando 100% de graça, sem carteira nenhuma.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://placardofutebol.com/escalacao-fc">
 
@@ -14,7 +14,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Placar do Futebol.com">
 <meta property="og:title" content="Escalação FC — o fantasy de futebol do Placar do Futebol.com">
-<meta property="og:description" content="Monte seu elenco, dispute o placar de verdade. Jogadores nascem por sorteio, sobem da base pro profissional, e entram em campo no PvP — 100% de graça pra começar.">
+<meta property="og:description" content="Monte seu elenco, dispute o placar de verdade. Jogadores nascem por busca, sobem da base pro profissional, e entram em campo no PvP — 100% de graça pra começar.">
 <meta property="og:url" content="https://placardofutebol.com/escalacao-fc">
 <meta property="og:image" content="https://placardofutebol.com/escalacao-fc/og-image.jpg">
 <meta property="og:locale" content="pt_BR">
@@ -22,7 +22,7 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Escalação FC — o fantasy de futebol do Placar do Futebol.com">
-<meta name="twitter:description" content="Monte seu elenco, dispute o placar de verdade. Fantasy de futebol com jogadores por sorteio e PvP real.">
+<meta name="twitter:description" content="Monte seu elenco, dispute o placar de verdade. Fantasy de futebol com jogadores por busca e PvP real.">
 <meta name="twitter:image" content="https://placardofutebol.com/escalacao-fc/og-image.jpg">
 
 <!-- Favicon (troque pelo arquivo real quando tiver) -->
@@ -70,6 +70,20 @@
     width:140vw; height:70vh; z-index:0; pointer-events:none;
     background:radial-gradient(ellipse at center, rgba(242,169,0,0.10) 0%, rgba(242,169,0,0) 60%);
   }
+
+  .top-bar{
+    position:sticky; top:0; z-index:51;
+    background:var(--amber);
+    text-align:center;
+    padding:8px 16px;
+  }
+  .top-bar a{
+    color:var(--board-black); text-decoration:none;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px; font-weight:700;
+    letter-spacing:0.02em;
+  }
+  .top-bar a:hover{text-decoration:underline;}
 
   /* ===== HEADER ===== */
   header{
@@ -145,9 +159,6 @@
     display:flex; gap:10px; flex-wrap:wrap; justify-content:center;
     margin-bottom:20px;
     max-width:900px;
-  }
-  .break-line{
-    flex-basis:100%; height:0;
   }
   .flip{
     font-family:'Archivo Black',sans-serif;
@@ -347,6 +358,10 @@
 </head>
 <body>
 
+<div class="top-bar">
+  <a href="https://t.me/placardofutebol" target="_blank" rel="noopener">📣 Entre no grupo do Telegram — novidades em primeira mão →</a>
+</div>
+
 <div class="pitch-lines"></div>
 <div class="floodlight"></div>
 
@@ -377,13 +392,12 @@
       <span class="flip" style="animation-delay:.21s">Ç</span>
       <span class="flip" style="animation-delay:.24s">Ã</span>
       <span class="flip" style="animation-delay:.27s">O</span>
-      <span class="break-line" aria-hidden="true"></span>
       <span class="flip amber" style="animation-delay:.34s">F</span>
       <span class="flip amber" style="animation-delay:.37s">C</span>
     </div>
     <p class="tagline">
       Monte seu elenco, dispute o placar de verdade. <strong>Escalação FC</strong> é o fantasy de futebol
-      onde cada jogador nasce por sorteio, sobe da base pro profissional, e entra em campo no PvP —
+      onde cada jogador nasce por busca, sobe da base pro profissional, e entra em campo no PvP —
       tudo começando 100% de graça, sem carteira nenhuma.
     </p>
     <div class="hero-ctas">
