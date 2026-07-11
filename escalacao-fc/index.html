@@ -156,9 +156,13 @@
   .eyebrow::before,.eyebrow::after{content:"";width:28px;height:1px;background:var(--amber-dim);}
 
   .scoreboard{
-    display:flex; gap:10px; flex-wrap:wrap; justify-content:center;
+    display:flex; flex-direction:column; align-items:center; gap:10px;
     margin-bottom:20px;
     max-width:900px;
+  }
+  .word-row{
+    display:flex; flex-wrap:nowrap; gap:10px; justify-content:center;
+    max-width:100%;
   }
   .flip{
     font-family:'Archivo Black',sans-serif;
