@@ -2,8 +2,34 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Escalação FC — Placar do Futebol.com</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Escalação FC — o fantasy de futebol do Placar do Futebol.com</title>
+
+<!-- SEO -->
+<meta name="description" content="Escalação FC é o fantasy de futebol onde cada jogador nasce por sorteio, sobe da base pro profissional e entra em campo no PvP — tudo começando 100% de graça, sem carteira nenhuma.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://placardofutebol.com/escalacao-fc">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Placar do Futebol.com">
+<meta property="og:title" content="Escalação FC — o fantasy de futebol do Placar do Futebol.com">
+<meta property="og:description" content="Monte seu elenco, dispute o placar de verdade. Jogadores nascem por sorteio, sobem da base pro profissional, e entram em campo no PvP — 100% de graça pra começar.">
+<meta property="og:url" content="https://placardofutebol.com/escalacao-fc">
+<meta property="og:image" content="https://placardofutebol.com/escalacao-fc/og-image.jpg">
+<meta property="og:locale" content="pt_BR">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Escalação FC — o fantasy de futebol do Placar do Futebol.com">
+<meta name="twitter:description" content="Monte seu elenco, dispute o placar de verdade. Fantasy de futebol com jogadores por sorteio e PvP real.">
+<meta name="twitter:image" content="https://placardofutebol.com/escalacao-fc/og-image.jpg">
+
+<!-- Favicon (troque pelo arquivo real quando tiver) -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -18,6 +44,7 @@
     --chalk-dim:#c9c4b4;
     --cyan:#00e0b8;
     --line:rgba(244,241,232,0.14);
+    --header-h:68px;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
@@ -44,10 +71,13 @@
     background:radial-gradient(ellipse at center, rgba(242,169,0,0.10) 0%, rgba(242,169,0,0) 60%);
   }
 
+  /* ===== HEADER ===== */
   header{
     position:sticky; top:0; z-index:50;
     display:flex; align-items:center; justify-content:space-between;
-    padding:18px 6vw;
+    gap:16px;
+    min-height:var(--header-h);
+    padding:14px clamp(20px,6vw,64px);
     background:rgba(10,10,10,0.55);
     backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
@@ -57,11 +87,16 @@
     font-weight:700; letter-spacing:0.04em;
     color:var(--chalk); font-size:15px;
     display:flex; align-items:center; gap:8px;
+    white-space:nowrap;
+    flex-shrink:0;
   }
-  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--amber); box-shadow:0 0 8px var(--amber);}
+  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--amber); box-shadow:0 0 8px var(--amber); flex-shrink:0;}
+
+  nav{display:flex; align-items:center;}
   nav a{
     color:var(--chalk-dim); text-decoration:none; font-size:14px; font-weight:500;
     margin-left:32px; transition:color .2s;
+    white-space:nowrap;
   }
   nav a:hover{color:var(--amber);}
   .nav-cta{
@@ -71,11 +106,32 @@
   }
   .nav-cta:hover{background:var(--amber) !important; color:var(--board-black) !important;}
 
+  .menu-toggle{
+    display:none;
+    background:none; border:1px solid var(--line); border-radius:4px;
+    width:42px; height:38px;
+    align-items:center; justify-content:center;
+    cursor:pointer; flex-shrink:0;
+    padding:0;
+  }
+  .menu-toggle span,
+  .menu-toggle span::before,
+  .menu-toggle span::after{
+    content:""; display:block; width:18px; height:2px; background:var(--chalk);
+    position:relative; transition:transform .2s, opacity .2s, background .2s;
+  }
+  .menu-toggle span::before{position:absolute; top:-6px;}
+  .menu-toggle span::after{position:absolute; top:6px;}
+  .menu-toggle[aria-expanded="true"] span{background:transparent;}
+  .menu-toggle[aria-expanded="true"] span::before{transform:translateY(6px) rotate(45deg);}
+  .menu-toggle[aria-expanded="true"] span::after{transform:translateY(-6px) rotate(-45deg);}
+
   main{position:relative; z-index:1;}
 
-  /* HERO */
+  /* ===== HERO ===== */
   .hero{
-    min-height:92vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    min-height:calc(92vh - var(--header-h));
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
     text-align:center; padding:80px 6vw 60px;
   }
   .eyebrow{
@@ -88,10 +144,11 @@
   .scoreboard{
     display:flex; gap:10px; flex-wrap:wrap; justify-content:center;
     margin-bottom:20px;
+    max-width:900px;
   }
   .flip{
     font-family:'Archivo Black',sans-serif;
-    font-size:clamp(34px, 8vw, 92px);
+    font-size:clamp(30px, 7vw, 92px);
     line-height:1;
     color:var(--chalk);
     background:linear-gradient(180deg, #141414, #0a0a0a);
@@ -108,7 +165,7 @@
   @keyframes flipIn{ to{opacity:1; transform:translateY(0) rotateX(0);} }
 
   .tagline{
-    font-size:clamp(16px,2.2vw,20px);
+    font-size:clamp(15px,2.2vw,20px);
     color:var(--chalk-dim);
     max-width:640px; margin:22px auto 8px;
     font-weight:400; line-height:1.55;
@@ -130,15 +187,16 @@
 
   .hero-note{
     margin-top:18px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--chalk-dim); opacity:0.7;
+    text-align:center; padding:0 12px;
   }
 
-  /* SECTION SHARED */
-  section{padding:100px 6vw; position:relative;}
+  /* ===== SECTION SHARED ===== */
+  section{padding:clamp(60px,10vw,100px) clamp(20px,6vw,64px); position:relative;}
   .section-head{max-width:640px; margin:0 auto 56px; text-align:center;}
   .section-head .eyebrow{justify-content:center;}
   .section-head h2{
     font-family:'Archivo Black',sans-serif; font-weight:400;
-    font-size:clamp(28px,4vw,42px); line-height:1.15; margin-bottom:16px;
+    font-size:clamp(26px,4vw,42px); line-height:1.15; margin-bottom:16px;
   }
   .section-head p{color:var(--chalk-dim); font-size:16px; line-height:1.6;}
 
@@ -221,10 +279,66 @@
   footer .social a{color:var(--chalk-dim); text-decoration:none;}
   footer .social a:hover{color:var(--amber);}
 
+  /* ===== DESKTOP GRANDE / ULTRAWIDE ===== */
+  @media (min-width:1440px){
+    .hero{max-width:1200px; margin:0 auto;}
+    section{padding-left:0; padding-right:0;}
+    .pillars, .roadmap-wrap, .wp-card, .section-head{max-width:1040px;}
+  }
+
+  /* ===== TABLET ===== */
+  @media (max-width:900px){
+    .pillar{padding:30px 24px;}
+  }
+
+  /* ===== MOBILE NAV BREAKPOINT ===== */
+  @media (max-width:768px){
+    .menu-toggle{display:flex;}
+
+    nav{
+      position:fixed;
+      top:var(--header-h);
+      left:0; right:0;
+      flex-direction:column;
+      align-items:stretch;
+      background:rgba(10,10,10,0.97);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--line);
+      padding:8px clamp(20px,6vw,64px) 20px;
+      transform:translateY(-8px);
+      opacity:0;
+      pointer-events:none;
+      visibility:hidden;
+      transition:opacity .18s ease, transform .18s ease, visibility .18s;
+    }
+    nav.open{
+      opacity:1; transform:translateY(0);
+      pointer-events:auto; visibility:visible;
+    }
+    nav a{
+      margin-left:0;
+      padding:14px 4px;
+      border-bottom:1px solid var(--line);
+      font-size:15px;
+    }
+    nav a:last-child{border-bottom:none;}
+    .nav-cta{
+      margin-top:8px; text-align:center;
+    }
+  }
+
   @media (max-width:640px){
     .flip{font-size:9vw; padding:4px 3px;}
-    section{padding:70px 6vw;}
-    .wp-card{padding:32px 24px;}
+    section{padding-top:60px; padding-bottom:60px;}
+    .wp-card{padding:32px 24px; gap:24px;}
+    .hero{padding-top:56px; padding-bottom:48px;}
+    .phase{padding-left:52px;}
+  }
+
+  @media (max-width:400px){
+    .brand{font-size:12.5px;}
+    .flip{font-size:11vw;}
+    .btn{padding:13px 20px; font-size:14px;}
   }
 </style>
 </head>
@@ -235,7 +349,10 @@
 
 <header>
   <div class="brand"><span class="dot"></span> PLACAR DO FUTEBOL.COM</div>
-  <nav>
+  <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainNav" aria-label="Abrir menu">
+    <span></span>
+  </button>
+  <nav id="mainNav">
     <a href="#sobre">O jogo</a>
     <a href="#roadmap">Roadmap</a>
     <a href="#whitepaper">Whitepaper</a>
@@ -412,6 +529,32 @@
   </div>
   © 2026 Placar do Futebol.com — Escalação FC
 </footer>
+
+<script>
+  const toggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('mainNav');
+
+  toggle.addEventListener('click', () => {
+    const isOpen = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', isOpen);
+    toggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+  });
+
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Abrir menu');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!nav.contains(e.target) && !toggle.contains(e.target)) {
+      nav.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>
 
 </body>
 </html>
