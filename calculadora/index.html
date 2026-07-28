@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Calculadora</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DSEG7+Classic:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --case: #1b1d1f;
+    --case-edge: #26282b;
+    --screen-bg: #0f2b21;
+    --screen-glow: #ffb020;
+    --screen-dim: #6b8f7c;
+    --key-bg: #2a2d30;
+    --key-bg-light: #35383c;
+    --key-text: #eef1ea;
+    --op: #d9662b;
+    --op-hover: #e8763a;
+    --equals: #ffb020;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    background: radial-gradient(ellipse at top, #24262a 0%, #0d0e0f 70%);
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px;
+    /* Espaço reservado na base para o banner fixo do AdMob (versão empacotada).
+       110px = folga generosa: cobre banner adaptativo em telas maiores +
+       gesto de navegação do Android + margem extra de segurança.
+       Prioridade: nunca faltar espaço, mesmo que sobre um pouco.
+       No navegador/domínio de testes essa faixa fica só vazia, sem problema. */
+    padding-bottom: calc(24px + 110px);
+    color: var(--key-text);
+  }
+
+  .device {
+    width: 100%;
+    max-width: 360px;
+    background: linear-gradient(160deg, var(--case-edge), var(--case) 40%);
+    border-radius: 28px;
+    padding: 20px 16px 24px;
+    box-shadow:
+      0 30px 60px -20px rgba(0,0,0,0.7),
+      0 0 0 1px rgba(255,255,255,0.03) inset,
+      0 2px 0 rgba(255,255,255,0.05) inset;
+  }
+
+  .brand-strip {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px 8px 14px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #5a5d61;
+  }
+
+  .brand-strip span:last-child {
+    color: #43463f;
+  }
+
+  .screen {
+    background: linear-gradient(175deg, var(--screen-bg), #0a1f18);
+    border-radius: 14px;
+    padding: 22px 18px 18px;
+    margin-bottom: 18px;
+    box-shadow:
+      inset 0 3px 10px rgba(0,0,0,0.5),
+      inset 0 0 30px rgba(0,0,0,0.3);
+    min-height: 112px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .screen::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0,0,0,0.06) 0px,
+      rgba(0,0,0,0.06) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    pointer-events: none;
+  }
+
+  .screen-history {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 13px;
+    color: var(--screen-dim);
+    text-align: right;
+    min-height: 18px;
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .screen-history::-webkit-scrollbar { display: none; }
+
+  .screen-current {
+    font-family: 'DSEG7 Classic', 'Space Grotesk', monospace;
+    font-size: clamp(32px, 9vw, 42px);
+    text-align: right;
+    color: var(--screen-glow);
+    text-shadow: 0 0 12px rgba(255, 176, 32, 0.55), 0 0 2px rgba(255,176,32,0.8);
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .screen-current::-webkit-scrollbar { display: none; }
+
+  .pad {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  button.key {
+    appearance: none;
+    border: none;
+    border-radius: 12px;
+    height: 58px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--key-text);
+    background: linear-gradient(160deg, var(--key-bg-light), var(--key-bg));
+    box-shadow:
+      0 3px 0 rgba(0,0,0,0.4),
+      0 4px 8px rgba(0,0,0,0.3),
+      inset 0 1px 0 rgba(255,255,255,0.06);
+    cursor: pointer;
+    transition: transform 0.06s ease, box-shadow 0.06s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button.key:active {
+    transform: translateY(2px);
+    box-shadow:
+      0 1px 0 rgba(0,0,0,0.4),
+      0 2px 4px rgba(0,0,0,0.3),
+      inset 0 1px 0 rgba(255,255,255,0.06);
+  }
+
+  button.key:focus-visible {
+    outline: 2px solid var(--screen-glow);
+    outline-offset: 2px;
+  }
+
+  button.op {
+    background: linear-gradient(160deg, var(--op-hover), var(--op));
+    color: #1b1000;
+    font-weight: 600;
+  }
+
+  button.equals {
+    background: linear-gradient(160deg, #ffc85c, var(--equals));
+    color: #1b1000;
+    font-weight: 700;
+  }
+
+  button.wide {
+    grid-column: span 2;
+  }
+
+  button.func {
+    color: #c9ccc6;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  @media (max-width: 340px) {
+    button.key { height: 52px; font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="device">
+  <div class="brand-strip">
+    <span>calculadora</span>
+    <span>placardofutebol.com</span>
+  </div>
+
+  <div class="screen">
+    <div class="screen-history" id="history"></div>
+    <div class="screen-current" id="current">0</div>
+  </div>
+
+  <div class="pad">
+    <button class="key func" data-action="clear">C</button>
+    <button class="key func" data-action="backspace">⌫</button>
+    <button class="key func" data-action="percent">%</button>
+    <button class="key op" data-action="divide">÷</button>
+
+    <button class="key" data-digit="7">7</button>
+    <button class="key" data-digit="8">8</button>
+    <button class="key" data-digit="9">9</button>
+    <button class="key op" data-action="multiply">×</button>
+
+    <button class="key" data-digit="4">4</button>
+    <button class="key" data-digit="5">5</button>
+    <button class="key" data-digit="6">6</button>
+    <button class="key op" data-action="subtract">−</button>
+
+    <button class="key" data-digit="1">1</button>
+    <button class="key" data-digit="2">2</button>
+    <button class="key" data-digit="3">3</button>
+    <button class="key op" data-action="add">+</button>
+
+    <button class="key wide" data-digit="0">0</button>
+    <button class="key" data-action="decimal">,</button>
+    <button class="key equals" data-action="equals">=</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  const historyEl = document.getElementById('history');
+  const currentEl = document.getElementById('current');
+
+  let currentValue = '0';
+  let previousValue = null;
+  let pendingOperator = null;
+  let justEvaluated = false;
+
+  const opSymbols = { add: '+', subtract: '−', multiply: '×', divide: '÷' };
+  const MAX_DIGITS = 12;
+
+  function formatNumber(numStr) {
+    if (numStr === 'Erro') return numStr;
+    const [intPart, decPart] = numStr.split(',');
+    const negative = intPart.startsWith('-');
+    const cleanInt = negative ? intPart.slice(1) : intPart;
+    const withThousands = cleanInt.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    let result = (negative ? '-' : '') + withThousands;
+    if (decPart !== undefined) result += ',' + decPart;
+    return result;
+  }
+
+  function render() {
+    currentEl.textContent = formatNumber(currentValue);
+    if (pendingOperator && previousValue !== null) {
+      historyEl.textContent = `${formatNumber(previousValue)} ${opSymbols[pendingOperator]}`;
+    } else {
+      historyEl.textContent = '';
+    }
+  }
+
+  function inputDigit(d) {
+    if (justEvaluated) {
+      currentValue = '0';
+      justEvaluated = false;
+    }
+    if (currentValue.replace(/[-,]/g, '').length >= MAX_DIGITS) return;
+    currentValue = currentValue === '0' ? d : currentValue + d;
+  }
+
+  function inputDecimal() {
+    if (justEvaluated) {
+      currentValue = '0';
+      justEvaluated = false;
+    }
+    if (!currentValue.includes(',')) currentValue += ',';
+  }
+
+  function backspace() {
+    if (justEvaluated) return;
+    currentValue = currentValue.length > 1 ? currentValue.slice(0, -1) : '0';
+  }
+
+  function clearAll() {
+    currentValue = '0';
+    previousValue = null;
+    pendingOperator = null;
+    justEvaluated = false;
+  }
+
+  function toNumber(str) {
+    return parseFloat(str.replace(',', '.'));
+  }
+
+  function toDisplayString(num) {
+    if (!isFinite(num)) return 'Erro';
+    let str = num.toPrecision(12);
+    if (str.includes('.') || str.includes('e')) {
+      str = parseFloat(str).toString();
+    }
+    return str.replace('.', ',');
+  }
+
+  function compute(a, op, b) {
+    switch (op) {
+      case 'add': return a + b;
+      case 'subtract': return a - b;
+      case 'multiply': return a * b;
+      case 'divide': return b === 0 ? NaN : a / b;
+      default: return b;
+    }
+  }
+
+  function setOperator(op) {
+    if (pendingOperator && !justEvaluated) {
+      evaluate();
+    }
+    previousValue = currentValue;
+    pendingOperator = op;
+    justEvaluated = true;
+  }
+
+  function evaluate() {
+    if (pendingOperator === null || previousValue === null) return;
+    const a = toNumber(previousValue);
+    const b = toNumber(currentValue);
+    const result = compute(a, pendingOperator, b);
+    currentValue = toDisplayString(result);
+    pendingOperator = null;
+    previousValue = null;
+    justEvaluated = true;
+  }
+
+  function percent() {
+    const num = toNumber(currentValue);
+    currentValue = toDisplayString(num / 100);
+  }
+
+  document.querySelector('.pad').addEventListener('click', (e) => {
+    const btn = e.target.closest('button.key');
+    if (!btn) return;
+
+    if (btn.dataset.digit !== undefined) {
+      inputDigit(btn.dataset.digit);
+    } else {
+      switch (btn.dataset.action) {
+        case 'clear': clearAll(); break;
+        case 'backspace': backspace(); break;
+        case 'decimal': inputDecimal(); break;
+        case 'percent': percent(); break;
+        case 'add':
+        case 'subtract':
+        case 'multiply':
+        case 'divide':
+          setOperator(btn.dataset.action);
+          break;
+        case 'equals': evaluate(); break;
+      }
+    }
+    render();
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key >= '0' && e.key <= '9') { inputDigit(e.key); render(); }
+    else if (e.key === '.' || e.key === ',') { inputDecimal(); render(); }
+    else if (e.key === '+') { setOperator('add'); render(); }
+    else if (e.key === '-') { setOperator('subtract'); render(); }
+    else if (e.key === '*') { setOperator('multiply'); render(); }
+    else if (e.key === '/') { e.preventDefault(); setOperator('divide'); render(); }
+    else if (e.key === 'Enter' || e.key === '=') { evaluate(); render(); }
+    else if (e.key === 'Backspace') { backspace(); render(); }
+    else if (e.key === 'Escape') { clearAll(); render(); }
+    else if (e.key === '%') { percent(); render(); }
+  });
+
+  render();
+})();
+</script>
+
+</body>
+</html>
