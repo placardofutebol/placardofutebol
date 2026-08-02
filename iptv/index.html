@@ -216,13 +216,23 @@
   .badge.wait{ background: rgba(255,207,94,.08); color: var(--warn); border:1px solid #6b5a2b; }
 
   .filters{
-    padding: 10px 16px;
+    padding: 10px 16px 0 16px;
     border-bottom: 1px solid var(--line);
-    display:flex; gap:6px; align-items:center;
-    flex-wrap: wrap;
   }
-  .filters input[type=text]{ font-size:11px; padding:7px 9px; }
+  .filters input[type=text]{ font-size:11px; padding:7px 9px; width:100%; }
+
+  .chip-row{
+    display:flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 10px 16px 10px 16px;
+    margin: 0 -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .chip-row::-webkit-scrollbar{ height: 4px; }
   .chip{
+    flex-shrink: 0;
     font-size: 10px;
     padding: 5px 10px;
     border-radius: 20px;
@@ -234,6 +244,30 @@
     letter-spacing: .5px;
   }
   .chip.active{ border-color: var(--accent-dim); color: var(--accent); background: rgba(94,255,157,.06); }
+
+  .hidden-count{
+    padding: 8px 16px;
+    font-size: 10px;
+    color: var(--dim);
+    text-align: center;
+    border-top: 1px solid var(--line);
+    flex-shrink: 0;
+  }
+
+  .url-summary{
+    display:flex; align-items:center; justify-content:space-between;
+    gap: 8px;
+  }
+  .url-summary .ok-text{
+    font-size: 11px;
+    color: var(--accent);
+    white-space: nowrap; overflow:hidden; text-overflow: ellipsis;
+  }
+  .url-summary button{
+    font-size: 10px;
+    padding: 6px 10px;
+    flex-shrink: 0;
+  }
 
   .channel-list{
     flex:1;
@@ -381,28 +415,33 @@
     <div class="sidebar-title">
       <span>Lista de <span class="accent">Canais</span></span>
     </div>
-    <div class="url-box">
-      <span class="label">URL da lista M3U</span>
-      <div class="row">
-        <input type="text" id="m3uUrl" placeholder="https://exemplo.com/lista.m3u" autocomplete="off">
-        <button id="loadBtn">Carregar</button>
+    <div class="url-box" id="urlBox">
+      <div class="url-form" id="urlForm">
+        <span class="label">URL da lista M3U</span>
+        <div class="row">
+          <input type="text" id="m3uUrl" placeholder="https://exemplo.com/lista.m3u" autocomplete="off">
+          <button id="loadBtn">Carregar</button>
+        </div>
+        <div class="status-line" id="loadStatus"></div>
       </div>
-      <div class="status-line" id="loadStatus"></div>
+      <div class="url-summary" id="urlSummary" style="display:none">
+        <span class="ok-text" id="urlSummaryText">✓ Lista carregada</span>
+        <button class="ghost" id="editUrlBtn">Trocar lista</button>
+      </div>
     </div>
 
     <div class="filters">
-      <input type="text" id="searchBox" placeholder="buscar canal..." style="flex:1">
-      <button class="chip active" data-filter="all">Todos</button>
-      <button class="chip" data-filter="ok">🟢 OK</button>
-      <button class="chip" data-filter="bad">🔴 Bloqueado</button>
+      <input type="text" id="searchBox" placeholder="buscar canal...">
     </div>
+    <div class="chip-row" id="chipRow"></div>
 
     <div class="channel-list" id="channelList">
       <div class="empty-state">
         Cole a URL de uma lista M3U acima e clique em Carregar.<br><br>
-        O app vai testar automaticamente cada canal e marcar quais tocam direto no navegador (🟢) e quais são bloqueados por CORS (🔴).
+        O app vai testar automaticamente cada canal e mostrar só os que tocam direto no navegador.
       </div>
     </div>
+    <div class="hidden-count" id="hiddenCount" style="display:none"></div>
   </div>
   </div><!-- /sidebar-wrapper -->
 
@@ -445,11 +484,16 @@
     nowPlaying: document.getElementById('nowPlaying'),
     nowGroup: document.getElementById('nowGroup'),
     playerLog: document.getElementById('playerLog'),
-    chips: document.querySelectorAll('.chip'),
     sidebarWrapper: document.getElementById('sidebarWrapper'),
     collapseBtn: document.getElementById('collapseBtn'),
     fullscreenBtn: document.getElementById('fullscreenBtn'),
     videoWrap: document.getElementById('videoWrap'),
+    urlForm: document.getElementById('urlForm'),
+    urlSummary: document.getElementById('urlSummary'),
+    urlSummaryText: document.getElementById('urlSummaryText'),
+    editUrlBtn: document.getElementById('editUrlBtn'),
+    chipRow: document.getElementById('chipRow'),
+    hiddenCount: document.getElementById('hiddenCount'),
   };
 
   let channels = [];      // {name, url, logo, group, status: 'untested'|'wait'|'ok'|'bad'}
@@ -508,6 +552,17 @@
     return result;
   }
 
+  function collapseUrlBox(count){
+    els.urlForm.style.display = 'none';
+    els.urlSummary.style.display = 'flex';
+    els.urlSummaryText.textContent = '✓ Lista carregada (' + count + ' canais)';
+  }
+  function expandUrlBox(){
+    els.urlForm.style.display = 'block';
+    els.urlSummary.style.display = 'none';
+    els.url.focus();
+  }
+
   // ---------- Carregar lista ----------
   async function loadList(url){
     if (!url){ setStatus('Cole uma URL válida.', 'bad'); return; }
@@ -530,6 +585,8 @@
       saveUrl(url);
       saveChannelsCache();
       setStatus(parsed.length + ' canais encontrados. Testando disponibilidade...', 'ok');
+      collapseUrlBox(parsed.length);
+      buildCategoryChips();
       render();
       testAllChannels();
     } catch(err){
@@ -569,6 +626,8 @@
       saveChannelsCache();
       updateCount();
     }
+    buildCategoryChips(); // remove categorias que ficaram 100% bloqueadas
+    render();
     setStatus('Testes concluídos.', 'ok');
   }
 
@@ -578,13 +637,53 @@
     const bad = channels.filter(c => c.status === 'bad').length;
     const wait = channels.filter(c => c.status === 'wait' || c.status === 'untested').length;
     els.count.textContent = channels.length + ' canais · 🟢 ' + ok + ' · 🔴 ' + bad + (wait ? ' · testando ' + wait : '');
+
+    if (bad > 0){
+      els.hiddenCount.style.display = 'block';
+      els.hiddenCount.textContent = bad + ' canal(is) indisponível(is) — ocultos';
+    } else {
+      els.hiddenCount.style.display = 'none';
+    }
   }
 
   function matchesFilter(ch){
-    if (currentFilter === 'ok' && ch.status !== 'ok') return false;
-    if (currentFilter === 'bad' && ch.status !== 'bad') return false;
+    if (ch.status === 'bad') return false; // bloqueados nunca aparecem na navegação normal
+    if (currentFilter !== 'all' && (ch.group || 'Geral') !== currentFilter) return false;
     if (searchTerm && !ch.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
     return true;
+  }
+
+  function getAvailableGroups(){
+    const set = new Set();
+    channels.forEach(ch => {
+      if (ch.status !== 'bad') set.add(ch.group || 'Geral');
+    });
+    return Array.from(set).sort((a,b) => a.localeCompare(b, 'pt-BR'));
+  }
+
+  function buildCategoryChips(){
+    if (!els.chipRow) return;
+    // se o filtro atual (categoria) sumiu porque ficou 100% bloqueada, volta pra "Todos"
+    const groups = getAvailableGroups();
+    if (currentFilter !== 'all' && !groups.includes(currentFilter)){
+      currentFilter = 'all';
+    }
+
+    els.chipRow.innerHTML = '';
+    els.chipRow.appendChild(createChip('Todos', 'all'));
+    groups.forEach(g => els.chipRow.appendChild(createChip(g, g)));
+  }
+
+  function createChip(label, value){
+    const btn = document.createElement('button');
+    btn.className = 'chip' + (currentFilter === value ? ' active' : '');
+    btn.textContent = label;
+    btn.addEventListener('click', () => {
+      currentFilter = value;
+      buildCategoryChips();
+      render();
+    });
+    return btn;
   }
 
   function render(){
@@ -692,14 +791,7 @@
     render();
   });
 
-  els.chips.forEach(chip => {
-    chip.addEventListener('click', () => {
-      els.chips.forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-      currentFilter = chip.dataset.filter;
-      render();
-    });
-  });
+  els.editUrlBtn.addEventListener('click', expandUrlBox);
 
   els.collapseBtn.addEventListener('click', () => {
     const collapsed = els.sidebarWrapper.classList.toggle('collapsed');
@@ -747,6 +839,8 @@
       const cached = loadChannelsCache();
       if (cached && cached.length){
         channels = cached.map(c => ({...c, status: 'untested'})); // re-testar ao reabrir
+        collapseUrlBox(channels.length);
+        buildCategoryChips();
         render();
         setStatus('Lista salva carregada (' + channels.length + ' canais). Re-testando...', 'ok');
         testAllChannels();
