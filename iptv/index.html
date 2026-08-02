@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPTV Lab</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.13/hls.min.js"></script>
+<style>
+  :root{
+    --bg: #0b0e0d;
+    --panel: #121613;
+    --panel-2: #171d19;
+    --line: #263029;
+    --text: #e6ede8;
+    --dim: #8fa398;
+    --accent: #5eff9d;
+    --accent-dim: #2b6b47;
+    --danger: #ff6b5e;
+    --danger-dim: #5c2a24;
+    --warn: #ffcf5e;
+    --mono: "SF Mono", "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  }
+  *{ box-sizing: border-box; }
+  html,body{ height:100%; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  body::before{
+    content:"";
+    position: fixed; inset:0;
+    background-image:
+      linear-gradient(rgba(94,255,157,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(94,255,157,0.02) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  header{
+    position: relative; z-index:1;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--line);
+    display:flex; align-items:center; gap:12px;
+    background: linear-gradient(180deg, var(--panel), var(--bg));
+  }
+  .dot{
+    width:8px; height:8px; border-radius:50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse{ 0%,100%{opacity:1} 50%{opacity:.35} }
+  h1{
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--text);
+    margin:0;
+  }
+  h1 span{ color: var(--accent); }
+  .subtitle{ color: var(--dim); font-size: 11px; margin-left: auto; }
+
+  main{
+    position: relative; z-index:1;
+    display:flex;
+    height: calc(100vh - 53px);
+  }
+  @media (max-width: 860px){
+    main{ flex-direction: column; height:auto; }
+  }
+
+  .sidebar-wrapper{
+    flex-shrink: 0;
+    width: 360px;
+    overflow: hidden;
+    transition: width .22s ease;
+    display:flex;
+  }
+  .sidebar-wrapper.collapsed{
+    width: 0;
+  }
+  @media (max-width: 860px){
+    .sidebar-wrapper{ width: 100%; }
+    .sidebar-wrapper.collapsed{ width: 0; height:0; }
+  }
+
+  .sidebar{
+    border-right: 1px solid var(--line);
+    display:flex; flex-direction:column;
+    background: var(--panel);
+    min-height: 0;
+    width: 360px;
+    flex-shrink: 0;
+  }
+
+  .sidebar-title{
+    padding: 10px 16px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--dim);
+    border-bottom: 1px solid var(--line);
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .sidebar-title span.accent{ color: var(--accent); }
+
+  .float-btn{
+    position: absolute;
+    z-index: 6;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    color: var(--accent);
+    cursor: pointer;
+    display:flex; align-items:center; justify-content:center;
+    font-size: 14px;
+    font-family: var(--mono);
+    transition: background .15s, border-color .15s;
+  }
+  .float-btn:hover{ background: var(--accent-dim); border-color: var(--accent-dim); }
+
+  #collapseBtn{
+    top: 12px;
+    left: 12px;
+  }
+  #fullscreenBtn{
+    top: 12px;
+    right: 12px;
+  }
+
+  .ad-banner{
+    border-top: 1px solid var(--line);
+    background: var(--panel);
+    min-height: 60px;
+    display:flex; align-items:center; justify-content:center;
+    color: var(--dim);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .url-box{
+    padding: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .label{
+    color: var(--dim);
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+    display:block;
+  }
+  .row{ display:flex; gap:8px; }
+  input[type=text]{
+    flex:1;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    color: var(--text);
+    padding: 9px 10px;
+    font-family: var(--mono);
+    font-size: 12px;
+    border-radius: 3px;
+    outline: none;
+    min-width: 0;
+  }
+  input[type=text]:focus{ border-color: var(--accent-dim); }
+  button{
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 9px 14px;
+    border-radius: 3px;
+    border: 1px solid var(--accent-dim);
+    background: transparent;
+    color: var(--accent);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background .15s, color .15s;
+  }
+  button:hover{ background: var(--accent-dim); color: var(--text); }
+  button:disabled{ opacity:.4; cursor:default; }
+  button.ghost{
+    border-color: var(--line);
+    color: var(--dim);
+  }
+  button.ghost:hover{ background: var(--panel-2); color: var(--text); }
+
+  .status-line{
+    margin-top: 10px;
+    font-size: 11px;
+    color: var(--dim);
+    display:flex; align-items:center; gap:6px; flex-wrap: wrap;
+  }
+  .badge{
+    display:inline-flex; align-items:center; gap:5px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 10px;
+    letter-spacing: .5px;
+  }
+  .badge.ok{ background: rgba(94,255,157,.1); color: var(--accent); border:1px solid var(--accent-dim); }
+  .badge.bad{ background: rgba(255,107,94,.1); color: var(--danger); border:1px solid var(--danger-dim); }
+  .badge.wait{ background: rgba(255,207,94,.08); color: var(--warn); border:1px solid #6b5a2b; }
+
+  .filters{
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--line);
+    display:flex; gap:6px; align-items:center;
+    flex-wrap: wrap;
+  }
+  .filters input[type=text]{ font-size:11px; padding:7px 9px; }
+  .chip{
+    font-size: 10px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    color: var(--dim);
+    cursor: pointer;
+    background: transparent;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  .chip.active{ border-color: var(--accent-dim); color: var(--accent); background: rgba(94,255,157,.06); }
+
+  .channel-list{
+    flex:1;
+    overflow-y: auto;
+    padding: 6px;
+  }
+  .channel{
+    display:flex; align-items:center; gap:10px;
+    padding: 9px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+  .channel:hover{ background: var(--panel-2); }
+  .channel.selected{ background: rgba(94,255,157,.07); border-color: var(--accent-dim); }
+  .channel img{
+    width: 28px; height: 28px;
+    object-fit: contain;
+    border-radius: 3px;
+    background: #0006;
+    flex-shrink: 0;
+  }
+  .channel .fallback-icon{
+    width: 28px; height: 28px;
+    border-radius: 3px;
+    background: var(--panel-2);
+    color: var(--dim);
+    display:flex; align-items:center; justify-content:center;
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+  .channel-name{
+    flex:1; min-width:0;
+    white-space: nowrap; overflow:hidden; text-overflow: ellipsis;
+    font-size: 12px;
+  }
+  .channel-group{
+    font-size: 9px;
+    color: var(--dim);
+    text-transform: uppercase;
+  }
+  .status-dot{
+    width:7px; height:7px; border-radius:50%;
+    flex-shrink:0;
+  }
+  .status-dot.ok{ background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+  .status-dot.bad{ background: var(--danger); }
+  .status-dot.wait{ background: var(--warn); animation: pulse 1s infinite; }
+  .status-dot.untested{ background: #3a453e; }
+
+  .empty-state{
+    padding: 40px 20px;
+    color: var(--dim);
+    text-align:center;
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  .player-area{
+    display:flex; flex-direction:column;
+    min-height: 0;
+  }
+  .video-wrap{
+    flex:1;
+    background: #000;
+    display:flex; align-items:center; justify-content:center;
+    position: relative;
+    min-height: 300px;
+  }
+  .video-wrap:fullscreen{
+    background: #000;
+  }
+  .video-wrap:fullscreen video{
+    max-height: 100vh;
+  }
+  video{
+    width:100%; height:100%;
+    max-height: 100%;
+  }
+  .video-placeholder{
+    color: var(--dim);
+    text-align:center;
+    font-size: 12px;
+  }
+  .video-placeholder .big{
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: var(--accent-dim);
+  }
+
+  .player-info{
+    padding: 12px 20px;
+    border-top: 1px solid var(--line);
+    background: var(--panel);
+    display:flex; align-items:center; gap:14px;
+    flex-wrap: wrap;
+  }
+  .player-info .name{ font-size: 13px; color: var(--text); }
+  .player-info .meta{ font-size: 11px; color: var(--dim); }
+  .log{
+    font-size: 10px;
+    color: var(--dim);
+    margin-left:auto;
+    max-width: 340px;
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  ::-webkit-scrollbar{ width:8px; }
+  ::-webkit-scrollbar-track{ background: var(--panel); }
+  ::-webkit-scrollbar-thumb{ background: var(--line); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="dot"></div>
+  <h1>IPTV <span>LAB</span></h1>
+  <div class="subtitle" id="channelCount">nenhuma lista carregada</div>
+</header>
+
+<main>
+  <div class="sidebar-wrapper" id="sidebarWrapper">
+  <div class="sidebar">
+    <div class="sidebar-title">
+      <span>Lista de <span class="accent">Canais</span></span>
+    </div>
+    <div class="url-box">
+      <span class="label">URL da lista M3U</span>
+      <div class="row">
+        <input type="text" id="m3uUrl" placeholder="https://exemplo.com/lista.m3u" autocomplete="off">
+        <button id="loadBtn">Carregar</button>
+      </div>
+      <div class="status-line" id="loadStatus"></div>
+    </div>
+
+    <div class="filters">
+      <input type="text" id="searchBox" placeholder="buscar canal..." style="flex:1">
+      <button class="chip active" data-filter="all">Todos</button>
+      <button class="chip" data-filter="ok">🟢 OK</button>
+      <button class="chip" data-filter="bad">🔴 Bloqueado</button>
+    </div>
+
+    <div class="channel-list" id="channelList">
+      <div class="empty-state">
+        Cole a URL de uma lista M3U acima e clique em Carregar.<br><br>
+        O app vai testar automaticamente cada canal e marcar quais tocam direto no navegador (🟢) e quais são bloqueados por CORS (🔴).
+      </div>
+    </div>
+  </div>
+  </div><!-- /sidebar-wrapper -->
+
+  <div class="player-area">
+    <div class="video-wrap" id="videoWrap">
+      <button class="float-btn" id="collapseBtn" title="Recolher/expandir lista">‹</button>
+      <button class="float-btn" id="fullscreenBtn" title="Tela cheia">⛶</button>
+      <video id="video" controls playsinline style="display:none"></video>
+      <div class="video-placeholder" id="placeholder">
+        <div class="big">▷</div>
+        Selecione um canal para reproduzir
+      </div>
+    </div>
+    <div class="player-info">
+      <div class="name" id="nowPlaying">—</div>
+      <div class="meta" id="nowGroup"></div>
+      <div class="log" id="playerLog"></div>
+    </div>
+    <div class="ad-banner" id="adBanner">
+      <!-- Espaço reservado para Google AdSense (banner). Inserir aqui o bloco <ins class="adsbygoogle">...</ins> quando a conta estiver aprovada. -->
+      espaço reservado — anúncio
+    </div>
+  </div>
+</main>
+
+<script>
+(function(){
+  const STORAGE_KEY = 'iptvlab_m3u_url';
+  const CACHE_KEY = 'iptvlab_channels_cache';
+
+  const els = {
+    url: document.getElementById('m3uUrl'),
+    loadBtn: document.getElementById('loadBtn'),
+    loadStatus: document.getElementById('loadStatus'),
+    list: document.getElementById('channelList'),
+    search: document.getElementById('searchBox'),
+    count: document.getElementById('channelCount'),
+    video: document.getElementById('video'),
+    placeholder: document.getElementById('placeholder'),
+    nowPlaying: document.getElementById('nowPlaying'),
+    nowGroup: document.getElementById('nowGroup'),
+    playerLog: document.getElementById('playerLog'),
+    chips: document.querySelectorAll('.chip'),
+    sidebarWrapper: document.getElementById('sidebarWrapper'),
+    collapseBtn: document.getElementById('collapseBtn'),
+    fullscreenBtn: document.getElementById('fullscreenBtn'),
+    videoWrap: document.getElementById('videoWrap'),
+  };
+
+  let channels = [];      // {name, url, logo, group, status: 'untested'|'wait'|'ok'|'bad'}
+  let currentFilter = 'all';
+  let searchTerm = '';
+  let hls = null;
+  let selectedIndex = -1;
+
+  // ---------- Persistência ----------
+  function saveUrl(url){
+    try { localStorage.setItem(STORAGE_KEY, url); } catch(e){}
+  }
+  function loadSavedUrl(){
+    try { return localStorage.getItem(STORAGE_KEY) || ''; } catch(e){ return ''; }
+  }
+  function saveChannelsCache(){
+    try { localStorage.setItem(CACHE_KEY, JSON.stringify(channels)); } catch(e){}
+  }
+  function loadChannelsCache(){
+    try {
+      const raw = localStorage.getItem(CACHE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch(e){ return null; }
+  }
+
+  // ---------- Parser M3U ----------
+  function parseM3U(text){
+    const lines = text.split(/\r?\n/);
+    const result = [];
+    let current = null;
+
+    for (let i = 0; i < lines.length; i++){
+      const line = lines[i].trim();
+      if (!line) continue;
+
+      if (line.startsWith('#EXTINF')){
+        const nameMatch = line.match(/,(.*)$/);
+        const logoMatch = line.match(/tvg-logo="([^"]*)"/i);
+        const groupMatch = line.match(/group-title="([^"]*)"/i);
+        current = {
+          name: nameMatch ? nameMatch[1].trim() : 'Sem nome',
+          logo: logoMatch ? logoMatch[1] : '',
+          group: groupMatch ? groupMatch[1] : 'Geral',
+          url: '',
+          status: 'untested'
+        };
+      } else if (line.startsWith('#')){
+        // outras tags m3u, ignorar
+        continue;
+      } else if (current){
+        current.url = line;
+        result.push(current);
+        current = null;
+      }
+    }
+    return result;
+  }
+
+  // ---------- Carregar lista ----------
+  async function loadList(url){
+    if (!url){ setStatus('Cole uma URL válida.', 'bad'); return; }
+    setStatus('Baixando lista...', 'wait');
+    els.loadBtn.disabled = true;
+
+    try{
+      const res = await fetch(url, { cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const text = await res.text();
+      const parsed = parseM3U(text);
+
+      if (parsed.length === 0){
+        setStatus('Nenhum canal encontrado. Verifique se a URL retorna um M3U válido.', 'bad');
+        els.loadBtn.disabled = false;
+        return;
+      }
+
+      channels = parsed;
+      saveUrl(url);
+      saveChannelsCache();
+      setStatus(parsed.length + ' canais encontrados. Testando disponibilidade...', 'ok');
+      render();
+      testAllChannels();
+    } catch(err){
+      setStatus('Erro ao carregar: ' + err.message + ' (pode ser bloqueio de CORS na própria lista)', 'bad');
+    } finally {
+      els.loadBtn.disabled = false;
+    }
+  }
+
+  function setStatus(msg, type){
+    els.loadStatus.innerHTML = '<span class="badge ' + (type||'') + '">' + msg + '</span>';
+  }
+
+  // ---------- Teste de CORS por canal ----------
+  async function testChannel(ch){
+    ch.status = 'wait';
+    renderChannelStatus(ch);
+    try{
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 8000);
+      const res = await fetch(ch.url, { method: 'GET', mode: 'cors', signal: controller.signal });
+      clearTimeout(timeout);
+      // se conseguiu ler a resposta sem exceção de CORS, consideramos OK
+      ch.status = res.ok ? 'ok' : 'bad';
+    } catch(err){
+      ch.status = 'bad';
+    }
+    renderChannelStatus(ch);
+  }
+
+  async function testAllChannels(){
+    // testa em lotes pequenos pra não sobrecarregar
+    const BATCH = 5;
+    for (let i = 0; i < channels.length; i += BATCH){
+      const batch = channels.slice(i, i + BATCH);
+      await Promise.all(batch.map(testChannel));
+      saveChannelsCache();
+      updateCount();
+    }
+    setStatus('Testes concluídos.', 'ok');
+  }
+
+  // ---------- Render ----------
+  function updateCount(){
+    const ok = channels.filter(c => c.status === 'ok').length;
+    const bad = channels.filter(c => c.status === 'bad').length;
+    const wait = channels.filter(c => c.status === 'wait' || c.status === 'untested').length;
+    els.count.textContent = channels.length + ' canais · 🟢 ' + ok + ' · 🔴 ' + bad + (wait ? ' · testando ' + wait : '');
+  }
+
+  function matchesFilter(ch){
+    if (currentFilter === 'ok' && ch.status !== 'ok') return false;
+    if (currentFilter === 'bad' && ch.status !== 'bad') return false;
+    if (searchTerm && !ch.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
+    return true;
+  }
+
+  function render(){
+    if (channels.length === 0){
+      els.list.innerHTML = '<div class="empty-state">Cole a URL de uma lista M3U acima e clique em Carregar.</div>';
+      return;
+    }
+    const frag = document.createDocumentFragment();
+    channels.forEach((ch, idx) => {
+      if (!matchesFilter(ch)) return;
+      const div = document.createElement('div');
+      div.className = 'channel' + (idx === selectedIndex ? ' selected' : '');
+      div.dataset.idx = idx;
+
+      const statusClass = ch.status === 'ok' ? 'ok' : ch.status === 'bad' ? 'bad' : ch.status === 'wait' ? 'wait' : 'untested';
+
+      div.innerHTML = `
+        <div class="status-dot ${statusClass}"></div>
+        ${ch.logo ? `<img src="${escapeAttr(ch.logo)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="fallback-icon" style="display:none">TV</div>`
+        : `<div class="fallback-icon">TV</div>`}
+        <div class="channel-name" title="${escapeAttr(ch.name)}">
+          ${escapeHtml(ch.name)}
+          <div class="channel-group">${escapeHtml(ch.group)}</div>
+        </div>
+      `;
+      div.addEventListener('click', () => playChannel(idx));
+      frag.appendChild(div);
+    });
+    els.list.innerHTML = '';
+    els.list.appendChild(frag);
+    updateCount();
+  }
+
+  function renderChannelStatus(ch){
+    // re-render leve: apenas atualiza o dot daquele item
+    const idx = channels.indexOf(ch);
+    const el = els.list.querySelector(`.channel[data-idx="${idx}"]`);
+    if (el){
+      const dot = el.querySelector('.status-dot');
+      if (dot){
+        dot.className = 'status-dot ' + ch.status;
+      }
+    }
+    updateCount();
+  }
+
+  function escapeHtml(str){
+    return (str||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+  function escapeAttr(str){ return escapeHtml(str); }
+
+  // ---------- Player ----------
+  function playChannel(idx){
+    const ch = channels[idx];
+    if (!ch) return;
+    selectedIndex = idx;
+    render();
+
+    els.nowPlaying.textContent = ch.name;
+    els.nowGroup.textContent = ch.group;
+    els.playerLog.textContent = 'conectando...';
+
+    els.placeholder.style.display = 'none';
+    els.video.style.display = 'block';
+
+    if (hls){
+      hls.destroy();
+      hls = null;
+    }
+
+    if (Hls.isSupported()){
+      hls = new Hls({ maxBufferLength: 30 });
+      hls.loadSource(ch.url);
+      hls.attachMedia(els.video);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        els.playerLog.textContent = 'manifesto carregado, reproduzindo';
+        els.video.play().catch(()=>{});
+      });
+      hls.on(Hls.Events.ERROR, (event, data) => {
+        if (data.fatal){
+          els.playerLog.textContent = 'erro fatal: ' + data.type + ' / ' + data.details;
+          ch.status = 'bad';
+          renderChannelStatus(ch);
+        } else {
+          els.playerLog.textContent = 'aviso: ' + data.details;
+        }
+      });
+    } else if (els.video.canPlayType('application/vnd.apple.mpegurl')){
+      // Safari nativo
+      els.video.src = ch.url;
+      els.video.addEventListener('loadedmetadata', () => els.video.play().catch(()=>{}), { once: true });
+      els.playerLog.textContent = 'reproduzindo via player nativo (Safari)';
+    } else {
+      els.playerLog.textContent = 'seu navegador não suporta HLS.';
+    }
+  }
+
+  // ---------- Eventos ----------
+  els.loadBtn.addEventListener('click', () => loadList(els.url.value.trim()));
+  els.url.addEventListener('keydown', (e) => { if (e.key === 'Enter') loadList(els.url.value.trim()); });
+
+  els.search.addEventListener('input', (e) => {
+    searchTerm = e.target.value;
+    render();
+  });
+
+  els.chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      els.chips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      currentFilter = chip.dataset.filter;
+      render();
+    });
+  });
+
+  els.collapseBtn.addEventListener('click', () => {
+    const collapsed = els.sidebarWrapper.classList.toggle('collapsed');
+    els.collapseBtn.textContent = collapsed ? '›' : '‹';
+    try { localStorage.setItem('iptvlab_sidebar_collapsed', collapsed ? '1' : '0'); } catch(e){}
+  });
+
+  els.fullscreenBtn.addEventListener('click', () => {
+    if (!document.fullscreenElement){
+      const req = els.videoWrap.requestFullscreen || els.videoWrap.webkitRequestFullscreen;
+      if (req) req.call(els.videoWrap);
+    } else {
+      const exit = document.exitFullscreen || document.webkitExitFullscreen;
+      if (exit) exit.call(document);
+    }
+  });
+
+  // ---------- Inicialização ----------
+  (function init(){
+    try {
+      if (localStorage.getItem('iptvlab_sidebar_collapsed') === '1'){
+        els.sidebarWrapper.classList.add('collapsed');
+        els.collapseBtn.textContent = '›';
+      }
+    } catch(e){}
+
+    const savedUrl = loadSavedUrl();
+    if (savedUrl){
+      els.url.value = savedUrl;
+      const cached = loadChannelsCache();
+      if (cached && cached.length){
+        channels = cached.map(c => ({...c, status: 'untested'})); // re-testar ao reabrir
+        render();
+        setStatus('Lista salva carregada (' + channels.length + ' canais). Re-testando...', 'ok');
+        testAllChannels();
+      } else {
+        loadList(savedUrl);
+      }
+    }
+  })();
+})();
+</script>
+
+</body>
+</html>
