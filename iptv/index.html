@@ -647,21 +647,60 @@
     els.loadStatus.innerHTML = '<span class="badge ' + (type||'') + '">' + msg + '</span>';
   }
 
-  // ---------- Teste de CORS por canal ----------
-  async function testChannel(ch){
-    ch.status = 'wait';
-    renderChannelStatus(ch);
-    try{
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 8000);
-      const res = await fetch(ch.url, { method: 'GET', mode: 'cors', signal: controller.signal });
-      clearTimeout(timeout);
-      // se conseguiu ler a resposta sem exceção de CORS, consideramos OK
-      ch.status = res.ok ? 'ok' : 'bad';
-    } catch(err){
-      ch.status = 'bad';
-    }
-    renderChannelStatus(ch);
+  // ---------- Teste de reprodução por canal (via hls.js real, igual ao player) ----------
+  function testChannel(ch){
+    return new Promise((resolve) => {
+      ch.status = 'wait';
+      renderChannelStatus(ch);
+
+      const testVideo = document.createElement('video');
+      testVideo.muted = true;
+      testVideo.playsInline = true;
+      testVideo.style.cssText = 'position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;';
+      document.body.appendChild(testVideo);
+
+      let testHls = null;
+      let settled = false;
+
+      const cleanup = () => {
+        clearTimeout(timeoutId);
+        if (testHls){ try { testHls.destroy(); } catch(e){} testHls = null; }
+        testVideo.pause();
+        testVideo.removeAttribute('src');
+        testVideo.load();
+        testVideo.remove();
+      };
+
+      const finish = (status) => {
+        if (settled) return;
+        settled = true;
+        ch.status = status;
+        renderChannelStatus(ch);
+        cleanup();
+        resolve();
+      };
+
+      // timeout de segurança: canal lento/travado demais também conta como indisponível
+      const timeoutId = setTimeout(() => finish('bad'), 10000);
+
+      if (window.Hls && Hls.isSupported()){
+        testHls = new Hls({ maxBufferLength: 5 });
+        testHls.loadSource(ch.url);
+        testHls.attachMedia(testVideo);
+        // manifesto parseado = stream respondeu e é um HLS válido -> considera OK
+        testHls.on(Hls.Events.MANIFEST_PARSED, () => finish('ok'));
+        testHls.on(Hls.Events.ERROR, (event, data) => {
+          if (data && data.fatal) finish('bad');
+        });
+      } else if (testVideo.canPlayType('application/vnd.apple.mpegurl')){
+        // Safari nativo: sem hls.js, usa o proprio <video>
+        testVideo.addEventListener('loadedmetadata', () => finish('ok'), { once: true });
+        testVideo.addEventListener('error', () => finish('bad'), { once: true });
+        testVideo.src = ch.url;
+      } else {
+        finish('bad');
+      }
+    });
   }
 
   async function testAllChannels(){
