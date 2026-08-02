@@ -496,11 +496,57 @@
     hiddenCount: document.getElementById('hiddenCount'),
   };
 
-  let channels = [];      // {name, url, logo, group, status: 'untested'|'wait'|'ok'|'bad'}
+  let channels = [];      // {name, url, logo, group, category, status: 'untested'|'wait'|'ok'|'bad'}
   let currentFilter = 'all';
   let searchTerm = '';
   let hls = null;
   let selectedIndex = -1;
+
+  // ---------- Categorias curadas (PT-BR) ----------
+  const CATEGORIES = [
+    { id:'futebol',        emoji:'⚽', name:'Futebol',
+      keywords:['futebol','premiere','libertadores','brasileirao','sul-americana','copa do brasil','copa america','champions league','uefa','fifa','paulista','carioca','mineiro','gaucho'] },
+    { id:'esportes',       emoji:'🏆', name:'Esportes',
+      keywords:['sport','espn','combate','ufc','nba','nfl',' f1','formula 1','tenis','volei','basquete','fight','band sports'] },
+    { id:'tv-aberta',      emoji:'📺', name:'TV Aberta',
+      keywords:['globo','sbt','record','rede tv','redetv','cultura','gazeta'] },
+    { id:'noticias',       emoji:'📰', name:'Notícias',
+      keywords:['news','noticia','jornal','globonews','cnn','bandnews'] },
+    { id:'filmes',         emoji:'🎬', name:'Filmes',
+      keywords:['filme','movie','cinema','telecine','hbo','paramount','cinemax'] },
+    { id:'series',         emoji:'📽️', name:'Séries',
+      keywords:['serie','series','tv show','warner'] },
+    { id:'infantil',       emoji:'🧒', name:'Infantil',
+      keywords:['kids','infantil','cartoon','disney','discovery kids','nickelodeon','nick jr','gloob'] },
+    { id:'documentarios',  emoji:'📚', name:'Documentários e Cultura',
+      keywords:['discovery','history','nat geo','national geographic','education','documentario','curiosity'] },
+    { id:'religioso',      emoji:'✝️', name:'Religioso',
+      keywords:['gospel','catolic','evangel','religio','deus','jesus','oracao'] },
+    { id:'musica',         emoji:'🎵', name:'Música',
+      keywords:['music','musica','mtv','clipe'] },
+    { id:'variedades',     emoji:'🎭', name:'Variedades',
+      keywords:['entertainment','variedades','lifestyle','reality'] },
+    { id:'outros',         emoji:'📦', name:'Outros', keywords:[] }, // fallback: nunca perde canal
+  ];
+
+  function normalizeText(str){
+    return (str || '')
+      .toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // remove acentos
+  }
+
+  function classify(ch){
+    const text = normalizeText((ch.group || '') + ' ' + (ch.name || ''));
+    for (const cat of CATEGORIES){
+      if (cat.id === 'outros') continue;
+      if (cat.keywords.some(kw => text.includes(kw))) return cat.id;
+    }
+    return 'outros';
+  }
+
+  function categoryById(id){
+    return CATEGORIES.find(c => c.id === id) || CATEGORIES[CATEGORIES.length - 1];
+  }
 
   // ---------- Persistência ----------
   function saveUrl(url){
@@ -540,6 +586,7 @@
           url: '',
           status: 'untested'
         };
+        current.category = classify(current);
       } else if (line.startsWith('#')){
         // outras tags m3u, ignorar
         continue;
@@ -648,30 +695,30 @@
 
   function matchesFilter(ch){
     if (ch.status === 'bad') return false; // bloqueados nunca aparecem na navegação normal
-    if (currentFilter !== 'all' && (ch.group || 'Geral') !== currentFilter) return false;
+    if (currentFilter !== 'all' && ch.category !== currentFilter) return false;
     if (searchTerm && !ch.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
     return true;
   }
 
-  function getAvailableGroups(){
-    const set = new Set();
+  function getAvailableCategories(){
+    const present = new Set();
     channels.forEach(ch => {
-      if (ch.status !== 'bad') set.add(ch.group || 'Geral');
+      if (ch.status !== 'bad') present.add(ch.category);
     });
-    return Array.from(set).sort((a,b) => a.localeCompare(b, 'pt-BR'));
+    return CATEGORIES.filter(c => present.has(c.id));
   }
 
   function buildCategoryChips(){
     if (!els.chipRow) return;
-    // se o filtro atual (categoria) sumiu porque ficou 100% bloqueada, volta pra "Todos"
-    const groups = getAvailableGroups();
-    if (currentFilter !== 'all' && !groups.includes(currentFilter)){
-      currentFilter = 'all';
+    const cats = getAvailableCategories();
+    const availableIds = cats.map(c => c.id);
+    if (currentFilter !== 'all' && !availableIds.includes(currentFilter)){
+      currentFilter = 'all'; // categoria sumiu (ficou 100% bloqueada), volta pro Todos
     }
 
     els.chipRow.innerHTML = '';
     els.chipRow.appendChild(createChip('Todos', 'all'));
-    groups.forEach(g => els.chipRow.appendChild(createChip(g, g)));
+    cats.forEach(c => els.chipRow.appendChild(createChip(c.emoji + ' ' + c.name, c.id)));
   }
 
   function createChip(label, value){
@@ -707,7 +754,7 @@
         : `<div class="fallback-icon">TV</div>`}
         <div class="channel-name" title="${escapeAttr(ch.name)}">
           ${escapeHtml(ch.name)}
-          <div class="channel-group">${escapeHtml(ch.group)}</div>
+          <div class="channel-group">${escapeHtml(categoryById(ch.category).name)}</div>
         </div>
       `;
       div.addEventListener('click', () => playChannel(idx));
@@ -744,7 +791,7 @@
     render();
 
     els.nowPlaying.textContent = ch.name;
-    els.nowGroup.textContent = ch.group;
+    els.nowGroup.textContent = categoryById(ch.category).name;
     els.playerLog.textContent = 'conectando...';
 
     els.placeholder.style.display = 'none';
