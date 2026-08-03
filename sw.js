@@ -1,4 +1,4 @@
-const CACHE_NAME = 'placar-v3';
+const CACHE_NAME = 'placar-v4';
 
 self.addEventListener('install', e => {
   self.skipWaiting();
