@@ -19,13 +19,52 @@
   );
   </script>
   <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icon-192.png">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- Gerado em: 23/11/2026, 19:00:58 | 175 jogos | modo janela 2026-11-22 a 2026-12-03 (1 dias antes, 10 depois) -->
+  <style>
+    .faixa-app { display:block; width:100%; box-sizing:border-box; padding:10px 12px; border:0; background:#f5c518; color:#12151e;
+      text-align:center; cursor:pointer; font:800 14px/1.3 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; text-decoration:none; }
+    .faixa-app:active { background:#e0b310; }
+    .faixa-app:focus-visible { outline:3px solid #12151e; outline-offset:-3px; }
+    .faixa-app[hidden] { display:none; }
+  </style>
+  <!-- Gerado em: 23/11/2026, 20:56:17 | 175 jogos | modo janela 2026-11-22 a 2026-12-03 (1 dias antes, 10 depois) -->
 </head>
 <body>
 
+  <button id="faixa-app" class="faixa-app" type="button" hidden>📲 Instalar o app do Placar</button>
+  <script>
+  (function () {
+    var f = document.getElementById('faixa-app');
+    if (!f) return;
+    var jaNoApp = window.matchMedia('(display-mode: standalone)').matches ||
+                  navigator.standalone === true ||
+                  (document.referrer || '').indexOf('android-app://') === 0;
+    if (jaNoApp) return;
+    var ios = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    var pedido = null;
+    window.addEventListener('beforeinstallprompt', function (e) {
+      e.preventDefault();
+      pedido = e;
+      f.hidden = false;
+    });
+    window.addEventListener('appinstalled', function () {
+      pedido = null;
+      f.hidden = true;
+    });
+    if (ios) f.hidden = false;
+    f.addEventListener('click', function () {
+      if (pedido) {
+        pedido.prompt();
+        pedido.userChoice.then(function () { pedido = null; f.hidden = true; });
+      } else if (ios) {
+        f.textContent = 'Toque em Compartilhar e depois em Adicionar à Tela de Início';
+      }
+    });
+  })();
+  </script>
   <header>
     <div class="header-inner">
       <a href="/" class="logo">
@@ -54,7 +93,7 @@
       <button class="filtro-btn" onclick="filtrarStatus(this, 'encerrado')">Encerrados</button>
     </div>
 
-    <!-- JOGOS HARDCODED — gerados em 23/11/2026, 19:00:58 -->
+    <!-- JOGOS HARDCODED — gerados em 23/11/2026, 20:56:17 -->
     <div id="jogos-container">
       <div class="grupo-liga" data-liga="2">
   <div class="grupo-liga-header">
@@ -1136,10 +1175,10 @@
   data-id="1557469"
   data-date="2026-11-23"
   data-liga="39"
-  data-status="2H"
+  data-status="FT"
   data-kickoff="2026-11-23T20:00:00+00:00"
   data-home="Brentford"
-  data-away="Everton"
+  data-away="Everton" data-placar-fixo="4 × 0"
   style="cursor:default">
   <div class="jogo-linha">
     <div class="time-esquerda" tabindex="0" role="button" aria-label="Brentford">
@@ -1149,8 +1188,8 @@
     <div class="placar-centro">
       <span class="placar-numeros" id="placar-1557469">4 × 0</span>
       <div class="placar-penaltis" id="penaltis-1557469" style="display:none"></div>
-      <div class="placar-status ao-vivo" id="status-1557469">90'</div>
-      <div class="placar-data" id="data-1557469" style="display:none"></div>
+      <div class="placar-status encerrado" id="status-1557469">Encerrado</div>
+      <div class="placar-data" id="data-1557469">23/11/2026</div>
       <div class="card-liga-nome" id="liga-1557469">Premier League</div>
     </div>
     <div class="time-direita" tabindex="0" role="button" aria-label="Everton">
@@ -2147,7 +2186,7 @@
   data-id="1492467"
   data-date="2026-11-23"
   data-liga="71"
-  data-status="NS"
+  data-status="2H"
   data-kickoff="2026-11-23T22:30:00+00:00"
   data-home="Internacional"
   data-away="Vitoria"
@@ -2158,10 +2197,10 @@
       <span class="time-nome">INT</span>
     </div>
     <div class="placar-centro">
-      <span class="placar-numeros" id="placar-1492467">×</span>
+      <span class="placar-numeros" id="placar-1492467">1 × 3</span>
       <div class="placar-penaltis" id="penaltis-1492467" style="display:none"></div>
-      <div class="placar-status agendado" id="status-1492467">19:30</div>
-      <div class="placar-data" id="data-1492467">23/11/2026</div>
+      <div class="placar-status ao-vivo" id="status-1492467">59'</div>
+      <div class="placar-data" id="data-1492467" style="display:none"></div>
       <div class="card-liga-nome" id="liga-1492467">Brasileirão Série A</div>
     </div>
     <div class="time-direita" tabindex="0" role="button" aria-label="Vitoria">
@@ -2174,7 +2213,7 @@
   data-id="1492463"
   data-date="2026-11-23"
   data-liga="71"
-  data-status="NS"
+  data-status="1H"
   data-kickoff="2026-11-23T23:00:00+00:00"
   data-home="Botafogo"
   data-away="Sao Paulo"
@@ -2185,10 +2224,10 @@
       <span class="time-nome">BOT</span>
     </div>
     <div class="placar-centro">
-      <span class="placar-numeros" id="placar-1492463">×</span>
+      <span class="placar-numeros" id="placar-1492463">0 × 1</span>
       <div class="placar-penaltis" id="penaltis-1492463" style="display:none"></div>
-      <div class="placar-status agendado" id="status-1492463">20:00</div>
-      <div class="placar-data" id="data-1492463">23/11/2026</div>
+      <div class="placar-status ao-vivo" id="status-1492463">45'</div>
+      <div class="placar-data" id="data-1492463" style="display:none"></div>
       <div class="card-liga-nome" id="liga-1492463">Brasileirão Série A</div>
     </div>
     <div class="time-direita" tabindex="0" role="button" aria-label="Sao Paulo">
@@ -5928,7 +5967,7 @@
   }
 
   // ── PWA ──
-  if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
+  if ('serviceWorker' in navigator) window.addEventListener('load', function () { navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch(function () {}); });
   if (window.matchMedia('(display-mode: standalone)').matches) {
     if (!localStorage.getItem('pf_uid')) localStorage.setItem('pf_uid', crypto.randomUUID());
     navigator.sendBeacon(API_URL + '/pwa-event', JSON.stringify({evento:'sessao_standalone',uid:localStorage.getItem('pf_uid')}));
