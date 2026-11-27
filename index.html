@@ -30,7 +30,7 @@
     .faixa-app:focus-visible { outline:3px solid #12151e; outline-offset:-3px; }
     .faixa-app[hidden] { display:none; }
   </style>
-  <!-- Gerado em: 26/11/2026, 21:34:51 | v34 | 195 jogos | modo janela 2026-11-25 a 2026-12-06 (1 dias antes, 10 depois) -->
+  <!-- Gerado em: 26/11/2026, 21:56:58 | v35 | 195 jogos | modo janela 2026-11-25 a 2026-12-06 (1 dias antes, 10 depois) -->
 </head>
 <body>
 
@@ -80,6 +80,8 @@
     </div>
   </nav>
 
+  <div id="barra-tabela" class="barra-tabela" hidden><button type="button" id="btn-tabela" class="btn-tabela">📊 Tabela ↓</button></div>
+
   <main class="container" role="main">
     <div class="secao-header">
       <h1 class="secao-titulo">🔥 Jogos de <span>Hoje</span></h1>
@@ -92,7 +94,7 @@
       <button class="filtro-btn" onclick="filtrarStatus(this, 'encerrado')">Encerrados</button>
     </div>
 
-    <!-- JOGOS HARDCODED — gerados em 26/11/2026, 21:34:51 -->
+    <!-- JOGOS HARDCODED — gerados em 26/11/2026, 21:56:58 -->
     <div id="jogos-container">
       <div class="grupo-liga" data-liga="71">
   <div class="grupo-liga-header">
@@ -145,9 +147,9 @@
       <span class="time-nome">SAO</span>
     </div>
     <div class="placar-centro">
-      <span class="placar-numeros" id="placar-1492478">1 × 1</span>
+      <span class="placar-numeros" id="placar-1492478">2 × 1</span>
       <div class="placar-penaltis" id="penaltis-1492478" style="display:none"></div>
-      <div class="placar-status ao-vivo" id="status-1492478">69'</div>
+      <div class="placar-status ao-vivo" id="status-1492478">90'</div>
       <div class="placar-data" id="data-1492478" style="display:none"></div>
       <div class="card-liga-nome" id="liga-1492478">Brasileirão Série A</div>
     </div>
@@ -5920,7 +5922,7 @@
       <a href="contato/">Contato</a>
     </div>
     <p class="footer-copy">© 2026 placardofutebol.com — Resultados ao vivo</p>
-    <p class="footer-copy" style="font-size:11px;opacity:.5;margin-top:6px">Home gerada em 26/11/2026 às 21:34 · v34</p>
+    <p class="footer-copy" style="font-size:11px;opacity:.5;margin-top:6px">Home gerada em 26/11/2026 às 21:56 · v35</p>
   </footer>
 
   <style>
@@ -5973,12 +5975,19 @@
     .tb-nome{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
     .tb-nome-sig{display:none}
     .tb-pts{font-weight:800;font-size:15px}
-    .tb-tabela .z-lib{color:#1565c0}.tb-tabela .z-pre{color:#4a90d9}.tb-tabela .z-sul{color:#e8890c}.tb-tabela .z-reb{color:#d32f2f}
+    .tabela-br .z-lib{--zc:#1565c0}.tabela-br .z-pre{--zc:#4a90d9}.tabela-br .z-sul{--zc:#e8890c}.tabela-br .z-reb{--zc:#d32f2f}
+    .tb-tabela td.tb-pos{color:var(--zc,#667)}
     .tb-mais{display:block;width:100%;padding:12px;border:0;border-top:1px solid #eef0f2;background:#f9faf9;color:#1a7a30;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
     .tb-mais:hover{background:#eef6ef}
     .tb-mais:focus-visible{outline:2px solid #1a7a30;outline-offset:-2px}
     .tb-legenda{display:flex;flex-wrap:wrap;gap:6px 16px;padding:10px 16px 14px;font-size:11px;color:#667;border-top:1px solid #eef0f2}
-    .tb-legenda span:before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;background:currentColor}
+    .tb-legenda span:before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:var(--zc,#999)}
+    /* v35: barra fina com o atalho Tabela/Jogos */
+    .barra-tabela{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:center;height:34px;background:rgba(255,255,255,.96);border-bottom:1px solid #e3e6e8}
+    .barra-tabela[hidden]{display:none}
+    .btn-tabela{border:1px solid #1a7a30;background:#fff;color:#1a7a30;border-radius:999px;padding:3px 18px;font:inherit;font-size:12px;font-weight:700;line-height:1.4;cursor:pointer;-webkit-tap-highlight-color:transparent}
+    .btn-tabela:hover,.btn-tabela:active{background:#1a7a30;color:#fff}
+    .btn-tabela:focus-visible{outline:2px solid #1a7a30;outline-offset:2px}
     @media(max-width:520px){
       .tb-nome-full{display:none}.tb-nome-sig{display:inline}
       .tb-tabela{font-size:13px}.tb-tabela th,.tb-tabela td{padding-left:3px;padding-right:3px}
@@ -6992,7 +7001,7 @@
   })();
 
   // ── INIT ──
-  console.info('Placar do Futebol — home gerada em 26/11/2026 às 21:34 (v34)');
+  console.info('Placar do Futebol — home gerada em 26/11/2026 às 21:56 (v35)');
   exibirData();
   registrarCardsVivosNoBoot();     // ← cards já nascidos "ao vivo" no HTML, mesmo sem snapshot salvo
   restaurarSnapshotsVivos();       // ← snapshots ao vivo (jogo em andamento sobrevive a reload)
@@ -7093,9 +7102,11 @@
      3) A API oficial (/standings via proxy) corrige tudo, time a time.
      Recalcula sempre do zero (base + jogos novos encerrados) — nunca conta um jogo duas vezes. */
   (function () {
-    var BASE = {"liga":"71","season":2026,"nome":"Brasileirão Série A","geradoEm":"2026-11-27T00:33:47.819Z","ids":[1492116,1492119,1492114,1492110,1492115,1492113,1492112,1492118,1492117,1492111,1492124,1492122,1492128,1492127,1492126,1492125,1492121,1492129,1492123,1492139,1492132,1492136,1492131,1492137,1492138,1492130,1492134,1492133,1492135,1492120,1492142,1492148,1492143,1492144,1492147,1492146,1492149,1492156,1492151,1492152,1492154,1492153,1492157,1492159,1492158,1492155,1492169,1492160,1492166,1492165,1492168,1492167,1492163,1492164,1492161,1492162,1492172,1492177,1492170,1492171,1492176,1492178,1492179,1492175,1492174,1492173,1492181,1492184,1492187,1492188,1492180,1492183,1492186,1492185,1492189,1492182,1492150,1492197,1492191,1492190,1492195,1492194,1492196,1492199,1492193,1492198,1492192,1492208,1492204,1492209,1492202,1492205,1492200,1492201,1492203,1492207,1492206,1492219,1492217,1492216,1492218,1492215,1492210,1492211,1492214,1492212,1492213,1492221,1492228,1492229,1492223,1492225,1492227,1492222,1492226,1492220,1492224,1492232,1492233,1492238,1492239,1492237,1492235,1492230,1492234,1492236,1492231,1492241,1492247,1492249,1492240,1492243,1492248,1492244,1492245,1492242,1492246,1492253,1492254,1492251,1492250,1492257,1492258,1492252,1492256,1492255,1492259,1492267,1492261,1492266,1492268,1492269,1492262,1492263,1492265,1492264,1492260,1492277,1492279,1492274,1492275,1492273,1492272,1492276,1492270,1492278,1492271,1492284,1492280,1492281,1492285,1492288,1492282,1492286,1492289,1492283,1492287,1492291,1492299,1492140,1492295,1492297,1492290,1492294,1492296,1492298,1492292,1492141,1492293,1492308,1492300,1492309,1492301,1492303,1492304,1492305,1492302,1492306,1492307,1492316,1492317,1492315,1492319,1492313,1492314,1492326,1492328,1492323,1492321,1492324,1492320,1492327,1492329,1492322,1492325,1492334,1492330,1492337,1492332,1492338,1492331,1492339,1492336,1492333,1492335,1492345,1492346,1492344,1492347,1492349,1492341,1492348,1492342,1492343,1492340,1492351,1492358,1492359,1492350,1492354,1492353,1492355,1492356,1492352,1492357,1492145,1492361,1492368,1492365,1492363,1492366,1492364,1492367,1492360,1492362,1492369,1492374,1492376,1492370,1492373,1492378,1492372,1492379,1492377,1492375,1492371,1492311,1492381,1492385,1492386,1492388,1492387,1492384,1492382,1492389,1492383,1492380,1492318,1492310,1492395,1492392,1492397,1492399,1492391,1492393,1492398,1492390,1492396,1492394,1492409,1492408,1492400,1492407,1492405,1492406,1492401,1492404,1492403,1492402,1492417,1492413,1492411,1492410,1492419,1492415,1492416,1492412,1492418,1492414,1492422,1492424,1492429,1492425,1492426,1492428,1492420,1492427,1492421,1492423,1492435,1492438,1492432,1492431,1492437,1492430,1492439,1492436,1492433,1492434,1492442,1492443,1492446,1492445,1492440,1492441,1492448,1492447,1492444,1492449,1492455,1492312,1492451,1492456,1492453,1492452,1492454,1492450,1492458,1492459,1492457,1492468,1492462,1492465,1492460,1492466,1492464,1492467,1492463,1492469,1492472,1492461],"rows":[{"id":"127","n":"Flamengo","s":"FLA","logo":"https://media.api-sports.io/football/teams/127.png","rk":1,"pts":80,"j":36,"v":24,"e":8,"d":4,"gp":74,"gc":31,"z":"Promotion - Copa Libertadores (Group Stage)"},{"id":"121","n":"Palmeiras","s":"PAL","logo":"https://media.api-sports.io/football/teams/121.png","rk":2,"pts":74,"j":37,"v":21,"e":11,"d":5,"gp":64,"gc":29,"z":"Promotion - Copa Libertadores (Group Stage)"},{"id":"135","n":"Cruzeiro","s":"CRU","logo":"https://media.api-sports.io/football/teams/135.png","rk":3,"pts":66,"j":36,"v":20,"e":6,"d":10,"gp":59,"gc":50,"z":"Promotion - Copa Libertadores (Group Stage)"},{"id":"124","n":"Fluminense","s":"FLU","logo":"https://media.api-sports.io/football/teams/124.png","rk":4,"pts":63,"j":36,"v":18,"e":9,"d":9,"gp":57,"gc":42,"z":"Promotion - Copa Libertadores (Group Stage)"},{"id":"134","n":"Atletico Paranaense","s":"CAP","logo":"https://media.api-sports.io/football/teams/134.png","rk":5,"pts":57,"j":36,"v":16,"e":9,"d":11,"gp":56,"gc":47,"z":"Promotion - Copa Libertadores (Qualification)"},{"id":"118","n":"Bahia","s":"BAH","logo":"https://media.api-sports.io/football/teams/118.png","rk":6,"pts":54,"j":36,"v":14,"e":12,"d":10,"gp":50,"gc":46,"z":"Promotion - Copa Libertadores (Qualification)"},{"id":"1062","n":"Atletico-MG","s":"ATL","logo":"https://media.api-sports.io/football/teams/1062.png","rk":7,"pts":52,"j":36,"v":14,"e":10,"d":12,"gp":45,"gc":41,"z":"Promotion - Copa Sudamericana (Group Stage)"},{"id":"794","n":"RB Bragantino","s":"RB ","logo":"https://media.api-sports.io/football/teams/794.png","rk":8,"pts":50,"j":36,"v":14,"e":8,"d":14,"gp":46,"gc":41,"z":"Promotion - Copa Sudamericana (Group Stage)"},{"id":"128","n":"Santos","s":"SAN","logo":"https://media.api-sports.io/football/teams/128.png","rk":9,"pts":50,"j":36,"v":13,"e":11,"d":12,"gp":51,"gc":51,"z":"Promotion - Copa Sudamericana (Group Stage)"},{"id":"133","n":"Vasco DA Gama","s":"VAS","logo":"https://media.api-sports.io/football/teams/133.png","rk":10,"pts":47,"j":36,"v":13,"e":8,"d":15,"gp":47,"gc":52,"z":"Promotion - Copa Sudamericana (Group Stage)"},{"id":"126","n":"Sao Paulo","s":"SAO","logo":"https://media.api-sports.io/football/teams/126.png","rk":11,"pts":45,"j":36,"v":12,"e":9,"d":15,"gp":40,"gc":41,"z":"Promotion - Copa Sudamericana (Group Stage)"},{"id":"147","n":"Coritiba","s":"COR","logo":"https://media.api-sports.io/football/teams/147.png","rk":12,"pts":45,"j":36,"v":12,"e":9,"d":15,"gp":41,"gc":52,"z":"Promotion - Copa Sudamericana (Group Stage)"},{"id":"136","n":"Vitoria","s":"VIT","logo":"https://media.api-sports.io/football/teams/136.png","rk":13,"pts":44,"j":36,"v":12,"e":8,"d":16,"gp":42,"gc":54,"z":""},{"id":"120","n":"Botafogo","s":"BOT","logo":"https://media.api-sports.io/football/teams/120.png","rk":14,"pts":43,"j":36,"v":11,"e":10,"d":15,"gp":47,"gc":58,"z":""},{"id":"131","n":"Corinthians","s":"COR","logo":"https://media.api-sports.io/football/teams/131.png","rk":15,"pts":41,"j":36,"v":10,"e":11,"d":15,"gp":41,"gc":43,"z":""},{"id":"130","n":"Gremio","s":"GRE","logo":"https://media.api-sports.io/football/teams/130.png","rk":16,"pts":41,"j":36,"v":10,"e":11,"d":15,"gp":40,"gc":47,"z":"Promotion - Copa Libertadores (Group Stage)"},{"id":"7848","n":"Mirassol","s":"MIR","logo":"https://media.api-sports.io/football/teams/7848.png","rk":17,"pts":41,"j":36,"v":10,"e":11,"d":15,"gp":39,"gc":49,"z":"Relegation - Serie B"},{"id":"119","n":"Internacional","s":"INT","logo":"https://media.api-sports.io/football/teams/119.png","rk":18,"pts":38,"j":36,"v":9,"e":11,"d":16,"gp":41,"gc":49,"z":"Relegation - Serie B"},{"id":"1198","n":"Remo","s":"REM","logo":"https://media.api-sports.io/football/teams/1198.png","rk":19,"pts":32,"j":36,"v":7,"e":11,"d":18,"gp":41,"gc":61,"z":"Relegation - Serie B"},{"id":"132","n":"Chapecoense-sc","s":"CHA","logo":"https://media.api-sports.io/football/teams/132.png","rk":20,"pts":24,"j":37,"v":5,"e":9,"d":23,"gp":37,"gc":74,"z":"Relegation - Serie B"}]};
+    var BASE = {"liga":"71","season":2026,"nome":"Brasileirão Série A","geradoEm":"2026-11-27T00:56:50.076Z","ids":[1492116,1492119,1492114,1492110,1492115,1492113,1492112,1492118,1492117,1492111,1492124,1492122,1492128,1492127,1492126,1492125,1492121,1492129,1492123,1492139,1492132,1492136,1492131,1492137,1492138,1492130,1492134,1492133,1492135,1492120,1492142,1492148,1492143,1492144,1492147,1492146,1492149,1492156,1492151,1492152,1492154,1492153,1492157,1492159,1492158,1492155,1492169,1492160,1492166,1492165,1492168,1492167,1492163,1492164,1492161,1492162,1492172,1492177,1492170,1492171,1492176,1492178,1492179,1492175,1492174,1492173,1492181,1492184,1492187,1492188,1492180,1492183,1492186,1492185,1492189,1492182,1492150,1492197,1492191,1492190,1492195,1492194,1492196,1492199,1492193,1492198,1492192,1492208,1492204,1492209,1492202,1492205,1492200,1492201,1492203,1492207,1492206,1492219,1492217,1492216,1492218,1492215,1492210,1492211,1492214,1492212,1492213,1492221,1492228,1492229,1492223,1492225,1492227,1492222,1492226,1492220,1492224,1492232,1492233,1492238,1492239,1492237,1492235,1492230,1492234,1492236,1492231,1492241,1492247,1492249,1492240,1492243,1492248,1492244,1492245,1492242,1492246,1492253,1492254,1492251,1492250,1492257,1492258,1492252,1492256,1492255,1492259,1492267,1492261,1492266,1492268,1492269,1492262,1492263,1492265,1492264,1492260,1492277,1492279,1492274,1492275,1492273,1492272,1492276,1492270,1492278,1492271,1492284,1492280,1492281,1492285,1492288,1492282,1492286,1492289,1492283,1492287,1492291,1492299,1492140,1492295,1492297,1492290,1492294,1492296,1492298,1492292,1492141,1492293,1492308,1492300,1492309,1492301,1492303,1492304,1492305,1492302,1492306,1492307,1492316,1492317,1492315,1492319,1492313,1492314,1492326,1492328,1492323,1492321,1492324,1492320,1492327,1492329,1492322,1492325,1492334,1492330,1492337,1492332,1492338,1492331,1492339,1492336,1492333,1492335,1492345,1492346,1492344,1492347,1492349,1492341,1492348,1492342,1492343,1492340,1492351,1492358,1492359,1492350,1492354,1492353,1492355,1492356,1492352,1492357,1492145,1492361,1492368,1492365,1492363,1492366,1492364,1492367,1492360,1492362,1492369,1492374,1492376,1492370,1492373,1492378,1492372,1492379,1492377,1492375,1492371,1492311,1492381,1492385,1492386,1492388,1492387,1492384,1492382,1492389,1492383,1492380,1492318,1492310,1492395,1492392,1492397,1492399,1492391,1492393,1492398,1492390,1492396,1492394,1492409,1492408,1492400,1492407,1492405,1492406,1492401,1492404,1492403,1492402,1492417,1492413,1492411,1492410,1492419,1492415,1492416,1492412,1492418,1492414,1492422,1492424,1492429,1492425,1492426,1492428,1492420,1492427,1492421,1492423,1492435,1492438,1492432,1492431,1492437,1492430,1492439,1492436,1492433,1492434,1492442,1492443,1492446,1492445,1492440,1492441,1492448,1492447,1492444,1492449,1492455,1492312,1492451,1492456,1492453,1492452,1492454,1492450,1492458,1492459,1492457,1492468,1492462,1492465,1492460,1492466,1492464,1492467,1492463,1492469,1492472,1492461],"rows":[{"id":"127","n":"Flamengo","s":"FLA","logo":"https://media.api-sports.io/football/teams/127.png","rk":1,"pts":80,"j":36,"v":24,"e":8,"d":4,"gp":74,"gc":31,"z":"Promotion - Copa Libertadores (Group Stage)"},{"id":"121","n":"Palmeiras","s":"PAL","logo":"https://media.api-sports.io/football/teams/121.png","rk":2,"pts":74,"j":37,"v":21,"e":11,"d":5,"gp":64,"gc":29,"z":"Promotion - Copa Libertadores (Group Stage)"},{"id":"135","n":"Cruzeiro","s":"CRU","logo":"https://media.api-sports.io/football/teams/135.png","rk":3,"pts":66,"j":36,"v":20,"e":6,"d":10,"gp":59,"gc":50,"z":"Promotion - Copa Libertadores (Group Stage)"},{"id":"124","n":"Fluminense","s":"FLU","logo":"https://media.api-sports.io/football/teams/124.png","rk":4,"pts":63,"j":36,"v":18,"e":9,"d":9,"gp":57,"gc":42,"z":"Promotion - Copa Libertadores (Group Stage)"},{"id":"134","n":"Atletico Paranaense","s":"CAP","logo":"https://media.api-sports.io/football/teams/134.png","rk":5,"pts":57,"j":36,"v":16,"e":9,"d":11,"gp":56,"gc":47,"z":"Promotion - Copa Libertadores (Qualification)"},{"id":"118","n":"Bahia","s":"BAH","logo":"https://media.api-sports.io/football/teams/118.png","rk":6,"pts":54,"j":36,"v":14,"e":12,"d":10,"gp":50,"gc":46,"z":"Promotion - Copa Libertadores (Qualification)"},{"id":"1062","n":"Atletico-MG","s":"ATL","logo":"https://media.api-sports.io/football/teams/1062.png","rk":7,"pts":52,"j":36,"v":14,"e":10,"d":12,"gp":45,"gc":41,"z":"Promotion - Copa Sudamericana (Group Stage)"},{"id":"794","n":"RB Bragantino","s":"RB ","logo":"https://media.api-sports.io/football/teams/794.png","rk":8,"pts":50,"j":36,"v":14,"e":8,"d":14,"gp":46,"gc":41,"z":"Promotion - Copa Sudamericana (Group Stage)"},{"id":"128","n":"Santos","s":"SAN","logo":"https://media.api-sports.io/football/teams/128.png","rk":9,"pts":50,"j":36,"v":13,"e":11,"d":12,"gp":51,"gc":51,"z":"Promotion - Copa Sudamericana (Group Stage)"},{"id":"133","n":"Vasco DA Gama","s":"VAS","logo":"https://media.api-sports.io/football/teams/133.png","rk":10,"pts":47,"j":36,"v":13,"e":8,"d":15,"gp":47,"gc":52,"z":"Promotion - Copa Sudamericana (Group Stage)"},{"id":"126","n":"Sao Paulo","s":"SAO","logo":"https://media.api-sports.io/football/teams/126.png","rk":11,"pts":45,"j":36,"v":12,"e":9,"d":15,"gp":40,"gc":41,"z":"Promotion - Copa Sudamericana (Group Stage)"},{"id":"147","n":"Coritiba","s":"COR","logo":"https://media.api-sports.io/football/teams/147.png","rk":12,"pts":45,"j":36,"v":12,"e":9,"d":15,"gp":41,"gc":52,"z":"Promotion - Copa Sudamericana (Group Stage)"},{"id":"136","n":"Vitoria","s":"VIT","logo":"https://media.api-sports.io/football/teams/136.png","rk":13,"pts":44,"j":36,"v":12,"e":8,"d":16,"gp":42,"gc":54,"z":""},{"id":"120","n":"Botafogo","s":"BOT","logo":"https://media.api-sports.io/football/teams/120.png","rk":14,"pts":43,"j":36,"v":11,"e":10,"d":15,"gp":47,"gc":58,"z":""},{"id":"131","n":"Corinthians","s":"COR","logo":"https://media.api-sports.io/football/teams/131.png","rk":15,"pts":41,"j":36,"v":10,"e":11,"d":15,"gp":41,"gc":43,"z":""},{"id":"130","n":"Gremio","s":"GRE","logo":"https://media.api-sports.io/football/teams/130.png","rk":16,"pts":41,"j":36,"v":10,"e":11,"d":15,"gp":40,"gc":47,"z":"Promotion - Copa Libertadores (Group Stage)"},{"id":"7848","n":"Mirassol","s":"MIR","logo":"https://media.api-sports.io/football/teams/7848.png","rk":17,"pts":41,"j":36,"v":10,"e":11,"d":15,"gp":39,"gc":49,"z":"Relegation - Serie B"},{"id":"119","n":"Internacional","s":"INT","logo":"https://media.api-sports.io/football/teams/119.png","rk":18,"pts":38,"j":36,"v":9,"e":11,"d":16,"gp":41,"gc":49,"z":"Relegation - Serie B"},{"id":"1198","n":"Remo","s":"REM","logo":"https://media.api-sports.io/football/teams/1198.png","rk":19,"pts":32,"j":36,"v":7,"e":11,"d":18,"gp":41,"gc":61,"z":"Relegation - Serie B"},{"id":"132","n":"Chapecoense-sc","s":"CHA","logo":"https://media.api-sports.io/football/teams/132.png","rk":20,"pts":24,"j":37,"v":5,"e":9,"d":23,"gp":37,"gc":74,"z":"Relegation - Serie B"}]};
     var secao = document.getElementById('secao-tabela-br');
     if (!BASE || !secao) return;
+    var barra = document.getElementById('barra-tabela');
+    var btnTab = document.getElementById('btn-tabela');
 
     var LIGA = BASE.liga, SEASON = BASE.season;
     var LIMITE = 10;
@@ -7225,6 +7236,7 @@
       }
       secao.innerHTML = h;
       secao.hidden = false;
+      if (barra) { barra.hidden = false; ajustarBarra(); atualizarModo(); }
     }
 
     secao.addEventListener('click', function (e) {
@@ -7288,6 +7300,58 @@
       setTimeout(buscarOficial, 20000);
       setTimeout(buscarOficial, 120000);
     };
+
+
+    // ── v35: barra fina fixa com o atalho Tabela ↓ / Jogos ↑ ──
+    var modoBarra = 'tabela';
+
+    // Altura do que já fica preso no topo (cabeçalho/nav, se forem fixos no site)
+    function alturaTopoFixo() {
+      var t = 0;
+      ['header', '.nav-ligas'].forEach(function (sel) {
+        var el = document.querySelector(sel);
+        if (!el) return;
+        var p = window.getComputedStyle(el).position;
+        if (p === 'sticky' || p === 'fixed') t += el.getBoundingClientRect().height;
+      });
+      return t;
+    }
+    function ajustarBarra() {
+      if (barra) barra.style.top = alturaTopoFixo() + 'px';
+    }
+    function pintarBarra() {
+      if (!btnTab) return;
+      if (modoBarra === 'tabela') {
+        btnTab.textContent = '📊 Tabela ↓';
+        btnTab.setAttribute('aria-label', 'Ir para a tabela do ' + BASE.nome);
+      } else {
+        btnTab.textContent = '⚽ Jogos ↑';
+        btnTab.setAttribute('aria-label', 'Voltar para os jogos');
+      }
+    }
+    // Quando a tabela já ocupa mais da metade de baixo da tela, o botão vira "Jogos"
+    function atualizarModo() {
+      if (!barra || secao.hidden) return;
+      var novo = secao.getBoundingClientRect().top <= window.innerHeight * 0.5 ? 'jogos' : 'tabela';
+      if (novo !== modoBarra) { modoBarra = novo; pintarBarra(); }
+    }
+    if (barra && btnTab) {
+      btnTab.addEventListener('click', function () {
+        var y = 0;
+        if (modoBarra === 'tabela') {
+          y = secao.getBoundingClientRect().top + window.pageYOffset - (alturaTopoFixo() + barra.offsetHeight + 8);
+        }
+        window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+      });
+      var aguardando = false;
+      window.addEventListener('scroll', function () {
+        if (aguardando) return;
+        aguardando = true;
+        window.requestAnimationFrame(function () { aguardando = false; atualizarModo(); });
+      }, { passive: true });
+      window.addEventListener('resize', function () { ajustarBarra(); atualizarModo(); });
+      pintarBarra();
+    }
 
     render();
     setTimeout(buscarOficial, 2500);
